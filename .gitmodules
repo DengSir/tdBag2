@@ -1,0 +1,18 @@
+[submodule "Libs/LibClass-2.0"]
+	path = Libs/LibClass-2.0
+	url = https://github.com/DengSir/LibClass-2.0.git
+[submodule "Libs/LibItemCache-2.0"]
+	path = Libs/LibItemCache-2.0
+	url = https://github.com/Jaliborc/LibItemCache-2.0.git
+[submodule "Libs/LibItemSearch-1.2"]
+	path = Libs/LibItemSearch-1.2
+	url = https://github.com/Jaliborc/LibItemSearch-1.2.git
+[submodule "Libs/CustomSearch-1.0"]
+	path = Libs/CustomSearch-1.0
+	url = https://github.com/Jaliborc/CustomSearch-1.0.git
+[submodule "Libs/Unfit-1.0"]
+	path = Libs/Unfit-1.0
+	url = https://github.com/Jaliborc/Unfit-1.0.git
+[submodule "Libs/BagBrother"]
+	path = Libs/BagBrother
+	url = https://github.com/Jaliborc/BagBrother.git

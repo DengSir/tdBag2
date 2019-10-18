@@ -1,0 +1,8 @@
+## Interface: 11302
+## Title: tdBag2
+## Author: Dencer
+## Version: @project-version@
+## OptionalDeps: tdPack2, BagBrother
+## SavedVariables: TDDB_BAG2
+
+Load.xml
