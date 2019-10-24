@@ -14,3 +14,5 @@ externals:
         url: https://github.com/Jaliborc/BagBrother.git
 move-folders:
     tdBag2/BagBrother: BagBrother
+ignore:
+    Tests.lua
