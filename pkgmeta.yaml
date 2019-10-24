@@ -12,3 +12,5 @@ externals:
         url: https://github.com/Jaliborc/LibItemCache-2.0.git
     ../BagBrother:
         url: https://github.com/Jaliborc/BagBrother.git
+ignore:
+    Tests.lua
