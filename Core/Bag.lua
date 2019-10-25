@@ -208,10 +208,13 @@ function Bag:GetFreeCount()
     if not self.info.cached then
         return self.info.free
     end
+    if not self.info.count then
+        return 0
+    end
 
     local count = 0
     for i = 1, self.info.count do
-        if not Cache:GetItemID(self.info.owner, self.bag, i) then
+        if not Cache:GetItemID(self.meta.owner, self.bag, i) then
             count = count + 1
         end
     end
