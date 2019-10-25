@@ -33,9 +33,10 @@ ns.RIGHT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:
 --@debug@
 local L = LibStub('AceLocale-3.0'):GetLocale('tdBag2')
 --@end-debug@
---[[@non-debug@
+
+--[===[@non-debug@
 local L = LibStub('AceLocale-3.0'):GetLocale('tdBag2', true)
---@non-debug@]]
+--@end-non-debug@]===]
 
 ns.L = L
 
