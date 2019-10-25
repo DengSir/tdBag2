@@ -222,6 +222,7 @@ function Addon:SetupOptionFrame()
                         colorHerb = color(L['Herbalism Color']),
                     },
                 },
+                emptyAlpha = range(L['Empty Slot Brightness'], 0, 1),
             }),
             display = group(L['Auto Display'], {
                 desc = desc(L.DESC_DISPLAY),

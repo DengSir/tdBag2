@@ -64,6 +64,8 @@ local Item = ns.Addon:NewClass('UI.Item', 'Button.ContainerFrameItemButtonTempla
 Item.index = 0
 Item.pool = {}
 
+local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
+
 function Item:Constructor()
     self.Cooldown = _G[self:GetName() .. 'Cooldown']
     self.QuestBorder = _G[self:GetName() .. 'IconQuestTexture']
@@ -91,6 +93,13 @@ function Item:Constructor()
 
     self.BattlepayItemTexture:Hide()
     self.newitemglowAnim:SetLooping('REPEAT')
+
+    -- self.icon:ClearAllPoints()
+    -- self.icon:SetSize(self:GetSize())
+    -- self.icon:SetPoint('CENTER', 0, -0.5)
+
+    self.nt = self:GetNormalTexture()
+    -- self.nt:SetAlpha(0.66)
 
     self.UpdateTooltip = self.OnEnter
     self:SetScript('OnShow', self.OnShow)
@@ -235,7 +244,7 @@ function Item:UpdateInfo()
 end
 
 function Item:UpdateItem()
-    SetItemButtonTexture(self, self.info.icon or [[Interface\PaperDoll\UI-Backpack-EmptySlot]])
+    SetItemButtonTexture(self, self.info.icon or [[Interface\AddOns\tdBag2\Resource\UI-Backpack-EmptySlot]])
     SetItemButtonCount(self, self.info.count)
 end
 
@@ -290,17 +299,21 @@ function Item:UpdateBorder()
 end
 
 function Item:UpdateSlotColor()
-    local color = self.meta.sets.colorNormal
+    local color = DEFAULT_SLOT_COLOR
+    local alpha = self.info.id and 1 or self.meta.sets.emptyAlpha
+
     if self.meta.sets.colorSlots and not self.info.id then
         local family = self:GetBagFamily()
         local name = ns.BAG_FAMILY[family]
         if name then
             color = self.meta.sets['color' .. name]
+        else
+            color = self.meta.sets.colorNormal
         end
     end
 
-    SetItemButtonTextureVertexColor(self, color.r, color.g, color.b)
-    self:GetNormalTexture():SetVertexColor(color.r, color.g, color.b)
+    self.nt:SetVertexColor(color.r, color.g, color.b, alpha)
+    self.icon:SetVertexColor(color.r, color.g, color.b, alpha)
 end
 
 function Item:UpdateCooldown()

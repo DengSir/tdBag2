@@ -43,6 +43,7 @@ local BAG_ID = ns.BAG_ID
 ---@field glowNew boolean
 ---@field colorSlots boolean
 ---@field lockFrame boolean
+---@field emptyAlpha number
 
 ---@class tdBag2FrameMeta
 ---@field bagId number
@@ -139,6 +140,7 @@ function Addon:OnInitialize()
             colorSoul = {r = 0.64, g = 0.39, b = 1},
             colorEnchant = {r = 0.64, g = 0.83, b = 1},
             colorHerb = {r = 0.5, g = 1, b = 0.5},
+            emptyAlpha = 0.9,
         },
     }, true)
 

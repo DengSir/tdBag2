@@ -65,6 +65,8 @@ L['Quiver Color'] = '箭袋颜色'
 L['Soul Color'] = '灵魂袋颜色'
 L['Enchanting Color'] = '附魔材料袋颜色'
 L['Herbalism Color'] = '草药袋颜色'
+L['Empty Slot Brightness'] = '空格宽度'
+
 L['Plugin Buttons'] = '扩展按钮'
 
 L['Auto Display'] = '自动显示'
