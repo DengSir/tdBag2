@@ -57,6 +57,7 @@ local BAG_ID = ns.BAG_ID
 ---@field Item tdBag2Item
 ---@field Bag tdBag2Bag
 ---@field Bank tdBag2Bank
+---@field Inventory tdBag2Inventory
 ---@field Container tdBag2Container
 ---@field TitleFrame tdBag2TitleFrame
 ---@field OwnerSelector tdBag2OwnerSelector
@@ -75,7 +76,7 @@ _G.tdBag2 = Addon
 function Addon:OnInitialize()
     self.frames = {}
     self.bagClasses = { --
-        [BAG_ID.BAG] = ns.UI.Frame,
+        [BAG_ID.BAG] = ns.UI.Inventory,
         [BAG_ID.BANK] = ns.UI.Bank,
     }
     self.db = LibStub('AceDB-3.0'):New('TDDB_BAG2', {

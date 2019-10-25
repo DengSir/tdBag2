@@ -10,6 +10,7 @@
     <Script file="BagFrame.lua" />
     <Script file="Container.lua" />
     <Script file="Frame.lua" />
+    <Script file="Inventory.lua" />
     <Script file="Bank.lua" />
     <Script file="BagToggle.lua" />
     <Script file="SearchBox.lua" />
