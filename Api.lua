@@ -30,11 +30,11 @@ local ns = select(2, ...)
 ns.LEFT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:228:283|t]]
 ns.RIGHT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:330:385|t]]
 
--- @debug@
+--@debug@
 local L = LibStub('AceLocale-3.0'):GetLocale('tdBag2')
--- @end-debug@
+--@end-debug@
 --[[@non-debug@
-local L = LibStub('AceLocale-3.0'):GetLocale('tdBag2')
+local L = LibStub('AceLocale-3.0'):GetLocale('tdBag2', true)
 --@non-debug@]]
 
 ns.L = L
