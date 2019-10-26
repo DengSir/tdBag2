@@ -105,6 +105,7 @@ end
 
 function Container:FRAME_OWNER_CHANGED(_, bagId)
     if self.meta.bagId == bagId then
+        self.bagOrdered = nil
         self:Update()
     end
 end
