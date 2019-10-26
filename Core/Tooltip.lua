@@ -71,12 +71,19 @@ function Tooltip:OnTooltipItem(tip)
 end
 
 function Tooltip:AddOwners(tip, item)
+    local owners, total = 0, 0
     for owner in Cache:IterateOwners() do
         local info = self:GetOwnerItemInfo(owner, item)
         if info and info.total then
             local r, g, b = info.color.r, info.color.g, info.color.b
             tip:AddDoubleLine(info.name, info.text, r, g, b, r, g, b)
+            owners = owners + 1
+            total = total + info.total
         end
+    end
+
+    if owners > 1 then
+        tip:AddDoubleLine(L['Total'], total, 0.66, 0.66, 0.66, 0.66, 0.66, 0.66)
     end
 end
 
@@ -116,10 +123,10 @@ function Tooltip:GetOwnerItemInfo(owner, itemId)
     local bags, banks = 0, 0
 
     if info.cached then
-        for bag in ipairs(ns.GetBags(ns.BAG_ID.BAG)) do
+        for _, bag in ipairs(ns.GetBags(ns.BAG_ID.BAG)) do
             bags = bags + self:GetBagItemCount(owner, bag, itemId)
         end
-        for bag in ipairs(ns.GetBags(ns.BAG_ID.BANK)) do
+        for _, bag in ipairs(ns.GetBags(ns.BAG_ID.BANK)) do
             banks = banks + self:GetBagItemCount(owner, bag, itemId)
         end
     else
