@@ -196,7 +196,7 @@ function Container:ForItem(itemId, method)
 end
 
 function Container:HasBag(bag)
-    return bag and not not self.bagFrames[bag]
+    return bag and self.meta.bagId == ns.GetBagId(bag)
 end
 
 function Container:GetBagFrame(bag)
