@@ -4,15 +4,11 @@ if not L then
     return
 end
 
---@debug@
---[[
---@end-debug@
 --@localization(locale=""enUS", format="lua_additive_table", table-name="L", same-key-is-true=true)@
---@debug@
---]]
---@end-debug@
 
---@debug@
+-- @debug@
+-- @import@
+
 L.TITLE_BAG = '%s\'s Inventory'
 L.TITLE_BANK = '%s\'s Bank'
 
@@ -93,4 +89,5 @@ L['Closing Trade Skills'] = true
 L['Completed Trade'] = true
 L['Entering Combat'] = true
 
---@end-debug@
+-- @end-import@
+-- @end-debug@

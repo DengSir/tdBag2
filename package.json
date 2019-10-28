@@ -1,0 +1,36 @@
+{
+  "name": "tdbag2",
+  "version": "0.0.5",
+  "description": "Another bag addon",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm i -g F:\\wow\\wow-curse-tools && wct package"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DengSir/tdBag2.git"
+  },
+  "keywords": [
+    "addon"
+  ],
+  "author": "Dencer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DengSir/tdBag2/issues"
+  },
+  "homepage": "https://github.com/DengSir/tdBag2#readme",
+  "dependencies": {
+    "wow-curse-tools": "git+https://github.com/DengSir/wow-curse-tools.git"
+  },
+  "wow": {
+    "name": "tdBag2",
+    "curse_id": 349175,
+    "addons": {
+      "BagBrother": "./Others/BagBrother"
+    },
+    "localizations": {
+      "enUS": "Localization/enUS.lua",
+      "zhCN": "Localization/zhCN.lua"
+    }
+  }
+}

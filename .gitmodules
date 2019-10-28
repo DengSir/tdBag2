@@ -13,3 +13,6 @@
 [submodule "Libs/Unfit-1.0"]
 	path = Libs/Unfit-1.0
 	url = https://github.com/Jaliborc/Unfit-1.0.git
+[submodule "Others/BagBrother"]
+	path = Others/BagBrother
+	url = https://github.com/Jaliborc/BagBrother.git
