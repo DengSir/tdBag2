@@ -1,0 +1,16 @@
+language: node_js
+
+node_js:
+- 10
+
+before_deploy:
+- npm install
+
+deploy:
+- provider: script
+  script: wct publish --token $CURSE_TOKEN
+  skip_cleanup: true
+  on:
+    repo: DengSir/tdBag2
+    branch: master
+    tags: true
