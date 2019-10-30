@@ -156,7 +156,7 @@ function Item:OnEnter()
         Overlay:SetParent(self)
         Overlay:SetAllPoints(true)
         Overlay:Show()
-    elseif self.info.id then
+    elseif self.hasItem then
         if self.bag == BANK_CONTAINER then
             ns.AnchorTooltip(self)
             GameTooltip:SetInventoryItem('player', BankButtonIDToInvSlotID(self.slot))
@@ -249,7 +249,7 @@ function Item:UpdateItem()
 end
 
 function Item:UpdateLocked()
-    SetItemButtonDesaturated(self, self.info.id and (self.info.locked or self.notMatched))
+    SetItemButtonDesaturated(self, self.hasItem and (self.info.locked or self.notMatched))
 end
 
 function Item:UpdateBorder()
@@ -300,9 +300,9 @@ end
 
 function Item:UpdateSlotColor()
     local color = DEFAULT_SLOT_COLOR
-    local alpha = self.info.id and 1 or self.meta.sets.emptyAlpha
+    local alpha = self.hasItem and 1 or self.meta.sets.emptyAlpha
 
-    if self.meta.sets.colorSlots and not self.info.id then
+    if self.meta.sets.colorSlots and not self.hasItem then
         local family = self:GetBagFamily()
         local name = ns.BAG_FAMILY[family]
         if name then
@@ -369,12 +369,12 @@ function Item:IsPaid()
 end
 
 function Item:IsQuestItem()
-    return self.info.id and
+    return self.hasItem and
                (select(12, GetItemInfo(self.info.id)) == LE_ITEM_CLASS_QUESTITEM or Search:ForQuest(self.info.link))
 end
 
 function Item:IsQuestStarter()
-    return self.info.id and Search:TooltipPhrase(self.info.link, ITEM_STARTS_QUEST)
+    return self.hasItem and Search:TooltipPhrase(self.info.link, ITEM_STARTS_QUEST)
 end
 
 function Item:IsMatched()
@@ -386,7 +386,7 @@ function Item:IsMatched()
 end
 
 function Item:IsJunk()
-    if not self.info.id then
+    if not self.hasItem then
         return
     end
     if Scrap then

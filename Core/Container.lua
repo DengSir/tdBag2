@@ -21,9 +21,6 @@ local Addon = ns.Addon
 local Cache = ns.Cache
 local TRADE_BAG_ORDER = ns.TRADE_BAG_ORDER
 
-local ITEM_SPACING = 2
-local ITEM_SIZE = 37
-
 ---@class tdBag2Container: Frame
 ---@field private meta tdBag2FrameMeta
 ---@field private itemButtons table<number, table<number, tdBag2Item>>
@@ -272,10 +269,11 @@ function Container:Layout()
 
     local profile = self.meta.profile
     local column = profile.column
+    local scale = profile.scale
     local reverseSlot = profile.reverseSlot
 
     local x, y = 0, 0
-    local size = ITEM_SIZE + ITEM_SPACING
+    local size = ns.ITEM_SIZE + ns.ITEM_SPACING
 
     for _, bag in self:IterateBags() do
         local slotBegin, slotEnd, slotStep
@@ -294,6 +292,7 @@ function Container:Layout()
 
             itemButton:ClearAllPoints()
             itemButton:SetPoint('TOPLEFT', self, 'TOPLEFT', x * size, -y * size)
+            itemButton:SetScale(scale)
             itemButton:Show()
 
             x = x + 1
@@ -304,8 +303,8 @@ function Container:Layout()
         y = y + 1
     end
 
-    local width = max(1, column * size)
-    local height = max(1, y * size)
+    local width = max(1, column * size * scale)
+    local height = max(1, y * size * scale)
     self:SetSize(width, height)
     self:SetScript('OnUpdate', nil)
     self:Fire('OnLayout')

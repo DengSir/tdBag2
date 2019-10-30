@@ -40,10 +40,6 @@ function Addon:SetupOptionFrame()
         return {type = 'header', order = orderGen(), name = name}
     end
 
-    local function inline(name, args)
-        return {type = 'group', name = name, inline = true, order = orderGen(), args = args}
-    end
-
     local function desc(name)
         return {
             type = 'description',
@@ -62,34 +58,14 @@ function Addon:SetupOptionFrame()
     end
 
     local function drop(opts)
-        local old = {}
-        local new = {}
+        local values = opts.values
 
-        local get, set = opts.get, opts.set
-        if opts.values and set then
-            opts.set = function(item, value)
-                return set(item, old[value])
-            end
-        end
-        if opts.values and get then
-            opts.get = function(item)
-                return new[get(item)]
-            end
-        end
+        opts.values = {}
+        opts.sorting = {}
 
-        if opts.values then
-            local values = {}
-            local len = #opts.values
-            local F = format('%%%dd\001%%s', len)
-
-            for i, v in ipairs(opts.values) do
-                local f = format(F, i, v.value)
-                values[f] = v.name
-                old[f] = v.value
-                new[v.value] = f
-            end
-
-            opts.values = values
+        for i, v in ipairs(values) do
+            opts.values[v.value] = v.name
+            opts.sorting[i] = v.value
         end
 
         opts.type = 'select'
@@ -100,6 +76,14 @@ function Addon:SetupOptionFrame()
 
     local function group(name, args)
         return {type = 'group', name = name, order = orderGen(), args = args}
+    end
+
+    local function inline(name, args)
+        return {type = 'group', name = name, inline = true, order = orderGen(), args = args}
+    end
+
+    local function tab(name, args)
+        return {type = 'group', name = name, childGroups = 'tab', order = orderGen(), args = args}
     end
 
     local function frame(bagId, name)
@@ -132,6 +116,7 @@ function Addon:SetupOptionFrame()
                     reverseBag = toggle(L['Reverse Bag Order']),
                     reverseSlot = toggle(L['Reverse Slot Order']),
                     column = range(L['Columns'], 6, 36, 1),
+                    scale = range(L['Item Scale'], 0.5, 2),
                 }),
                 buttons = inline(L['Plugin Buttons'], FRAMES[bagId]),
             },
@@ -172,17 +157,10 @@ function Addon:SetupOptionFrame()
                 tradeBagOrder = drop{
                     name = L['Trade Containers Location'],
                     values = {
-                        {name = L['Default'], value = ns.TRADE_BAG_ORDER.NONE}, --
-                        {name = L['Top'], value = ns.TRADE_BAG_ORDER.TOP}, --
-                        {name = L['Bottom'], value = ns.TRADE_BAG_ORDER.BOTTOM}, --
+                        {name = L['Default'], value = ns.TRADE_BAG_ORDER.NONE},
+                        {name = L['Top'], value = ns.TRADE_BAG_ORDER.TOP},
+                        {name = L['Bottom'], value = ns.TRADE_BAG_ORDER.BOTTOM},
                     },
-                    get = function()
-                        return self.db.profile.tradeBagOrder
-                    end,
-                    set = function(_, value)
-                        self.db.profile.tradeBagOrder = value
-                        self:UpdateAll()
-                    end,
                 },
             }),
             colors = group(L['Color Settings'], {
@@ -244,17 +222,11 @@ function Addon:SetupOptionFrame()
                 closeTrade = toggle(L['Completed Trade']),
                 closeCombat = toggle(L['Entering Combat']),
             }),
-            frame = {
-                type = 'group',
-                name = L['Frame Settings'],
-                order = orderGen(),
-                childGroups = 'tab',
-                args = {
-                    desc = desc(L.DESC_FRAMES),
-                    [ns.BAG_ID.BAG] = frame(ns.BAG_ID.BAG, L['Inventory']),
-                    [ns.BAG_ID.BANK] = frame(ns.BAG_ID.BANK, L['Bank']),
-                },
-            },
+            frame = tab(L['Frame Settings'], {
+                desc = desc(L.DESC_FRAMES),
+                [ns.BAG_ID.BAG] = frame(ns.BAG_ID.BAG, L['Inventory']),
+                [ns.BAG_ID.BANK] = frame(ns.BAG_ID.BANK, L['Bank']),
+            }),
         },
     }
 

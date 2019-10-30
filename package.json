@@ -4,7 +4,7 @@
   "description": "Another bag addon",
   "main": "index.js",
   "scripts": {
-    "test": "npm i -g F:\\wow\\wow-curse-tools && wct package"
+    "test": "echo not implemented"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,7 @@
     "name": "tdBag2",
     "curse_id": 349175,
     "addons": {
-      "BagBrother": "./Others/BagBrother"
+      "BagBrother": ".others/BagBrother"
     },
     "localizations": {
       "enUS": "Localization/enUS.lua",

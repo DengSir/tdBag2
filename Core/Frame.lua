@@ -91,6 +91,12 @@ function Frame:OnHide()
     self:UnregisterAllEvents()
 end
 
+function Frame:OnSizeChanged()
+    C_Timer.After(0, function()
+        UpdateUIPanelPositions(self)
+    end)
+end
+
 function Frame:GenerateName()
     Frame.Index = Frame.Index + 1
     self.name = 'tdBag2Bag' .. Frame.Index
@@ -113,24 +119,28 @@ function Frame:SavePosition()
 end
 
 function Frame:UpdateManaged()
-    local shown = self:IsShown()
     local managed = self.meta.profile.managed
     local changed = not self:GetAttribute('UIPanelLayout-enabled') ~= not managed
 
-    if changed then
-        if shown then
-            HideUIPanel(self)
-        end
+    if not changed then
+        return
+    end
 
-        self:SetAttribute('UIPanelLayout-enabled', managed)
-        self:SetAttribute('UIPanelLayout-defined', managed)
-        self:SetAttribute('UIPanelLayout-whileDead', managed)
-        self:SetAttribute('UIPanelLayout-area', managed and 'left')
-        self:SetAttribute('UIPanelLayout-pushable', managed and 1)
+    self.updatingManageed = true
 
-        if shown then
-            ShowUIPanel(self)
-        end
+    local shown = self:IsShown()
+    if shown then
+        HideUIPanel(self)
+    end
+
+    self:SetAttribute('UIPanelLayout-enabled', managed)
+    self:SetAttribute('UIPanelLayout-defined', managed)
+    self:SetAttribute('UIPanelLayout-whileDead', managed)
+    self:SetAttribute('UIPanelLayout-area', managed and 'left')
+    self:SetAttribute('UIPanelLayout-pushable', managed and 1)
+
+    if shown then
+        ShowUIPanel(self)
     end
 
     if not managed then
@@ -138,10 +148,18 @@ function Frame:UpdateManaged()
             _G[self.name] = self
             tinsert(UISpecialFrames, self.name)
         end
+
+        self:SetScript('OnSizeChanged', nil)
+        self:UpdatePosition()
     else
         _G[self.name] = nil
         tDeleteItem(UISpecialFrames, self.name)
+
+        self:SetScript('OnSizeChanged', self.OnSizeChanged)
+        self:OnSizeChanged()
     end
+
+    self.updatingManageed = nil
 end
 
 function Frame:ToggleOption(key)

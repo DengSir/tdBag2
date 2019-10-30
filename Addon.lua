@@ -91,6 +91,7 @@ function Addon:OnInitialize()
                     reverseSlot = false,
                     managed = false,
                     bagFrame = false,
+                    scale = 1,
                 },
                 [BAG_ID.BANK] = { --
                     window = {point = 'TOPLEFT', x = 50, y = -100},
@@ -100,6 +101,7 @@ function Addon:OnInitialize()
                     reverseSlot = false,
                     managed = true,
                     bagFrame = true,
+                    scale = 1,
                 },
             },
 
