@@ -19,9 +19,6 @@
     "url": "https://github.com/DengSir/tdBag2/issues"
   },
   "homepage": "https://github.com/DengSir/tdBag2#readme",
-  "dependencies": {
-    "wow-curse-tools": "git+https://github.com/DengSir/wow-curse-tools.git"
-  },
   "wow": {
     "name": "tdBag2",
     "curse_id": 349175,
