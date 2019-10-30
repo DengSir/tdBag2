@@ -38,6 +38,7 @@ L['Blizzard Panel'] = '标准面板'
 L['Reverse Bag Order'] = '反向背包排列'
 L['Reverse Slot Order'] = '反向物品排列'
 L['Columns'] = '列数'
+L['Item Scale'] = '物品缩放'
 
 L['Lock Frames'] = '锁定位置'
 L['Show Junk Icon'] = '显示垃圾图标'

@@ -18,6 +18,7 @@ L['Bag Toggle'] = true
 L['Equipped'] = true
 L['Inventory'] = true
 L['Bank'] = true
+L['Item Scale'] = true
 
 L.TOOLTIP_CHANGE_PLAYER = 'View another character\'s items.'
 L.TOOLTIP_RETURN_TO_SELF = 'Return to the current character.'
