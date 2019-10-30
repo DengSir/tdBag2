@@ -100,6 +100,11 @@ end
 function Frame:GenerateName()
     Frame.Index = Frame.Index + 1
     self.name = 'tdBag2Bag' .. Frame.Index
+
+    if not self.meta.profile.managed then
+        _G[self.name] = self
+        tinsert(UISpecialFrames, self.name)
+    end
 end
 
 function Frame:UpdateSize()
