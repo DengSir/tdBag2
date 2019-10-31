@@ -3,7 +3,15 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/24/2019, 1:03:40 PM
 
-local ipairs = ipairs
+local ipairs, select = ipairs, select
+local tinsert, tconcat = table.insert, table.concat
+local format = string.format
+local tonumber = tonumber
+
+local GetItemCount = GetItemCount
+
+local HEARTHSTONE_ITEM_ID = HEARTHSTONE_ITEM_ID
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 ---@type ns
 local ns = select(2, ...)
@@ -24,10 +32,7 @@ Tooltip.EMPTY = {}
 
 function Tooltip:OnInitialize()
     self.cache = {}
-
-    C_Timer.After(0, function()
-        self:Update()
-    end)
+    self:Update()
 end
 
 function Tooltip:Update()
@@ -37,6 +42,7 @@ function Tooltip:Update()
         self:Disable()
     end
 end
+Tooltip.Update = ns.Spawned(Tooltip.Update)
 
 function Tooltip:OnEnable()
     self:HookTip(GameTooltip)
@@ -103,7 +109,7 @@ function Tooltip:GetCounts(...)
         end
     end
 
-    local text = table.concat(sb, ' ')
+    local text = tconcat(sb, ' ')
 
     if places > 1 then
         return total, format('%d |cffaaaaaa(%s)|r', total, text)

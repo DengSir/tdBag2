@@ -70,6 +70,8 @@ L['Quiver Color'] = true
 L['Soul Color'] = true
 L['Enchanting Color'] = true
 L['Herbalism Color'] = true
+L['Empty Slot Brightness'] = true
+
 L['Plugin Buttons'] = true
 
 L['Auto Display'] = true

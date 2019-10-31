@@ -13,6 +13,7 @@ local tinsert = table.insert
 local ContainerIDToInventoryID = ContainerIDToInventoryID
 local UnitName = UnitName
 local GetScreenWidth = GetScreenWidth
+local C_Timer = C_Timer
 
 ---- UI
 local GameTooltip = GameTooltip
@@ -158,4 +159,12 @@ end
 
 function ns.RightButtonTip(text)
     return ns.RIGHT_MOUSE_BUTTON .. text, 1, 1, 1
+end
+
+function ns.Spawned(method)
+    return function(a1, a2, a3, a4, a5, a6, a7, a8, a9)
+        return C_Timer.After(0, function()
+            return method(a1, a2, a3, a4, a5, a6, a7, a8, a9)
+        end)
+    end
 end

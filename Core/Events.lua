@@ -83,11 +83,9 @@ end
 
 function Events:BAG_CLOSED(_, bag)
     self:Fire('BAG_CLOSED', bag)
-
-    C_Timer.After(0, function()
-        return self:BAG_UPDATE(_, bag)
-    end)
+    self:BAG_UPDATE(nil, bag)
 end
+Events.BAG_CLOSED = ns.Spawned(Events.BAG_CLOSED)
 
 function Events:PLAYERBANKSLOTS_CHANGED(_, slot)
     if slot <= NUM_BANKGENERIC_SLOTS then

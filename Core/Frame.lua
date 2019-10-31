@@ -15,6 +15,7 @@ local CreateFrame = CreateFrame
 local HideUIPanel = HideUIPanel
 local PlaySound = PlaySound
 local ShowUIPanel = ShowUIPanel
+local UpdateUIPanelPositions = UpdateUIPanelPositions
 
 ---- G
 local SOUNDKIT = SOUNDKIT
@@ -76,7 +77,7 @@ function Frame:Constructor(_, bagId)
     LibWindow.RegisterConfig(self, self.meta.profile.window)
 
     self:UpdateManaged()
-    self:UpdatePosition()
+    self:UpdateSpecial()
 end
 
 function Frame:OnShow()
@@ -91,20 +92,11 @@ function Frame:OnHide()
     self:UnregisterAllEvents()
 end
 
-function Frame:OnSizeChanged()
-    C_Timer.After(0, function()
-        UpdateUIPanelPositions(self)
-    end)
-end
+Frame.OnSizeChanged = ns.Spawned(UpdateUIPanelPositions)
 
 function Frame:GenerateName()
     Frame.Index = Frame.Index + 1
     self.name = 'tdBag2Bag' .. Frame.Index
-
-    if not self.meta.profile.managed then
-        _G[self.name] = self
-        tinsert(UISpecialFrames, self.name)
-    end
 end
 
 function Frame:UpdateSize()
@@ -148,8 +140,13 @@ function Frame:UpdateManaged()
         ShowUIPanel(self)
     end
 
-    if not managed then
-        if not tContains(UISpecialFrames, self.name) then
+    self:UpdateSpecial()
+    self.updatingManageed = nil
+end
+
+function Frame:UpdateSpecial()
+    if not self.meta.profile.managed then
+        if not _G[self.name] then
             _G[self.name] = self
             tinsert(UISpecialFrames, self.name)
         end
@@ -157,14 +154,14 @@ function Frame:UpdateManaged()
         self:SetScript('OnSizeChanged', nil)
         self:UpdatePosition()
     else
-        _G[self.name] = nil
-        tDeleteItem(UISpecialFrames, self.name)
+        if _G[self.name] then
+            _G[self.name] = nil
+            tDeleteItem(UISpecialFrames, self.name)
+        end
 
         self:SetScript('OnSizeChanged', self.OnSizeChanged)
         self:OnSizeChanged()
     end
-
-    self.updatingManageed = nil
 end
 
 function Frame:ToggleOption(key)

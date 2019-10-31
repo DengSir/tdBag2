@@ -3,7 +3,7 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/25/2019, 1:56:22 AM
 
-local C_Timer = C_Timer
+local ipairs = ipairs
 
 ---@type ns
 local ns = select(2, ...)
@@ -23,17 +23,13 @@ local MAIN_MENU_BUTTONS = {
 function Inventory:OnShow()
     Frame.OnShow(self)
 
-    C_Timer.After(0, function()
-        self:HighlightMainMenu(true)
-    end)
+    self:HighlightMainMenu(true)
 end
 
 function Inventory:OnHide()
     Frame.OnHide(self)
 
-    C_Timer.After(0, function()
-        self:HighlightMainMenu(false)
-    end)
+    self:HighlightMainMenu(false)
 end
 
 function Inventory:HighlightMainMenu(flag)
@@ -41,3 +37,5 @@ function Inventory:HighlightMainMenu(flag)
         button:SetChecked(flag)
     end
 end
+
+Inventory.HighlightMainMenu = ns.Spawned(Inventory.HighlightMainMenu)
