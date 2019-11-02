@@ -280,7 +280,7 @@ end
 ---- search
 
 function Addon:SetSearch(text)
-    if text:trim() == '' then
+    if text and text:trim() == '' then
         text = nil
     end
     if self.searchText ~= text then
