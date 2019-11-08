@@ -19,6 +19,7 @@ local UIParent = UIParent
 ---@field UI UI
 ---@field Addon Addon
 ---@field Events Events
+---@field FrameMeta tdBag2FrameMeta
 local ns = select(2, ...)
 local BAG_ID = ns.BAG_ID
 
@@ -44,14 +45,6 @@ local BAG_ID = ns.BAG_ID
 ---@field colorSlots boolean
 ---@field lockFrame boolean
 ---@field emptyAlpha number
-
----@class tdBag2FrameMeta
----@field bagId number
----@field owner string
----@field bags number[]
----@field profile tdBag2FrameProfile
----@field frame tdBag2Frame
----@field sets tdBag2Profile
 
 ---@class UI
 ---@field Frame tdBag2Frame
@@ -146,6 +139,10 @@ function Addon:OnInitialize()
         },
     }, true)
 
+    self.db:RegisterCallback('OnProfileChanged', function()
+        self:OnProfileChanged()
+    end)
+
     self:SetupBankHider()
     self:SetupOptionFrame()
 end
@@ -175,6 +172,13 @@ function Addon:OnClassCreated(class, name)
     else
         ns[name] = class
     end
+end
+
+function Addon:OnProfileChanged()
+    self:UpdateAllFrameMeta()
+    self:UpdateAllManaged()
+    self:UpdateAllPosition()
+    self:UpdateAll()
 end
 
 function Addon:SetupBankHider()
@@ -241,6 +245,8 @@ function Addon:ToggleOwnerFrame(bagId, owner)
     end
 end
 
+---- update
+
 function Addon:UpdateAll()
     ns.Events:Fire('UPDATE_ALL')
 end
@@ -248,6 +254,18 @@ end
 function Addon:UpdateAllManaged()
     for _, frame in pairs(self.frames) do
         frame:UpdateManaged()
+    end
+end
+
+function Addon:UpdateAllFrameMeta()
+    for k, frame in pairs(self.frames) do
+        frame.meta:Update()
+    end
+end
+
+function Addon:UpdateAllPosition()
+    for _, frame in pairs(self.frames) do
+        frame:UpdatePosition()
     end
 end
 

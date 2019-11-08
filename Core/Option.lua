@@ -3,6 +3,10 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/23/2019, 3:14:52 PM
 
+local format = string.format
+local UnitName = UnitName
+local GetRealmName = GetRealmName
+
 ---@type ns
 local ns = select(2, ...)
 local Addon = ns.Addon
@@ -123,6 +127,8 @@ function Addon:SetupOptionFrame()
         }
     end
 
+    local charProfileKey = format('%s - %s', UnitName('player'), GetRealmName())
+
     local options = {
         type = 'group',
         get = function(item)
@@ -133,6 +139,18 @@ function Addon:SetupOptionFrame()
             self:UpdateAll()
         end,
         args = {
+            profile = {
+                type = 'toggle',
+                name = L['Character Specific Settings'],
+                width = 'double',
+                order = orderGen(),
+                set = function(_, checked)
+                    self.db:SetProfile(checked and charProfileKey or 'Default')
+                end,
+                get = function()
+                    return self.db:GetCurrentProfile() == charProfileKey
+                end,
+            },
             general = group(GENERAL, {
                 desc = desc(L.DESC_GENERAL),
                 generalHeader = header(GENERAL),

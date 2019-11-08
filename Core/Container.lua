@@ -44,7 +44,7 @@ function Container:Constructor(_, meta)
 end
 
 function Container:OnShow()
-    if not self.meta.frame:IsCached() then
+    if not self.meta:IsCached() then
         self:RegisterEvent('BAG_SIZE_CHANGED')
         self:RegisterEvent('BAG_UPDATE')
         self:RegisterEvent('BAG_CLOSED')
@@ -193,7 +193,7 @@ function Container:ForItem(itemId, method)
 end
 
 function Container:HasBag(bag)
-    return bag and self.meta.bagId == ns.GetBagId(bag)
+    return bag and self.meta:HasBag(bag)
 end
 
 function Container:GetBagFrame(bag)

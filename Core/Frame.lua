@@ -42,14 +42,7 @@ local Frame = ns.Addon:NewClass('UI.Frame', 'Frame.tdBag2FrameTemplate')
 Frame.Index = 0
 
 function Frame:Constructor(_, bagId)
-    self.meta = { --
-        owner = nil,
-        bagId = bagId,
-        bags = ns.GetBags(bagId),
-        frame = self,
-        profile = Addon:GetFrameProfile(bagId),
-        sets = Addon.db.profile,
-    }
+    self.meta = ns.FrameMeta:New(bagId, self)
     self.menuButtons = {}
     self.pluginButtons = {}
 
@@ -73,8 +66,6 @@ function Frame:Constructor(_, bagId)
     self:GenerateName()
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)
-
-    LibWindow.RegisterConfig(self, self.meta.profile.window)
 
     self:UpdateManaged()
     self:UpdateSpecial()
@@ -105,6 +96,7 @@ end
 
 function Frame:UpdatePosition()
     if not self.meta.profile.managed then
+        LibWindow.RegisterConfig(self, self.meta.profile.window)
         LibWindow.RestorePosition(self)
     end
 end
@@ -241,8 +233,4 @@ function Frame:ToggleBagFrame()
     self:ToggleOption('bagFrame')
     self:LayoutBagFrame()
     self:LayoutSearchBox()
-end
-
-function Frame:IsCached()
-    return Cache:GetBagInfo(self.meta.owner, self.meta.bags[1]).cached
 end

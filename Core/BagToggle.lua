@@ -42,7 +42,7 @@ function BagToggle:OnClick(button)
         self.meta.frame:ToggleBagFrame()
         self:OnEnter()
     else
-        local bagId = self.meta.bagId == BAG_ID.BAG and BAG_ID.BANK or BAG_ID.BAG
+        local bagId = self.meta:IsBag() and BAG_ID.BANK or BAG_ID.BAG
         Addon:ToggleOwnerFrame(bagId, self.meta.owner)
     end
 end

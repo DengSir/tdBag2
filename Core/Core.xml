@@ -2,6 +2,7 @@
 ..\FrameXML\UI.xsd">
     <Include file="Template.xml" />
     <Script file="Events.lua" />
+    <Script file="FrameMeta.lua" />
     <Script file="TitleFrame.lua" />
     <Script file="MoneyFrame.lua" />
     <Script file="OwnerSelector.lua" />

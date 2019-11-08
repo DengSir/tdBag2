@@ -60,6 +60,8 @@ local Unfit = ns.Unfit
 ---@field private notMatched boolean
 ---@field private info ItemInfo
 ---@field private Overlay Frame
+---@field private newitemglowAnim AnimationGroup
+---@field private flashAnim AnimationGroup
 local Item = ns.Addon:NewClass('UI.Item', 'Button.ContainerFrameItemButtonTemplate')
 Item.index = 0
 Item.pool = {}
@@ -92,14 +94,8 @@ function Item:Constructor()
     self.NewItemTexture:SetSize(67, 67)
 
     self.BattlepayItemTexture:Hide()
-    self.newitemglowAnim:SetLooping('REPEAT')
-
-    -- self.icon:ClearAllPoints()
-    -- self.icon:SetSize(self:GetSize())
-    -- self.icon:SetPoint('CENTER', 0, -0.5)
 
     self.nt = self:GetNormalTexture()
-    -- self.nt:SetAlpha(0.66)
 
     self.UpdateTooltip = self.OnEnter
     self:SetScript('OnShow', self.OnShow)

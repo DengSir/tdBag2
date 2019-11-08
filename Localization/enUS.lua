@@ -35,6 +35,7 @@ L.DESC_FRAMES = 'Bag preference Settings.'
 L.DESC_COLORS = 'Color preference Settings.'
 L.DESC_DISPLAY = 'Auto Display and Close.'
 
+L['Character Specific Settings'] = true
 L['Frame Settings'] = true
 L['Appearance'] = true
 L['Blizzard Panel'] = true

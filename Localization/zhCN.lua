@@ -32,6 +32,7 @@ L.DESC_FRAMES = '背包偏好设置。'
 L.DESC_COLORS = '颜色偏好设置。'
 L.DESC_DISPLAY = '自动显示和关闭。'
 
+L['Character Specific Settings'] = '角色独立设置'
 L['Frame Settings'] = '背包设置'
 L['Appearance'] = '外观'
 L['Blizzard Panel'] = '标准面板'
