@@ -45,6 +45,7 @@ L['Columns'] = true
 
 L['Lock Frames'] = true
 L['Show Junk Icon'] = true
+L['Show Character Portrait'] = true
 L['Show Quest Starter Icon'] = true
 L['Show Offline Text in Bag\'s Title'] = true
 L['Show Item Count in Tooltip'] = true

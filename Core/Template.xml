@@ -19,6 +19,15 @@
                         <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BtnCornerRight" relativePoint="BOTTOMLEFT"/>
                     </Anchors>
                 </Texture>
+                <MaskTexture parentKey="CircleMask" file="Interface\CharacterFrame\TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.portrait"/>
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.portrait"/>
+                    </Anchors>
+                    <MaskedTextures>
+                        <MaskedTexture childKey="portrait"/>
+                    </MaskedTextures>
+                </MaskTexture>
             </Layer>
         </Layers>
         <Frames>

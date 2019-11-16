@@ -34,6 +34,28 @@ ns.ITEM_SPACING = 2
 ns.LEFT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:228:283|t]]
 ns.RIGHT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:330:385|t]]
 
+ns.RACE_ICON_TCOORDS = {
+    ['HUMAN_MALE'] = {0, 0.25, 0, 0.25},
+    ['DWARF_MALE'] = {0.25, 0.5, 0, 0.25},
+    ['GNOME_MALE'] = {0.5, 0.75, 0, 0.25},
+    ['NIGHTELF_MALE'] = {0.75, 1.0, 0, 0.25},
+
+    ['TAUREN_MALE'] = {0, 0.25, 0.25, 0.5},
+    ['SCOURGE_MALE'] = {0.25, 0.5, 0.25, 0.5},
+    ['TROLL_MALE'] = {0.5, 0.75, 0.25, 0.5},
+    ['ORC_MALE'] = {0.75, 1.0, 0.25, 0.5},
+
+    ['HUMAN_FEMALE'] = {0, 0.25, 0.5, 0.75},
+    ['DWARF_FEMALE'] = {0.25, 0.5, 0.5, 0.75},
+    ['GNOME_FEMALE'] = {0.5, 0.75, 0.5, 0.75},
+    ['NIGHTELF_FEMALE'] = {0.75, 1.0, 0.5, 0.75},
+
+    ['TAUREN_FEMALE'] = {0, 0.25, 0.75, 1.0},
+    ['SCOURGE_FEMALE'] = {0.25, 0.5, 0.75, 1.0},
+    ['TROLL_FEMALE'] = {0.5, 0.75, 0.75, 1.0},
+    ['ORC_FEMALE'] = {0.75, 1.0, 0.75, 1.0},
+}
+
 -- @debug@
 local L = LibStub('AceLocale-3.0'):GetLocale('tdBag2')
 -- @end-debug@

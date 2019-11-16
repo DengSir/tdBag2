@@ -46,7 +46,6 @@ function Frame:Constructor(_, bagId)
     self.menuButtons = {}
     self.pluginButtons = {}
 
-    self.portrait:SetMask([[Textures\MinimapMask]])
     self.portrait:SetTexture(ns.BAG_ICONS[bagId])
 
     ns.UI.TitleFrame:Bind(self.TitleFrame, self.meta)
@@ -164,11 +163,6 @@ function Frame:Update()
     self:LayoutPluginButtons()
     self:LayoutBagFrame()
     self:LayoutSearchBox()
-    self:LayoutOwnerFrame()
-end
-
-function Frame:LayoutOwnerFrame()
-    self.OwnerSelector:Show()
 end
 
 function Frame:LayoutPluginButtons()

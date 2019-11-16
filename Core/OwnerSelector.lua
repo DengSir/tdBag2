@@ -12,6 +12,7 @@ local CreateFrame = CreateFrame
 local EasyMenu_Initialize = EasyMenu_Initialize
 local HideDropDownMenu = HideDropDownMenu
 local ToggleDropDownMenu = ToggleDropDownMenu
+local SetPortraitTexture = SetPortraitTexture
 
 ---- UI
 local GameTooltip = GameTooltip
@@ -33,10 +34,23 @@ local OwnerSelector = ns.Addon:NewClass('UI.OwnerSelector', 'Button')
 
 function OwnerSelector:Constructor(_, meta)
     self.meta = meta
+    self.portrait = self.meta.frame.portrait
     self:SetScript('OnClick', self.OnClick)
     self:SetScript('OnEnter', self.OnEnter)
     self:SetScript('OnLeave', self.OnLeave)
-    self:SetScript('OnShow', self.Update)
+    self:SetScript('OnShow', self.OnShow)
+end
+
+function OwnerSelector:OnShow()
+    self:RegisterEvent('FRAME_OWNER_CHANGED')
+    self:RegisterEvent('UPDATE_ALL', 'Update')
+    self:Update()
+end
+
+function OwnerSelector:FRAME_OWNER_CHANGED(_, bagId)
+    if self.meta.bagId == bagId then
+        self:UpdateIcon()
+    end
 end
 
 function OwnerSelector:OnClick(button)
@@ -61,8 +75,37 @@ function OwnerSelector:OnLeave()
 end
 
 function OwnerSelector:Update()
-    if not self:HasMultiOwners() then
-        self:Hide()
+    self:UpdateEnable()
+    self:UpdateIcon()
+end
+
+function OwnerSelector:UpdateEnable()
+    self:SetEnabled(self:HasMultiOwners())
+end
+
+function OwnerSelector:UpdateIcon()
+    if not self.meta.sets.iconChar then
+        self.portrait:SetTexture(ns.BAG_ICONS[self.meta.bagId])
+        self.portrait:SetTexCoord(0, 1, 0, 1)
+    elseif self.meta:IsSelf() then
+        SetPortraitTexture(self.portrait, 'player')
+        self.portrait:SetTexCoord(0, 1, 0, 1)
+    else
+        local ownerInfo = Cache:GetOwnerInfo(self.meta.owner)
+        if ownerInfo.race then
+            local gender = ownerInfo.gender == 3 and 'FEMALE' or 'MALE'
+            local race = ownerInfo.race:upper()
+            local coords = ns.RACE_ICON_TCOORDS[race .. '_' .. gender]
+
+            self.portrait:SetTexture([[Interface\Glues\CharacterCreate\UI-CharacterCreate-Races]])
+            self.portrait:SetTexCoord(unpack(coords))
+        elseif ownerInfo.faction == 'Alliance' then
+            self.portrait:SetTexture([[Interface\Icons\inv_bannerpvp_02]])
+            self.portrait:SetTexCoord(0, 1, 0, 1)
+        else
+            self.portrait:SetTexture([[Interface\Icons\inv_bannerpvp_01]])
+            self.portrait:SetTexCoord(0, 1, 0, 1)
+        end
     end
 end
 

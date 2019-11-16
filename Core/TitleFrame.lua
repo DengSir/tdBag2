@@ -30,7 +30,7 @@ function TitleFrame:OnShow()
     self:RegisterEvent('FRAME_OWNER_CHANGED', 'Update')
     self:RegisterEvent('UPDATE_ALL', 'Update')
 
-    if self.meta.bagId == ns.BAG_ID.BANK then
+    if self.meta:IsBank() then
         self:RegisterEvent('BANK_CLOSED', 'Update')
     end
 end

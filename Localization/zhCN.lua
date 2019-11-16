@@ -43,6 +43,7 @@ L['Item Scale'] = '物品缩放'
 
 L['Lock Frames'] = '锁定位置'
 L['Show Junk Icon'] = '显示垃圾图标'
+L['Show Character Portrait'] = '显示角色头像'
 L['Show Quest Starter Icon'] = '显示任务给予物图标'
 L['Show Offline Text in Bag\'s Title'] = '在背包标题上显示离线'
 L['Show Item Count in Tooltip'] = '鼠标提示物品统计'

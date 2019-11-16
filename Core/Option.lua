@@ -171,6 +171,7 @@ function Addon:SetupOptionFrame()
                 appearanceHeader = header(L['Appearance']),
                 iconJunk = toggle(L['Show Junk Icon']),
                 iconQuestStarter = toggle(L['Show Quest Starter Icon']),
+                iconChar = toggle(L['Show Character Portrait']),
                 textOffline = toggle(L['Show Offline Text in Bag\'s Title']),
                 tradeBagOrder = drop{
                     name = L['Trade Containers Location'],

@@ -44,3 +44,7 @@ end
 function FrameMeta:IsCached()
     return Cache:GetBagInfo(self.owner, self.bags[1]).cached
 end
+
+function FrameMeta:IsSelf()
+    return ns.IsSelf(self.owner)
+end
