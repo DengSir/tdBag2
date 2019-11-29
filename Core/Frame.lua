@@ -39,7 +39,6 @@ local LibWindow = LibStub('LibWindow-1.1')
 ---@field private BagFrame tdBag2BagFrame
 ---@field private SearchBox EditBox
 local Frame = ns.Addon:NewClass('UI.Frame', 'Frame.tdBag2FrameTemplate')
-Frame.Index = 0
 
 function Frame:Constructor(_, bagId)
     self.meta = ns.FrameMeta:New(bagId, self)
@@ -52,8 +51,8 @@ function Frame:Constructor(_, bagId)
     ns.UI.OwnerSelector:Bind(self.OwnerSelector, self.meta)
     ns.UI.BagFrame:Bind(self.BagFrame, self.meta)
     ns.UI.SearchBox:Bind(self.SearchBox, self.meta)
-
-    self.MoneyFrame = ns.UI.MoneyFrame:New(self, self.meta)
+    ns.UI.MoneyFrame:Bind(self.MoneyFrame, self.meta)
+    ns.UI.TokenFrame:Bind(self.TokenFrame, self.meta)
 
     self.Container = ns.UI.Container:New(self, self.meta)
     self.Container:SetPoint('TOPLEFT', self.Inset, 'TOPLEFT', 8, -8)
@@ -85,8 +84,7 @@ end
 Frame.OnSizeChanged = ns.Spawned(UpdateUIPanelPositions)
 
 function Frame:GenerateName()
-    Frame.Index = Frame.Index + 1
-    self.name = 'tdBag2Bag' .. Frame.Index
+    self.name = 'tdBag2Bag' .. self.meta.bagId
 end
 
 function Frame:UpdateSize()

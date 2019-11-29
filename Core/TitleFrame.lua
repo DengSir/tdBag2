@@ -5,6 +5,8 @@
 
 local format = string.format
 
+local IsAltKeyDown = IsAltKeyDown
+
 ---@type ns
 local ns = select(2, ...)
 local L = ns.L
@@ -36,6 +38,7 @@ function TitleFrame:OnShow()
 end
 
 function TitleFrame:OnHide()
+    self:UnregisterAllEvents()
     if self.moving then
         self:OnMouseUp()
     end

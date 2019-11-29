@@ -1,0 +1,6 @@
+{
+    "search.exclude": {
+        "**/.emmylua": true,
+        "**/.others": true
+    }
+}

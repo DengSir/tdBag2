@@ -24,6 +24,7 @@ L.TOOLTIP_SHOW_BAG_FRAME = '显示背包列表'
 L.TOOLTIP_TOGGLE_BAG = '打开背包'
 L.TOOLTIP_TOGGLE_BANK = '打开银行'
 L.TOOLTIP_PURCHASE_BANK_SLOT = '购买银行空位'
+L.TOOLTIP_WATCHED_TOKENS = '切换展示的代币'
 
 ---- options
 

@@ -4,8 +4,9 @@
 -- @Date   : 10/18/2019, 10:26:06 AM
 
 ---- LUA
-local tinsert = table.insert
 local select = select
+local tinsert = table.insert
+local unpack = table.unpack or unpack
 
 ---- WOW
 local CreateFrame = CreateFrame
@@ -28,9 +29,10 @@ local L = ns.L
 local Addon = ns.Addon
 local Cache = ns.Cache
 
----@class tdBag2OwnerSelector: Button
+---@class tdBag2OwnerSelector: tdBag2MenuButton
 ---@field private meta tdBag2FrameMeta
-local OwnerSelector = ns.Addon:NewClass('UI.OwnerSelector', 'Button')
+local OwnerSelector = ns.Addon:NewClass('UI.OwnerSelector', ns.UI.MenuButton)
+OwnerSelector.menuOffset = {xOffset = 8}
 
 function OwnerSelector:Constructor(_, meta)
     self.meta = meta
@@ -39,12 +41,18 @@ function OwnerSelector:Constructor(_, meta)
     self:SetScript('OnEnter', self.OnEnter)
     self:SetScript('OnLeave', self.OnLeave)
     self:SetScript('OnShow', self.OnShow)
+    self:SetScript('OnHide', self.OnHide)
 end
 
 function OwnerSelector:OnShow()
     self:RegisterEvent('FRAME_OWNER_CHANGED')
     self:RegisterEvent('UPDATE_ALL', 'Update')
     self:Update()
+end
+
+function OwnerSelector:OnHide()
+    self:UnregisterAllEvents()
+    self:CloseMenu()
 end
 
 function OwnerSelector:FRAME_OWNER_CHANGED(_, bagId)
@@ -58,7 +66,7 @@ function OwnerSelector:OnClick(button)
         Addon:SetOwner(self.meta.bagId, nil)
     else
         self:OnLeave()
-        ToggleDropDownMenu(1, nil, self:GetDropMenu(), self, 8, 0, self:CreateMenu())
+        self:ToggleMenu()
     end
 end
 
@@ -112,16 +120,6 @@ end
 function OwnerSelector:HasMultiOwners()
     local iter = Cache:IterateOwners()
     return iter() and iter()
-end
-
-function OwnerSelector:GetDropMenu()
-    if not self.DropMenu then
-        local frame = CreateFrame('Frame', 'tdBag2OwnerDropMenuFrame', UIParent, 'UIDropDownMenuTemplate')
-        frame.displayMode = 'MENU'
-        frame.initialize = EasyMenu_Initialize
-        OwnerSelector.DropMenu = frame
-    end
-    return self.DropMenu
 end
 
 function OwnerSelector:CreateMenu()

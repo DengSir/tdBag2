@@ -13,6 +13,7 @@ local tinsert = table.insert
 local ContainerIDToInventoryID = ContainerIDToInventoryID
 local UnitName = UnitName
 local GetScreenWidth = GetScreenWidth
+local GetScreenHeight = GetScreenHeight
 local C_Timer = C_Timer
 
 ---- UI
@@ -55,6 +56,8 @@ ns.RACE_ICON_TCOORDS = {
     ['TROLL_FEMALE'] = {0.5, 0.75, 0.75, 1.0},
     ['ORC_FEMALE'] = {0.75, 1.0, 0.75, 1.0},
 }
+
+ns.TOKENS = {20560, 20559, 20558}
 
 -- @debug@
 local L = LibStub('AceLocale-3.0'):GetLocale('tdBag2')
@@ -170,6 +173,15 @@ function ns.AnchorTooltip(frame)
     end
 end
 
+function ns.AnchorTooltip2(frame, anchor, x, y)
+    GameTooltip:SetOwner(frame, 'ANCHOR_NONE')
+    if frame:GetTop() > (GetScreenHeight() / 2) then
+        GameTooltip:SetPoint('TOP' .. anchor, frame, 'BOTTOM' .. anchor, x, y)
+    else
+        GameTooltip:SetPoint('BOTTOM' .. anchor, frame, 'TOP' .. anchor, x, y)
+    end
+end
+
 function ns.GetOwnerColoredName(owner)
     local color = RAID_CLASS_COLORS[owner.class or 'PRIEST']
     return format('|cff%02x%02x%02x%s|r', color.r * 0xFF, color.g * 0xFF, color.b * 0xFF, owner.name)
@@ -188,5 +200,13 @@ function ns.Spawned(method)
         return C_Timer.After(0, function()
             return method(a1, a2, a3, a4, a5, a6, a7, a8, a9)
         end)
+    end
+end
+
+function ns.NameGenerator(name)
+    local index = 0
+    return function()
+        index = index + 1
+        return name .. index
     end
 end

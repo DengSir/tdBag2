@@ -8,9 +8,7 @@ local _G = _G
 local select = select
 
 ---- WOW
-local GetScreenHeight = GetScreenHeight
 local GetMoneyString = GetMoneyString
-local MagicButton_OnLoad = MagicButton_OnLoad
 local MoneyFrame_Update = MoneyFrame_Update
 local MoneyInputFrame_OpenPopup = MoneyInputFrame_OpenPopup
 local MoneyFrame_UpdateTrialErrorButton = MoneyFrame_UpdateTrialErrorButton
@@ -25,8 +23,9 @@ local Cache = ns.Cache
 
 ---@class tdBag2MoneyFrame: Button
 ---@field private meta tdBag2FrameMeta
-local MoneyFrame = ns.Addon:NewClass('UI.MoneyFrame', 'Button.tdBag2MoneyTemplate')
-MoneyFrame._Meta.__uiname = 'tdBag2MoneyFrame'
+local MoneyFrame = ns.Addon:NewClass('UI.MoneyFrame', 'Button')
+
+MoneyFrame.GenerateName = ns.NameGenerator('tdBag2MoneyFrame')
 
 local MONEY_INFO = { --
     collapse = 1,
@@ -38,11 +37,13 @@ local MONEY_INFO = { --
 function MoneyFrame:Constructor(_, meta)
     self.meta = meta
 
-    self:SetPoint('BOTTOMRIGHT', -5, 2)
-    MagicButton_OnLoad(self)
-
+    self.Money = CreateFrame('Frame', self:GenerateName(), self, 'SmallMoneyFrameTemplate')
     self.Money.trialErrorButton:SetPoint('LEFT', -14, 0)
     self.Money.info = MONEY_INFO
+    self.Money:SetScript('OnEvent', nil)
+    self.Money:SetScript('OnShow', nil)
+    self.Money:UnregisterAllEvents()
+    self.Money:SetAllPoints(self)
 
     local name = self.Money:GetName()
     _G[name .. 'GoldButton']:EnableMouse(false)
@@ -54,7 +55,6 @@ function MoneyFrame:Constructor(_, meta)
     self:SetScript('OnEnter', self.OnEnter)
     self:SetScript('OnLeave', self.OnLeave)
     self:SetScript('OnClick', self.OnClick)
-    self:SetScript('OnEvent', nil)
 end
 
 function MoneyFrame:OnShow()
@@ -82,7 +82,7 @@ function MoneyFrame:OnEnter()
         end
     end
 
-    GameTooltip:SetOwner(self, self:GetTop() > (GetScreenHeight() / 2) and 'ANCHOR_BOTTOM' or 'ANCHOR_TOP')
+    ns.AnchorTooltip2(self, 'RIGHT')
     GameTooltip:AddDoubleLine(L['Total'], GetMoneyString(total, true), nil, nil, nil, 1, 1, 1)
     GameTooltip:AddLine(' ')
 
@@ -101,7 +101,6 @@ end
 
 function MoneyFrame:OnClick()
     MoneyInputFrame_OpenPopup(self.Money)
-    self:OnLeave()
 end
 
 function MoneyFrame:OnLeave()

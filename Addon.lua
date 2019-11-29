@@ -45,6 +45,7 @@ local BAG_ID = ns.BAG_ID
 ---@field colorSlots boolean
 ---@field lockFrame boolean
 ---@field emptyAlpha number
+---@field tokens table
 
 ---@class UI
 ---@field Frame tdBag2Frame
@@ -56,6 +57,9 @@ local BAG_ID = ns.BAG_ID
 ---@field TitleFrame tdBag2TitleFrame
 ---@field OwnerSelector tdBag2OwnerSelector
 ---@field SearchBox tdBag2SearchBox
+---@field TokenFrame tdBag2TokenFrame
+---@field Token tdBag2Token
+---@field MenuButton tdBag2MenuButton
 ns.UI = {}
 ns.Cache = LibStub('LibItemCache-2.0')
 ns.Search = LibStub('LibItemSearch-1.2')
@@ -128,6 +132,8 @@ function Addon:OnInitialize()
             textOffline = true,
             tradeBagOrder = ns.TRADE_BAG_ORDER.NONE,
             tipCount = true,
+
+            tokens = {[20560] = true, [20559] = true, [20558] = true},
 
             colorSlots = true,
             colorNormal = {r = 1, g = 1, b = 1},

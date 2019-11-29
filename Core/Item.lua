@@ -63,7 +63,6 @@ local Unfit = ns.Unfit
 ---@field private newitemglowAnim AnimationGroup
 ---@field private flashAnim AnimationGroup
 local Item = ns.Addon:NewClass('UI.Item', 'Button.ContainerFrameItemButtonTemplate')
-Item.index = 0
 Item.pool = {}
 
 local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}

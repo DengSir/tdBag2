@@ -50,6 +50,7 @@ function Events:OnEnable()
     self:RegisterEvent('BAG_NEW_ITEMS_UPDATED', 'Fire')
     self:RegisterEvent('GET_ITEM_INFO_RECEIVED', 'Fire')
     self:RegisterEvent('CURSOR_UPDATE', 'Fire')
+    self:RegisterEvent('BAG_UPDATE_DELAYED', 'Fire')
 end
 
 function Events:Embed(target)

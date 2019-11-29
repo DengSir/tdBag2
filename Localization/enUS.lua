@@ -27,6 +27,7 @@ L.TOOLTIP_SHOW_BAG_FRAME = 'Show bags list'
 L.TOOLTIP_TOGGLE_BAG = 'Open inventory'
 L.TOOLTIP_TOGGLE_BANK = 'Open bank'
 L.TOOLTIP_PURCHASE_BANK_SLOT = 'Purchase bank slot'
+L.TOOLTIP_WATCHED_TOKENS = 'Change watched tokens'
 
 ---- options
 
