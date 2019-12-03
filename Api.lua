@@ -145,10 +145,6 @@ function ns.GetBagId(bag)
     return BAG_SETS[bag]
 end
 
-function ns.GetBag(bag)
-    return BAG_SETS[bag] == BAG_ID.BAG
-end
-
 function ns.IsBag(bag)
     return BAG_SETS[bag] == BAG_ID.BAG
 end

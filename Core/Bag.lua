@@ -58,7 +58,8 @@ end
 
 function Bag:OnShow()
     self:Update()
-    self:RegisterEvent('FRAME_OWNER_CHANGED')
+    self:UnregisterAllEvents()
+    self:RegisterFrameEvent('FRAME_OWNER_CHANGED', 'Update')
     self:RegisterEvent('BAG_UPDATE')
 
     if self:IsBank() or self:IsBankBag() then
@@ -104,12 +105,6 @@ function Bag:OnDragStart()
     if self:IsCustomBag() and not self.info.cached then
         PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
         PickupBagFromSlot(self.info.slot)
-    end
-end
-
-function Bag:FRAME_OWNER_CHANGED(_, bagId)
-    if self.meta.bagId == bagId then
-        self:Update()
     end
 end
 

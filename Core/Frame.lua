@@ -44,6 +44,7 @@ function Frame:Constructor(_, bagId)
     self.meta = ns.FrameMeta:New(bagId, self)
     self.menuButtons = {}
     self.pluginButtons = {}
+    self.name = 'tdBag2Bag' .. self.meta.bagId
 
     self.portrait:SetTexture(ns.BAG_ICONS[bagId])
 
@@ -61,7 +62,6 @@ function Frame:Constructor(_, bagId)
         self:UpdateSize()
     end)
 
-    self:GenerateName()
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)
 
@@ -82,10 +82,6 @@ function Frame:OnHide()
 end
 
 Frame.OnSizeChanged = ns.Spawned(UpdateUIPanelPositions)
-
-function Frame:GenerateName()
-    self.name = 'tdBag2Bag' .. self.meta.bagId
-end
 
 function Frame:UpdateSize()
     return self:SetSize(self.Container:GetWidth() + 24, self.Container:GetHeight() + 100)
@@ -112,7 +108,7 @@ function Frame:UpdateManaged()
         return
     end
 
-    self.updatingManageed = true
+    self.updatingManaged = true
 
     local shown = self:IsShown()
     if shown then
@@ -130,7 +126,7 @@ function Frame:UpdateManaged()
     end
 
     self:UpdateSpecial()
-    self.updatingManageed = nil
+    self.updatingManaged = nil
 end
 
 function Frame:UpdateSpecial()

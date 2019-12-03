@@ -30,8 +30,13 @@ function TokenFrame:Constructor(_, meta)
 end
 
 function TokenFrame:OnShow()
-    self:RegisterEvent('BAG_UPDATE_DELAYED', 'Update')
+    if not self.meta:IsCached() then
+        self:RegisterEvent('BAG_UPDATE_DELAYED', 'Update')
+    else
+        self:UnregisterAllEvents()
+    end
     self:RegisterEvent('WATCHED_TOKEN_CHANGED', 'Update')
+    self:RegisterFrameEvent('FRAME_OWNER_CHANGED', 'Update')
     self:Update()
 end
 
@@ -59,7 +64,7 @@ function TokenFrame:Update()
         if self.meta.sets.tokens[itemId] then
             index = index + 1
             local button = self:GetButton(index)
-            button:SetItem(itemId)
+            button:SetItem(self.meta.owner, itemId)
             button:Show()
         end
     end

@@ -3,6 +3,7 @@
     <Include file="Template.xml" />
     <Script file="Events.lua" />
     <Script file="FrameMeta.lua" />
+    <Script file="Counter.lua" />
     <Script file="MenuButton.lua" />
     <Script file="TitleFrame.lua" />
     <Script file="MoneyFrame.lua" />

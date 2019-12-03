@@ -20,6 +20,7 @@ local UIParent = UIParent
 ---@field Addon Addon
 ---@field Events Events
 ---@field FrameMeta tdBag2FrameMeta
+---@field Counter tdBag2Counter
 local ns = select(2, ...)
 local BAG_ID = ns.BAG_ID
 
@@ -285,7 +286,7 @@ function Addon:SetOwner(bagId, owner)
         local frame = self:GetFrame(bagId)
         if frame then
             frame.meta.owner = owner
-            ns.Events:Fire('FRAME_OWNER_CHANGED', bagId)
+            ns.Events:FireFrameEvent('FRAME_OWNER_CHANGED', bagId)
         end
     end
 end

@@ -17,7 +17,7 @@ local Frame = ns.UI.Frame
 local Bank = ns.Addon:NewClass('UI.Bank', Frame)
 
 function Bank:OnHide()
-    if not self.updatingManageed then
+    if not self.updatingManaged then
         CloseBankFrame()
     end
     Frame.OnHide(self)

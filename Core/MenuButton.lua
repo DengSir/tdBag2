@@ -26,8 +26,10 @@ MenuButton.GenerateName = ns.NameGenerator('tdBag2DropMenu')
 
 function MenuButton:ToggleMenu()
     if self:IsMenuOpened() then
-        CloseDropDownMenus(1)
+        CloseDropDownMenus()
     else
+        MenuButton.LastDropdown = self
+        CloseDropDownMenus()
         ToggleDropDownMenu(1, nil, self:GetDropMenu(), self, 0, 0, self:CreateMenu())
         self:OnMenuOpened()
     end
@@ -40,7 +42,8 @@ function MenuButton:CloseMenu()
 end
 
 function MenuButton:IsMenuOpened()
-    return self.DropMenu and UIDROPDOWNMENU_OPEN_MENU == self.DropMenu and DropDownList1:IsShown()
+    return self.DropMenu and self.LastDropdown == self and UIDROPDOWNMENU_OPEN_MENU == self.DropMenu and
+               DropDownList1:IsShown()
 end
 
 function MenuButton:GetDropMenu()
@@ -75,14 +78,16 @@ end
 
 function MenuButton:OnMenuOpened()
     if not self.EnterBlocker then
-        self.EnterBlocker = CreateFrame('Frame', nil, self)
-        self.EnterBlocker:Hide()
-        self.EnterBlocker:SetAllPoints(true)
-        self.EnterBlocker:SetFrameLevel(self:GetFrameLevel() + 10)
-        self.EnterBlocker:SetScript('OnEnter', OnEnter)
-        self.EnterBlocker:SetScript('OnLeave', OnLeave)
-        self.EnterBlocker:SetMouseClickEnabled(false)
+        local Blocker = CreateFrame('Frame', nil, self)
+        Blocker:Hide()
+        Blocker:SetScript('OnEnter', OnEnter)
+        Blocker:SetScript('OnLeave', OnLeave)
+        Blocker:SetMouseClickEnabled(false)
+        MenuButton.EnterBlocker = Blocker
     end
+    self.EnterBlocker:SetParent(self)
+    self.EnterBlocker:SetAllPoints(true)
+    self.EnterBlocker:SetFrameLevel(self:GetFrameLevel() + 10)
     self.EnterBlocker:Show()
 end
 

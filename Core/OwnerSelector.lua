@@ -45,7 +45,7 @@ function OwnerSelector:Constructor(_, meta)
 end
 
 function OwnerSelector:OnShow()
-    self:RegisterEvent('FRAME_OWNER_CHANGED')
+    self:RegisterFrameEvent('FRAME_OWNER_CHANGED', 'UpdateIcon')
     self:RegisterEvent('UPDATE_ALL', 'Update')
     self:Update()
 end
@@ -53,12 +53,6 @@ end
 function OwnerSelector:OnHide()
     self:UnregisterAllEvents()
     self:CloseMenu()
-end
-
-function OwnerSelector:FRAME_OWNER_CHANGED(_, bagId)
-    if self.meta.bagId == bagId then
-        self:UpdateIcon()
-    end
 end
 
 function OwnerSelector:OnClick(button)

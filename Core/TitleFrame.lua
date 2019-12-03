@@ -29,7 +29,7 @@ end
 
 function TitleFrame:OnShow()
     self:Update()
-    self:RegisterEvent('FRAME_OWNER_CHANGED', 'Update')
+    self:RegisterFrameEvent('FRAME_OWNER_CHANGED', 'Update')
     self:RegisterEvent('UPDATE_ALL', 'Update')
 
     if self.meta:IsBank() then

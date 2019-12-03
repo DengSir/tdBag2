@@ -17,6 +17,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local ns = select(2, ...)
 local L = ns.L
 local Cache = ns.Cache
+local Counter = ns.Counter
 
 local Tooltip = ns.Addon:NewModule('Tooltip', 'AceHook-3.0')
 Tooltip:Disable()
@@ -125,25 +126,7 @@ function Tooltip:GetOwnerItemInfo(owner, itemId)
     end
 
     local info = Cache:GetOwnerInfo(owner)
-    local equip = self:GetBagItemCount(owner, 'equip', itemId)
-    local bags, banks = 0, 0
-
-    if info.cached then
-        for _, bag in ipairs(ns.GetBags(ns.BAG_ID.BAG)) do
-            bags = bags + self:GetBagItemCount(owner, bag, itemId)
-        end
-        for _, bag in ipairs(ns.GetBags(ns.BAG_ID.BANK)) do
-            banks = banks + self:GetBagItemCount(owner, bag, itemId)
-        end
-    else
-        local owned = GetItemCount(itemId, true)
-        local carrying = GetItemCount(itemId)
-
-        bags = carrying - equip
-        banks = owned - carrying
-    end
-
-    local total, text = self:GetCounts(equip, bags, banks)
+    local total, text = self:GetCounts(Counter:GetOwnerItemCount(owner, itemId))
     local item
     if total then
         item = { --
@@ -161,17 +144,4 @@ function Tooltip:GetOwnerItemInfo(owner, itemId)
         self.cache[owner][itemId] = item
     end
     return item
-end
-
-function Tooltip:GetBagItemCount(owner, bag, itemId)
-    local count = 0
-    local info = Cache:GetBagInfo(owner, bag)
-
-    for slot = 1, info.count or 0 do
-        local id = Cache:GetItemID(owner, bag, slot)
-        if id == itemId then
-            count = count + (Cache:GetItemInfo(owner, bag, slot).count or 1)
-        end
-    end
-    return count
 end

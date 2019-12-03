@@ -27,19 +27,11 @@ local MoneyFrame = ns.Addon:NewClass('UI.MoneyFrame', 'Button')
 
 MoneyFrame.GenerateName = ns.NameGenerator('tdBag2MoneyFrame')
 
-local MONEY_INFO = { --
-    collapse = 1,
-    canPickup = 1,
-    showSmallerCoins = 'Backpack',
-    UpdateFunc = MoneyFrame_UpdateTrialErrorButton,
-}
-
 function MoneyFrame:Constructor(_, meta)
     self.meta = meta
 
     self.Money = CreateFrame('Frame', self:GenerateName(), self, 'SmallMoneyFrameTemplate')
-    self.Money.trialErrorButton:SetPoint('LEFT', -14, 0)
-    self.Money.info = MONEY_INFO
+    self.Money.trialErrorButton:SetPoint('LEFT', 8, 1)
     self.Money:SetScript('OnEvent', nil)
     self.Money:SetScript('OnShow', nil)
     self.Money:UnregisterAllEvents()
@@ -58,19 +50,25 @@ function MoneyFrame:Constructor(_, meta)
 end
 
 function MoneyFrame:OnShow()
-    self:RegisterEvent('FRAME_OWNER_CHANGED')
+    if not self.meta:IsCached() then
+        self:RegisterEvent('PLAYER_MONEY', 'Update')
+        self:RegisterEvent('PLAYER_TRADE_MONEY', 'Update')
+        self:RegisterEvent('SEND_MAIL_MONEY_CHANGED', 'Update')
+        self:RegisterEvent('SEND_MAIL_COD_CHANGED', 'Update')
+    else
+        self:UnregisterAllEvents()
+    end
+    self:RegisterFrameEvent('FRAME_OWNER_CHANGED', 'OnShow')
     self:Update()
 end
 
-function MoneyFrame:FRAME_OWNER_CHANGED(_, bagId)
-    if bagId == self.meta.bagId then
-        self:Update()
-    end
-end
-
 function MoneyFrame:Update()
-    local money = ns.Cache:GetOwnerInfo(self.meta.owner).money or 0
-    MoneyFrame_Update(self.Money:GetName(), money, money == 0)
+    if self.meta:IsCached() then
+        local money = Cache:GetOwnerInfo(self.meta.owner).money or 0
+        MoneyFrame_Update(self.Money:GetName(), money, money == 0)
+    else
+        MoneyFrame_UpdateMoney(self.Money)
+    end
 end
 
 function MoneyFrame:OnEnter()

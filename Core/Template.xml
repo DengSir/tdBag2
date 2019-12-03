@@ -195,25 +195,42 @@
         <Size x="24" y="24" />
         <Layers>
             <Layer level="BACKGROUND">
-                <Texture parentKey="texture" />
+                <Texture parentKey="texture">
+                    <Size x="22" y="22" />
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+                <MaskTexture parentKey="CircleMask" file="Interface\CharacterFrame\TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.texture"/>
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.texture"/>
+                    </Anchors>
+                    <MaskedTextures>
+                        <MaskedTexture childKey="texture"/>
+                    </MaskedTextures>
+                </MaskTexture>
             </Layer>
         </Layers>
         <NormalTexture atlas="worldquest-tracker-ring">
-            <Size x="32" y="32" />
+            <Size x="33" y="33" />
             <Anchors>
                 <Anchor point="CENTER" x="0" y="0" />
             </Anchors>
         </NormalTexture>
         <HighlightTexture atlas="worldquest-tracker-ring-selected" alphaMode="ADD" alpha="0.4">
-            <Size x="32" y="32" />
+            <Size x="33" y="33" />
             <Anchors>
                 <Anchor point="CENTER" x="0" y="0" />
             </Anchors>
         </HighlightTexture>
         <Scripts>
-            <OnLoad>
-                self.texture:SetMask([[Interface\CharacterFrame\TempPortraitAlphaMask]])
-            </OnLoad>
+            <OnMouseDown>
+                self.texture:SetPoint('CENTER', 1, -1)
+            </OnMouseDown>
+            <OnMouseUp>
+                self.texture:SetPoint('CENTER', 0, 0)
+            </OnMouseUp>
         </Scripts>
     </CheckButton>
 </Ui>

@@ -46,21 +46,37 @@ function Events:OnEnable()
     self:RegisterMessage('CACHE_BANK_OPENED')
     self:RegisterMessage('CACHE_BANK_CLOSED')
 
-    self:RegisterEvent('BAG_UPDATE_COOLDOWN', 'Fire')
     self:RegisterEvent('BAG_NEW_ITEMS_UPDATED', 'Fire')
-    self:RegisterEvent('GET_ITEM_INFO_RECEIVED', 'Fire')
-    self:RegisterEvent('CURSOR_UPDATE', 'Fire')
+    self:RegisterEvent('BAG_UPDATE_COOLDOWN', 'Fire')
     self:RegisterEvent('BAG_UPDATE_DELAYED', 'Fire')
+    self:RegisterEvent('CURSOR_UPDATE', 'Fire')
+    self:RegisterEvent('GET_ITEM_INFO_RECEIVED', 'Fire')
+    self:RegisterEvent('PLAYER_MONEY', 'Fire')
+    self:RegisterEvent('PLAYER_TRADE_MONEY', 'Fire')
+    self:RegisterEvent('SEND_MAIL_COD_CHANGED', 'Fire')
+    self:RegisterEvent('SEND_MAIL_MONEY_CHANGED', 'Fire')
+end
+
+local function RegisterFrameEvent(self, event, callback)
+    if callback == nil then
+        callback = event
+    end
+    return self:RegisterEvent(event .. self.meta.bagId, callback)
 end
 
 function Events:Embed(target)
     for _, v in ipairs(METHODS) do
         target[v] = self.handler[v]
     end
+    target.RegisterFrameEvent = RegisterFrameEvent
 end
 
 function Events:Fire(event, ...)
     return self.events:Fire(event, ...)
+end
+
+function Events:FireFrameEvent(event, bagId)
+    return self.events:Fire(event .. bagId)
 end
 
 function Events:UpdateBagSize(bag)
