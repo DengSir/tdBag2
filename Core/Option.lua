@@ -122,6 +122,9 @@ function Addon:SetupOptionFrame()
                     column = range(L['Columns'], 6, 36, 1),
                     scale = range(L['Item Scale'], 0.5, 2),
                 }),
+                features = inline(L['Features'], {
+                    tokenFrame = toggle(L['Token Frame']), --
+                }),
                 buttons = inline(L['Plugin Buttons'], FRAMES[bagId]),
             },
         }

@@ -25,6 +25,7 @@ Tooltip.APIS = {
     'SetMerchantItem', 'SetBuybackItem', 'SetBagItem', 'SetAuctionItem', 'SetAuctionSellItem', 'SetLootItem',
     'SetLootRollItem', 'SetInventoryItem', 'SetTradePlayerItem', 'SetTradeTargetItem', 'SetQuestItem',
     'SetQuestLogItem', 'SetInboxItem', 'SetSendMailItem', 'SetHyperlink', 'SetCraftItem', 'SetTradeSkillItem',
+    'SetAction',
 }
 Tooltip.LABELS = { --
     L['Equipped'], L['Inventory'], L['Bank'],

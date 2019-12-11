@@ -42,6 +42,9 @@ L['Reverse Slot Order'] = '反向物品排列'
 L['Columns'] = '列数'
 L['Item Scale'] = '物品缩放'
 
+L['Features'] = '功能'
+L['Token Frame'] = '代币'
+
 L['Lock Frames'] = '锁定位置'
 L['Show Junk Icon'] = '显示垃圾图标'
 L['Show Character Portrait'] = '显示角色头像'

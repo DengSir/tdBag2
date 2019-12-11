@@ -30,6 +30,7 @@ local BAG_ID = ns.BAG_ID
 ---@field reverseSlot boolean
 ---@field managed boolean
 ---@field bagFrame boolean
+---@field tokenFrame boolean
 ---@field window table
 
 ---@class tdBag2Profile
@@ -89,6 +90,7 @@ function Addon:OnInitialize()
                     reverseSlot = false,
                     managed = false,
                     bagFrame = false,
+                    tokenFrame = true,
                     scale = 1,
                 },
                 [BAG_ID.BANK] = { --
@@ -99,6 +101,7 @@ function Addon:OnInitialize()
                     reverseSlot = false,
                     managed = true,
                     bagFrame = true,
+                    tokenFrame = true,
                     scale = 1,
                 },
             },

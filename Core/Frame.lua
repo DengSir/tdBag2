@@ -38,6 +38,7 @@ local LibWindow = LibStub('LibWindow-1.1')
 ---@field private OwnerSelector tdBag2OwnerSelector
 ---@field private BagFrame tdBag2BagFrame
 ---@field private SearchBox EditBox
+---@field private TokenFrame tdBag2TokenFrame
 local Frame = ns.Addon:NewClass('UI.Frame', 'Frame.tdBag2FrameTemplate')
 
 function Frame:Constructor(_, bagId)
@@ -157,6 +158,7 @@ function Frame:Update()
     self:LayoutPluginButtons()
     self:LayoutBagFrame()
     self:LayoutSearchBox()
+    self:LayoutTokenFrame()
 end
 
 function Frame:LayoutPluginButtons()
@@ -187,6 +189,10 @@ end
 
 function Frame:LayoutBagFrame()
     self.BagFrame:SetShown(self.meta.profile.bagFrame)
+end
+
+function Frame:LayoutTokenFrame()
+    self.TokenFrame:SetShown(self.meta.profile.tokenFrame)
 end
 
 function Frame:LayoutSearchBox()

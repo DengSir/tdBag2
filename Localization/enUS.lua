@@ -44,6 +44,9 @@ L['Reverse Bag Order'] = true
 L['Reverse Slot Order'] = true
 L['Columns'] = true
 
+L['Features'] = true
+L['Token Frame'] = true
+
 L['Lock Frames'] = true
 L['Show Junk Icon'] = true
 L['Show Character Portrait'] = true
