@@ -209,6 +209,14 @@ function Frame:LayoutSearchBox()
     else
         self.SearchBox:SetPoint('TOPLEFT', 74, -28)
     end
+
+    print(self.menuButtons[#self.menuButtons]:GetLeft() - self.BagFrame:GetLeft())
+
+    if self.BagFrame:IsShown() and self.menuButtons[#self.menuButtons]:GetLeft() - self.BagFrame:GetRight() < 80 then
+        self.SearchBox:Hide()
+    else
+        self.SearchBox:Show()
+    end
 end
 
 function Frame:HasPluginButton(key)

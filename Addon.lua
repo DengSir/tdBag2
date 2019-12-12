@@ -145,6 +145,7 @@ function Addon:OnInitialize()
             colorSoul = {r = 0.64, g = 0.39, b = 1},
             colorEnchant = {r = 0.64, g = 0.83, b = 1},
             colorHerb = {r = 0.5, g = 1, b = 0.5},
+            colorKeyring = {r = 1, g = 0.82, b = 0},
             emptyAlpha = 0.9,
         },
     }, true)

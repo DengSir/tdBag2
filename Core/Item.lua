@@ -347,6 +347,9 @@ function Item:GetBagFamily()
     if self.bag == BANK_CONTAINER or self.bag == BACKPACK_CONTAINER then
         return 0
     end
+    if self.bag == KEYRING_CONTAINER then
+        return 9
+    end
     local info = Cache:GetBagInfo(self.meta.owner, self.bag)
     return info.link and GetItemFamily(info.link) or 0
 end

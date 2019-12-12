@@ -93,6 +93,8 @@ do
         INV_IDS[ContainerIDToInventoryID(id)] = id
     end
 
+    tinsert(BAGS[BAG_ID.BAG], KEYRING_CONTAINER)
+
     for bagId, v in pairs(BAGS) do
         for _, bag in pairs(v) do
             BAG_SETS[bag] = bagId
@@ -118,6 +120,7 @@ ns.BAG_FAMILY = { --
     [4] = 'Soul',
     [6] = 'Herb',
     [7] = 'Enchant',
+    [9] = 'Keyring',
 }
 
 ns.TRADE_BAG_ORDER = { --

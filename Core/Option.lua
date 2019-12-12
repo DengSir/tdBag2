@@ -220,6 +220,7 @@ function Addon:SetupOptionFrame()
                         colorSoul = color(L['Soul Color']),
                         colorEnchant = color(L['Enchanting Color']),
                         colorHerb = color(L['Herbalism Color']),
+                        colorKeyring = color(L['Keyring Color']),
                     },
                 },
                 emptyAlpha = range(L['Empty Slot Brightness'], 0, 1),

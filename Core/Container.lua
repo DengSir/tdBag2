@@ -234,7 +234,7 @@ function Container:BuildOrderedBags()
     for i, bag in ripairs(self.meta.bags) do
         local info = Cache:GetBagInfo(self.meta.owner, bag)
         if info.owned then
-            local isTradeBag = info.link and GetItemFamily(info.link) ~= 0
+            local isTradeBag = bag == KEYRING_CONTAINER or (info.link and GetItemFamily(info.link) ~= 0)
             if isTradeBag then
                 tremove(self.bagOrdered, i)
 

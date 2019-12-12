@@ -141,6 +141,8 @@ end
 function Bag:UpdateIcon()
     if self:IsBaseBag() then
         self:SetIcon(ns.BAG_ICONS[self.meta.bagId])
+    elseif self:IsKeyring() then
+        self:SetIcon([[Interface\ContainerFrame\Keyring-Bag-Icon]])
     else
         self:SetIcon(self.info.icon or [[Interface\PaperDoll\UI-PaperDoll-Slot-Bag]])
     end
@@ -177,6 +179,8 @@ function Bag:UpdateTooltip()
         GameTooltip:SetText(BACKPACK_TOOLTIP, 1, 1, 1)
     elseif self:IsBank() then
         GameTooltip:SetText(BANK, 1, 1, 1)
+    elseif self:IsKeyring() then
+        GameTooltip:SetText(KEYRING, 1, 1, 1)
     elseif self.info.link and self.info.cached then
         GameTooltip:SetHyperlink(self.info.link)
     elseif self.info.link then
@@ -230,6 +234,10 @@ end
 
 function Bag:IsBank()
     return self.bag == BANK_CONTAINER
+end
+
+function Bag:IsKeyring()
+    return self.bag == KEYRING_CONTAINER
 end
 
 function Bag:IsBackpackBag()
