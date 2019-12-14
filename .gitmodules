@@ -16,6 +16,3 @@
 [submodule ".others/BagBrother"]
 	path = .others/BagBrother
 	url = https://github.com/Jaliborc/BagBrother.git
-[submodule ".emmylua"]
-	path = .emmylua
-	url = https://github.com/DengSir/IntelliJ-IDEA-Lua-IDE-WoW-API.git
