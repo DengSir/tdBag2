@@ -30,9 +30,6 @@ function FrameMeta:Update()
 end
 
 function FrameMeta:HasBag(bag)
-    if bag == KEYRING_CONTAINER then
-        return not self:IsCached()
-    end
     return self.bagId == ns.GetBagId(bag)
 end
 
