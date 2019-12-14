@@ -21,6 +21,8 @@ local Addon = ns.Addon
 local Cache = ns.Cache
 local TRADE_BAG_ORDER = ns.TRADE_BAG_ORDER
 
+local KEYRING_CONTAINER = KEYRING_CONTAINER
+
 ---@class tdBag2Container: Frame
 ---@field private meta tdBag2FrameMeta
 ---@field private itemButtons table<number, table<number, tdBag2Item>>
@@ -225,34 +227,50 @@ function Container:IsPendingLayout()
 end
 
 function Container:BuildOrderedBags()
-    self.bagOrdered = CopyTable(self.meta.bags)
-
+    local hasKeyring = false
+    local tradeBags = {}
+    local normalBags = {}
     local reverseBag = self.meta.profile.reverseBag
-    local atBottom = self.meta.sets.tradeBagOrder == TRADE_BAG_ORDER.BOTTOM
+    local atBottom = self.meta.profile.tradeBagOrder == TRADE_BAG_ORDER.BOTTOM
 
-    local count = 0
-    for i, bag in ripairs(self.meta.bags) do
-        local info = Cache:GetBagInfo(self.meta.owner, bag)
-        if info.owned then
-            local isTradeBag = bag == KEYRING_CONTAINER or (info.link and GetItemFamily(info.link) ~= 0)
-            if isTradeBag then
-                tremove(self.bagOrdered, i)
-
-                if atBottom == reverseBag then
-                    tinsert(self.bagOrdered, 1, bag)
-                else
-                    tinsert(self.bagOrdered, bag)
-                end
+    for i, bag in ipairs(self.meta.bags) do
+        if bag == KEYRING_CONTAINER then
+            hasKeyring = true
+        else
+            local info = Cache:GetBagInfo(self.meta.owner, bag)
+            if info.owned and info.family ~= 0 then
+                tinsert(tradeBags, bag)
+            else
+                tinsert(normalBags, bag)
             end
         end
     end
 
+    if atBottom == reverseBag then
+        for _, bag in ripairs(tradeBags) do
+            tinsert(normalBags, 1, bag)
+        end
+
+        if hasKeyring then
+            tinsert(normalBags, 1, KEYRING_CONTAINER)
+        end
+    else
+        for _, bag in ipairs(tradeBags) do
+            tinsert(normalBags, bag)
+        end
+
+        if hasKeyring then
+            tinsert(normalBags, KEYRING_CONTAINER)
+        end
+    end
+
+    self.bagOrdered = normalBags
     return self.bagOrdered
 end
 
 function Container:IterateBags()
     local bags
-    if self.meta.sets.tradeBagOrder ~= TRADE_BAG_ORDER.NONE then
+    if self.meta.profile.tradeBagOrder ~= TRADE_BAG_ORDER.NONE then
         bags = self.bagOrdered or self:BuildOrderedBags()
     else
         bags = self.meta.bags
@@ -274,26 +292,31 @@ function Container:Layout()
     local size = ns.ITEM_SIZE + ns.ITEM_SPACING
 
     for _, bag in self:IterateBags() do
-        local slotBegin, slotEnd, slotStep
-        if not reverseSlot then
-            slotBegin, slotEnd, slotStep = 1, self:NumSlots(bag), 1
-        else
-            slotBegin, slotEnd, slotStep = self:NumSlots(bag), 1, -1
-        end
-
-        for slot = slotBegin, slotEnd, slotStep do
-            local itemButton = self:GetItemButton(bag, slot)
-            if x == column then
-                y = y + 1
-                x = 0
+        if not self.meta:IsBagHidden(bag) then
+            if bag == -2 then
+                print(self:NumSlots(bag))
+            end
+            local slotBegin, slotEnd, slotStep
+            if not reverseSlot then
+                slotBegin, slotEnd, slotStep = 1, self:NumSlots(bag), 1
+            else
+                slotBegin, slotEnd, slotStep = self:NumSlots(bag), 1, -1
             end
 
-            itemButton:ClearAllPoints()
-            itemButton:SetPoint('TOPLEFT', self, 'TOPLEFT', x * size, -y * size)
-            itemButton:SetScale(scale)
-            itemButton:Show()
+            for slot = slotBegin, slotEnd, slotStep do
+                local itemButton = self:GetItemButton(bag, slot)
+                if x == column then
+                    y = y + 1
+                    x = 0
+                end
 
-            x = x + 1
+                itemButton:ClearAllPoints()
+                itemButton:SetPoint('TOPLEFT', self, 'TOPLEFT', x * size, -y * size)
+                itemButton:SetScale(scale)
+                itemButton:Show()
+
+                x = x + 1
+            end
         end
     end
 

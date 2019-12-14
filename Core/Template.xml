@@ -65,7 +65,7 @@
                     <Anchor point="TOPLEFT" x="74" y="-28" />
                 </Anchors>
             </EditBox>
-            <Frame parentKey="BagFrame">
+            <Frame parentKey="BagFrame" hidden="true">
                 <Size x="1" y="26"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" x="64" y="-29" />

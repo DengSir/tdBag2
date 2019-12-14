@@ -32,11 +32,12 @@ local BAG_ID = ns.BAG_ID
 ---@field bagFrame boolean
 ---@field tokenFrame boolean
 ---@field window table
+---@field tradeBagOrder string
+---@field hiddenBags table<number, boolean>
 
 ---@class tdBag2Profile
 ---@field glowAlpha number
 ---@field textOffline boolean
----@field tradeBagOrder string
 ---@field iconJunk boolean
 ---@field iconQuestStarter boolean
 ---@field glowQuest boolean
@@ -92,6 +93,8 @@ function Addon:OnInitialize()
                     bagFrame = false,
                     tokenFrame = true,
                     scale = 1,
+                    tradeBagOrder = ns.TRADE_BAG_ORDER.BOTTOM,
+                    hiddenBags = {},
                 },
                 [BAG_ID.BANK] = { --
                     window = {point = 'TOPLEFT', x = 50, y = -100},
@@ -103,6 +106,8 @@ function Addon:OnInitialize()
                     bagFrame = true,
                     tokenFrame = true,
                     scale = 1,
+                    tradeBagOrder = ns.TRADE_BAG_ORDER.NONE,
+                    hiddenBags = {},
                 },
             },
 
@@ -134,7 +139,6 @@ function Addon:OnInitialize()
             iconJunk = true,
             iconQuestStarter = true,
             textOffline = true,
-            tradeBagOrder = ns.TRADE_BAG_ORDER.NONE,
             tipCount = true,
 
             tokens = {[20560] = true, [20559] = true, [20558] = true},
@@ -145,7 +149,7 @@ function Addon:OnInitialize()
             colorSoul = {r = 0.64, g = 0.39, b = 1},
             colorEnchant = {r = 0.64, g = 0.83, b = 1},
             colorHerb = {r = 0.5, g = 1, b = 0.5},
-            colorKeyring = {r = 1, g = 0.82, b = 0},
+            colorKeyring = {r = 1, g = 0.67, b = 0.95},
             emptyAlpha = 0.9,
         },
     }, true)

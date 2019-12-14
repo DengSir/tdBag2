@@ -25,6 +25,8 @@ L.TOOLTIP_TOGGLE_BAG = '打开背包'
 L.TOOLTIP_TOGGLE_BANK = '打开银行'
 L.TOOLTIP_PURCHASE_BANK_SLOT = '购买银行空位'
 L.TOOLTIP_WATCHED_TOKENS = '切换展示的代币'
+L.TOOLTIP_SHOW_BAG = '显示背包'
+L.TOOLTIP_HIDE_BAG = '隐藏背包'
 
 ---- options
 
@@ -74,6 +76,7 @@ L['Quiver Color'] = '箭袋颜色'
 L['Soul Color'] = '灵魂袋颜色'
 L['Enchanting Color'] = '附魔材料袋颜色'
 L['Herbalism Color'] = '草药袋颜色'
+L['Keyring Color'] = '钥匙链颜色'
 L['Empty Slot Brightness'] = '空格亮度'
 
 L['Plugin Buttons'] = '扩展按钮'

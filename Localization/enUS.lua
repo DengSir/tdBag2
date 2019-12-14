@@ -28,6 +28,8 @@ L.TOOLTIP_TOGGLE_BAG = 'Open inventory'
 L.TOOLTIP_TOGGLE_BANK = 'Open bank'
 L.TOOLTIP_PURCHASE_BANK_SLOT = 'Purchase bank slot'
 L.TOOLTIP_WATCHED_TOKENS = 'Change watched tokens'
+L.TOOLTIP_SHOW_BAG = 'Show bag'
+L.TOOLTIP_HIDE_BAG = 'Hide bag'
 
 ---- options
 
@@ -76,6 +78,7 @@ L['Quiver Color'] = true
 L['Soul Color'] = true
 L['Enchanting Color'] = true
 L['Herbalism Color'] = true
+L['Keyring Color'] = true
 L['Empty Slot Brightness'] = true
 
 L['Plugin Buttons'] = true

@@ -30,6 +30,9 @@ function FrameMeta:Update()
 end
 
 function FrameMeta:HasBag(bag)
+    if bag == KEYRING_CONTAINER then
+        return not self:IsCached()
+    end
     return self.bagId == ns.GetBagId(bag)
 end
 
@@ -42,9 +45,18 @@ function FrameMeta:IsBag()
 end
 
 function FrameMeta:IsCached()
-    return Cache:GetBagInfo(self.owner, self.bags[1]).cached
+    return Cache:IsOwnerCached(Cache:GetOwnerAddress(self.owner))
 end
 
 function FrameMeta:IsSelf()
     return ns.IsSelf(self.owner)
+end
+
+function FrameMeta:ToggleBagHidden(bag)
+    self.profile.hiddenBags[bag] = not self.profile.hiddenBags[bag] or nil
+    ns.Events:Fire('UPDATE_ALL')
+end
+
+function FrameMeta:IsBagHidden(bag)
+    return self.profile.hiddenBags[bag]
 end

@@ -11,6 +11,7 @@ local PickupBagFromSlot = PickupBagFromSlot
 local PlaySound = PlaySound
 local PutItemInBackpack = PutItemInBackpack
 local PutItemInBag = PutItemInBag
+local PutKeyInKeyRing = PutKeyInKeyRing
 
 local SetItemButtonDesaturated = SetItemButtonDesaturated
 local SetItemButtonTexture = SetItemButtonTexture
@@ -29,6 +30,7 @@ local BANK = BANK
 local BANK_BAG = BANK_BAG
 local BANK_BAG_PURCHASE = BANK_BAG_PURCHASE
 local BANK_CONTAINER = BANK_CONTAINER
+local KEYRING_CONTAINER = KEYRING_CONTAINER
 local EQUIP_CONTAINER = EQUIP_CONTAINER
 local SOUNDKIT = SOUNDKIT
 
@@ -47,6 +49,8 @@ function Bag:Constructor(_, meta, bag)
     self.meta = meta
     self.bag = bag
 
+    self:RegisterForClicks('LeftButtonUp', 'RightButtonUp')
+
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.UnregisterAllEvents)
     self:SetScript('OnEnter', self.OnEnter)
@@ -61,6 +65,7 @@ function Bag:OnShow()
     self:UnregisterAllEvents()
     self:RegisterFrameEvent('FRAME_OWNER_CHANGED', 'Update')
     self:RegisterEvent('BAG_UPDATE')
+    self:RegisterEvent('UPDATE_ALL', 'Update')
 
     if self:IsBank() or self:IsBankBag() then
         self:RegisterEvent('BANK_OPENED', 'OnShow')
@@ -88,15 +93,21 @@ function Bag:OnLeave()
 end
 
 function Bag:OnClick(button)
-    if self:IsPurchasable() then
-        BankFrame.nextSlotCost = self.info.cost
-        StaticPopup_Show('CONFIRM_BUY_BANK_SLOT')
-        BankFrame.nextSlotCost = nil
-    elseif CursorHasItem() and not self.info.cached then
-        if self:IsBackpack() then
-            PutItemInBackpack()
-        else
-            PutItemInBag(self.info.slot)
+    if button == 'RightButton' then
+        self.meta:ToggleBagHidden(self.bag)
+    else
+        if self:IsPurchasable() then
+            BankFrame.nextSlotCost = self.info.cost
+            StaticPopup_Show('CONFIRM_BUY_BANK_SLOT')
+            BankFrame.nextSlotCost = nil
+        elseif CursorHasItem() and not self.info.cached then
+            if self:IsBackpack() then
+                PutItemInBackpack()
+            elseif self:IsKeyring() then
+                PutKeyInKeyRing()
+            else
+                PutItemInBag(self.info.slot)
+            end
         end
     end
 end
@@ -132,6 +143,7 @@ function Bag:Update()
     self:UpdateCount()
     self:UpdateLock()
     self:UpdateCursor()
+    self:UpdateHidden()
 end
 
 function Bag:UpdateInfo()
@@ -149,6 +161,9 @@ function Bag:UpdateIcon()
 end
 
 function Bag:UpdateCount()
+    if self:IsKeyring() then
+        return
+    end
     local free = self:GetFreeCount()
     self.Count:SetText(free and free > 0 and free or '')
 end
@@ -166,6 +181,14 @@ function Bag:UpdateCursor()
         else
             self:UnlockHighlight()
         end
+    end
+end
+
+function Bag:UpdateHidden()
+    if self:IsHidden() then
+        self:SetAlpha(0.4)
+    else
+        self:SetAlpha(1)
     end
 end
 
@@ -190,6 +213,8 @@ function Bag:UpdateTooltip()
     else
         GameTooltip:SetText(EQUIP_CONTAINER, 1, 1, 1)
     end
+    GameTooltip:AddLine(' ')
+    GameTooltip:AddLine(ns.RightButtonTip(self:IsHidden() and L.TOOLTIP_SHOW_BAG or L.TOOLTIP_HIDE_BAG))
     GameTooltip:Show()
 end
 
@@ -250,4 +275,8 @@ end
 
 function Bag:IsCustomBag()
     return self:IsBackpackBag() or self:IsBankBag()
+end
+
+function Bag:IsHidden()
+    return self.meta:IsBagHidden(self.bag)
 end

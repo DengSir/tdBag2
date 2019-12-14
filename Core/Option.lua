@@ -119,6 +119,14 @@ function Addon:SetupOptionFrame()
                     },
                     reverseBag = toggle(L['Reverse Bag Order']),
                     reverseSlot = toggle(L['Reverse Slot Order']),
+                    tradeBagOrder = drop{
+                        name = L['Trade Containers Location'],
+                        values = {
+                            {name = L['Default'], value = ns.TRADE_BAG_ORDER.NONE},
+                            {name = L['Top'], value = ns.TRADE_BAG_ORDER.TOP},
+                            {name = L['Bottom'], value = ns.TRADE_BAG_ORDER.BOTTOM},
+                        },
+                    },
                     column = range(L['Columns'], 6, 36, 1),
                     scale = range(L['Item Scale'], 0.5, 2),
                 }),
@@ -176,14 +184,6 @@ function Addon:SetupOptionFrame()
                 iconQuestStarter = toggle(L['Show Quest Starter Icon']),
                 iconChar = toggle(L['Show Character Portrait']),
                 textOffline = toggle(L['Show Offline Text in Bag\'s Title']),
-                tradeBagOrder = drop{
-                    name = L['Trade Containers Location'],
-                    values = {
-                        {name = L['Default'], value = ns.TRADE_BAG_ORDER.NONE},
-                        {name = L['Top'], value = ns.TRADE_BAG_ORDER.TOP},
-                        {name = L['Bottom'], value = ns.TRADE_BAG_ORDER.BOTTOM},
-                    },
-                },
             }),
             colors = group(L['Color Settings'], {
                 desc = desc(L.DESC_COLORS),

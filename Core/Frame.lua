@@ -23,7 +23,6 @@ local SOUNDKIT = SOUNDKIT
 ---@type ns
 local ns = select(2, ...)
 local Addon = ns.Addon
-local Cache = ns.Cache
 
 local LibWindow = LibStub('LibWindow-1.1')
 
@@ -196,26 +195,23 @@ function Frame:LayoutTokenFrame()
 end
 
 function Frame:LayoutSearchBox()
-    self.SearchBox:ClearAllPoints()
-
-    if #self.menuButtons > 0 then
-        self.SearchBox:SetPoint('RIGHT', self.menuButtons[#self.menuButtons], 'LEFT', -10, 0)
-    else
-        self.SearchBox:SetPoint('TOPRIGHT', -15, -28)
-    end
-
-    if self.BagFrame:IsShown() then
-        self.SearchBox:SetPoint('LEFT', self.BagFrame, 'RIGHT', 15, 0)
-    else
-        self.SearchBox:SetPoint('TOPLEFT', 74, -28)
-    end
-
-    print(self.menuButtons[#self.menuButtons]:GetLeft() - self.BagFrame:GetLeft())
-
-    if self.BagFrame:IsShown() and self.menuButtons[#self.menuButtons]:GetLeft() - self.BagFrame:GetRight() < 80 then
+    if self.meta.profile.bagFrame and self.meta.profile.column < 10 then
         self.SearchBox:Hide()
     else
         self.SearchBox:Show()
+        self.SearchBox:ClearAllPoints()
+
+        if #self.menuButtons > 0 then
+            self.SearchBox:SetPoint('RIGHT', self.menuButtons[#self.menuButtons], 'LEFT', -10, 0)
+        else
+            self.SearchBox:SetPoint('TOPRIGHT', -15, -28)
+        end
+
+        if self.BagFrame:IsShown() then
+            self.SearchBox:SetPoint('LEFT', self.BagFrame, 'RIGHT', 15, 0)
+        else
+            self.SearchBox:SetPoint('TOPLEFT', 74, -28)
+        end
     end
 end
 
