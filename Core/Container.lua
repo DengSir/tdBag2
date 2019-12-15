@@ -293,9 +293,6 @@ function Container:Layout()
 
     for _, bag in self:IterateBags() do
         if not self.meta:IsBagHidden(bag) then
-            if bag == -2 then
-                print(self:NumSlots(bag))
-            end
             local slotBegin, slotEnd, slotStep
             if not reverseSlot then
                 slotBegin, slotEnd, slotStep = 1, self:NumSlots(bag), 1
