@@ -81,6 +81,7 @@ function Addon:OnInitialize()
         [BAG_ID.BANK] = ns.UI.Bank,
     }
     self.db = LibStub('AceDB-3.0'):New('TDDB_BAG2', {
+        global = {quickfix = {keyrings = {}}},
         profile = {
             frames = {
                 [BAG_ID.BAG] = { --

@@ -55,6 +55,8 @@ function Events:OnEnable()
     self:RegisterEvent('PLAYER_TRADE_MONEY', 'Fire')
     self:RegisterEvent('SEND_MAIL_COD_CHANGED', 'Fire')
     self:RegisterEvent('SEND_MAIL_MONEY_CHANGED', 'Fire')
+
+    self:QuickFixKeyringSize()
 end
 
 local function RegisterFrameEvent(self, event, callback)
@@ -94,6 +96,9 @@ function Events:UpdateBag(bag)
 end
 
 function Events:BAG_UPDATE(_, bag)
+    if bag == KEYRING_CONTAINER then
+        self:QuickFixKeyringSize()
+    end
     self:UpdateBagSize(bag)
     self:UpdateBag(bag)
 end
@@ -136,4 +141,10 @@ function Events:ITEM_LOCK_CHANGED(_, bag, slot)
             self:Fire('BAG_LOCK_CHANGED', bag)
         end
     end
+end
+
+function Events:QuickFixKeyringSize()
+    local realm, name = ns.Cache:GetOwnerAddress()
+    local address = name .. '-' .. realm
+    ns.Addon.db.global.quickfix.keyrings[address] = GetContainerNumSlots(KEYRING_CONTAINER)
 end
