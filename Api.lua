@@ -23,6 +23,7 @@ local GameTooltip = GameTooltip
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local BACKPACK_CONTAINER = BACKPACK_CONTAINER
 local BANK_CONTAINER = BANK_CONTAINER
+local KEYRING_CONTAINER = KEYRING_CONTAINER
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local NUM_BANKBAGSLOTS = NUM_BANKBAGSLOTS
 
@@ -148,12 +149,24 @@ function ns.GetBagId(bag)
     return BAG_SETS[bag]
 end
 
-function ns.IsBag(bag)
+function ns.IsInBag(bag)
     return BAG_SETS[bag] == BAG_ID.BAG
 end
 
-function ns.IsBank(bag)
+function ns.IsInBank(bag)
     return BAG_SETS[bag] == BAG_ID.BANK
+end
+
+function ns.IsBackpack(bag)
+    return bag == BACKPACK_CONTAINER
+end
+
+function ns.IsBank(bag)
+    return bag == BANK_CONTAINER
+end
+
+function ns.IsKeyring(bag)
+    return bag == KEYRING_CONTAINER
 end
 
 function ns.InvToBag(inv)

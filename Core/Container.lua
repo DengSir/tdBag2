@@ -234,7 +234,7 @@ function Container:BuildOrderedBags()
     local atBottom = self.meta.profile.tradeBagOrder == TRADE_BAG_ORDER.BOTTOM
 
     for i, bag in ipairs(self.meta.bags) do
-        if bag == KEYRING_CONTAINER then
+        if ns.IsKeyring(bag) then
             hasKeyring = true
         else
             local info = Cache:GetBagInfo(self.meta.owner, bag)
@@ -329,7 +329,7 @@ function Container:Layout()
 end
 
 function Container:NumSlots(bag)
-    if bag == KEYRING_CONTAINER and self.meta:IsCached() then
+    if ns.IsKeyring(bag) and self.meta:IsCached() then
         local realm, name = ns.Cache:GetOwnerAddress(self.meta.owner)
         return ns.Addon.db.global.quickfix.keyrings[name .. '-' .. realm] or 0
     end

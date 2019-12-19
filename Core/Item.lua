@@ -30,8 +30,6 @@ local StackSplitFrame = StackSplitFrame
 local GameTooltip = GameTooltip
 
 ---- G
-local BACKPACK_CONTAINER = BACKPACK_CONTAINER
-local BANK_CONTAINER = BANK_CONTAINER
 local ITEM_STARTS_QUEST = ITEM_STARTS_QUEST
 local LE_ITEM_CLASS_QUESTITEM = LE_ITEM_CLASS_QUESTITEM
 local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON
@@ -152,7 +150,7 @@ function Item:OnEnter()
         Overlay:SetAllPoints(true)
         Overlay:Show()
     elseif self.hasItem then
-        if self.bag == BANK_CONTAINER then
+        if ns.IsBank(self.bag) then
             ns.AnchorTooltip(self)
             GameTooltip:SetInventoryItem('player', BankButtonIDToInvSlotID(self.slot))
             GameTooltip:Show()
@@ -344,10 +342,10 @@ function Item:UpdateSearch()
 end
 
 function Item:GetBagFamily()
-    if self.bag == BANK_CONTAINER or self.bag == BACKPACK_CONTAINER then
+    if ns.IsBank(self.bag) or ns.IsBackpack(self.bag) then
         return 0
     end
-    if self.bag == KEYRING_CONTAINER then
+    if ns.IsKeyring(self.bag) then
         return 9
     end
     local info = Cache:GetBagInfo(self.meta.owner, self.bag)

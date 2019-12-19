@@ -96,7 +96,7 @@ function Events:UpdateBag(bag)
 end
 
 function Events:BAG_UPDATE(_, bag)
-    if bag == KEYRING_CONTAINER then
+    if ns.IsKeyring(bag) then
         self:QuickFixKeyringSize()
     end
     self:UpdateBagSize(bag)
@@ -130,7 +130,7 @@ end
 
 function Events:ITEM_LOCK_CHANGED(_, bag, slot)
     if slot then
-        if bag == BANK_CONTAINER and slot > NUM_BANKGENERIC_SLOTS then
+        if ns.IsBank(bag) and slot > NUM_BANKGENERIC_SLOTS then
             self:Fire('BAG_LOCK_CHANGED', slot - NUM_BANKGENERIC_SLOTS + NUM_BAG_SLOTS)
         else
             self:Fire('ITEM_LOCK_CHANGED', bag, slot)

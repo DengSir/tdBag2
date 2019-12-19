@@ -24,13 +24,10 @@ local GameTooltip = GameTooltip
 local BankFrame = BankFrame
 
 ---- G
-local BACKPACK_CONTAINER = BACKPACK_CONTAINER
 local BACKPACK_TOOLTIP = BACKPACK_TOOLTIP
 local BANK = BANK
 local BANK_BAG = BANK_BAG
 local BANK_BAG_PURCHASE = BANK_BAG_PURCHASE
-local BANK_CONTAINER = BANK_CONTAINER
-local KEYRING_CONTAINER = KEYRING_CONTAINER
 local EQUIP_CONTAINER = EQUIP_CONTAINER
 local SOUNDKIT = SOUNDKIT
 
@@ -151,10 +148,10 @@ function Bag:UpdateInfo()
 end
 
 function Bag:UpdateIcon()
-    if self:IsBaseBag() then
-        self:SetIcon(ns.BAG_ICONS[self.meta.bagId])
-    elseif self:IsKeyring() then
+    if self:IsKeyring() then
         self:SetIcon([[Interface\ContainerFrame\Keyring-Bag-Icon]])
+    elseif self:IsBaseBag() then
+        self:SetIcon(ns.BAG_ICONS[self.meta.bagId])
     else
         self:SetIcon(self.info.icon or [[Interface\PaperDoll\UI-PaperDoll-Slot-Bag]])
     end
@@ -250,27 +247,27 @@ function Bag:IsPurchasable()
 end
 
 function Bag:IsBaseBag()
-    return self:IsBackpack() or self:IsBank()
+    return self:IsBackpack() or self:IsBank() or self:IsKeyring()
 end
 
 function Bag:IsBackpack()
-    return self.bag == BACKPACK_CONTAINER
+    return ns.IsBackpack(self.bag)
 end
 
 function Bag:IsBank()
-    return self.bag == BANK_CONTAINER
+    return ns.IsBank(self.bag)
 end
 
 function Bag:IsKeyring()
-    return self.bag == KEYRING_CONTAINER
+    return ns.IsKeyring(self.bag)
 end
 
 function Bag:IsBackpackBag()
-    return not self:IsBackpack() and ns.IsBag(self.bag)
+    return not self:IsBackpack() and ns.IsInBag(self.bag)
 end
 
 function Bag:IsBankBag()
-    return not self:IsBank() and ns.IsBank(self.bag)
+    return not self:IsBank() and ns.IsInBank(self.bag)
 end
 
 function Bag:IsCustomBag()
