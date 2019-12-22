@@ -80,10 +80,10 @@ function TokenFrame:CreateMenu()
         local name, _, quality = GetItemInfo(itemId)
 
         menu[i] = {
-            text = name,
+            text = name or 'item:' .. itemId,
             isNotRadio = true,
             checked = self.meta.sets.tokens[itemId],
-            colorCode = '|c' .. select(4, GetItemQualityColor(quality)),
+            colorCode = quality and '|c' .. select(4, GetItemQualityColor(quality)) or nil,
             icon = GetItemIcon(itemId),
             func = function(_, _, _, checked)
                 self.meta.sets.tokens[itemId] = not checked
