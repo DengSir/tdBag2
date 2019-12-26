@@ -43,6 +43,7 @@ local Addon = ns.Addon
 local Cache = ns.Cache
 local Search = ns.Search
 local Unfit = ns.Unfit
+local LibJunk = LibStub('LibJunk-1.0')
 
 ---@class ItemInfo
 ---@field cached boolean
@@ -385,12 +386,7 @@ function Item:IsJunk()
     if not self.hasItem then
         return
     end
-    if Scrap then
-        return Scrap:IsJunk(self.info.id)
-    else
-        local _, _, quality, _, _, _, _, _, _, _, price = GetItemInfo(self.info.id)
-        return quality == LE_ITEM_QUALITY_POOR and price and price > 0
-    end
+    return LibJunk:IsJunk(self.info.id)
 end
 
 do

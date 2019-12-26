@@ -16,3 +16,6 @@
 [submodule ".others/BagBrother"]
 	path = .others/BagBrother
 	url = https://github.com/Jaliborc/BagBrother.git
+[submodule "Libs/LibJunk-1.0"]
+	path = Libs/LibJunk-1.0
+	url = https://github.com/DengSir/LibJunk-1.0.git
