@@ -191,6 +191,35 @@
             </OnLoad>
         </Scripts>
     </Button>
+    <Button name="tdBag2KeyringTemplate" virtual="true">
+        <Size x="12" y="26" />
+        <NormalTexture file="Interface\Buttons\UI-Button-KeyRing">
+            <Size x="14" y="29" />
+            <Anchors>
+                <Anchor point="CENTER" x="0" y="-1"/>
+            </Anchors>
+            <TexCoords left="0" right="0.5625" top="0" bottom="0.609375"/>
+        </NormalTexture>
+        <HighlightTexture file="Interface\Buttons\UI-Button-KeyRing-Highlight" alphaMode="ADD">
+            <Size x="14" y="29" />
+            <Anchors>
+                <Anchor point="CENTER" x="0" y="-1"/>
+            </Anchors>
+            <TexCoords left="0" right="0.5625" top="0" bottom="0.609375"/>
+        </HighlightTexture>
+        <PushedTexture file="Interface\Buttons\UI-Button-KeyRing-Down">
+            <Size x="14" y="29" />
+            <Anchors>
+                <Anchor point="CENTER" x="0" y="-1"/>
+            </Anchors>
+            <TexCoords left="0" right="0.5625" top="0" bottom="0.609375"/>
+        </PushedTexture>
+        <Scripts>
+            <OnLoad>
+                self:RegisterForDrag('LeftButton')
+            </OnLoad>
+        </Scripts>
+    </Button>
     <CheckButton name="tdBag2ToggleButtonTemplate" virtual="true">
         <Size x="24" y="24" />
         <Layers>

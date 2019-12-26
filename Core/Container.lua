@@ -329,9 +329,5 @@ function Container:Layout()
 end
 
 function Container:NumSlots(bag)
-    if ns.IsKeyring(bag) and self.meta:IsCached() then
-        local realm, name = ns.Cache:GetOwnerAddress(self.meta.owner)
-        return ns.Addon.db.global.quickfix.keyrings[name .. '-' .. realm] or 0
-    end
     return Cache:GetBagInfo(self.meta.owner, bag).count or 0
 end

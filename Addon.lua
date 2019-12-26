@@ -81,7 +81,7 @@ function Addon:OnInitialize()
         [BAG_ID.BANK] = ns.UI.Bank,
     }
     self.db = LibStub('AceDB-3.0'):New('TDDB_BAG2', {
-        global = {quickfix = {keyrings = {}}},
+        global = {},
         profile = {
             frames = {
                 [BAG_ID.BAG] = { --
@@ -158,6 +158,8 @@ function Addon:OnInitialize()
     self.db:RegisterCallback('OnProfileChanged', function()
         self:OnProfileChanged()
     end)
+
+    self.db.global.quickfix = nil
 
     self:SetupBankHider()
     self:SetupOptionFrame()

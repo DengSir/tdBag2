@@ -18,12 +18,23 @@ BagFrame.SPACING = 3
 function BagFrame:Constructor(_, meta)
     local bags = meta.bags
     local spacing = self.SPACING
-    local button
+    local button, prevButton
+    local width, height = 0, 0
 
     for i, bag in ipairs(bags) do
-        button = ns.UI.Bag:New(self, meta, bag)
-        button:SetPoint('LEFT', (button:GetWidth() + spacing) * (i - 1), 0)
+        local template = ns.IsKeyring(bag) and 'tdBag2KeyringTemplate' or 'tdBag2BagTemplate'
+        button = ns.UI.Bag:Bind(CreateFrame('Button', nil, self, template), meta, bag)
+        if i == 1 then
+            button:SetPoint('LEFT')
+        else
+            button:SetPoint('LEFT', prevButton, 'RIGHT', spacing, 0)
+        end
+        prevButton = button
+        width = width + button:GetWidth() + spacing
+    end
+    if button then
+        width = width - spacing
     end
 
-    self:SetSize((button:GetWidth() + spacing) * #bags - spacing, button:GetHeight())
+    self:SetSize(width, button:GetHeight())
 end

@@ -40,7 +40,7 @@ local Cache = ns.Cache
 ---@class tdBag2Bag: Button
 ---@field private meta tdBag2FrameMeta
 ---@field private bag number
-local Bag = ns.Addon:NewClass('UI.Bag', 'Button.tdBag2BagTemplate')
+local Bag = ns.Addon:NewClass('UI.Bag', 'Button')
 
 function Bag:Constructor(_, meta, bag)
     self.meta = meta
@@ -129,6 +129,9 @@ function Bag:BAG_LOCK_CHANGED(_, bag)
 end
 
 function Bag:SetIcon(icon)
+    if not self.Icon then
+        return
+    end
     local color = self.info.owned and 1 or .1
     SetItemButtonTexture(self, icon)
     SetItemButtonTextureVertexColor(self, 1, color, color)
@@ -149,7 +152,7 @@ end
 
 function Bag:UpdateIcon()
     if self:IsKeyring() then
-        self:SetIcon([[Interface\ContainerFrame\Keyring-Bag-Icon]])
+        -- self:SetIcon([[Interface\ContainerFrame\Keyring-Bag-Icon]])
     elseif self:IsBaseBag() then
         self:SetIcon(ns.BAG_ICONS[self.meta.bagId])
     else
@@ -158,7 +161,7 @@ function Bag:UpdateIcon()
 end
 
 function Bag:UpdateCount()
-    if self:IsKeyring() then
+    if not self.Count then
         return
     end
     local free = self:GetFreeCount()
@@ -182,10 +185,11 @@ function Bag:UpdateCursor()
 end
 
 function Bag:UpdateHidden()
+    local obj = self.Icon or self:GetNormalTexture()
     if self:IsHidden() then
-        self:SetAlpha(0.4)
+        obj:SetAlpha(0.4)
     else
-        self:SetAlpha(1)
+        obj:SetAlpha(1)
     end
 end
 
@@ -263,7 +267,7 @@ function Bag:IsKeyring()
 end
 
 function Bag:IsBackpackBag()
-    return not self:IsBackpack() and ns.IsInBag(self.bag)
+    return not self:IsBackpack() and not self:IsKeyring() and ns.IsInBag(self.bag)
 end
 
 function Bag:IsBankBag()
