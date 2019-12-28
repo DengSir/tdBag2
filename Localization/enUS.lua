@@ -30,6 +30,8 @@ L.TOOLTIP_PURCHASE_BANK_SLOT = 'Purchase bank slot'
 L.TOOLTIP_WATCHED_TOKENS = 'Change watched tokens'
 L.TOOLTIP_SHOW_BAG = 'Show bag'
 L.TOOLTIP_HIDE_BAG = 'Hide bag'
+L.TOOLTIP_SEARCH_TOGGLE = 'Search bags'
+L.TOOLTIP_SEARCH_RECORDS = 'Open saved search conditions'
 
 ---- options
 
@@ -48,6 +50,8 @@ L['Columns'] = true
 
 L['Features'] = true
 L['Token Frame'] = true
+
+L['No record'] = true
 
 L['Lock Frames'] = true
 L['Show Junk Icon'] = true

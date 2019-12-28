@@ -36,8 +36,9 @@ local LibWindow = LibStub('LibWindow-1.1')
 ---@field private TitleFrame tdBag2TitleFrame
 ---@field private OwnerSelector tdBag2OwnerSelector
 ---@field private BagFrame tdBag2BagFrame
----@field private SearchBox EditBox
+---@field SearchBox tdBag2SearchBox
 ---@field private TokenFrame tdBag2TokenFrame
+---@field private PluginParent Frame
 local Frame = ns.Addon:NewClass('UI.Frame', 'Frame.tdBag2FrameTemplate')
 
 function Frame:Constructor(_, bagId)
@@ -60,6 +61,11 @@ function Frame:Constructor(_, bagId)
     self.Container:SetSize(1, 1)
     self.Container:SetCallback('OnLayout', function()
         self:UpdateSize()
+        self:LayoutSearchBoxAndBagFrame()
+    end)
+
+    self.SearchBox:HookScript('OnEditFocusLost', function()
+        self:LayoutSearchBoxAndBagFrame()
     end)
 
     self:SetScript('OnShow', self.OnShow)
@@ -72,6 +78,7 @@ end
 function Frame:OnShow()
     PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
     self:RegisterEvent('UPDATE_ALL', 'Update')
+    self:RegisterEvent('SEARCH_CHANGED', 'LayoutSearchBoxAndBagFrame')
     self:Update()
 end
 
@@ -155,9 +162,13 @@ end
 
 function Frame:Update()
     self:LayoutPluginButtons()
+    self:LayoutSearchBoxAndBagFrame()
+    self:LayoutTokenFrame()
+end
+
+function Frame:LayoutSearchBoxAndBagFrame()
     self:LayoutBagFrame()
     self:LayoutSearchBox()
-    self:LayoutTokenFrame()
 end
 
 function Frame:LayoutPluginButtons()
@@ -177,17 +188,20 @@ function Frame:LayoutPluginButtons()
 
     for i, button in ipairs(menuButtons) do
         button:ClearAllPoints()
-        if i == 1 then
-            button:SetPoint('TOPRIGHT', -15, -31)
-        else
-            button:SetPoint('RIGHT', menuButtons[i - 1], 'LEFT', -3, 0)
-        end
+        button:SetPoint('RIGHT', -(i - 1) * (button:GetWidth() + 3), 0)
         button:Show()
     end
+
+    self.PluginParent:SetWidth(#menuButtons == 0 and 1 or #menuButtons * (menuButtons[1]:GetWidth() + 3) + 1)
 end
 
 function Frame:LayoutBagFrame()
-    self.BagFrame:SetShown(self.meta.profile.bagFrame)
+    self.BagFrame:SetShown(self.meta.profile.bagFrame and
+                               (self:IsSearchBoxSpaceEnough() or not (self.SearchBox:HasFocus() or Addon:GetSearch())))
+end
+
+function Frame:IsBagFrameNeedShow()
+    return self.meta.profile.bagFrame and (self.meta.profile.column >= 10 or not self:IsSearchBoxNeedShow())
 end
 
 function Frame:LayoutTokenFrame()
@@ -195,24 +209,24 @@ function Frame:LayoutTokenFrame()
 end
 
 function Frame:LayoutSearchBox()
-    if self.meta.profile.bagFrame and self.meta.profile.column < 10 then
-        self.SearchBox:Hide()
-    else
+    if not self.meta.profile.bagFrame or self.SearchBox:HasFocus() or Addon:GetSearch() or self:IsSearchBoxSpaceEnough() then
         self.SearchBox:Show()
         self.SearchBox:ClearAllPoints()
 
-        if #self.menuButtons > 0 then
-            self.SearchBox:SetPoint('RIGHT', self.menuButtons[#self.menuButtons], 'LEFT', -10, 0)
-        else
-            self.SearchBox:SetPoint('TOPRIGHT', -15, -28)
-        end
+        self.SearchBox:SetPoint('RIGHT', self.PluginParent, 'LEFT', -9, 0)
 
         if self.BagFrame:IsShown() then
             self.SearchBox:SetPoint('LEFT', self.BagFrame, 'RIGHT', 15, 0)
         else
             self.SearchBox:SetPoint('TOPLEFT', 74, -28)
         end
+    else
+        self.SearchBox:Hide()
     end
+end
+
+function Frame:IsSearchBoxSpaceEnough()
+    return self:GetWidth() - self.BagFrame:GetWidth() - self.PluginParent:GetWidth() > 140
 end
 
 function Frame:HasPluginButton(key)
@@ -220,7 +234,7 @@ function Frame:HasPluginButton(key)
 end
 
 function Frame:CreatePluginButton(plugin)
-    local button = CreateFrame('CheckButton', nil, self, 'tdBag2ToggleButtonTemplate')
+    local button = CreateFrame('CheckButton', nil, self.PluginParent, 'tdBag2ToggleButtonTemplate')
     button.texture:SetTexture(plugin.icon)
     plugin.init(button, self)
     self.pluginButtons[plugin.key] = button

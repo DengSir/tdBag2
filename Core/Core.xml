@@ -18,6 +18,7 @@
     <Script file="Inventory.lua" />
     <Script file="Bank.lua" />
     <Script file="BagToggle.lua" />
+    <Script file="SearchToggle.lua" />
     <Script file="SearchBox.lua" />
     <Script file="AutoDisplay.lua" />
     <Script file="Tooltip.lua" />

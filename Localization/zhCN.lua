@@ -27,6 +27,8 @@ L.TOOLTIP_PURCHASE_BANK_SLOT = '购买银行空位'
 L.TOOLTIP_WATCHED_TOKENS = '切换展示的代币'
 L.TOOLTIP_SHOW_BAG = '显示背包'
 L.TOOLTIP_HIDE_BAG = '隐藏背包'
+L.TOOLTIP_SEARCH_TOGGLE = '搜索背包'
+L.TOOLTIP_SEARCH_RECORDS = '打开保存的搜索条件'
 
 ---- options
 
@@ -46,6 +48,8 @@ L['Item Scale'] = '物品缩放'
 
 L['Features'] = '功能'
 L['Token Frame'] = '代币'
+
+L['No record'] = '没有记录'
 
 L['Lock Frames'] = '锁定位置'
 L['Show Junk Icon'] = '显示垃圾图标'

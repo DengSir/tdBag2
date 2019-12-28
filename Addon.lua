@@ -49,6 +49,7 @@ local BAG_ID = ns.BAG_ID
 ---@field lockFrame boolean
 ---@field emptyAlpha number
 ---@field tokens table
+---@field searches string[]
 
 ---@class UI
 ---@field Frame tdBag2Frame
@@ -152,6 +153,8 @@ function Addon:OnInitialize()
             colorHerb = {r = 0.5, g = 1, b = 0.5},
             colorKeyring = {r = 1, g = 0.67, b = 0.95},
             emptyAlpha = 0.9,
+
+            searches = {first = true},
         },
     }, true)
 
@@ -159,7 +162,30 @@ function Addon:OnInitialize()
         self:OnProfileChanged()
     end)
 
-    self.db.global.quickfix = nil
+    -- clear old options
+    do
+        self.db.global.quickfix = nil
+    end
+
+    -- init search records
+    do
+        local searches = self.db.profile.searches
+        if searches.first then
+            searches.first = false
+
+            local types = { --
+                LE_ITEM_CLASS_WEAPON, --
+                LE_ITEM_CLASS_ARMOR, --
+                LE_ITEM_CLASS_CONSUMABLE, --
+                LE_ITEM_CLASS_TRADEGOODS, --
+                LE_ITEM_CLASS_REAGENT, --
+            }
+
+            for _, item in ipairs(types) do
+                tinsert(searches, (GetItemClassInfo(item)))
+            end
+        end
+    end
 
     self:SetupBankHider()
     self:SetupOptionFrame()

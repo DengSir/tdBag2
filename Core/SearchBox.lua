@@ -14,6 +14,7 @@ local SearchBox = Addon:NewClass('UI.SearchBox', 'EditBox')
 function SearchBox:Constructor(_, meta)
     self.meta = meta
     self:HookScript('OnTextChanged', self.OnTextChanged)
+    self:HookScript('OnEditFocusLost', self.ClearFocus)
     self:SetScript('OnEscapePressed', self.OnEscapePressed)
     self:SetScript('OnEnterPressed', self.ClearFocus)
     self:SetScript('OnShow', self.OnShow)
