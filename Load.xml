@@ -5,4 +5,6 @@
     <Script file="Api.lua" />
     <Script file="Addon.lua" />
     <Include file="Core\Core.xml" />
+    <Script file="Cache\Forever.lua" />
+    <Script file="Cache\Cache.lua" />
 </Ui>

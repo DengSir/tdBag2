@@ -70,9 +70,7 @@ function Bag:OnShow()
     end
 
     if self:IsCustomBag() then
-        if self.info.cached then
-            self:RegisterEvent('GET_ITEM_INFO_RECEIVED', 'Update')
-        else
+        if not self.info.cached then
             self:RegisterEvent('BAG_LOCK_CHANGED')
             self:RegisterEvent('CURSOR_UPDATE', 'UpdateCursor')
         end
@@ -236,14 +234,14 @@ function Bag:GetFreeCount()
     if not self.info.count then
         return 0
     end
-
-    local count = 0
-    for i = 1, self.info.count do
-        if not Cache:GetItemID(self.meta.owner, self.bag, i) then
-            count = count + 1
-        end
-    end
-    return count
+    return self.info.free
+    -- local count = 0
+    -- for i = 1, self.info.count do
+    --     if not Cache:GetItemID(self.meta.owner, self.bag, i) then
+    --         count = count + 1
+    --     end
+    -- end
+    -- return count
 end
 
 function Bag:IsPurchasable()

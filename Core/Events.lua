@@ -43,8 +43,8 @@ function Events:OnEnable()
     self:RegisterEvent('PLAYERBANKSLOTS_CHANGED')
     self:RegisterEvent('ITEM_LOCK_CHANGED')
 
-    self:RegisterMessage('CACHE_BANK_OPENED')
-    self:RegisterMessage('CACHE_BANK_CLOSED')
+    self:RegisterMessage('BANK_OPENED')
+    self:RegisterMessage('BANK_CLOSED')
 
     self:RegisterEvent('BAG_NEW_ITEMS_UPDATED', 'Fire')
     self:RegisterEvent('BAG_UPDATE_COOLDOWN', 'Fire')
@@ -110,14 +110,14 @@ function Events:PLAYERBANKSLOTS_CHANGED(_, slot)
     end
 end
 
-function Events:CACHE_BANK_OPENED()
+function Events:BANK_OPENED()
     BankFrame:Show()
     self:Fire('BANK_OPENED')
     Addon:ShowFrame(BAG_ID.BANK)
     Addon:SetOwner(BAG_ID.BANK)
 end
 
-function Events:CACHE_BANK_CLOSED()
+function Events:BANK_CLOSED()
     BankFrame:Hide()
     self:Fire('BANK_CLOSED')
     Addon:HideFrame(BAG_ID.BANK)

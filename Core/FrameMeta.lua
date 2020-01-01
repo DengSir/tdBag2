@@ -42,8 +42,7 @@ function FrameMeta:IsBag()
 end
 
 function FrameMeta:IsCached()
-    local realm, name, isguild = Cache:GetOwnerAddress(self.owner)
-    return Cache:IsBagCached(realm, name, isguild, self.bags[1])
+    return Cache:IsOwnerBagCached(self.owner, self.bags[1])
 end
 
 function FrameMeta:IsSelf()

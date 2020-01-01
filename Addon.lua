@@ -21,6 +21,8 @@ local UIParent = UIParent
 ---@field Events Events
 ---@field FrameMeta tdBag2FrameMeta
 ---@field Counter tdBag2Counter
+---@field Forever tdBag2Forever
+---@field Cache tdBag2Cache
 local ns = select(2, ...)
 local BAG_ID = ns.BAG_ID
 
@@ -65,7 +67,8 @@ local BAG_ID = ns.BAG_ID
 ---@field Token tdBag2Token
 ---@field MenuButton tdBag2MenuButton
 ns.UI = {}
-ns.Cache = LibStub('LibItemCache-2.0')
+-- ns.Cache = LibStub('LibItemCache-2.0')
+ns.Cache = {}
 ns.Search = LibStub('LibItemSearch-1.2')
 ns.Unfit = LibStub('Unfit-1.0')
 
@@ -82,7 +85,7 @@ function Addon:OnInitialize()
         [BAG_ID.BANK] = ns.UI.Bank,
     }
     self.db = LibStub('AceDB-3.0'):New('TDDB_BAG2', {
-        global = {},
+        global = {forever = {}},
         profile = {
             frames = {
                 [BAG_ID.BAG] = { --

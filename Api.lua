@@ -169,6 +169,18 @@ function ns.IsKeyring(bag)
     return bag == KEYRING_CONTAINER
 end
 
+function ns.IsBaseBag(bag)
+    return ns.IsBackpack(bag) or ns.IsBank(bag) or ns.IsKeyring(bag)
+end
+
+function ns.IsCustomBag(bag)
+    return ns.IsContainerBag(bag) and bag > BACKPACK_CONTAINER
+end
+
+function ns.IsContainerBag(bag)
+    return tonumber(bag)
+end
+
 function ns.InvToBag(inv)
     return INV_IDS[inv]
 end

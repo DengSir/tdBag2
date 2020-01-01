@@ -75,6 +75,7 @@ function MoneyFrame:OnEnter()
     local total = 0
     for name in Cache:IterateOwners() do
         local owner = Cache:GetOwnerInfo(name)
+        dump(owner)
         if not owner.isguild and owner.money then
             total = total + owner.money
         end
