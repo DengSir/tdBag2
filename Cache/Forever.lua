@@ -3,11 +3,39 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 12/31/2019, 1:07:26 PM
 
+---- LUA
+local select, pairs, ipairs = select, pairs, ipairs
+local tinsert = table.insert
+local tonumber = tonumber
+local strsplit = strsplit
+
+---- WOW
+local ContainerIDToInventoryID = ContainerIDToInventoryID
+local GetContainerItemInfo = GetContainerItemInfo
+local GetContainerNumFreeSlots = GetContainerNumFreeSlots
+local GetContainerNumSlots = GetContainerNumSlots
+local GetInventoryItemCount = GetInventoryItemCount
+local GetInventoryItemLink = GetInventoryItemLink
+local GetItemIcon = GetItemIcon
+local GetItemInfo = GetItemInfo
+local GetMoney = GetMoney
+local IsLoggedIn = IsLoggedIn
+local UnitClassBase = UnitClassBase
+local UnitFactionGroup = UnitFactionGroup
+local UnitFullName = UnitFullName
+local UnitRace = UnitRace
+local UnitSex = UnitSex
+
+---- G
+local NUM_BAG_SLOTS = NUM_BAG_SLOTS
+local INVSLOT_LAST_EQUIPPED = INVSLOT_LAST_EQUIPPED
+
 ---@type ns
 local ns = select(2, ...)
 
 local BAGS = ns.GetBags(ns.BAG_ID.BAG)
 local BANKS = ns.GetBags(ns.BAG_ID.BANK)
+local NO_RESULT = {cached = true}
 
 ---@class tdBag2ForeverCharacter
 ---@field faction string
@@ -23,11 +51,10 @@ local BANKS = ns.GetBags(ns.BAG_ID.BANK)
 ---@field player tdBag2ForeverCharacter
 ---@field realm tdBag2ForeverRealm
 ---@field db tdBag2ForeverDB
+---@field owners string[]
 local Forever = ns.Addon:NewModule('Forever', 'AceEvent-3.0')
 
 function Forever:OnInitialize()
-    self.cache = {}
-
     if IsLoggedIn() then
         self:PLAYER_LOGIN()
     else
@@ -54,6 +81,16 @@ function Forever:SetupCache()
     self.player.class = UnitClassBase('player')
     self.player.race = select(2, UnitRace('player'))
     self.player.gender = UnitSex('player')
+
+    local owners = {player}
+    for k in pairs(self.realm) do
+        if k ~= player then
+            tinsert(owners, k)
+        end
+    end
+
+    self.owners = owners
+    self.hasMultiOwners = #owners > 1
 end
 
 function Forever:SetupEvents()
@@ -94,11 +131,7 @@ function Forever:BANKFRAME_CLOSED()
     self:SendMessage('BANK_CLOSED')
 end
 
-function Forever:BAG_CLOSED(_, bag)
-    C_Timer.After(0, function()
-        self:BAG_UPDATE(nil, bag)
-    end)
-end
+Forever.BAG_CLOSED = ns.Spawned(Forever.BAG_UPDATE)
 
 function Forever:BAG_UPDATE(_, bag)
     if bag <= NUM_BAG_SLOTS then
@@ -113,8 +146,6 @@ end
 function Forever:PLAYER_EQUIPMENT_CHANGED(_, slot)
     self:SaveEquip(slot)
 end
-
-----
 
 function Forever:ParseItem(link, count)
     if link then
@@ -158,30 +189,6 @@ function Forever:SaveEquip(slot)
     self.player[ns.EQUIP_CONTAINER][slot] = self:ParseItem(link, count)
 end
 
----- interface
-
-local NO_RESULT = {cached = true}
-
-local function Cached(f)
-    return function(self, ...)
-        local parent = self:FindCacheParent(...)
-        if not parent._cache then
-            parent._cache = f(self, ...)
-        end
-        return parent._cache
-    end
-end
-
-function Forever:FindCacheParent(...)
-    local db = self.cache
-    for i = 1, select('#', ...) do
-        local key = select(i, ...)
-        db[key] = db[key] or {}
-        db = db[key]
-    end
-    return db
-end
-
 function Forever:FindData(...)
     local db = self.db
     for i = 1, select('#', ...) do
@@ -194,9 +201,10 @@ function Forever:FindData(...)
     return db
 end
 
+---- interface
+
 function Forever:GetOwnerInfo(realm, name)
-    local realmData = self.db[realm]
-    local ownerData = realmData[name]
+    local ownerData = self:FindData(realm, name)
     if ownerData then
         ---@type tdBag2CacheOwnerData
         local data = {}
@@ -279,6 +287,16 @@ function Forever:GetItemInfo(realm, name, bag, slot)
     end
     return NO_RESULT
 end
+
+function Forever:GetOwners()
+    return self.owners
+end
+
+function Forever:HasMultiOwners()
+    return self.hasMultiOwners
+end
+
+local Cached = ns.CacheGenerater()
 
 Forever.GetOwnerInfo = Cached(Forever.GetOwnerInfo)
 Forever.GetBagInfo = Cached(Forever.GetBagInfo)

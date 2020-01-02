@@ -3,13 +3,16 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/24/2019, 1:03:40 PM
 
+---- LUA
 local ipairs, select = ipairs, select
 local tinsert, tconcat = table.insert, table.concat
 local format = string.format
 local tonumber = tonumber
 
+---- WOW
 local GetItemCount = GetItemCount
 
+---- G
 local HEARTHSTONE_ITEM_ID = HEARTHSTONE_ITEM_ID
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
@@ -80,7 +83,7 @@ end
 
 function Tooltip:AddOwners(tip, item)
     local owners, total = 0, 0
-    for owner in Cache:IterateOwners() do
+    for _, owner in ipairs(Cache:GetOwners()) do
         local info = self:GetOwnerItemInfo(owner, item)
         if info and info.total then
             local r, g, b = info.color.r, info.color.g, info.color.b

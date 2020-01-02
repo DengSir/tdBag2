@@ -5,7 +5,6 @@
 
 ---@type ns
 local ns = select(2, ...)
-
 local Cache = ns.Cache
 
 ---@class tdBag2Counter
@@ -36,7 +35,7 @@ function Counter:GetOwnerItemCount(owner, itemId)
     end
 
     local info = Cache:GetOwnerInfo(owner)
-    local equip = self:GetBagItemCount(owner, 'equip', itemId)
+    local equip = self:GetBagItemCount(owner, ns.EQUIP_CONTAINER, itemId)
     local bags, banks = 0, 0
 
     if info.cached then

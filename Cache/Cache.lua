@@ -5,11 +5,8 @@
 
 ---@type ns
 local ns = select(2, ...)
-
----@class tdBag2Cache
-local Cache = ns.Cache
-
-local CACHED_EMPTY = {cached = true}
+local Forever = ns.Forever
+local Current = ns.Current
 
 ---@class tdBag2CacheOwnerData
 ---@field name string
@@ -43,161 +40,11 @@ local CACHED_EMPTY = {cached = true}
 ---@field id number
 ---@field readable boolean
 
-local CachedInterface = {}
-local CurrentInterface = {}
+---@class tdBag2Cache
+local Cache = {}
+ns.Cache = Cache
 
----@return tdBag2CacheOwnerData
-function CachedInterface:GetOwnerInfo(realm, name)
-    local realmData = ns.Forever.db[realm]
-    local ownerData = realmData and realmData[name]
-    if ownerData then
-        return {
-            name = name,
-            realm = realm,
-            faction = ownerData.faction,
-            class = ownerData.class,
-            race = ownerData.race,
-            gender = ownerData.gender,
-            money = ownerData.money,
-            cached = true,
-        }
-    end
-    return CACHED_EMPTY
-end
-
-function CachedInterface:GetBagInfo(realm, name, bag)
-    ---@type tdBag2CacheBagData
-    local data = {}
-    local realmData = ns.Forever.db[realm]
-    local ownerData = realmData and realmData[name]
-    local bagData = ownerData and ownerData[bag]
-
-    if ns.IsContainerBag(bag) then
-        if ns.IsKeyring(bag) then
-            data.family = 9
-            data.owned = true
-        elseif ns.IsBaseBag(bag) then
-            data.count = GetContainerNumSlots(bag)
-            data.owned = true
-            data.family = 0
-        end
-    elseif bag == 'equip' then
-        data.count = INVSLOT_LAST_EQUIPPED
-    end
-
-    data.cached = true
-
-    if bagData then
-        local free = 0
-        for i = 1, data.count or bagData.size do
-            if not bagData[i] then
-                free = free + 1
-            end
-        end
-
-        data.count = bagData.size or data.count
-        data.family = bagData.family or data.family or 0
-        data.owned = true
-        data.free = free
-        data.slot = ns.IsCustomBag(bag) and ContainerIDToInventoryID(bag) or nil
-
-        if data.slot then
-            local info = self:GetItemInfo(realm, name, 'equip', data.slot)
-            data.icon = info.icon
-            data.link = info.link
-            data.id = info.id
-        end
-    end
-    return data
-end
-
-function CachedInterface:GetItemInfo(realm, name, bag, slot)
-    local realmData = ns.Forever.db[realm]
-    local ownerData = realmData and realmData[name]
-    local bagData = ownerData and ownerData[bag]
-    local item = bagData and bagData[slot]
-    if item then
-        ---@type tdBag2CacheItemData
-        local data = {}
-        local link, count = strsplit(';', item)
-
-        data.link = 'item:' .. link
-        data.count = tonumber(count)
-        data.cached = true
-        data.id = tonumber(link:match('^(%d+)'))
-        data.icon = GetItemIcon(data.link)
-        local name, link, quality = GetItemInfo(data.link)
-        if name then
-            data.link = link
-            data.quality = quality
-        end
-        return data
-    end
-    return CACHED_EMPTY
-end
-
-function CurrentInterface:GetOwnerInfo()
-    ---@type tdBag2CacheOwnerData
-    local data = {}
-    data.name, data.realm = UnitName('player')
-    data.class = UnitClassBase('player')
-    data.faction = UnitFactionGroup('player')
-    data.race = select(2, UnitRace('player'))
-    data.gender = UnitSex('player')
-    data.money = (GetMoney() or 0) - GetCursorMoney() - GetPlayerTradeMoney()
-    return data
-end
-
-function CurrentInterface:GetBagInfo(bag)
-    ---@type tdBag2CacheBagData
-    local data = {}
-
-    if ns.IsContainerBag(bag) then
-        data.free, data.family = GetContainerNumFreeSlots(bag)
-        data.count = GetContainerNumSlots(bag)
-
-        if ns.IsCustomBag(bag) then
-            data.slot = ContainerIDToInventoryID(bag)
-            data.link = GetInventoryItemLink('player', data.slot)
-            data.icon = GetInventoryItemTexture('player', data.slot)
-
-            if ns.IsInBank(bag) then
-                data.owned = (bag - NUM_BAG_SLOTS) <= GetNumBankSlots()
-                data.cost = GetBankSlotCost()
-            else
-                data.owned = not not data.link
-            end
-        elseif ns.IsKeyring(bag) then
-            data.family = 9
-            data.owned = HasKey() or data.count > 0
-            data.free = data.count and data.free and data.count + data.free - 32
-        else
-            data.owned = true
-        end
-    elseif bag == 'equip' then
-        data.count = INVSLOT_LAST_EQUIPPED
-        data.family = -4
-        data.owned = true
-    end
-    return data
-end
-
-function CurrentInterface:GetItemInfo(bag, slot)
-    ---@type tdBag2CacheItemData
-    local data = {}
-    if ns.IsContainerBag(bag) then
-        local _
-        data.icon, data.count, data.locked, data.quality, data.readable, _, data.link, _, _, data.id =
-            GetContainerItemInfo(bag, slot)
-    elseif bag == 'equip' then
-        data.link = GetInventoryItemLink('player', slot)
-        data.icon = GetInventoryItemTexture('player', slot)
-        data.quality = GetInventoryItemQuality('player', slot)
-        data.id = GetInventoryItemID('player', slot)
-    end
-    return data
-end
-
+local CACHED_EMPTY = {cached = true}
 local PLAYER = UnitName('player')
 local REALM = GetRealmName()
 
@@ -210,9 +57,9 @@ function Cache:GetOwnerInfo(owner)
     local cached = self:IsOwnerCached(realm, name)
 
     if cached then
-        return CachedInterface:GetOwnerInfo(realm, name)
+        return Forever:GetOwnerInfo(realm, name)
     else
-        return CurrentInterface:GetOwnerInfo()
+        return Current:GetOwnerInfo()
     end
 end
 
@@ -221,9 +68,9 @@ function Cache:GetBagInfo(owner, bag)
     local cached = self:IsBagCached(realm, name, bag)
 
     if cached then
-        return CachedInterface:GetBagInfo(realm, name, bag)
+        return Forever:GetBagInfo(realm, name, bag)
     else
-        return CurrentInterface:GetBagInfo(bag)
+        return Current:GetBagInfo(bag)
     end
 end
 
@@ -232,9 +79,9 @@ function Cache:GetItemInfo(owner, bag, slot)
     local cached = self:IsBagCached(realm, name, bag)
 
     if cached then
-        return CachedInterface:GetItemInfo(realm, name, bag, slot)
+        return Forever:GetItemInfo(realm, name, bag, slot)
     else
-        return CurrentInterface:GetItemInfo(bag, slot)
+        return Current:GetItemInfo(bag, slot)
     end
 end
 
@@ -247,7 +94,7 @@ function Cache:IsBagCached(realm, name, bag)
         return true
     end
 
-    if ns.IsInBank(bag) and not ns.Forever.atBank then
+    if ns.IsInBank(bag) and not Forever.atBank then
         return true
     end
 end
@@ -262,10 +109,10 @@ function Cache:IsOwnerBagCached(owner, bag)
     return self:IsBagCached(realm, name, bag)
 end
 
-function Cache:IterateOwners()
-    return coroutine.wrap(function()
-        for k, v in pairs(ns.Forever.db[REALM]) do
-            coroutine.yield(k)
-        end
-    end)
+function Cache:GetOwners()
+    return Forever:GetOwners()
+end
+
+function Cache:HasMultiOwners()
+    return Forever:HasMultiOwners()
 end

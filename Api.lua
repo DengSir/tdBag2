@@ -11,11 +11,10 @@ local tinsert = table.insert
 local tonumber = tonumber
 
 ---- WOW
-local ContainerIDToInventoryID = ContainerIDToInventoryID
-local UnitName = UnitName
-local GetScreenWidth = GetScreenWidth
-local GetScreenHeight = GetScreenHeight
 local C_Timer = C_Timer
+local ContainerIDToInventoryID = ContainerIDToInventoryID
+local GetScreenHeight = GetScreenHeight
+local GetScreenWidth = GetScreenWidth
 
 ---- UI
 local GameTooltip = GameTooltip
@@ -28,9 +27,15 @@ local KEYRING_CONTAINER = KEYRING_CONTAINER
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local NUM_BANKBAGSLOTS = NUM_BANKBAGSLOTS
 local EQUIP_CONTAINER = 'equip'
+local MAIL_CONTAINER = 'mail'
+
+local PLAYER = UnitName('player')
 
 ---@type ns
 local ns = select(2, ...)
+
+ns.EQUIP_CONTAINER = EQUIP_CONTAINER
+ns.MAIL_CONTAINER = MAIL_CONTAINER
 
 ns.ITEM_SIZE = 37
 ns.ITEM_SPACING = 2
@@ -61,8 +66,6 @@ ns.RACE_ICON_TCOORDS = {
 }
 
 ns.TOKENS = {20560, 20559, 20558}
-
-ns.EQUIP_CONTAINER = EQUIP_CONTAINER
 
 -- @debug@
 local L = LibStub('AceLocale-3.0'):GetLocale('tdBag2')
@@ -194,7 +197,7 @@ function ns.InvToBag(inv)
 end
 
 function ns.IsSelf(owner)
-    return not owner or owner == UnitName('player')
+    return not owner or owner == PLAYER
 end
 
 function ns.AnchorTooltip(frame)
@@ -240,5 +243,29 @@ function ns.NameGenerator(name)
     return function()
         index = index + 1
         return name .. index
+    end
+end
+
+function ns.CacheGenerater()
+    local CACHE = {}
+
+    local function FindCache(...)
+        local cache = CACHE
+        for i = 1, select('#', ...) do
+            local key = select(i, ...)
+            cache[key] = cache[key] or {}
+            cache = cache[key]
+        end
+        return cache
+    end
+
+    return function(f)
+        return function(obj, ...)
+            local p = FindCache(...)
+            if not p._cache then
+                p._cache = f(obj, ...)
+            end
+            return p._cache
+        end
     end
 end

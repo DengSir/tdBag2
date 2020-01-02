@@ -3,9 +3,13 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/23/2019, 3:14:52 PM
 
+---- LUA
+local ipairs, pairs = ipairs, pairs
 local format = string.format
-local UnitName = UnitName
-local GetRealmName = GetRealmName
+local wipe = table.wipe or wipe
+
+---- WOW
+local UnitFullName = UnitFullName
 
 ---@type ns
 local ns = select(2, ...)
@@ -138,7 +142,7 @@ function Addon:SetupOptionFrame()
         }
     end
 
-    local charProfileKey = format('%s - %s', UnitName('player'), GetRealmName())
+    local charProfileKey = format('%s - %s', UnitFullName('player'))
 
     local options = {
         type = 'group',
@@ -259,7 +263,7 @@ function Addon:SetupOptionFrame()
     self:RefreshPluginOptions()
 end
 
-local OpenToCategory = function(options)
+local function OpenToCategory(options)
     InterfaceOptionsFrame_OpenToCategory(options)
     InterfaceOptionsFrame_OpenToCategory(options)
     OpenToCategory = InterfaceOptionsFrame_OpenToCategory

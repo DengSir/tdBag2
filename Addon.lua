@@ -23,6 +23,7 @@ local UIParent = UIParent
 ---@field Counter tdBag2Counter
 ---@field Forever tdBag2Forever
 ---@field Cache tdBag2Cache
+---@field Current tdBag2Current
 local ns = select(2, ...)
 local BAG_ID = ns.BAG_ID
 
@@ -67,8 +68,6 @@ local BAG_ID = ns.BAG_ID
 ---@field Token tdBag2Token
 ---@field MenuButton tdBag2MenuButton
 ns.UI = {}
--- ns.Cache = LibStub('LibItemCache-2.0')
-ns.Cache = {}
 ns.Search = LibStub('LibItemSearch-1.2')
 ns.Unfit = LibStub('Unfit-1.0')
 

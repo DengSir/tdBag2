@@ -4,7 +4,7 @@
     <Include file="Localization\Localization.xml" />
     <Script file="Api.lua" />
     <Script file="Addon.lua" />
+    <Include file="Cache\Cache.xml" />
     <Include file="Core\Core.xml" />
-    <Script file="Cache\Forever.lua" />
-    <Script file="Cache\Cache.lua" />
+    <Include file="UI\UI.xml" />
 </Ui>

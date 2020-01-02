@@ -7,6 +7,7 @@
 local select = select
 local tinsert = table.insert
 local unpack = table.unpack or unpack
+local ipairs = ipairs
 
 ---- WOW
 local CreateFrame = CreateFrame
@@ -82,7 +83,7 @@ function OwnerSelector:Update()
 end
 
 function OwnerSelector:UpdateEnable()
-    self:SetEnabled(self:HasMultiOwners())
+    self:SetEnabled(Cache:HasMultiOwners())
 end
 
 function OwnerSelector:UpdateIcon()
@@ -111,17 +112,10 @@ function OwnerSelector:UpdateIcon()
     end
 end
 
-function OwnerSelector:HasMultiOwners()
-    local iter = Cache:IterateOwners()
-    return iter() and iter()
-end
-
 function OwnerSelector:CreateMenu()
-    local menuList = {self:CreateOwnerMenu()}
-    for name in Cache:IterateOwners() do
-        if not ns.IsSelf(name) then
-            tinsert(menuList, self:CreateOwnerMenu(name))
-        end
+    local menuList = {}
+    for _, owner in ipairs(Cache:GetOwners()) do
+        tinsert(menuList, self:CreateOwnerMenu(owner))
     end
     return menuList
 end

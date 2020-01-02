@@ -7,6 +7,9 @@
 local ipairs = ipairs
 local select = select
 
+---- WOW
+local CreateFrame = CreateFrame
+
 ---@type ns
 local ns = select(2, ...)
 

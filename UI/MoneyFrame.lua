@@ -6,12 +6,16 @@
 ---- LUA
 local _G = _G
 local select = select
+local ipairs = ipairs
 
 ---- WOW
 local GetMoneyString = GetMoneyString
 local MoneyFrame_Update = MoneyFrame_Update
 local MoneyInputFrame_OpenPopup = MoneyInputFrame_OpenPopup
 local MoneyFrame_UpdateTrialErrorButton = MoneyFrame_UpdateTrialErrorButton
+
+---- L
+local WORLD_QUEST_REWARD_FILTERS_GOLD = WORLD_QUEST_REWARD_FILTERS_GOLD
 
 ---- UI
 local GameTooltip = GameTooltip
@@ -72,29 +76,24 @@ function MoneyFrame:Update()
 end
 
 function MoneyFrame:OnEnter()
-    local total = 0
-    for name in Cache:IterateOwners() do
-        local owner = Cache:GetOwnerInfo(name)
-        dump(owner)
-        if not owner.isguild and owner.money then
-            total = total + owner.money
-        end
-    end
-
     ns.AnchorTooltip2(self, 'RIGHT')
-    GameTooltip:AddDoubleLine(L['Total'], GetMoneyString(total, true), nil, nil, nil, 1, 1, 1)
+    GameTooltip:SetText(WORLD_QUEST_REWARD_FILTERS_GOLD)
     GameTooltip:AddLine(' ')
 
-    for name in Cache:IterateOwners() do
+    local total = 0
+    for _, name in ipairs(Cache:GetOwners()) do
         local owner = Cache:GetOwnerInfo(name)
         if not owner.isguild and owner.money then
             local name = ns.GetOwnerColoredName(owner)
             local coins = GetMoneyString(owner.money, true)
 
             GameTooltip:AddDoubleLine(name, coins, 1, 1, 1, 1, 1, 1)
+
+            total = total + owner.money
         end
     end
-
+    GameTooltip:AddLine(' ')
+    GameTooltip:AddDoubleLine(L['Total'], GetMoneyString(total, true), 0.66, 0.66, 0.66, 1, 1, 1)
     GameTooltip:Show()
 end
 

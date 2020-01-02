@@ -235,13 +235,6 @@ function Bag:GetFreeCount()
         return 0
     end
     return self.info.free
-    -- local count = 0
-    -- for i = 1, self.info.count do
-    --     if not Cache:GetItemID(self.meta.owner, self.bag, i) then
-    --         count = count + 1
-    --     end
-    -- end
-    -- return count
 end
 
 function Bag:IsPurchasable()
