@@ -47,7 +47,7 @@ function Forever:SetupCache()
     self.db = ns.Addon.db.global.forever
     self.db[realm] = self.db[realm] or {}
     self.realm = self.db[realm]
-    self.realm[player] = self.realm[player] or {equip = {}}
+    self.realm[player] = self.realm[player] or {[ns.EQUIP_CONTAINER] = {}}
     self.player = self.realm[player]
 
     self.player.faction = UnitFactionGroup('player')
@@ -118,23 +118,6 @@ end
 
 function Forever:ParseItem(link, count)
     if link then
-        local id = tonumber(link:match('item:(%d+):')) -- check for profession window bug
-        if not id or id == 0 then
-            error('111')
-        end
-        -- if id == 0 and TradeSkillFrame then
-        --     local focus = GetMouseFocus():GetName()
-
-        --     if focus == 'TradeSkillSkillIcon' then
-        --         link = GetTradeSkillItemLink(TradeSkillFrame.selectedSkill)
-        --     else
-        --         local i = focus:match('TradeSkillReagent(%d+)')
-        --         if i then
-        --             link = GetTradeSkillReagentItemLink(TradeSkillFrame.selectedSkill, tonumber(i))
-        --         end
-        --     end
-        -- end
-
         if link:find('0:0:0:0:0:%d+:%d+:%d+:0:0') then
             link = link:match('|H%l+:(%d+)')
         else
@@ -144,7 +127,6 @@ function Forever:ParseItem(link, count)
         if count and count > 1 then
             link = link .. ';' .. count
         end
-
         return link
     end
 end
@@ -173,7 +155,7 @@ function Forever:SaveEquip(slot)
     local link = GetInventoryItemLink('player', slot)
     local count = GetInventoryItemCount('player', slot)
 
-    self.player.equip[slot] = self:ParseItem(link, count)
+    self.player[ns.EQUIP_CONTAINER][slot] = self:ParseItem(link, count)
 end
 
 ---- interface
@@ -182,20 +164,25 @@ local NO_RESULT = {cached = true}
 
 local function Cached(f)
     return function(self, ...)
-        local key = table.concat({tostringall(...)}, '/')
-        local cache = self.cache[key]
-        if not cache then
-            print(key)
-            cache = f(self, ...)
-            self.cache[key] = cache
-
+        local parent = self:FindCacheParent(...)
+        if not parent._cache then
+            parent._cache = f(self, ...)
         end
-        return cache
+        return parent._cache
     end
 end
 
+function Forever:FindCacheParent(...)
+    local db = self.cache
+    for i = 1, select('#', ...) do
+        local key = select(i, ...)
+        db[key] = db[key] or {}
+        db = db[key]
+    end
+    return db
+end
+
 function Forever:FindData(...)
-    print(...)
     local db = self.db
     for i = 1, select('#', ...) do
         local key = select(i, ...)
@@ -242,7 +229,7 @@ function Forever:GetBagInfo(realm, name, bag)
             data.owned = true
             data.family = 0
         end
-    elseif bag == 'equip' then
+    elseif ns.IsEquip(bag) then
         data.count = INVSLOT_LAST_EQUIPPED
     end
 
@@ -261,7 +248,7 @@ function Forever:GetBagInfo(realm, name, bag)
         data.slot = ns.IsCustomBag(bag) and ContainerIDToInventoryID(bag) or nil
 
         if data.slot then
-            local info = self:GetItemInfo(realm, name, 'equip', data.slot)
+            local info = self:GetItemInfo(realm, name, ns.EQUIP_CONTAINER, data.slot)
             data.icon = info.icon
             data.link = info.link
             data.id = info.id

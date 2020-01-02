@@ -8,6 +8,7 @@ local pairs = pairs
 local select = select
 local format = string.format
 local tinsert = table.insert
+local tonumber = tonumber
 
 ---- WOW
 local ContainerIDToInventoryID = ContainerIDToInventoryID
@@ -26,6 +27,7 @@ local BANK_CONTAINER = BANK_CONTAINER
 local KEYRING_CONTAINER = KEYRING_CONTAINER
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local NUM_BANKBAGSLOTS = NUM_BANKBAGSLOTS
+local EQUIP_CONTAINER = 'equip'
 
 ---@type ns
 local ns = select(2, ...)
@@ -59,6 +61,8 @@ ns.RACE_ICON_TCOORDS = {
 }
 
 ns.TOKENS = {20560, 20559, 20558}
+
+ns.EQUIP_CONTAINER = EQUIP_CONTAINER
 
 -- @debug@
 local L = LibStub('AceLocale-3.0'):GetLocale('tdBag2')
@@ -167,6 +171,10 @@ end
 
 function ns.IsKeyring(bag)
     return bag == KEYRING_CONTAINER
+end
+
+function ns.IsEquip(bag)
+    return bag == EQUIP_CONTAINER
 end
 
 function ns.IsBaseBag(bag)
