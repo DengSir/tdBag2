@@ -30,6 +30,7 @@ local EQUIP_CONTAINER = 'equip'
 local MAIL_CONTAINER = 'mail'
 
 local PLAYER = UnitName('player')
+local REALM = GetRealmName()
 
 ---@type ns
 local ns = select(2, ...)
@@ -78,12 +79,39 @@ ns.L = L
 local BAG_ID = { --
     BAG = 'bag',
     BANK = 'bank',
+    OTHER = 'other',
+}
+
+local BAG_ICONS = { --
+    [BAG_ID.BAG] = [[Interface\Buttons\Button-Backpack-Up]],
+    [BAG_ID.BANK] = [[Interface\ICONS\INV_Misc_Bag_13]],
+    [BAG_ID.OTHER] = 135022,
+    -- [BAG_ID.MAIL] = [[Interface\MailFrame\Mail-Icon]],
+}
+
+local BAG_TITLES = { --
+    [BAG_ID.BAG] = L.TITLE_BAG,
+    [BAG_ID.BANK] = L.TITLE_BANK,
+    [BAG_ID.OTHER] = '%s的其它物品',
+    -- [BAG_ID.EQUIP] = '%s的装备',
+    -- [BAG_ID.MAIL] = '%s的邮箱',
 }
 
 local BAGS = { --
     [BAG_ID.BAG] = {BACKPACK_CONTAINER},
     [BAG_ID.BANK] = {BANK_CONTAINER},
+    [BAG_ID.OTHER] = {EQUIP_CONTAINER, MAIL_CONTAINER},
+    -- [BAG_ID.EQUIP] = {EQUIP_CONTAINER},
+    -- [BAG_ID.MAIL] = {MAIL_CONTAINER},
 }
+
+local BAG_CLASSES = { --
+    [BAG_ID.BAG] = 'Inventory',
+    [BAG_ID.BANK] = 'Bank',
+    [BAG_ID.EQUIP] = 'Frame',
+    [BAG_ID.MAIL] = 'Frame',
+}
+
 local BAG_SETS = {}
 local INV_IDS = {}
 do
@@ -111,15 +139,11 @@ do
 end
 
 ns.BAG_ID = BAG_ID
-ns.BAG_ICONS = { --
-    [BAG_ID.BAG] = [[Interface\Buttons\Button-Backpack-Up]],
-    [BAG_ID.BANK] = [[Interface\ICONS\INV_Misc_Bag_13]],
-}
-
-ns.FRAME_TITLES = { --
-    [BAG_ID.BAG] = L.TITLE_BAG,
-    [BAG_ID.BANK] = L.TITLE_BANK,
-}
+ns.BAG_ICONS = BAG_ICONS
+ns.BAG_TITLES = BAG_TITLES
+ns.BAG_CLASSES = BAG_CLASSES
+ns.PLAYER = PLAYER
+ns.REALM = REALM
 
 ns.BAG_FAMILY = { --
     [1] = 'Quiver',
@@ -178,6 +202,10 @@ end
 
 function ns.IsEquip(bag)
     return bag == EQUIP_CONTAINER
+end
+
+function ns.IsMail(bag)
+    return bag == MAIL_CONTAINER
 end
 
 function ns.IsBaseBag(bag)

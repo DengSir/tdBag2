@@ -74,8 +74,10 @@ function Forever:SetupCache()
     self.db = ns.Addon.db.global.forever
     self.db[realm] = self.db[realm] or {}
     self.realm = self.db[realm]
-    self.realm[player] = self.realm[player] or {[ns.EQUIP_CONTAINER] = {}}
+    self.realm[player] = self.realm[player] or {}
     self.player = self.realm[player]
+    self.player[ns.EQUIP_CONTAINER] = self.player[ns.EQUIP_CONTAINER] or {}
+    self.player[ns.MAIL_CONTAINER] = self.player[ns.MAIL_CONTAINER] or {}
 
     self.player.faction = UnitFactionGroup('player')
     self.player.class = UnitClassBase('player')
@@ -99,6 +101,8 @@ function Forever:SetupEvents()
     self:RegisterEvent('PLAYER_MONEY')
     self:RegisterEvent('BANKFRAME_OPENED')
     self:RegisterEvent('BANKFRAME_CLOSED')
+    self:RegisterEvent('MAIL_SHOW')
+    self:RegisterEvent('MAIL_CLOSED')
     self:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
 end
 
@@ -131,13 +135,39 @@ function Forever:BANKFRAME_CLOSED()
     self:SendMessage('BANK_CLOSED')
 end
 
-Forever.BAG_CLOSED = ns.Spawned(Forever.BAG_UPDATE)
+function Forever:MAIL_SHOW()
+    self.atMail = true
+end
+
+function Forever:MAIL_CLOSED()
+    if not self.atMail then
+        return
+    end
+
+    local db = wipe(self.player[ns.MAIL_CONTAINER])
+
+    local num, total = GetInboxNumItems()
+    for i = 1, num do
+        for j = 1, ATTACHMENTS_MAX_RECEIVE do
+            local link = GetInboxItemLink(i, j)
+            if link then
+                local count = select(4, GetInboxItem(i, j))
+
+                tinsert(db, self:ParseItem(link, count))
+            end
+        end
+    end
+
+    db.size = #db
+end
 
 function Forever:BAG_UPDATE(_, bag)
     if bag <= NUM_BAG_SLOTS then
         self:SaveBag(bag)
     end
 end
+
+Forever.BAG_CLOSED = ns.Spawned(Forever.BAG_UPDATE)
 
 function Forever:PLAYER_MONEY()
     self.player.money = GetMoney()

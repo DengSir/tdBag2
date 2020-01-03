@@ -45,8 +45,8 @@ local Cache = {}
 ns.Cache = Cache
 
 local CACHED_EMPTY = {cached = true}
-local PLAYER = UnitName('player')
-local REALM = GetRealmName()
+local PLAYER = ns.PLAYER
+local REALM = ns.REALM
 
 function Cache:GetOwnerAddress(owner)
     return REALM, owner or PLAYER
@@ -64,6 +64,7 @@ function Cache:GetOwnerInfo(owner)
 end
 
 function Cache:GetBagInfo(owner, bag)
+    print(owner, bag)
     local realm, name = self:GetOwnerAddress(owner)
     local cached = self:IsBagCached(realm, name, bag)
 
@@ -95,6 +96,10 @@ function Cache:IsBagCached(realm, name, bag)
     end
 
     if ns.IsInBank(bag) and not Forever.atBank then
+        return true
+    end
+
+    if ns.IsMail(bag) or ns.IsEquip(bag) then
         return true
     end
 end

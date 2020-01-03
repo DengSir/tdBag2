@@ -202,7 +202,11 @@ end
 
 function Container:CreateBagFrame(bag)
     local frame = CreateFrame('Frame', nil, self)
-    frame:SetID(bag)
+    if ns.IsContainerBag(bag) then
+        frame:SetID(bag)
+    else
+        frame:SetID(0)
+    end
     self.bagFrames[bag] = frame
     return frame
 end

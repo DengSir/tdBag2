@@ -156,6 +156,11 @@ function Item:OnEnter()
             GameTooltip:SetInventoryItem('player', BankButtonIDToInvSlotID(self.slot))
             GameTooltip:Show()
             CursorUpdate(self)
+        elseif ns.IsEquip(self.bag) then
+            ns.AnchorTooltip(self)
+            GameTooltip:SetInventoryItem('player', self.slot)
+            GameTooltip:Show()
+            CursorUpdate(self)
         else
             ContainerFrameItemButton_OnEnter(self)
         end
@@ -312,7 +317,9 @@ end
 
 function Item:UpdateCooldown()
     if self.hasItem and not self:IsCached() then
-        ContainerFrame_UpdateCooldown(self.bag, self)
+        if ns.IsContainerBag(self.bag) then
+            ContainerFrame_UpdateCooldown(self.bag, self)
+        end
     else
         self.Cooldown:Hide()
         CooldownFrame_Set(self.Cooldown, 0, 0, 0)
@@ -358,7 +365,8 @@ function Item:IsCached()
 end
 
 function Item:IsNew()
-    return self.bag and not self:IsCached() and C_NewItems.IsNewItem(self.bag, self.slot)
+    return self.bag and ns.IsContainerBag(self.bag) and not self:IsCached() and
+               C_NewItems.IsNewItem(self.bag, self.slot)
 end
 
 function Item:IsPaid()

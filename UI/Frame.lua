@@ -47,8 +47,6 @@ function Frame:Constructor(_, bagId)
     self.pluginButtons = {}
     self.name = 'tdBag2Bag' .. self.meta.bagId
 
-    self.portrait:SetTexture(ns.BAG_ICONS[bagId])
-
     ns.UI.TitleFrame:Bind(self.TitleFrame, self.meta)
     ns.UI.OwnerSelector:Bind(self.OwnerSelector, self.meta)
     ns.UI.BagFrame:Bind(self.BagFrame, self.meta)
