@@ -17,4 +17,5 @@
     <Script file="BagToggle.lua" />
     <Script file="SearchToggle.lua" />
     <Script file="SearchBox.lua" />
+    <Script file="PluginFrame.lua" />
 </Ui>

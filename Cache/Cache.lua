@@ -39,6 +39,7 @@ local Current = ns.Current
 ---@field quality number
 ---@field id number
 ---@field readable boolean
+---@field timeout number
 
 ---@class tdBag2Cache
 local Cache = {}
@@ -64,7 +65,6 @@ function Cache:GetOwnerInfo(owner)
 end
 
 function Cache:GetBagInfo(owner, bag)
-    print(owner, bag)
     local realm, name = self:GetOwnerAddress(owner)
     local cached = self:IsBagCached(realm, name, bag)
 
@@ -120,4 +120,8 @@ end
 
 function Cache:HasMultiOwners()
     return Forever:HasMultiOwners()
+end
+
+function Cache:DeleteOwnerInfo(owner)
+    return Forever:DeleteOwnerInfo(self:GetOwnerAddress(owner))
 end
