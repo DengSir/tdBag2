@@ -71,7 +71,7 @@
                     <Anchor point="TOPLEFT" x="64" y="-29" />
                 </Anchors>
             </Frame>
-            <Frame parentKey="PluginParent">
+            <Frame parentKey="PluginFrame">
                 <Size x="1" y="24" />
                 <Anchors>
                     <Anchor point="TOPRIGHT" x="-15" y="-31" />

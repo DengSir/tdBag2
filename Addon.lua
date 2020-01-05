@@ -248,7 +248,7 @@ function Addon:CreateFrame(bagId)
     if not class then
         return
     end
-    local frame = class:New(UIParent, bagId)
+    local frame = class:Bind(CreateFrame('Frame', nil, UIParent, 'tdBag2FrameTemplate'), bagId)
     self.frames[bagId] = frame
     return frame
 end

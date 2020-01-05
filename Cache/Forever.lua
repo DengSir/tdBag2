@@ -8,6 +8,7 @@ local select, pairs, ipairs = select, pairs, ipairs
 local tinsert = table.insert
 local tonumber = tonumber
 local strsplit = strsplit
+local tDeleteItem = tDeleteItem
 
 ---- WOW
 local ContainerIDToInventoryID = ContainerIDToInventoryID
@@ -294,6 +295,17 @@ end
 
 function Forever:HasMultiOwners()
     return self.hasMultiOwners
+end
+
+function Forever:DeleteOwnerInfo(realm, name)
+    local realmData = self.db[realm]
+    if realmData then
+        realmData[name] = nil
+
+        if realmData == self.realm then
+            tDeleteItem(self.owners, name)
+        end
+    end
 end
 
 local Cached = ns.CacheGenerater()
