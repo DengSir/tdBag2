@@ -121,10 +121,13 @@ function OwnerSelector:CreateMenu()
 end
 
 function OwnerSelector:CreateOwnerMenu(name)
-    local info = Cache:GetOwnerInfo(name)
-    local isSelf = not name
+    local isSelf = ns.IsSelf(name)
+    if isSelf then
+        name = nil
+    end
     local isCurrent = name == self.meta.owner
     local hasArrow = not isSelf and not isCurrent
+    local info = Cache:GetOwnerInfo(name)
 
     return {
         text = ns.GetOwnerColoredName(info),

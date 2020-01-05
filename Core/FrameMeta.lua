@@ -54,6 +54,11 @@ function FrameMeta:ToggleBagHidden(bag)
     ns.Events:Fire('UPDATE_ALL')
 end
 
+function FrameMeta:ToggleBagFrame()
+    self.profile.bagFrame = not self.profile.bagFrame
+    ns.Events:Fire('UPDATE_ALL')
+end
+
 function FrameMeta:IsBagHidden(bag)
     return self.profile.hiddenBags[bag]
 end

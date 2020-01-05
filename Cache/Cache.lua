@@ -39,6 +39,7 @@ local Current = ns.Current
 ---@field quality number
 ---@field id number
 ---@field readable boolean
+---@field timeout number
 
 ---@class tdBag2Cache
 local Cache = {}
@@ -115,4 +116,8 @@ end
 
 function Cache:HasMultiOwners()
     return Forever:HasMultiOwners()
+end
+
+function Cache:DeleteOwnerInfo(owner)
+    return Forever:DeleteOwnerInfo(self:GetOwnerAddress(owner))
 end
