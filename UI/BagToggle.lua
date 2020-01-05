@@ -37,9 +37,9 @@ end
 
 function BagToggle:OnClick(button)
     if button == 'LeftButton' then
-        PlaySound(self:GetChecked() and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or
+        PlaySound(self.meta.profile.bagFrame and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or
                       SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
-        self.meta.frame:ToggleBagFrame()
+        self.meta:ToggleBagFrame()
         self:OnEnter()
     elseif IsControlKeyDown() then
         self:ToggleMenu()
@@ -70,7 +70,7 @@ function BagToggle:OnLeave()
 end
 
 function BagToggle:Update()
-    self:SetChecked(self.meta.profile.bagFrame)
+    -- self:SetChecked(self.meta.profile.bagFrame)
 end
 
 function BagToggle:CreateMenu()
@@ -79,8 +79,8 @@ function BagToggle:CreateMenu()
             text = 'Open mail',
             func = function()
                 Addon:ToggleOwnerFrame(BAG_ID.OTHER, self.meta.owner)
-            end
-        }
+            end,
+        },
     }
 end
 

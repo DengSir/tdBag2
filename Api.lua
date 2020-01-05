@@ -85,31 +85,31 @@ local BAG_ID = { --
 local BAG_ICONS = { --
     [BAG_ID.BAG] = [[Interface\Buttons\Button-Backpack-Up]],
     [BAG_ID.BANK] = [[Interface\ICONS\INV_Misc_Bag_13]],
-    [BAG_ID.OTHER] = 135022,
-    -- [BAG_ID.MAIL] = [[Interface\MailFrame\Mail-Icon]],
+    [BAG_ID.OTHER] = [[Interface\MailFrame\Mail-Icon]],
 }
 
 local BAG_TITLES = { --
     [BAG_ID.BAG] = L.TITLE_BAG,
     [BAG_ID.BANK] = L.TITLE_BANK,
     [BAG_ID.OTHER] = '%s的其它物品',
-    -- [BAG_ID.EQUIP] = '%s的装备',
-    -- [BAG_ID.MAIL] = '%s的邮箱',
 }
 
 local BAGS = { --
     [BAG_ID.BAG] = {BACKPACK_CONTAINER},
     [BAG_ID.BANK] = {BANK_CONTAINER},
     [BAG_ID.OTHER] = {EQUIP_CONTAINER, MAIL_CONTAINER},
-    -- [BAG_ID.EQUIP] = {EQUIP_CONTAINER},
-    -- [BAG_ID.MAIL] = {MAIL_CONTAINER},
 }
 
 local BAG_CLASSES = { --
     [BAG_ID.BAG] = 'Inventory',
     [BAG_ID.BANK] = 'Bank',
-    [BAG_ID.EQUIP] = 'Frame',
-    [BAG_ID.MAIL] = 'Frame',
+    [BAG_ID.OTHER] = 'Frame',
+}
+
+local BAG_TEMPLATES = { --
+    [BAG_ID.BAG] = 'tdBag2FrameTemplate',
+    [BAG_ID.BANK] = 'tdBag2FrameTemplate',
+    [BAG_ID.OTHER] = 'tdBag2BaseFrameTemplate',
 }
 
 local BAG_SETS = {}
@@ -142,6 +142,7 @@ ns.BAG_ID = BAG_ID
 ns.BAG_ICONS = BAG_ICONS
 ns.BAG_TITLES = BAG_TITLES
 ns.BAG_CLASSES = BAG_CLASSES
+ns.BAG_TEMPLATES = BAG_TEMPLATES
 ns.PLAYER = PLAYER
 ns.REALM = REALM
 
@@ -226,6 +227,10 @@ end
 
 function ns.IsSelf(owner)
     return not owner or owner == PLAYER
+end
+
+function ns.GetInvIds()
+    return INV_IDS
 end
 
 function ns.AnchorTooltip(frame)

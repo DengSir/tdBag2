@@ -67,6 +67,7 @@ local BAG_ID = ns.BAG_ID
 ---@field TokenFrame tdBag2TokenFrame
 ---@field Token tdBag2Token
 ---@field MenuButton tdBag2MenuButton
+---@field PluginFrame tdBag2PluginFrame
 ns.UI = {}
 ns.Search = LibStub('LibItemSearch-1.2')
 ns.Unfit = LibStub('Unfit-1.0')
@@ -109,23 +110,10 @@ function Addon:OnInitialize()
                     tradeBagOrder = ns.TRADE_BAG_ORDER.NONE,
                     hiddenBags = {},
                 },
-                [BAG_ID.EQUIP] = { --
+                [BAG_ID.OTHER] = { --
                     window = {point = 'TOPLEFT', x = 50, y = -100},
                     disableButtons = {},
-                    column = 6,
-                    reverseBag = false,
-                    reverseSlot = false,
-                    managed = true,
-                    bagFrame = true,
-                    tokenFrame = true,
-                    scale = 1,
-                    tradeBagOrder = ns.TRADE_BAG_ORDER.NONE,
-                    hiddenBags = {},
-                },
-                [BAG_ID.MAIL] = { --
-                    window = {point = 'TOPLEFT', x = 50, y = -100},
-                    disableButtons = {},
-                    column = 8,
+                    column = 12,
                     reverseBag = false,
                     reverseSlot = false,
                     managed = true,
@@ -270,7 +258,13 @@ function Addon:CreateFrame(bagId)
     if not class then
         return
     end
-    local frame = class:New(UIParent, bagId)
+    local template = ns.BAG_TEMPLATES[bagId]
+    local frame
+    if template then
+        frame = class:Bind(CreateFrame('Frame', nil, UIParent, template), bagId)
+    else
+        frame = class:New(UIParent, bagId)
+    end
     self.frames[bagId] = frame
     return frame
 end
