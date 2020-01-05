@@ -8,6 +8,7 @@ local select, pairs, ipairs = select, pairs, ipairs
 local tinsert = table.insert
 local tonumber = tonumber
 local strsplit = strsplit
+local tDeleteItem = tDeleteItem
 
 ---- WOW
 local ContainerIDToInventoryID = ContainerIDToInventoryID
@@ -350,7 +351,7 @@ function Forever:DeleteOwnerInfo(realm, name)
         realmData[name] = nil
 
         if realmData == self.realm then
-            tDeleteItem(self.owners, owner)
+            tDeleteItem(self.owners, name)
         end
     end
 end
