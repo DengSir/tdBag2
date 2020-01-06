@@ -39,7 +39,7 @@ function BagToggle:OnClick(button)
     if button == 'LeftButton' then
         PlaySound(self:GetChecked() and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or
                       SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
-        self.meta.frame:ToggleBagFrame()
+        self.meta:ToggleBagFrame()
         self:OnEnter()
     else
         local bagId = self.meta:IsBag() and BAG_ID.BANK or BAG_ID.BAG
