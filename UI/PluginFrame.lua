@@ -50,6 +50,7 @@ end
 
 function PluginFrame:CreatePluginButton(plugin)
     local button = CreateFrame('CheckButton', nil, self, 'tdBag2ToggleButtonTemplate')
+    button:Hide()
     button.texture:SetTexture(plugin.icon)
     plugin.init(button, self)
     self.pluginButtons[plugin.key] = button

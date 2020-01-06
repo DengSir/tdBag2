@@ -28,20 +28,17 @@ function SearchToggle:Constructor(_, meta)
     self:SetScript('OnClick', self.OnClick)
     self:SetScript('OnEnter', self.OnEnter)
     self:SetScript('OnLeave', GameTooltip_Hide)
-    self.meta.frame.SearchBox:HookScript('OnTextChanged', function()
-        self:CloseMenu()
-    end)
+    self:SetScript('OnShow', self.OnShow)
+    self:SetScript('OnHide', self.UnregisterAllEvents)
+end
+
+function SearchToggle:OnShow()
+    self:RegisterEvent('SEARCH_CHANGED', 'CloseMenu')
 end
 
 function SearchToggle:OnClick(button)
     if button == 'LeftButton' then
-        local searchBox = self.meta.frame.SearchBox
-        if searchBox:HasFocus() then
-            searchBox:ClearFocus()
-        else
-            searchBox:Show()
-            searchBox:SetFocus()
-        end
+        self.meta.frame:ToggleSearchBoxFocus()
     else
         self:ToggleMenu()
     end
@@ -61,8 +58,8 @@ function SearchToggle:CreateMenu()
     local result = {}
     local searches = self.meta.sets.searches
 
-    local text = self.meta.frame.SearchBox:GetText():trim()
-    if text ~= '' and not tContains(searches, text) then
+    local text = ns.Addon:GetSearch()
+    if text and text ~= '' and not tContains(searches, text) then
         tinsert(result, {
             text = format('%s |cff00ffff%s|r', ADD, text),
             notCheckable = true,

@@ -16,7 +16,6 @@ local LibWindow = LibStub('LibWindow-1.1')
 ---@field private Icon string
 ---@field private Container tdBag2Container
 ---@field private BagFrame tdBag2BagFrame
----@field SearchBox tdBag2SearchBox
 ---@field private TokenFrame tdBag2TokenFrame
 ---@field private PluginFrame tdBag2PluginFrame
 local ContainerFrame = ns.Addon:NewClass('UI.ContainerFrame', Frame)

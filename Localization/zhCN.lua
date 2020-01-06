@@ -28,7 +28,7 @@ L.TOOLTIP_WATCHED_TOKENS = '切换展示的代币'
 L.TOOLTIP_SHOW_BAG = '显示背包'
 L.TOOLTIP_HIDE_BAG = '隐藏背包'
 L.TOOLTIP_SEARCH_TOGGLE = '搜索背包'
-L.TOOLTIP_SEARCH_RECORDS = '打开保存的搜索条件'
+L.TOOLTIP_SEARCH_RECORDS = '打开/保存搜索条件'
 
 ---- options
 
