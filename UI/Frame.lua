@@ -23,13 +23,12 @@ local SOUNDKIT = SOUNDKIT
 ---@type ns
 local ns = select(2, ...)
 local Addon = ns.Addon
+local FrameBase = ns.UI.FrameBase
 
 local LibWindow = LibStub('LibWindow-1.1')
 
----@class tdBag2Frame: Frame
+---@class tdBag2Frame: tdBag2FrameBase
 ---@field private meta tdBag2FrameMeta
----@field private menuButtons Button[]
----@field private pluginButtons table<string, Button>
 ---@field private portrait Texture
 ---@field private Icon string
 ---@field private Container tdBag2Container
@@ -39,161 +38,69 @@ local LibWindow = LibStub('LibWindow-1.1')
 ---@field SearchBox tdBag2SearchBox
 ---@field private TokenFrame tdBag2TokenFrame
 ---@field private PluginFrame tdBag2PluginFrame
-local Frame = ns.Addon:NewClass('UI.Frame', 'Frame')
+local Frame = ns.Addon:NewClass('UI.Frame', FrameBase)
 
 function Frame:Constructor(_, bagId)
-    self.meta = ns.FrameMeta:New(bagId, self)
-    self.menuButtons = {}
-    self.pluginButtons = {}
-    self.name = 'tdBag2Bag' .. self.meta.bagId
-
-    ns.UI.TitleFrame:Bind(self.TitleFrame, self.meta)
-    ns.UI.OwnerSelector:Bind(self.OwnerSelector, self.meta)
-    ns.UI.SearchBox:Bind(self.SearchBox, self.meta)
     ns.UI.MoneyFrame:Bind(self.MoneyFrame, self.meta)
     ns.UI.TokenFrame:Bind(self.TokenFrame, self.meta)
-
-    if self.BagFrame then
-        ns.UI.BagFrame:Bind(self.BagFrame, self.meta)
-    end
-    if self.PluginFrame then
-        ns.UI.PluginFrame:Bind(self.PluginFrame, self.meta)
-    end
+    ns.UI.BagFrame:Bind(self.BagFrame, self.meta)
+    ns.UI.PluginFrame:Bind(self.PluginFrame, self.meta)
 
     self.Container = ns.UI.Container:New(self, self.meta)
     self.Container:SetPoint('TOPLEFT', self.Inset, 'TOPLEFT', 8, -8)
     self.Container:SetSize(1, 1)
     self.Container:SetCallback('OnLayout', function()
         self:UpdateSize()
-        self:LayoutSearchBoxAndBagFrame()
+        self:PlaceBagFrame()
+        self:PlaceSearchBox()
     end)
 
     self.SearchBox:HookScript('OnEditFocusLost', function()
-        self:LayoutSearchBoxAndBagFrame()
+        self:SEARCH_CHANGED()
     end)
-
-    self:SetScript('OnShow', self.OnShow)
-    self:SetScript('OnHide', self.OnHide)
-
-    self:UpdateManaged()
-    self:UpdateSpecial()
+    self.SearchBox:HookScript('OnEditFocusGained', function()
+        self:SEARCH_CHANGED()
+    end)
 end
 
 function Frame:OnShow()
-    PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
+    FrameBase.OnShow(self)
     self:RegisterEvent('UPDATE_ALL', 'Update')
-    self:RegisterEvent('SEARCH_CHANGED', 'LayoutSearchBoxAndBagFrame')
+    self:RegisterEvent('SEARCH_CHANGED')
     self:Update()
 end
 
-function Frame:OnHide()
-    PlaySound(SOUNDKIT.IG_BACKPACK_CLOSE)
-    self.meta.owner = nil
-    self:UnregisterAllEvents()
+function Frame:SEARCH_CHANGED()
+    self:PlaceBagFrame()
+    self:PlaceSearchBox()
 end
-
-Frame.OnSizeChanged = ns.Spawned(UpdateUIPanelPositions)
 
 function Frame:UpdateSize()
     return self:SetSize(self.Container:GetWidth() + 24, self.Container:GetHeight() + 100)
 end
 
-function Frame:UpdatePosition()
-    if not self.meta.profile.managed then
-        LibWindow.RegisterConfig(self, self.meta.profile.window)
-        LibWindow.RestorePosition(self)
-    end
-end
-
-function Frame:SavePosition()
-    if not self.meta.profile.managed then
-        LibWindow.SavePosition(self)
-    end
-end
-
-function Frame:UpdateManaged()
-    local managed = self.meta.profile.managed
-    local changed = not self:GetAttribute('UIPanelLayout-enabled') ~= not managed
-
-    if not changed then
-        return
-    end
-
-    self.updatingManaged = true
-
-    local shown = self:IsShown()
-    if shown then
-        HideUIPanel(self)
-    end
-
-    self:SetAttribute('UIPanelLayout-enabled', managed)
-    self:SetAttribute('UIPanelLayout-defined', managed)
-    self:SetAttribute('UIPanelLayout-whileDead', managed)
-    self:SetAttribute('UIPanelLayout-area', managed and 'left')
-    self:SetAttribute('UIPanelLayout-pushable', managed and 1)
-
-    if shown then
-        ShowUIPanel(self)
-    end
-
-    self:UpdateSpecial()
-    self.updatingManaged = nil
-end
-
-function Frame:UpdateSpecial()
-    if not self.meta.profile.managed then
-        if not _G[self.name] then
-            _G[self.name] = self
-            tinsert(UISpecialFrames, self.name)
-        end
-
-        self:SetScript('OnSizeChanged', nil)
-        self:UpdatePosition()
-    else
-        if _G[self.name] then
-            _G[self.name] = nil
-            tDeleteItem(UISpecialFrames, self.name)
-        end
-
-        self:SetScript('OnSizeChanged', self.OnSizeChanged)
-        self:OnSizeChanged()
-    end
-end
-
-function Frame:ToggleOption(key)
-    self.meta.profile[key] = not self.meta.profile[key]
-end
-
 function Frame:Update()
-    self:LayoutPluginFrame()
-    self:LayoutSearchBoxAndBagFrame()
-    self:LayoutTokenFrame()
+    self:PlacePluginFrame()
+    self:PlaceBagFrame()
+    self:PlaceSearchBox()
+    self:PlaceTokenFrame()
 end
 
-function Frame:LayoutSearchBoxAndBagFrame()
-    self:LayoutBagFrame()
-    self:LayoutSearchBox()
+function Frame:PlacePluginFrame()
+    return self.PluginFrame:Update()
 end
 
-function Frame:LayoutPluginFrame()
-    if self.PluginFrame then
-        self.PluginFrame:Update()
-    end
+function Frame:PlaceBagFrame()
+    return self.BagFrame:SetShown(self.meta.profile.bagFrame and
+                                      (self:IsSearchBoxSpaceEnough() or
+                                          not (self.SearchBox:HasFocus() or Addon:GetSearch())))
 end
 
-function Frame:LayoutBagFrame()
-    if self.BagFrame then
-        self.BagFrame:SetShown(self.meta.profile.bagFrame and
-                                   (self:IsSearchBoxSpaceEnough() or
-                                       not (self.SearchBox:HasFocus() or Addon:GetSearch())))
-    end
+function Frame:PlaceTokenFrame()
+    return self.TokenFrame:SetShown(self.meta.profile.tokenFrame)
 end
 
-function Frame:LayoutTokenFrame()
-    self.TokenFrame:SetShown(self.meta.profile.tokenFrame)
-end
-
-function Frame:LayoutSearchBox()
+function Frame:PlaceSearchBox()
     if not self.meta.profile.bagFrame or self.SearchBox:HasFocus() or Addon:GetSearch() or self:IsSearchBoxSpaceEnough() then
         self.SearchBox:Show()
         self.SearchBox:ClearAllPoints()

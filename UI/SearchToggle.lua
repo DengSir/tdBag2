@@ -42,7 +42,6 @@ function SearchToggle:OnClick(button)
             searchBox:Show()
             searchBox:SetFocus()
         end
-        self.meta.frame:LayoutSearchBoxAndBagFrame()
     else
         self:ToggleMenu()
     end

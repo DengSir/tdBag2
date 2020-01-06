@@ -56,6 +56,7 @@ local BAG_ID = ns.BAG_ID
 ---@field searches string[]
 
 ---@class UI
+---@field FrameBase tdBag2FrameBase
 ---@field Frame tdBag2Frame
 ---@field Item tdBag2Item
 ---@field Bag tdBag2Bag

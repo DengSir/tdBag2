@@ -3,6 +3,9 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 1/6/2020, 4:12:47 PM
 
+local select = select
+local wipe = table.wipe or wipe
+
 ---@type ns
 local ns = select(2, ...)
 

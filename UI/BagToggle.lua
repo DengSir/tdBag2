@@ -32,7 +32,6 @@ function BagToggle:Constructor(_, meta)
     self:SetScript('OnClick', self.OnClick)
     self:SetScript('OnEnter', self.OnEnter)
     self:SetScript('OnLeave', self.OnLeave)
-    self:SetScript('OnShow', self.Update)
 end
 
 function BagToggle:OnClick(button)
@@ -41,8 +40,8 @@ function BagToggle:OnClick(button)
                       SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
         self.meta:ToggleBagFrame()
         self:OnEnter()
-    elseif IsControlKeyDown() then
-        self:ToggleMenu()
+    -- elseif IsControlKeyDown() then
+    --     self:ToggleMenu()
     else
         local bagId = self.meta:IsBag() and BAG_ID.BANK or BAG_ID.BAG
         Addon:ToggleOwnerFrame(bagId, self.meta.owner)
@@ -69,20 +68,16 @@ function BagToggle:OnLeave()
     GameTooltip:Hide()
 end
 
-function BagToggle:Update()
-    -- self:SetChecked(self.meta.profile.bagFrame)
-end
-
-function BagToggle:CreateMenu()
-    return {
-        {
-            text = 'Open mail',
-            func = function()
-                Addon:ToggleOwnerFrame(BAG_ID.OTHER, self.meta.owner)
-            end,
-        },
-    }
-end
+-- function BagToggle:CreateMenu()
+--     return {
+--         {
+--             text = 'Open mail',
+--             func = function()
+--                 Addon:ToggleOwnerFrame(BAG_ID.OTHER, self.meta.owner)
+--             end,
+--         },
+--     }
+-- end
 
 Addon:RegisterPluginButton({
     key = 'BagToggle',
