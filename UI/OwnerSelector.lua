@@ -47,6 +47,7 @@ end
 
 function OwnerSelector:OnShow()
     self:RegisterFrameEvent('FRAME_OWNER_CHANGED', 'UpdateIcon')
+    self:RegisterEvent('OWNER_REMOVED', 'UpdateEnable')
     self:RegisterEvent('UPDATE_ALL', 'Update')
     self:Update()
 end

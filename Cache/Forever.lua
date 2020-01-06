@@ -56,6 +56,9 @@ local NO_RESULT = {cached = true}
 local Forever = ns.Addon:NewModule('Forever', 'AceEvent-3.0')
 
 function Forever:OnInitialize()
+    self.Cacher = ns.Cacher:New()
+    self.Cacher:Patch(self, 'GetBagInfo', 'GetOwnerInfo', 'GetItemInfo')
+
     if IsLoggedIn() then
         self:PLAYER_LOGIN()
     else
@@ -93,7 +96,6 @@ function Forever:SetupCache()
     end
 
     self.owners = owners
-    self.hasMultiOwners = #owners > 1
 end
 
 function Forever:SetupEvents()
@@ -102,8 +104,8 @@ function Forever:SetupEvents()
     self:RegisterEvent('PLAYER_MONEY')
     self:RegisterEvent('BANKFRAME_OPENED')
     self:RegisterEvent('BANKFRAME_CLOSED')
-    self:RegisterEvent('MAIL_SHOW')
-    self:RegisterEvent('MAIL_CLOSED')
+    -- self:RegisterEvent('MAIL_SHOW')
+    -- self:RegisterEvent('MAIL_CLOSED')
     self:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
 end
 
@@ -123,6 +125,7 @@ end
 
 function Forever:BANKFRAME_OPENED()
     self.atBank = true
+    self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
     self:SendMessage('BANK_OPENED')
 end
 
@@ -136,34 +139,34 @@ function Forever:BANKFRAME_CLOSED()
     self:SendMessage('BANK_CLOSED')
 end
 
-function Forever:MAIL_SHOW()
-    self.atMail = true
-end
+-- function Forever:MAIL_SHOW()
+--     self.atMail = true
+-- end
 
-function Forever:MAIL_CLOSED()
-    if not self.atMail then
-        return
-    end
+-- function Forever:MAIL_CLOSED()
+--     if not self.atMail then
+--         return
+--     end
 
-    local db = wipe(self.player[ns.MAIL_CONTAINER])
-    local now = time()
+--     local db = wipe(self.player[ns.MAIL_CONTAINER])
+--     local now = time()
 
-    local num, total = GetInboxNumItems()
-    for i = 1, num do
-        local daysLeft = select(7, GetInboxHeaderInfo(i))
-        local timeout = now + daysLeft * 86400
-        for j = 1, ATTACHMENTS_MAX_RECEIVE do
-            local link = GetInboxItemLink(i, j)
-            if link then
-                local count = select(4, GetInboxItem(i, j))
+--     local num, total = GetInboxNumItems()
+--     for i = 1, num do
+--         local daysLeft = select(7, GetInboxHeaderInfo(i))
+--         local timeout = now + daysLeft * 86400
+--         for j = 1, ATTACHMENTS_MAX_RECEIVE do
+--             local link = GetInboxItemLink(i, j)
+--             if link then
+--                 local count = select(4, GetInboxItem(i, j))
 
-                tinsert(db, self:ParseItem(link, count, timeout))
-            end
-        end
-    end
+--                 tinsert(db, self:ParseItem(link, count, timeout))
+--             end
+--         end
+--     end
 
-    db.size = #db
-end
+--     db.size = #db
+-- end
 
 function Forever:BAG_UPDATE(_, bag)
     if bag <= NUM_BAG_SLOTS then
@@ -189,15 +192,11 @@ function Forever:ParseItem(link, count, timeout)
             link = link:match('|H%l+:([%d:]+)')
         end
 
-        local hasCount = count and count > 1
-
-        if hasCount then
-            link = link .. ';' .. count
+        local count = count and count > 1 and count or nil
+        if count or timeout then
+            link = link .. ';' .. (count or '')
         end
         if timeout then
-            if not hasCount then
-                link = link .. ';'
-            end
             link = link .. ';' .. timeout
         end
         return link
@@ -342,7 +341,7 @@ function Forever:GetOwners()
 end
 
 function Forever:HasMultiOwners()
-    return self.hasMultiOwners
+    return #self.owners > 1
 end
 
 function Forever:DeleteOwnerInfo(realm, name)
@@ -352,12 +351,7 @@ function Forever:DeleteOwnerInfo(realm, name)
 
         if realmData == self.realm then
             tDeleteItem(self.owners, name)
+            ns.Events:Fire('OWNER_REMOVED')
         end
     end
 end
-
-local Cached = ns.CacheGenerater()
-
-Forever.GetOwnerInfo = Cached(Forever.GetOwnerInfo)
-Forever.GetBagInfo = Cached(Forever.GetBagInfo)
-Forever.GetItemInfo = Cached(Forever.GetItemInfo)

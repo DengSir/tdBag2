@@ -2,7 +2,7 @@
 ## Title: tdBag2
 ## Author: Dencer
 ## Version: @project-version@
-## OptionalDeps: tdPack2, BagBrother
+## OptionalDeps: tdPack2
 ## SavedVariables: TDDB_BAG2
 
 Load.xml

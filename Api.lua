@@ -278,27 +278,3 @@ function ns.NameGenerator(name)
         return name .. index
     end
 end
-
-function ns.CacheGenerater()
-    local CACHE = {}
-
-    local function FindCache(...)
-        local cache = CACHE
-        for i = 1, select('#', ...) do
-            local key = select(i, ...)
-            cache[key] = cache[key] or {}
-            cache = cache[key]
-        end
-        return cache
-    end
-
-    return function(f)
-        return function(obj, ...)
-            local p = FindCache(...)
-            if not p._cache then
-                p._cache = f(obj, ...)
-            end
-            return p._cache
-        end
-    end
-end

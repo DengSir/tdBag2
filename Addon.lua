@@ -24,6 +24,7 @@ local UIParent = UIParent
 ---@field Forever tdBag2Forever
 ---@field Cache tdBag2Cache
 ---@field Current tdBag2Current
+---@field Cacher tdBag2Cacher
 local ns = select(2, ...)
 local BAG_ID = ns.BAG_ID
 
