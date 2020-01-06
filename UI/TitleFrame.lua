@@ -18,7 +18,7 @@ local TitleFrame = ns.Addon:NewClass('UI.TitleFrame', 'Button')
 
 function TitleFrame:Constructor(_, meta)
     self.meta = meta
-    self.title = ns.FRAME_TITLES[meta.bagId]
+    self.title = ns.BAG_TITLES[meta.bagId]
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)
     self:SetScript('OnMouseDown', self.OnMouseDown)

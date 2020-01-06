@@ -75,8 +75,10 @@ function Forever:SetupCache()
     self.db = ns.Addon.db.global.forever
     self.db[realm] = self.db[realm] or {}
     self.realm = self.db[realm]
-    self.realm[player] = self.realm[player] or {[ns.EQUIP_CONTAINER] = {}}
+    self.realm[player] = self.realm[player] or {}
     self.player = self.realm[player]
+    self.player[ns.EQUIP_CONTAINER] = self.player[ns.EQUIP_CONTAINER] or {}
+    self.player[ns.MAIL_CONTAINER] = self.player[ns.MAIL_CONTAINER] or {}
 
     self.player.faction = UnitFactionGroup('player')
     self.player.class = UnitClassBase('player')
@@ -100,6 +102,8 @@ function Forever:SetupEvents()
     self:RegisterEvent('PLAYER_MONEY')
     self:RegisterEvent('BANKFRAME_OPENED')
     self:RegisterEvent('BANKFRAME_CLOSED')
+    self:RegisterEvent('MAIL_SHOW')
+    self:RegisterEvent('MAIL_CLOSED')
     self:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
 end
 
@@ -132,13 +136,42 @@ function Forever:BANKFRAME_CLOSED()
     self:SendMessage('BANK_CLOSED')
 end
 
-Forever.BAG_CLOSED = ns.Spawned(Forever.BAG_UPDATE)
+function Forever:MAIL_SHOW()
+    self.atMail = true
+end
+
+function Forever:MAIL_CLOSED()
+    if not self.atMail then
+        return
+    end
+
+    local db = wipe(self.player[ns.MAIL_CONTAINER])
+    local now = time()
+
+    local num, total = GetInboxNumItems()
+    for i = 1, num do
+        local daysLeft = select(7, GetInboxHeaderInfo(i))
+        local timeout = now + daysLeft * 86400
+        for j = 1, ATTACHMENTS_MAX_RECEIVE do
+            local link = GetInboxItemLink(i, j)
+            if link then
+                local count = select(4, GetInboxItem(i, j))
+
+                tinsert(db, self:ParseItem(link, count, timeout))
+            end
+        end
+    end
+
+    db.size = #db
+end
 
 function Forever:BAG_UPDATE(_, bag)
     if bag <= NUM_BAG_SLOTS then
         self:SaveBag(bag)
     end
 end
+
+Forever.BAG_CLOSED = ns.Spawned(Forever.BAG_UPDATE)
 
 function Forever:PLAYER_MONEY()
     self.player.money = GetMoney()
@@ -148,7 +181,7 @@ function Forever:PLAYER_EQUIPMENT_CHANGED(_, slot)
     self:SaveEquip(slot)
 end
 
-function Forever:ParseItem(link, count)
+function Forever:ParseItem(link, count, timeout)
     if link then
         if link:find('0:0:0:0:0:%d+:%d+:%d+:0:0') then
             link = link:match('|H%l+:(%d+)')
@@ -156,8 +189,16 @@ function Forever:ParseItem(link, count)
             link = link:match('|H%l+:([%d:]+)')
         end
 
-        if count and count > 1 then
+        local hasCount = count and count > 1
+
+        if hasCount then
             link = link .. ';' .. count
+        end
+        if timeout then
+            if not hasCount then
+                link = link .. ';'
+            end
+            link = link .. ';' .. timeout
         end
         return link
     end
@@ -184,8 +225,14 @@ function Forever:SaveBag(bag)
 end
 
 function Forever:SaveEquip(slot)
-    local link = GetInventoryItemLink('player', slot)
-    local count = GetInventoryItemCount('player', slot)
+    local link, count
+    if slot == INVSLOT_LAST_EQUIPPED then
+        link = select(2, GetItemInfo(GetInventoryItemID('player', 0)))
+        count = GetInventoryItemCount('player', 0)
+    else
+        link = GetInventoryItemLink('player', slot)
+        count = GetInventoryItemCount('player', slot)
+    end
 
     self.player[ns.EQUIP_CONTAINER][slot] = self:ParseItem(link, count)
 end
@@ -244,7 +291,7 @@ function Forever:GetBagInfo(realm, name, bag)
 
     if bagData then
         local free = 0
-        for i = 1, data.count or bagData.size do
+        for i = 1, data.count or bagData.size or 0 do
             if not bagData[i] then
                 free = free + 1
             end
@@ -271,13 +318,14 @@ function Forever:GetItemInfo(realm, name, bag, slot)
     if itemData then
         ---@type tdBag2CacheItemData
         local data = {}
-        local link, count = strsplit(';', itemData)
+        local link, count, timeout = strsplit(';', itemData)
 
         data.cached = true
         data.link = 'item:' .. link
         data.count = tonumber(count)
         data.id = tonumber(link:match('^(%d+)'))
         data.icon = GetItemIcon(data.id)
+        data.timeout = tonumber(timeout)
 
         local name, link, quality = GetItemInfo(data.link)
         if name then

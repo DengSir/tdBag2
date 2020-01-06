@@ -67,6 +67,7 @@ local BAG_ID = ns.BAG_ID
 ---@field TokenFrame tdBag2TokenFrame
 ---@field Token tdBag2Token
 ---@field MenuButton tdBag2MenuButton
+---@field PluginFrame tdBag2PluginFrame
 ns.UI = {}
 ns.Search = LibStub('LibItemSearch-1.2')
 ns.Unfit = LibStub('Unfit-1.0')
@@ -79,10 +80,6 @@ _G.tdBag2 = Addon
 
 function Addon:OnInitialize()
     self.frames = {}
-    self.bagClasses = { --
-        [BAG_ID.BAG] = ns.UI.Inventory,
-        [BAG_ID.BANK] = ns.UI.Bank,
-    }
     self.db = LibStub('AceDB-3.0'):New('TDDB_BAG2', {
         global = {forever = {}},
         profile = {
@@ -101,6 +98,19 @@ function Addon:OnInitialize()
                     hiddenBags = {},
                 },
                 [BAG_ID.BANK] = { --
+                    window = {point = 'TOPLEFT', x = 50, y = -100},
+                    disableButtons = {},
+                    column = 12,
+                    reverseBag = false,
+                    reverseSlot = false,
+                    managed = true,
+                    bagFrame = true,
+                    tokenFrame = true,
+                    scale = 1,
+                    tradeBagOrder = ns.TRADE_BAG_ORDER.NONE,
+                    hiddenBags = {},
+                },
+                [BAG_ID.OTHER] = { --
                     window = {point = 'TOPLEFT', x = 50, y = -100},
                     disableButtons = {},
                     column = 12,
@@ -244,11 +254,17 @@ function Addon:GetFrameProfile(bagId)
 end
 
 function Addon:CreateFrame(bagId)
-    local class = self.bagClasses[bagId]
+    local class = ns.UI[ns.BAG_CLASSES[bagId]]
     if not class then
         return
     end
-    local frame = class:Bind(CreateFrame('Frame', nil, UIParent, 'tdBag2FrameTemplate'), bagId)
+    local template = ns.BAG_TEMPLATES[bagId]
+    local frame
+    if template then
+        frame = class:Bind(CreateFrame('Frame', nil, UIParent, template), bagId)
+    else
+        frame = class:New(UIParent, bagId)
+    end
     self.frames[bagId] = frame
     return frame
 end

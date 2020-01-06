@@ -142,7 +142,7 @@ function Addon:SetupOptionFrame()
         }
     end
 
-    local charProfileKey = format('%s - %s', UnitName('player'), GetRealmName())
+    local charProfileKey = format('%s - %s', ns.PLAYER, ns.REALM)
 
     local options = {
         type = 'group',

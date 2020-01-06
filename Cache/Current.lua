@@ -23,7 +23,6 @@ local GetPlayerTradeMoney = GetPlayerTradeMoney
 local HasKey = HasKey
 local UnitClassBase = UnitClassBase
 local UnitFactionGroup = UnitFactionGroup
-local UnitName = UnitName
 local UnitRace = UnitRace
 local UnitSex = UnitSex
 
@@ -41,7 +40,7 @@ ns.Current = Current
 function Current:GetOwnerInfo()
     ---@type tdBag2CacheOwnerData
     local data = {}
-    data.name, data.realm = UnitName('player')
+    data.name, data.realm = ns.PLAYER, ns.REALM
     data.class = UnitClassBase('player')
     data.faction = UnitFactionGroup('player')
     data.race = select(2, UnitRace('player'))
