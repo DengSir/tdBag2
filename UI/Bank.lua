@@ -11,14 +11,14 @@ local CloseBankFrame = CloseBankFrame
 
 ---@type ns
 local ns = select(2, ...)
-local Frame = ns.UI.Frame
+local ContainerFrame = ns.UI.ContainerFrame
 
----@class tdBag2Bank: tdBag2Frame
-local Bank = ns.Addon:NewClass('UI.Bank', Frame)
+---@class tdBag2Bank: tdBag2ContainerFrame
+local Bank = ns.Addon:NewClass('UI.Bank', ContainerFrame)
 
 function Bank:OnHide()
     if not self.updatingManaged then
         CloseBankFrame()
     end
-    Frame.OnHide(self)
+    ContainerFrame.OnHide(self)
 end

@@ -7,10 +7,10 @@ local ipairs = ipairs
 
 ---@type ns
 local ns = select(2, ...)
-local Frame = ns.UI.Frame
+local ContainerFrame = ns.UI.ContainerFrame
 
----@class tdBag2Inventory: tdBag2Frame
-local Inventory = ns.Addon:NewClass('UI.Inventory', Frame)
+---@class tdBag2Inventory: tdBag2ContainerFrame
+local Inventory = ns.Addon:NewClass('UI.Inventory', ContainerFrame)
 
 local MAIN_MENU_BUTTONS = {
     MainMenuBarBackpackButton, --
@@ -21,13 +21,13 @@ local MAIN_MENU_BUTTONS = {
 }
 
 function Inventory:OnShow()
-    Frame.OnShow(self)
+    ContainerFrame.OnShow(self)
 
     self:HighlightMainMenu(true)
 end
 
 function Inventory:OnHide()
-    Frame.OnHide(self)
+    ContainerFrame.OnHide(self)
 
     self:HighlightMainMenu(false)
 end

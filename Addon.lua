@@ -56,8 +56,8 @@ local BAG_ID = ns.BAG_ID
 ---@field searches string[]
 
 ---@class UI
----@field FrameBase tdBag2FrameBase
----@field Frame tdBag2Frame
+---@field FrameBase tdBag2Frame
+---@field Frame tdBag2ContainerFrame
 ---@field Item tdBag2Item
 ---@field Bag tdBag2Bag
 ---@field Bank tdBag2Bank
@@ -75,7 +75,7 @@ ns.Search = LibStub('LibItemSearch-1.2')
 ns.Unfit = LibStub('Unfit-1.0')
 
 ---@class Addon
----@field private frames table<string, tdBag2Frame>
+---@field private frames table<string, tdBag2ContainerFrame>
 local Addon = LibStub('AceAddon-3.0'):NewAddon('tdBag2', 'LibClass-2.0', 'AceHook-3.0', 'AceEvent-3.0')
 ns.Addon = Addon
 _G.tdBag2 = Addon
