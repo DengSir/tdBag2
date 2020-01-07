@@ -6,5 +6,4 @@
     <Script file="AutoDisplay.lua" />
     <Script file="Tooltip.lua" />
     <Script file="Option.lua" />
-    <Script file="Cacher.lua" />
 </Ui>
