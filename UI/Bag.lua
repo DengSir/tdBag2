@@ -100,7 +100,7 @@ function Bag:OnClick(button)
                 PutItemInBackpack()
             elseif self:IsKeyring() then
                 PutKeyInKeyRing()
-            else
+            elseif self.info.slot then
                 PutItemInBag(self.info.slot)
             end
         end
@@ -195,7 +195,6 @@ function Bag:UpdateTooltip()
     ns.AnchorTooltip(self)
     if self:IsPurchasable() then
         GameTooltip:SetText(BANK_BAG_PURCHASE, 1, 1, 1)
-        GameTooltip:AddLine(ns.LeftButtonTip(L.TOOLTIP_PURCHASE_BANK_SLOT))
         SetTooltipMoney(GameTooltip, self.info.cost)
     elseif self:IsBackpack() then
         GameTooltip:SetText(BACKPACK_TOOLTIP, 1, 1, 1)
@@ -212,7 +211,13 @@ function Bag:UpdateTooltip()
     else
         GameTooltip:SetText(EQUIP_CONTAINER, 1, 1, 1)
     end
+
     GameTooltip:AddLine(' ')
+
+    if self:IsPurchasable() then
+        GameTooltip:AddLine(ns.LeftButtonTip(L.TOOLTIP_PURCHASE_BANK_SLOT))
+    end
+
     GameTooltip:AddLine(ns.RightButtonTip(self:IsHidden() and L.TOOLTIP_SHOW_BAG or L.TOOLTIP_HIDE_BAG))
     GameTooltip:Show()
 end

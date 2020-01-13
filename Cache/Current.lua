@@ -66,7 +66,7 @@ function Current:GetBagInfo(bag)
                 data.owned = (bag - NUM_BAG_SLOTS) <= GetNumBankSlots()
                 data.cost = GetBankSlotCost()
             else
-                data.owned = not not data.link
+                data.owned = true
             end
         elseif ns.IsKeyring(bag) then
             data.family = 9
