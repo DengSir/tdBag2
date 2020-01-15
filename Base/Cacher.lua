@@ -5,6 +5,7 @@
 
 local select = select
 local wipe = table.wipe or wipe
+local setmetatable = setmetatable
 
 ---@type ns
 local ns = select(2, ...)
@@ -12,24 +13,51 @@ local ns = select(2, ...)
 ---@class tdBag2Cacher
 local Cacher = ns.Addon:NewClass('Cacher')
 
+local null = {}
+local symbol = {}
+
 function Cacher:Constructor()
     self._cache = {}
 end
 
-function Cacher:Generate(f)
-    return function(obj, ...)
-        local cache = self:FindCache(...)
-        if not cache._cache then
-            cache._cache = f(obj, ...)
+local mt = {
+    __call = function(t, obj, ...)
+        local cache = t.__cacher:FindCache(...)
+        if cache[symbol] == nil then
+            local r = t.__function(obj, ...)
+
+            if t.Cachable and not t.Cachable(r) then
+                return r
+            end
+
+            cache[symbol] = r
         end
-        return cache._cache
+        return cache[symbol]
+    end,
+}
+
+function Cacher:Generate(f, advance)
+    if advance then
+        return setmetatable({__cacher = self, __function = f}, mt)
+    else
+        return function(obj, ...)
+            local cache = self:FindCache(...)
+            if cache[symbol] == nil then
+                cache[symbol] = f(obj, ...)
+            end
+            return cache[symbol]
+        end
     end
 end
 
 function Cacher:Patch(cls, ...)
-    for i = 1, select('#', ...) do
+    local len = select('#', ...)
+    local last = select(len, ...)
+    local advance = type(last) ~= 'string' and last
+
+    for i = 1, advance and len - 1 or len do
         local method = select(i, ...)
-        cls[method] = self:Generate(cls[method])
+        cls[method] = self:Generate(cls[method], advance)
     end
 end
 
@@ -37,6 +65,9 @@ function Cacher:FindCache(...)
     local cache = self._cache
     for i = 1, select('#', ...) do
         local key = select(i, ...)
+        if key == nil then
+            key = null
+        end
         cache[key] = cache[key] or {}
         cache = cache[key]
     end

@@ -30,13 +30,22 @@ Tooltip.APIS = {
     'SetQuestLogItem', 'SetInboxItem', 'SetSendMailItem', 'SetHyperlink', 'SetCraftItem', 'SetTradeSkillItem',
     'SetAction', 'SetItemByID',
 }
-Tooltip.LABELS = { --
-    L['Equipped'], L['Inventory'], L['Bank'],
-}
 Tooltip.EMPTY = {}
+Tooltip.CACHED_EMPTY = {cached = true}
+
+Tooltip.SPACES = {
+    {key = 'equip', label = L['Equipped']}, --
+    {key = 'bags', label = L['Inventory']}, --
+    {key = 'banks', label = L['Bank']}, --
+    {key = 'mails', label = L['Mail']}, --
+}
 
 function Tooltip:OnInitialize()
-    self.cache = {}
+    self.Cacher = ns.Cacher:New()
+    self.Cacher:Patch(self, 'GetOwnerItemInfo', true)
+    self.GetOwnerItemInfo.Cachable = function(info)
+        return info.cached
+    end
     self:Update()
 end
 
@@ -98,15 +107,15 @@ function Tooltip:AddOwners(tip, item)
     end
 end
 
-function Tooltip:GetCounts(...)
+function Tooltip:GetCounts(counts)
     local places = 0
     local total = 0
     local sb = {}
-    for i = 1, select('#', ...) do
-        local count = select(i, ...)
-        local label = self.LABELS[i]
+    for i, v in ipairs(self.SPACES) do
+        local count = counts[v.key]
+        local label = v.label
 
-        if count > 0 then
+        if count and count > 0 then
             places = places + 1
             total = total + count
 
@@ -124,11 +133,6 @@ function Tooltip:GetCounts(...)
 end
 
 function Tooltip:GetOwnerItemInfo(owner, itemId)
-    local cache = self.cache[owner] and self.cache[owner][itemId]
-    if cache then
-        return cache
-    end
-
     local info = Cache:GetOwnerInfo(owner)
     local total, text = self:GetCounts(Counter:GetOwnerItemCount(owner, itemId))
     local item
@@ -138,14 +142,12 @@ function Tooltip:GetOwnerItemInfo(owner, itemId)
             text = text,
             total = total,
             color = RAID_CLASS_COLORS[info.class or 'PRIEST'],
+            cached = info.cached,
         }
+    elseif info.cached then
+        item = self.CACHED_EMPTY
     else
         item = self.EMPTY
-    end
-
-    if info.cached then
-        self.cache[owner] = self.cache[owner] or {}
-        self.cache[owner][itemId] = item
     end
     return item
 end

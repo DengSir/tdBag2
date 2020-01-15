@@ -16,6 +16,7 @@ L['Bag Toggle'] = '背包按钮'
 L['Equipped'] = '装备'
 L['Inventory'] = '背包'
 L['Bank'] = '银行'
+L['Mail'] = '邮箱'
 
 L.TOOLTIP_CHANGE_PLAYER = '查看其他角色的物品'
 L.TOOLTIP_RETURN_TO_SELF = '返回到当前角色'

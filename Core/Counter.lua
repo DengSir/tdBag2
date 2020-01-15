@@ -8,10 +8,15 @@ local ns = select(2, ...)
 local Cache = ns.Cache
 
 ---@class tdBag2Counter
-local Counter = {}
-ns.Counter = Counter
+local Counter = ns.Addon:NewModule('Counter')
 
-Counter.cache = {}
+function Counter:OnInitialize()
+    self.Cacher = ns.Cacher:New()
+    self.Cacher:Patch(self, 'GetOwnerItemCount', true)
+    self.GetOwnerItemCount.Cachable = function(info)
+        return info.cached
+    end
+end
 
 function Counter:GetBagItemCount(owner, bag, itemId)
     local info = Cache:GetBagInfo(owner, bag)
@@ -30,12 +35,9 @@ function Counter:GetBagItemCount(owner, bag, itemId)
 end
 
 function Counter:GetOwnerItemCount(owner, itemId)
-    if self.cache[owner] and self.cache[owner][itemId] then
-        return unpack(self.cache[owner][itemId])
-    end
-
     local info = Cache:GetOwnerInfo(owner)
     local equip = self:GetBagItemCount(owner, ns.EQUIP_CONTAINER, itemId)
+    local mails = self:GetBagItemCount(owner, ns.MAIL_CONTAINER, itemId)
     local bags, banks = 0, 0
 
     if info.cached then
@@ -45,9 +47,6 @@ function Counter:GetOwnerItemCount(owner, itemId)
         for _, bag in ipairs(ns.GetBags(ns.BAG_ID.BANK)) do
             banks = banks + self:GetBagItemCount(owner, bag, itemId)
         end
-
-        self.cache[owner] = self.cache[owner] or {}
-        self.cache[owner][itemId] = {equip, bags, banks}
     else
         local owned = GetItemCount(itemId, true)
         local carrying = GetItemCount(itemId)
@@ -55,10 +54,10 @@ function Counter:GetOwnerItemCount(owner, itemId)
         bags = carrying - equip
         banks = owned - carrying
     end
-    return equip, bags, banks
+    return {equip = equip, bags = bags, banks = banks, mails = mails, cached = info.cached}
 end
 
 function Counter:GetOwnerItemTotal(owner, itemId)
-    local equip, bags, banks = self:GetOwnerItemCount(owner, itemId)
-    return equip + bags + banks
+    local info = self:GetOwnerItemCount(owner, itemId)
+    return info.equip + info.bags + info.banks + info.mails
 end
