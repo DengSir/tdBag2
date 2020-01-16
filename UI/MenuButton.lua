@@ -4,10 +4,12 @@
 -- @Date   : 11/29/2019, 2:59:16 PM
 
 ---- LUA
+local _G = _G
 local pairs = pairs
 
 ---- WOW
 local CreateFrame = CreateFrame
+local PlaySound = PlaySound
 local CloseDropDownMenus = CloseDropDownMenus
 local ToggleDropDownMenu = ToggleDropDownMenu
 local EasyMenu_Initialize = EasyMenu_Initialize
@@ -27,11 +29,13 @@ MenuButton.GenerateName = ns.NameGenerator('tdBag2DropMenu')
 function MenuButton:ToggleMenu()
     if self:IsMenuOpened() then
         CloseDropDownMenus()
+        PlaySound(851) -- IG_MAINMENU_CLOSE
     else
         MenuButton.LastDropdown = self
         CloseDropDownMenus()
         ToggleDropDownMenu(1, nil, self:GetDropMenu(), self, 0, 0, self:CreateMenu())
         self:OnMenuOpened()
+        PlaySound(850) -- IG_MAINMENU_OPEN
     end
 end
 
@@ -42,7 +46,7 @@ function MenuButton:CloseMenu()
 end
 
 function MenuButton:IsMenuOpened()
-    return self.DropMenu and self.LastDropdown == self and UIDROPDOWNMENU_OPEN_MENU == self.DropMenu and
+    return self.DropMenu and self.LastDropdown == self and _G.UIDROPDOWNMENU_OPEN_MENU == self.DropMenu and
                DropDownList1:IsShown()
 end
 

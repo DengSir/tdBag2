@@ -13,8 +13,6 @@ local ShowUIPanel = ShowUIPanel
 local HideUIPanel = HideUIPanel
 
 local UISpecialFrames = UISpecialFrames
-local SOUNDKIT_IG_BACKPACK_OPEN = SOUNDKIT.IG_BACKPACK_OPEN
-local SOUNDKIT_IG_BACKPACK_CLOSE = SOUNDKIT.IG_BACKPACK_CLOSE
 
 ---@type ns
 local ns = select(2, ...)
@@ -44,11 +42,11 @@ function Frame:Constructor(_, bagId)
 end
 
 function Frame:OnShow()
-    PlaySound(SOUNDKIT_IG_BACKPACK_OPEN)
+    PlaySound(862) -- SOUNDKIT.IG_BACKPACK_OPEN
 end
 
 function Frame:OnHide()
-    PlaySound(SOUNDKIT_IG_BACKPACK_CLOSE)
+    PlaySound(863) -- SOUNDKIT.IG_BACKPACK_CLOSE
     self.meta.owner = nil
     self:UnregisterAllEvents()
 end

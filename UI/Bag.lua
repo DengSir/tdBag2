@@ -29,7 +29,6 @@ local BANK = BANK
 local BANK_BAG = BANK_BAG
 local BANK_BAG_PURCHASE = BANK_BAG_PURCHASE
 local EQUIP_CONTAINER = EQUIP_CONTAINER
-local SOUNDKIT = SOUNDKIT
 
 ---@type ns
 local ns = select(2, ...)
@@ -60,7 +59,7 @@ end
 function Bag:OnShow()
     self:Update()
     self:UnregisterAllEvents()
-    self:RegisterFrameEvent('FRAME_OWNER_CHANGED', 'Update')
+    self:RegisterFrameEvent('OWNER_CHANGED', 'Update')
     self:RegisterEvent('BAG_UPDATE')
     self:RegisterEvent('UPDATE_ALL', 'Update')
 
@@ -109,7 +108,7 @@ end
 
 function Bag:OnDragStart()
     if self:IsCustomBag() and not self.info.cached then
-        PlaySound(SOUNDKIT.IG_BACKPACK_OPEN)
+        PlaySound(862) -- SOUNDKIT.IG_BACKPACK_OPEN
         PickupBagFromSlot(self.info.slot)
     end
 end

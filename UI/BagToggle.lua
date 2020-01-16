@@ -14,7 +14,6 @@ local GameTooltip = GameTooltip
 
 ---- G
 local BAGSLOTTEXT = BAGSLOTTEXT
-local SOUNDKIT = SOUNDKIT
 
 ---@type ns
 local ns = select(2, ...)
@@ -36,10 +35,9 @@ end
 
 function BagToggle:OnClick(button)
     if button == 'LeftButton' then
-        PlaySound(self.meta.profile.bagFrame and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or
-                      SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
-        self.meta:ToggleBagFrame()
+        self.meta:ToggleOption('bagFrame')
         self:OnEnter()
+        ns.PlayToggleSound(self.meta.profile.bagFrame)
     else
         local bagId = self.meta:IsBag() and BAG_ID.BANK or BAG_ID.BAG
         Addon:ToggleOwnerFrame(bagId, self.meta.owner)
@@ -54,7 +52,7 @@ function BagToggle:OnEnter()
     else
         GameTooltip:AddLine(ns.LeftButtonTip(L.TOOLTIP_SHOW_BAG_FRAME))
     end
-    if self.meta.bagId == ns.BAG_ID.BANK then
+    if self.meta:IsBank() then
         GameTooltip:AddLine(ns.RightButtonTip(L.TOOLTIP_TOGGLE_BAG))
     else
         GameTooltip:AddLine(ns.RightButtonTip(L.TOOLTIP_TOGGLE_BANK))

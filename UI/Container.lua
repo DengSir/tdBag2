@@ -61,7 +61,7 @@ function Container:OnShow()
     self:RegisterEvent('SEARCH_CHANGED')
     self:RegisterEvent('GET_ITEM_INFO_RECEIVED')
     self:RegisterEvent('UPDATE_ALL')
-    self:RegisterFrameEvent('FRAME_OWNER_CHANGED')
+    self:RegisterFrameEvent('OWNER_CHANGED')
     self:RequestLayout()
 end
 
@@ -102,7 +102,7 @@ function Container:BAG_FOCUS_UPDATED(_, bag)
     self.lastFocusBag = bag
 end
 
-function Container:FRAME_OWNER_CHANGED()
+function Container:OWNER_CHANGED()
     self.bagOrdered = nil
     self:Update()
 end

@@ -62,7 +62,7 @@ function MoneyFrame:OnShow()
     else
         self:UnregisterAllEvents()
     end
-    self:RegisterFrameEvent('FRAME_OWNER_CHANGED', 'OnShow')
+    self:RegisterFrameEvent('OWNER_CHANGED', 'OnShow')
     self:Update()
 end
 

@@ -112,19 +112,6 @@ function Addon:OnInitialize()
                     tradeBagOrder = ns.TRADE_BAG_ORDER.NONE,
                     hiddenBags = {},
                 },
-                [BAG_ID.OTHER] = { --
-                    window = {point = 'TOPLEFT', x = 50, y = -100},
-                    disableButtons = {},
-                    column = 12,
-                    reverseBag = false,
-                    reverseSlot = false,
-                    managed = true,
-                    bagFrame = true,
-                    tokenFrame = true,
-                    scale = 1,
-                    tradeBagOrder = ns.TRADE_BAG_ORDER.NONE,
-                    hiddenBags = {},
-                },
             },
 
             displayMail = true,
@@ -299,11 +286,16 @@ function Addon:ToggleFrame(bagId, manual)
     end
 end
 
+function Addon:IsFrameShown(bagId)
+    local frame = self:GetFrame(bagId)
+    return frame and frame:IsShown()
+end
+
 function Addon:ToggleOwnerFrame(bagId, owner)
     local frame = self:GetFrame(bagId) or self:CreateFrame(bagId)
     if not frame:IsShown() or frame.meta.owner ~= owner then
         self:ShowFrame(bagId, true)
-        self:SetOwner(bagId, owner)
+        self:SetFrameOwner(bagId, owner)
     else
         self:HideFrame(bagId, true)
     end
@@ -335,15 +327,14 @@ end
 
 ---- owner
 
-function Addon:SetOwner(bagId, owner)
+function Addon:SetFrameOwner(bagId, owner)
     if not bagId then
-        self:SetOwner(BAG_ID.BAG, nil)
-        self:SetOwner(BAG_ID.BANK, nil)
+        self:SetFrameOwner(BAG_ID.BAG, nil)
+        self:SetFrameOwner(BAG_ID.BANK, nil)
     else
         local frame = self:GetFrame(bagId)
         if frame then
-            frame.meta.owner = owner
-            ns.Events:FireFrameEvent('FRAME_OWNER_CHANGED', bagId)
+            frame.meta:SetOwner(owner)
         end
     end
 end

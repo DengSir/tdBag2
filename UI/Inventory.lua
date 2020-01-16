@@ -20,6 +20,15 @@ local MAIN_MENU_BUTTONS = {
     CharacterBag3Slot, --
 }
 
+local function SetChecked(self)
+    return self:RawSetChecked(ns.Addon:IsFrameShown(ns.BAG_ID.BAG))
+end
+
+for i, v in ipairs(MAIN_MENU_BUTTONS) do
+    v.RawSetChecked = v.SetChecked
+    v.SetChecked = SetChecked
+end
+
 function Inventory:OnShow()
     ContainerFrame.OnShow(self)
 
@@ -34,8 +43,6 @@ end
 
 function Inventory:HighlightMainMenu(flag)
     for _, button in ipairs(MAIN_MENU_BUTTONS) do
-        button:SetChecked(flag)
+        button:RawSetChecked(flag)
     end
 end
-
-Inventory.HighlightMainMenu = ns.Spawned(Inventory.HighlightMainMenu)

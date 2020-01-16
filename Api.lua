@@ -15,6 +15,7 @@ local C_Timer = C_Timer
 local ContainerIDToInventoryID = ContainerIDToInventoryID
 local GetScreenHeight = GetScreenHeight
 local GetScreenWidth = GetScreenWidth
+local PlaySound = PlaySound
 
 ---- UI
 local GameTooltip = GameTooltip
@@ -79,7 +80,6 @@ ns.L = L
 local BAG_ID = { --
     BAG = 'bag',
     BANK = 'bank',
-    OTHER = 'other',
 }
 
 local BAG_ICONS = { --
@@ -100,13 +100,11 @@ local BAGS = { --
 local BAG_CLASSES = { --
     [BAG_ID.BAG] = 'Inventory',
     [BAG_ID.BANK] = 'Bank',
-    [BAG_ID.OTHER] = 'Frame',
 }
 
 local BAG_TEMPLATES = { --
     [BAG_ID.BAG] = 'tdBag2FrameTemplate',
     [BAG_ID.BANK] = 'tdBag2FrameTemplate',
-    [BAG_ID.OTHER] = 'tdBag2BaseFrameTemplate',
 }
 
 local BAG_SETS = {}
@@ -157,6 +155,10 @@ ns.TRADE_BAG_ORDER = { --
     NONE = 'none',
     TOP = 'top',
     BOTTOM = 'bottom',
+}
+
+ns.FRAME_PROFILE_EVENTS = { --
+    bagFrame = 'BAG_FRAME_TOGGLED',
 }
 
 local function riter(t, i)
@@ -245,6 +247,10 @@ function ns.AnchorTooltip2(frame, anchor, x, y)
     else
         GameTooltip:SetPoint('BOTTOM' .. anchor, frame, 'TOP' .. anchor, x, y)
     end
+end
+
+function ns.PlayToggleSound(flag)
+    return PlaySound(flag and 856 or 857)
 end
 
 function ns.GetOwnerColoredName(owner)

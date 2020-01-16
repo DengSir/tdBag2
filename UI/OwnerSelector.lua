@@ -46,7 +46,7 @@ function OwnerSelector:Constructor(_, meta)
 end
 
 function OwnerSelector:OnShow()
-    self:RegisterFrameEvent('FRAME_OWNER_CHANGED', 'UpdateIcon')
+    self:RegisterFrameEvent('OWNER_CHANGED', 'UpdateIcon')
     self:RegisterEvent('OWNER_REMOVED', 'UpdateEnable')
     self:RegisterEvent('UPDATE_ALL', 'Update')
     self:Update()
@@ -59,7 +59,7 @@ end
 
 function OwnerSelector:OnClick(button)
     if button == 'RightButton' then
-        Addon:SetOwner(self.meta.bagId, nil)
+        self.meta:SetOwner(nil)
     else
         self:OnLeave()
         self:ToggleMenu()
@@ -145,7 +145,7 @@ function OwnerSelector:CreateOwnerMenu(name)
             },
         },
         func = function()
-            Addon:SetOwner(self.meta.bagId, not isSelf and name or nil)
+            return self.meta:SetOwner(name)
         end,
     }
 end

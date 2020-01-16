@@ -36,7 +36,7 @@ function TokenFrame:OnShow()
         self:UnregisterAllEvents()
     end
     self:RegisterEvent('WATCHED_TOKEN_CHANGED', 'Update')
-    self:RegisterFrameEvent('FRAME_OWNER_CHANGED', 'Update')
+    self:RegisterFrameEvent('OWNER_CHANGED', 'Update')
     self:Update()
 end
 
