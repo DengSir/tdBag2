@@ -55,6 +55,7 @@ function Events:OnEnable()
     self:RegisterEvent('PLAYER_TRADE_MONEY', 'Fire')
     self:RegisterEvent('SEND_MAIL_COD_CHANGED', 'Fire')
     self:RegisterEvent('SEND_MAIL_MONEY_CHANGED', 'Fire')
+    self:RegisterEvent('PLAYERBANKBAGSLOTS_CHANGED', 'Fire')
 end
 
 local function RegisterFrameEvent(self, event, callback)

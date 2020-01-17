@@ -72,6 +72,10 @@ function Bag:OnShow()
         if not self.info.cached then
             self:RegisterEvent('BAG_LOCK_CHANGED')
             self:RegisterEvent('CURSOR_UPDATE', 'UpdateCursor')
+
+            if not self.info.owned and self:IsBankBag() then
+                self:RegisterEvent('PLAYERBANKBAGSLOTS_CHANGED', 'Update')
+            end
         end
     end
 end
