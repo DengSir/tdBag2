@@ -89,6 +89,7 @@ end
 function Bag:OnClick(button)
     if button == 'RightButton' then
         self.meta:ToggleBagHidden(self.bag)
+        ns.PlayToggleSound(not self:IsHidden())
     else
         if self:IsPurchasable() then
             BankFrame.nextSlotCost = self.info.cost

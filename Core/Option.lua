@@ -7,6 +7,7 @@
 local ipairs, pairs = ipairs, pairs
 local format = string.format
 local wipe = table.wipe or wipe
+local type = type
 
 ---- WOW
 local UnitFullName = UnitFullName
@@ -19,21 +20,24 @@ local L = ns.L
 local AceConfigRegistry = LibStub('AceConfigRegistry-3.0')
 local AceConfigDialog = LibStub('AceConfigDialog-3.0')
 
-local FRAMES = { --
+local BAG_ARGS = { --
     [ns.BAG_ID.BAG] = {},
     [ns.BAG_ID.BANK] = {},
 }
 
 function Addon:SetupOptionFrame()
     local order = 0
-
     local function orderGen()
         order = order + 1
         return order
     end
 
     local function toggle(name)
-        return {type = 'toggle', width = 'full', name = name, order = orderGen()}
+        return {type = 'toggle', name = name, order = orderGen()}
+    end
+
+    local function fullToggle(name)
+        return {type = 'toggle', name = name, width = 'full', order = orderGen()}
     end
 
     local function color(name)
@@ -41,6 +45,10 @@ function Addon:SetupOptionFrame()
     end
 
     local function range(name, min, max, step)
+        return {type = 'range', order = orderGen(), name = name, min = min, max = max, step = step}
+    end
+
+    local function fullRange(name, min, max, step)
         return {type = 'range', width = 'full', order = orderGen(), name = name, min = min, max = max, step = step}
     end
 
@@ -65,20 +73,19 @@ function Addon:SetupOptionFrame()
         return {type = 'description', order = orderGen(), name = '\n', fontSize = 'medium'}
     end
 
-    local function drop(opts)
-        local values = opts.values
-
-        opts.values = {}
-        opts.sorting = {}
+    local function drop(name, values)
+        local opts = { --
+            type = 'select',
+            name = name,
+            order = orderGen(),
+            values = {},
+            sorting = {},
+        }
 
         for i, v in ipairs(values) do
             opts.values[v.value] = v.name
             opts.sorting[i] = v.value
         end
-
-        opts.type = 'select'
-        opts.order = orderGen()
-
         return opts
     end
 
@@ -94,52 +101,79 @@ function Addon:SetupOptionFrame()
         return {type = 'group', name = name, childGroups = 'tab', order = orderGen(), args = args}
     end
 
+    local function treeTitle(name)
+        return {type = 'group', name = '|cffffd100' .. name .. '|r', order = orderGen(), args = {}, disabled = true}
+    end
+
+    local function treeItem(name, args)
+        return {type = 'group', name = '  |cffffffff' .. name .. '|r', order = orderGen(), args = args}
+    end
+
     local function frame(bagId, name)
         return {
             type = 'group',
-            name = name,
+            name = '  |cffffffff' .. name .. '|r',
             order = orderGen(),
             set = function(item, value)
-                self.db.profile.frames[bagId][item[#item]] = value
-                self:UpdateAll()
+                local key = item[#item]
+                local meta = self:GetFrameMeta(bagId)
+                if meta then
+                    meta:SetOption(key, value)
+                else
+                    self.db.profile.frames[bagId][key] = value
+                end
             end,
             get = function(item)
                 return self.db.profile.frames[bagId][item[#item]]
             end,
             args = {
+                desc = desc(format(L.DESC_FRAMES, name)),
                 appearance = inline(L['Appearance'], { --
-                    managed = {
-                        type = 'toggle',
-                        name = L['Blizzard Panel'],
-                        width = 'full',
-                        order = orderGen(),
-                        get = function()
-                            return self.db.profile.frames[bagId].managed
-                        end,
-                        set = function(_, value)
-                            self.db.profile.frames[bagId].managed = value
-                            self:UpdateAllManaged()
-                        end,
-                    },
+                    managed = toggle(L['Blizzard Panel']),
+                    tradeBagOrder = drop(L['Trade Containers Location'], {
+                        {name = L['Default'], value = ns.TRADE_BAG_ORDER.NONE},
+                        {name = L['Top'], value = ns.TRADE_BAG_ORDER.TOP},
+                        {name = L['Bottom'], value = ns.TRADE_BAG_ORDER.BOTTOM},
+                    }),
                     reverseBag = toggle(L['Reverse Bag Order']),
                     reverseSlot = toggle(L['Reverse Slot Order']),
-                    tradeBagOrder = drop{
-                        name = L['Trade Containers Location'],
-                        values = {
-                            {name = L['Default'], value = ns.TRADE_BAG_ORDER.NONE},
-                            {name = L['Top'], value = ns.TRADE_BAG_ORDER.TOP},
-                            {name = L['Bottom'], value = ns.TRADE_BAG_ORDER.BOTTOM},
-                        },
-                    },
                     column = range(L['Columns'], 6, 36, 1),
                     scale = range(L['Item Scale'], 0.5, 2),
                 }),
-                features = inline(L['Features'], {
-                    tokenFrame = toggle(L['Token Frame']), --
+                features = inline(L['Features'], { --
+                    tokenFrame = toggle(L['Token Frame']),
+                    bagFrame = toggle(L['Bag Frame']),
+                    pluginButtons = toggle(L['Plugin Buttons']),
                 }),
-                buttons = inline(L['Plugin Buttons'], FRAMES[bagId]),
+                buttons = {
+                    type = 'group',
+                    inline = true,
+                    name = L['Plugin Buttons'],
+                    order = orderGen(),
+                    disabled = function()
+                        return not self.db.profile.frames[bagId].pluginButtons
+                    end,
+                    set = function(item, value)
+                        self.db.profile.frames[bagId].disableButtons[item[#item]] = not value
+                        ns.Events:FireFrame('PLUGIN_BUTTON_UPDATE', bagId)
+                    end,
+                    get = function(item)
+                        return not self.db.profile.frames[bagId].disableButtons[item[#item]]
+                    end,
+                    args = BAG_ARGS[bagId],
+                },
             },
         }
+    end
+
+    local function fireGlobalKey(key)
+        local event = ns.OPTION_EVENTS[key]
+        local t = type(event)
+        if t == 'string' then
+            ns.Events:Fire(event)
+        elseif t == 'function' then
+            event()
+        end
     end
 
     local charProfileKey = format('%s - %s', ns.PLAYER, ns.REALM)
@@ -150,8 +184,9 @@ function Addon:SetupOptionFrame()
             return self.db.profile[item[#item]]
         end,
         set = function(item, value)
+            local key = item[#item]
             self.db.profile[item[#item]] = value
-            self:UpdateAll()
+            fireGlobalKey(key)
         end,
         args = {
             profile = {
@@ -166,30 +201,30 @@ function Addon:SetupOptionFrame()
                     return self.db:GetCurrentProfile() == charProfileKey
                 end,
             },
-            general = group(GENERAL, {
+            reset = {
+                type = 'execute',
+                name = L['Restore default Settings'],
+                order = orderGen(),
+                confirm = true,
+                confirmText = L['Are you sure you want to restore the current Settings?'],
+                func = function()
+                    self.db:ResetProfile()
+                end,
+            },
+            header1 = {type = 'header', name = '', order = orderGen()},
+            globalTitle = treeTitle(L['Global Settings']),
+            general = treeItem(GENERAL, {
                 desc = desc(L.DESC_GENERAL),
                 generalHeader = header(GENERAL),
-                lockFrame = toggle(L['Lock Frames']),
-                tipCount = {
-                    type = 'toggle',
-                    name = L['Show Item Count in Tooltip'],
-                    width = 'full',
-                    order = orderGen(),
-                    get = function()
-                        return self.db.profile.tipCount
-                    end,
-                    set = function(_, value)
-                        self.db.profile.tipCount = value
-                        ns.Tooltip:Update()
-                    end,
-                },
+                lockFrame = fullToggle(L['Lock Frames']),
+                tipCount = fullToggle(L['Show Item Count in Tooltip']),
                 appearanceHeader = header(L['Appearance']),
-                iconJunk = toggle(L['Show Junk Icon']),
-                iconQuestStarter = toggle(L['Show Quest Starter Icon']),
-                iconChar = toggle(L['Show Character Portrait']),
-                textOffline = toggle(L['Show Offline Text in Bag\'s Title']),
+                iconJunk = fullToggle(L['Show Junk Icon']),
+                iconQuestStarter = fullToggle(L['Show Quest Starter Icon']),
+                iconChar = fullToggle(L['Show Character Portrait']),
+                textOffline = fullToggle(L['Show Offline Text in Bag\'s Title']),
             }),
-            colors = group(L['Color Settings'], {
+            colors = treeItem(L['Color Settings'], {
                 desc = desc(L.DESC_COLORS),
                 glowHeader = header(L['Highlight Border']),
                 glowQuality = toggle(L['Highlight Items by Quality']),
@@ -197,10 +232,10 @@ function Addon:SetupOptionFrame()
                 glowUnusable = toggle(L['Highlight Unusable Items']),
                 glowEquipSet = toggle(L['Highlight Equipment Set Items']),
                 glowNew = toggle(L['Highlight New Items']),
-                glowAlpha = range(L['Highlight Brightness'], 0, 1),
+                glowAlpha = fullRange(L['Highlight Brightness'], 0, 1),
                 separator1 = separator(),
                 colorHeader = header(L['Slot Colors']),
-                colorSlots = toggle(L['Color Empty Slots by Bag Type']),
+                colorSlots = fullToggle(L['Color Empty Slots by Bag Type']),
                 colors = {
                     type = 'group',
                     inline = true,
@@ -214,9 +249,10 @@ function Addon:SetupOptionFrame()
                         return color.r, color.g, color.b
                     end,
                     set = function(item, ...)
-                        local color = self.db.profile[item[#item]]
+                        local key = item[#item]
+                        local color = self.db.profile[key]
                         color.r, color.g, color.b = ...
-                        self:UpdateAll()
+                        fireGlobalKey(key)
                     end,
                     args = {
                         colorNormal = color(L['Normal Color']),
@@ -227,9 +263,9 @@ function Addon:SetupOptionFrame()
                         colorKeyring = color(L['Keyring Color']),
                     },
                 },
-                emptyAlpha = range(L['Empty Slot Brightness'], 0, 1),
+                emptyAlpha = fullRange(L['Empty Slot Brightness'], 0, 1),
             }),
-            display = group(L['Auto Display'], {
+            display = treeItem(L['Auto Display'], {
                 desc = desc(L.DESC_DISPLAY),
                 displayHeader = header(L['Auto Display']),
                 displayMail = toggle(L['Visiting the Mail Box']),
@@ -249,11 +285,9 @@ function Addon:SetupOptionFrame()
                 closeTrade = toggle(L['Completed Trade']),
                 closeCombat = toggle(L['Entering Combat']),
             }),
-            frame = tab(L['Frame Settings'], {
-                desc = desc(L.DESC_FRAMES),
-                [ns.BAG_ID.BAG] = frame(ns.BAG_ID.BAG, L['Inventory']),
-                [ns.BAG_ID.BANK] = frame(ns.BAG_ID.BANK, L['Bank']),
-            }),
+            framesTitle = treeTitle(L['Frame Settings']),
+            [ns.BAG_ID.BAG] = frame(ns.BAG_ID.BAG, L['Inventory']),
+            [ns.BAG_ID.BANK] = frame(ns.BAG_ID.BANK, L['Bank']),
         },
     }
 
@@ -272,29 +306,18 @@ end
 function Addon:OpenFrameOption(bagId)
     if bagId then
         OpenToCategory(self.options)
-        AceConfigDialog:SelectGroup('tdBag2', 'frame', bagId)
+        AceConfigDialog:SelectGroup('tdBag2', bagId)
     else
         OpenToCategory(self.options)
     end
 end
 
 function Addon:RefreshPluginOptions()
-    for bagId, args in pairs(FRAMES) do
+    for bagId, args in pairs(BAG_ARGS) do
         wipe(args)
 
         for i, plugin in Addon:IteratePluginButtons() do
-            args[plugin.key] = {
-                type = 'toggle',
-                name = plugin.text,
-                order = i,
-                set = function(item, value)
-                    self.db.profile.frames[bagId].disableButtons[plugin.key] = not value
-                    self:UpdateAll()
-                end,
-                get = function(item)
-                    return not self.db.profile.frames[bagId].disableButtons[plugin.key]
-                end,
-            }
+            args[plugin.key] = {type = 'toggle', name = plugin.text, order = i}
         end
     end
     AceConfigRegistry:NotifyChange('tdBag2')

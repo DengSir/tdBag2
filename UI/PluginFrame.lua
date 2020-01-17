@@ -22,6 +22,15 @@ function PluginFrame:Constructor(_, meta)
     self.meta = meta
     self.menuButtons = {}
     self.pluginButtons = {}
+
+    self:SetScript('OnShow', self.OnShow)
+    self:SetScript('OnHide', self.UnregisterAllEvents)
+end
+
+function PluginFrame:OnShow()
+    self:RegisterFrameEvent('PLUGIN_BUTTON_UPDATE', 'Update')
+    self:RegisterEvent('UPDATE_ALL', 'Update')
+    self:Update()
 end
 
 function PluginFrame:Update()

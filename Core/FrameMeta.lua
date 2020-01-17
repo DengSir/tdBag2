@@ -61,7 +61,13 @@ end
 
 function FrameMeta:SetOption(key, value)
     self.profile[key] = value
-    ns.Events:FireFrame(ns.FRAME_PROFILE_EVENTS[key], self.bagId)
+
+    local event = ns.FRAME_OPTION_EVENTS[key]
+    if event then
+        ns.Events:FireFrame(event, self.bagId)
+    else
+        ns.Addon:UpdateAll()
+    end
 end
 
 function FrameMeta:ToggleOption(key)

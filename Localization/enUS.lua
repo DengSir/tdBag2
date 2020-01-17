@@ -4,7 +4,7 @@ if not L then
     return
 end
 
---@localization(locale=""enUS", format="lua_additive_table", table-name="L", same-key-is-true=true)@
+-- @localization(locale=""enUS", format="lua_additive_table", table-name="L", same-key-is-true=true)@
 
 -- @debug@
 -- @import@
@@ -18,7 +18,7 @@ L['Bag Toggle'] = true
 L['Equipped'] = true
 L['Inventory'] = true
 L['Bank'] = true
-L['Item Scale'] = true
+L['Mail'] = true
 
 L.TOOLTIP_CHANGE_PLAYER = 'View another character\'s items.'
 L.TOOLTIP_RETURN_TO_SELF = 'Return to the current character.'
@@ -36,7 +36,7 @@ L.TOOLTIP_SEARCH_RECORDS = 'Open saved search conditions'
 ---- options
 
 L.DESC_GENERAL = 'General preference Settings.'
-L.DESC_FRAMES = 'Bag preference Settings.'
+L.DESC_FRAMES = '%s preference Settings.'
 L.DESC_COLORS = 'Color preference Settings.'
 L.DESC_DISPLAY = 'Auto Display and Close.'
 
@@ -47,11 +47,17 @@ L['Blizzard Panel'] = true
 L['Reverse Bag Order'] = true
 L['Reverse Slot Order'] = true
 L['Columns'] = true
+L['Item Scale'] = true
 
 L['Features'] = true
 L['Token Frame'] = true
+L['Bag Frame'] = true
 
 L['No record'] = true
+
+L['Restore default Settings'] = true
+L['Are you sure you want to restore the current Settings?'] = true
+L['Global Settings'] = true
 
 L['Lock Frames'] = true
 L['Show Junk Icon'] = true

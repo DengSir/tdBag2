@@ -30,6 +30,7 @@ end
 function TitleFrame:OnShow()
     self:Update()
     self:RegisterFrameEvent('OWNER_CHANGED', 'Update')
+    self:RegisterEvent('TEXT_OFFLINE_TOGGLED', 'Update')
     self:RegisterEvent('UPDATE_ALL', 'Update')
 
     if self.meta:IsBank() then

@@ -34,7 +34,7 @@ L.TOOLTIP_SEARCH_RECORDS = '打开/保存搜索条件'
 ---- options
 
 L.DESC_GENERAL = '通用偏好设置。'
-L.DESC_FRAMES = '背包偏好设置。'
+L.DESC_FRAMES = '%s偏好设置。'
 L.DESC_COLORS = '颜色偏好设置。'
 L.DESC_DISPLAY = '自动显示和关闭。'
 
@@ -49,8 +49,13 @@ L['Item Scale'] = '物品缩放'
 
 L['Features'] = '功能'
 L['Token Frame'] = '代币'
+L['Bag Frame'] = '背包列表'
 
 L['No record'] = '没有记录'
+
+L['Restore default Settings'] = '恢复默认设置'
+L['Are you sure you want to restore the current Settings?'] = '你确定要恢复到默认设置吗？'
+L['Global Settings'] = '全局设置'
 
 L['Lock Frames'] = '锁定位置'
 L['Show Junk Icon'] = '显示垃圾图标'

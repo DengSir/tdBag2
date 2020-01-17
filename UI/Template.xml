@@ -46,8 +46,8 @@
             <EditBox parentKey="SearchBox" inherits="SearchBoxTemplate">
                 <Size y="28"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="74" y="-28" />
-                    <Anchor point="TOPRIGHT" x="-15" y="-28" />
+                    <Anchor point="LEFT" x="74" y="-42" />
+                    <Anchor point="RIGHT" x="-15" y="-42" />
                 </Anchors>
             </EditBox>
         </Frames>
@@ -80,7 +80,7 @@
                     <Anchor point="TOPLEFT" x="64" y="-29" />
                 </Anchors>
             </Frame>
-            <Frame parentKey="PluginFrame">
+            <Frame parentKey="PluginFrame" hidden="true">
                 <Size x="1" y="24" />
                 <Anchors>
                     <Anchor point="TOPRIGHT" x="-15" y="-31" />
@@ -122,7 +122,7 @@
                     <OnLoad function="MagicButton_OnLoad"/>
                 </Scripts>
             </Button>
-            <Button parentKey="TokenFrame" registerForClicks="RightButtonUp">
+            <Button parentKey="TokenFrame" hidden="true" registerForClicks="RightButtonUp">
                 <Anchors>
                     <Anchor point="BOTTOMLEFT" x="5" y="2" />
                     <Anchor point="TOPRIGHT" relativeKey="$parent.MoneyFrame" relativePoint="TOPLEFT" x="-3" y="0" />

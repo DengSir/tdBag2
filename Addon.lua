@@ -25,6 +25,7 @@ local UIParent = UIParent
 ---@field Cache tdBag2Cache
 ---@field Current tdBag2Current
 ---@field Cacher tdBag2Cacher
+---@field Tooltip tdBag2Tooltip
 local ns = select(2, ...)
 local BAG_ID = ns.BAG_ID
 
@@ -35,6 +36,7 @@ local BAG_ID = ns.BAG_ID
 ---@field managed boolean
 ---@field bagFrame boolean
 ---@field tokenFrame boolean
+---@field pluginButtons boolean
 ---@field window table
 ---@field tradeBagOrder string
 ---@field hiddenBags table<number, boolean>
@@ -93,8 +95,9 @@ function Addon:OnInitialize()
                     reverseBag = false,
                     reverseSlot = false,
                     managed = false,
-                    bagFrame = false,
+                    bagFrame = true,
                     tokenFrame = true,
+                    pluginButtons = true,
                     scale = 1,
                     tradeBagOrder = ns.TRADE_BAG_ORDER.BOTTOM,
                     hiddenBags = {},
@@ -108,6 +111,7 @@ function Addon:OnInitialize()
                     managed = true,
                     bagFrame = true,
                     tokenFrame = true,
+                    pluginButtons = true,
                     scale = 1,
                     tradeBagOrder = ns.TRADE_BAG_ORDER.NONE,
                     hiddenBags = {},
@@ -159,9 +163,12 @@ function Addon:OnInitialize()
         },
     }, true)
 
-    self.db:RegisterCallback('OnProfileChanged', function()
+    local function OnProfileChanged()
         self:OnProfileChanged()
-    end)
+    end
+
+    self.db:RegisterCallback('OnProfileChanged', OnProfileChanged)
+    self.db:RegisterCallback('OnProfileReset', OnProfileChanged)
 
     -- clear old options
     do
@@ -260,6 +267,13 @@ end
 
 function Addon:GetFrame(bagId)
     return self.frames[bagId]
+end
+
+function Addon:GetFrameMeta(bagId)
+    local frame = self.frames[bagId]
+    if frame then
+        return frame.meta
+    end
 end
 
 function Addon:ShowFrame(bagId, manual)

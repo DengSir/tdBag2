@@ -43,6 +43,7 @@ end
 
 function Frame:OnShow()
     PlaySound(862) -- SOUNDKIT.IG_BACKPACK_OPEN
+    self:RegisterFrameEvent('MANAGED_TOGGLED', 'UpdateManaged')
 end
 
 function Frame:OnHide()

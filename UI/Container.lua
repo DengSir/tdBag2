@@ -49,19 +49,23 @@ function Container:OnShow()
     if not self.meta:IsCached() then
         self:RegisterEvent('BAG_SIZE_CHANGED')
         self:RegisterEvent('BAG_UPDATE')
-        self:RegisterEvent('BAG_CLOSED')
         self:RegisterEvent('ITEM_LOCK_CHANGED')
         self:RegisterEvent('BAG_UPDATE_COOLDOWN')
-        self:RegisterEvent('BAG_NEW_ITEMS_UPDATED')
+        self:RegisterEvent('BAG_NEW_ITEMS_UPDATED', 'UpdateAllBorders')
         self:RegisterEvent('BANK_CLOSED', 'OnShow')
+        self:RegisterEvent('BAG_CLOSED', 'UpdateBagOrder')
     else
         self:UnregisterAllEvents()
     end
     self:RegisterEvent('BAG_FOCUS_UPDATED')
     self:RegisterEvent('SEARCH_CHANGED')
     self:RegisterEvent('GET_ITEM_INFO_RECEIVED')
-    self:RegisterEvent('UPDATE_ALL')
-    self:RegisterFrameEvent('OWNER_CHANGED')
+    self:RegisterEvent('ITEM_BORDER_UPDATE', 'UpdateAllBorders')
+    self:RegisterEvent('ITEM_COLOR_UPDATE')
+    self:RegisterEvent('UPDATE_ALL', 'Update')
+    self:RegisterFrameEvent('CONTAINER_LAYOUT', 'RequestLayout')
+    self:RegisterFrameEvent('BAG_ORDER_CHANGED', 'UpdateBagOrder')
+    self:RegisterFrameEvent('OWNER_CHANGED', 'Update')
     self:RequestLayout()
 end
 
@@ -81,6 +85,7 @@ local Updaters = {
     UpdateFocus = ns.UI.Item.UpdateFocus,
     UpdateCooldown = ns.UI.Item.UpdateCooldown,
     UpdateBorder = ns.UI.Item.UpdateBorder,
+    UpdateSlotColor = ns.UI.Item.UpdateSlotColor,
     UpdateLocked = function(item)
         item:UpdateInfo()
         item:UpdateLocked()
@@ -102,18 +107,8 @@ function Container:BAG_FOCUS_UPDATED(_, bag)
     self.lastFocusBag = bag
 end
 
-function Container:OWNER_CHANGED()
-    self.bagOrdered = nil
-    self:Update()
-end
-
 function Container:BAG_UPDATE(_, bag)
     self:ForBag(bag, Updaters.Update)
-end
-
-function Container:BAG_CLOSED()
-    self.bagOrdered = nil
-    self:RequestLayout()
 end
 
 function Container:ITEM_LOCK_CHANGED(_, bag, slot)
@@ -124,10 +119,6 @@ function Container:BAG_UPDATE_COOLDOWN()
     return self:ForAll(Updaters.UpdateCooldown)
 end
 
-function Container:BAG_NEW_ITEMS_UPDATED(...)
-    return self:ForAll(Updaters.UpdateBorder)
-end
-
 function Container:SEARCH_CHANGED()
     return self:ForAll(Updaters.UpdateSearch)
 end
@@ -136,13 +127,22 @@ function Container:GET_ITEM_INFO_RECEIVED(_, itemId)
     return self:ForItem(itemId, Updaters.Update)
 end
 
-function Container:UPDATE_ALL()
+function Container:ITEM_COLOR_UPDATE()
+    return self:ForAll(Updaters.UpdateSlotColor)
+end
+
+function Container:UpdateAllBorders()
+    return self:ForAll(Updaters.UpdateBorder)
+end
+
+function Container:Update()
     self.bagOrdered = nil
     self:OnShow()
 end
 
-function Container:Update()
-    self:OnShow()
+function Container:UpdateBagOrder()
+    self.bagOrdered = nil
+    self:RequestLayout()
 end
 
 function Container:ForAll(method, force)

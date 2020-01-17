@@ -22,6 +22,7 @@ local L = ns.L
 local Cache = ns.Cache
 local Counter = ns.Counter
 
+---@class tdBag2Tooltip
 local Tooltip = ns.Addon:NewModule('Tooltip', 'AceHook-3.0')
 Tooltip:Disable()
 Tooltip.APIS = {

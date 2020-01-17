@@ -157,8 +157,51 @@ ns.TRADE_BAG_ORDER = { --
     BOTTOM = 'bottom',
 }
 
-ns.FRAME_PROFILE_EVENTS = { --
+ns.FRAME_OPTION_EVENTS = { --
     bagFrame = 'BAG_FRAME_TOGGLED',
+    managed = 'MANAGED_TOGGLED',
+    tokenFrame = 'TOKEN_FRAME_TOGGLED',
+    pluginButtons = 'PLUGIN_FRAME_TOGGLED',
+
+    scale = 'CONTAINER_LAYOUT',
+    column = 'CONTAINER_LAYOUT',
+    reverseSlot = 'CONTAINER_LAYOUT',
+
+    reverseBag = 'BAG_ORDER_CHANGED',
+    tradeBagOrder = 'BAG_ORDER_CHANGED',
+}
+
+local function EventGenerate(event)
+    return function()
+        return ns.Events.Fire(event)
+    end
+end
+
+ns.OPTION_EVENTS = { --
+    textOffline = 'TEXT_OFFLINE_TOGGLED',
+    iconChar = 'ICON_CHARACTER_TOGGLED',
+
+    iconJunk = 'ITEM_BORDER_UPDATE',
+    iconQuestStarter = 'ITEM_BORDER_UPDATE',
+    glowQuest = 'ITEM_BORDER_UPDATE',
+    glowUnusable = 'ITEM_BORDER_UPDATE',
+    glowQuality = 'ITEM_BORDER_UPDATE',
+    glowEquipSet = 'ITEM_BORDER_UPDATE',
+    glowNew = 'ITEM_BORDER_UPDATE',
+    glowAlpha = 'ITEM_BORDER_UPDATE',
+
+    colorSlots = 'ITEM_COLOR_UPDATE',
+    colorNormal = 'ITEM_COLOR_UPDATE',
+    colorQuiver = 'ITEM_COLOR_UPDATE',
+    colorSoul = 'ITEM_COLOR_UPDATE',
+    colorEnchant = 'ITEM_COLOR_UPDATE',
+    colorHerb = 'ITEM_COLOR_UPDATE',
+    colorKeyring = 'ITEM_COLOR_UPDATE',
+    emptyAlpha = 'ITEM_COLOR_UPDATE',
+
+    tipCount = function()
+        return ns.Tooltip:Update()
+    end,
 }
 
 local function riter(t, i)
