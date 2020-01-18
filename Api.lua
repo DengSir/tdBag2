@@ -171,12 +171,6 @@ ns.FRAME_OPTION_EVENTS = { --
     tradeBagOrder = 'BAG_ORDER_CHANGED',
 }
 
-local function EventGenerate(event)
-    return function()
-        return ns.Events.Fire(event)
-    end
-end
-
 ns.OPTION_EVENTS = { --
     textOffline = 'TEXT_OFFLINE_TOGGLED',
     iconChar = 'ICON_CHARACTER_TOGGLED',

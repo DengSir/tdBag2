@@ -35,12 +35,14 @@ function ContainerFrame:Constructor(_, bagId)
         self:PlaceSearchBox()
     end)
 
-    self.SearchBox:HookScript('OnEditFocusLost', function()
-        self:SEARCH_CHANGED()
-    end)
-    self.SearchBox:HookScript('OnEditFocusGained', function()
-        self:SEARCH_CHANGED()
-    end)
+    local function OnFocusChanged()
+        if self:IsVisible() then
+            self:SEARCH_CHANGED()
+        end
+    end
+
+    self.SearchBox:HookScript('OnEditFocusLost', OnFocusChanged)
+    self.SearchBox:HookScript('OnEditFocusGained', OnFocusChanged)
 end
 
 function ContainerFrame:OnShow()

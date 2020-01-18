@@ -150,7 +150,7 @@ function Addon:SetupOptionFrame()
                     inline = true,
                     name = L['Plugin Buttons'],
                     order = orderGen(),
-                    disabled = function()
+                    hidden = function()
                         return not self.db.profile.frames[bagId].pluginButtons
                     end,
                     set = function(item, value)
@@ -241,7 +241,7 @@ function Addon:SetupOptionFrame()
                     inline = true,
                     name = L['Container Colors'],
                     order = orderGen(),
-                    disabled = function()
+                    hidden = function()
                         return not self.db.profile.colorSlots
                     end,
                     get = function(item)

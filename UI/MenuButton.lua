@@ -72,27 +72,26 @@ function MenuButton:GetDropMenu()
     return self.DropMenu
 end
 
-local function OnEnter(self)
-    self:GetParent():LockHighlight()
-end
-
-local function OnLeave(self)
-    self:GetParent():UnlockHighlight()
+function MenuButton:CreateEnterBlocker()
+    local EnterBlocker = CreateFrame('Frame', nil, self)
+    EnterBlocker:Hide()
+    EnterBlocker:SetScript('OnEnter', function(self)
+        return self:GetParent():LockHighlight()
+    end)
+    EnterBlocker:SetScript('OnLeave', function(self)
+        return self:GetParent():UnlockHighlight()
+    end)
+    EnterBlocker:SetMouseClickEnabled(false)
+    MenuButton.EnterBlocker = EnterBlocker
+    return EnterBlocker
 end
 
 function MenuButton:OnMenuOpened()
-    if not self.EnterBlocker then
-        local Blocker = CreateFrame('Frame', nil, self)
-        Blocker:Hide()
-        Blocker:SetScript('OnEnter', OnEnter)
-        Blocker:SetScript('OnLeave', OnLeave)
-        Blocker:SetMouseClickEnabled(false)
-        MenuButton.EnterBlocker = Blocker
-    end
-    self.EnterBlocker:SetParent(self)
-    self.EnterBlocker:SetAllPoints(true)
-    self.EnterBlocker:SetFrameLevel(self:GetFrameLevel() + 10)
-    self.EnterBlocker:Show()
+    local EnterBlocker = self.EnterBlocker or self:CreateEnterBlocker()
+    EnterBlocker:SetParent(self)
+    EnterBlocker:SetAllPoints(true)
+    EnterBlocker:SetFrameLevel(self:GetFrameLevel() + 10)
+    EnterBlocker:Show()
 end
 
 function MenuButton:OnMenuClosed()

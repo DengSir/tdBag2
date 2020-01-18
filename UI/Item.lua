@@ -16,7 +16,8 @@ local GetItemQualityColor = GetItemQualityColor
 local IsBattlePayItem = IsBattlePayItem
 local ResetCursor = ResetCursor
 
-local C_NewItems = C_NewItems
+local IsNewItem = C_NewItems.IsNewItem
+local RemoveNewItem = C_NewItems.RemoveNewItem
 
 local ContainerFrame_UpdateCooldown = ContainerFrame_UpdateCooldown
 local ContainerFrameItemButton_OnEnter = ContainerFrameItemButton_OnEnter
@@ -140,7 +141,7 @@ function Item:OnHide()
     end
 
     if self:IsNew() then
-        C_NewItems.RemoveNewItem(self.bag, self.slot)
+        RemoveNewItem(self.bag, self.slot)
     end
 end
 
@@ -365,8 +366,7 @@ function Item:IsCached()
 end
 
 function Item:IsNew()
-    return self.bag and ns.IsContainerBag(self.bag) and not self:IsCached() and
-               C_NewItems.IsNewItem(self.bag, self.slot)
+    return self.bag and ns.IsContainerBag(self.bag) and not self:IsCached() and IsNewItem(self.bag, self.slot)
 end
 
 function Item:IsPaid()
