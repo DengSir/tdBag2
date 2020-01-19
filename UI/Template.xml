@@ -178,7 +178,7 @@
             </Layer>
         </Layers>
     </Frame>
-    <Button name="tdBag2BagTemplate" virtual="true">
+    <Button name="tdBag2BagTemplate" registerForClicks="LeftButtonUp,RightButtonUp" virtual="true">
         <Size x="26" y="26" />
         <Layers>
             <Layer level="BACKGROUND">

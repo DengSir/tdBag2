@@ -14,19 +14,29 @@ local CreateFrame = CreateFrame
 local ns = select(2, ...)
 
 ---@class tdBag2BagFrame
+---@field protected meta tdBag2FrameMeta
 local BagFrame = ns.Addon:NewClass('UI.BagFrame', 'Frame')
 BagFrame.SPACING = 3
 
 ---@param meta tdBag2FrameMeta
 function BagFrame:Constructor(_, meta)
-    local bags = meta.bags
+    self.meta = meta
+    self:SetScript('OnShow', self.OnShow)
+end
+
+function BagFrame:OnShow()
+    self:SetScript('OnShow', nil)
+    self:Update()
+end
+
+function BagFrame:Update()
     local spacing = self.SPACING
     local button, prevButton
     local width, height = 0, 0
 
-    for i, bag in ipairs(bags) do
+    for i, bag in ipairs(self.meta.bags) do
         local template = ns.IsKeyring(bag) and 'tdBag2KeyringTemplate' or 'tdBag2BagTemplate'
-        button = ns.UI.Bag:Bind(CreateFrame('Button', nil, self, template), meta, bag)
+        button = ns.UI.Bag:Bind(CreateFrame('Button', nil, self, template), self.meta, bag)
         if i == 1 then
             button:SetPoint('LEFT')
         else

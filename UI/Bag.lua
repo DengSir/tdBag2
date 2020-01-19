@@ -45,8 +45,6 @@ function Bag:Constructor(_, meta, bag)
     self.meta = meta
     self.bag = bag
 
-    self:RegisterForClicks('LeftButtonUp', 'RightButtonUp')
-
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.UnregisterAllEvents)
     self:SetScript('OnEnter', self.OnEnter)
@@ -54,6 +52,10 @@ function Bag:Constructor(_, meta, bag)
     self:SetScript('OnClick', self.OnClick)
     self:SetScript('OnDragStart', self.OnDragStart)
     self:SetScript('OnReceiveDrag', self.OnClick)
+
+    if self:IsVisible() then
+        self:OnShow()
+    end
 end
 
 function Bag:OnShow()
