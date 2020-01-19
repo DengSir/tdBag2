@@ -24,7 +24,6 @@ function TokenFrame:Constructor(_, meta)
     self.meta = meta
     self.buttons = {}
     self:SetScript('OnShow', self.OnShow)
-    self:SetScript('OnHide', self.OnHide)
     self:SetScript('OnClick', self.ToggleMenu)
     self:Update()
 end
@@ -36,13 +35,9 @@ function TokenFrame:OnShow()
         self:UnregisterAllEvents()
     end
     self:RegisterEvent('WATCHED_TOKEN_CHANGED', 'Update')
+    self:RegisterEvent('UPDATE_ALL', 'Update')
     self:RegisterFrameEvent('OWNER_CHANGED', 'Update')
     self:Update()
-end
-
-function TokenFrame:OnHide()
-    self:UnregisterAllEvents()
-    self:CloseMenu()
 end
 
 function TokenFrame:GetButton(i)

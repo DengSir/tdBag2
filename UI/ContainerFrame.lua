@@ -11,13 +11,13 @@ local Frame = ns.UI.Frame
 local LibWindow = LibStub('LibWindow-1.1')
 
 ---@class tdBag2ContainerFrame: tdBag2Frame
----@field private meta tdBag2FrameMeta
----@field private portrait Texture
----@field private Icon string
----@field private Container tdBag2Container
----@field private BagFrame tdBag2BagFrame
----@field private TokenFrame tdBag2TokenFrame
----@field private PluginFrame tdBag2PluginFrame
+---@field protected meta tdBag2FrameMeta
+---@field protected portrait Texture
+---@field protected Icon string
+---@field protected Container tdBag2Container
+---@field protected BagFrame tdBag2BagFrame
+---@field protected TokenFrame tdBag2TokenFrame
+---@field protected PluginFrame tdBag2PluginFrame
 local ContainerFrame = ns.Addon:NewClass('UI.ContainerFrame', Frame)
 
 function ContainerFrame:Constructor(_, bagId)

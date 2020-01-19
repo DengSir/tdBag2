@@ -10,6 +10,7 @@ local ipairs, pairs, nop, tinsert, sort = ipairs, pairs, nop, tinsert, sort
 local ShowUIPanel = ShowUIPanel
 local HideUIPanel = HideUIPanel
 local CreateFrame = CreateFrame
+local GetItemClassInfo = GetItemClassInfo
 
 ---- UI
 local BankFrame = BankFrame
@@ -59,7 +60,7 @@ local BAG_ID = ns.BAG_ID
 
 ---@class UI
 ---@field FrameBase tdBag2Frame
----@field Frame tdBag2ContainerFrame
+---@field Frame tdBag2Frame
 ---@field Item tdBag2Item
 ---@field Bag tdBag2Bag
 ---@field Bank tdBag2Bank
@@ -175,26 +176,7 @@ function Addon:OnInitialize()
         self.db.global.quickfix = nil
     end
 
-    -- init search records
-    do
-        local searches = self.db.profile.searches
-        if searches.first then
-            searches.first = false
-
-            local types = { --
-                LE_ITEM_CLASS_WEAPON, --
-                LE_ITEM_CLASS_ARMOR, --
-                LE_ITEM_CLASS_CONSUMABLE, --
-                LE_ITEM_CLASS_TRADEGOODS, --
-                LE_ITEM_CLASS_REAGENT, --
-            }
-
-            for _, item in ipairs(types) do
-                tinsert(searches, (GetItemClassInfo(item)))
-            end
-        end
-    end
-
+    self:SetupDefaultSearchRecords()
     self:SetupBankHider()
     self:SetupOptionFrame()
 end
@@ -227,10 +209,30 @@ function Addon:OnClassCreated(class, name)
 end
 
 function Addon:OnProfileChanged()
+    self:SetupDefaultSearchRecords()
     self:UpdateAllFrameMeta()
     self:UpdateAllManaged()
     self:UpdateAllPosition()
     self:UpdateAll()
+end
+
+function Addon:SetupDefaultSearchRecords()
+    local searches = self.db.profile.searches
+    if searches.first then
+        searches.first = false
+
+        local types = { --
+            LE_ITEM_CLASS_WEAPON, --
+            LE_ITEM_CLASS_ARMOR, --
+            LE_ITEM_CLASS_CONSUMABLE, --
+            LE_ITEM_CLASS_TRADEGOODS, --
+            LE_ITEM_CLASS_REAGENT, --
+        }
+
+        for _, item in ipairs(types) do
+            tinsert(searches, (GetItemClassInfo(item)))
+        end
+    end
 end
 
 function Addon:SetupBankHider()

@@ -95,8 +95,8 @@ function Cache:IsBagCached(realm, name, bag)
         return true
     end
 
-    if ns.IsInBank(bag) and not Forever.atBank then
-        return true
+    if ns.IsInBank(bag) then
+        return not Forever.atBank
     end
 
     if ns.IsMail(bag) or ns.IsEquip(bag) then

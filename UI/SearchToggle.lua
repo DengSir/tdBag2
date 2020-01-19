@@ -29,16 +29,10 @@ function SearchToggle:Constructor(_, meta)
     self:SetScript('OnEnter', self.OnEnter)
     self:SetScript('OnLeave', GameTooltip_Hide)
     self:SetScript('OnShow', self.OnShow)
-    self:SetScript('OnHide', self.OnHide)
 end
 
 function SearchToggle:OnShow()
     self:RegisterEvent('SEARCH_CHANGED', 'CloseMenu')
-end
-
-function SearchToggle:OnHide()
-    self:UnregisterAllEvents()
-    self:CloseMenu()
 end
 
 function SearchToggle:OnClick(button)

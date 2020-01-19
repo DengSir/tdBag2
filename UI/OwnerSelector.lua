@@ -42,7 +42,6 @@ function OwnerSelector:Constructor(_, meta)
     self:SetScript('OnEnter', self.OnEnter)
     self:SetScript('OnLeave', self.OnLeave)
     self:SetScript('OnShow', self.OnShow)
-    self:SetScript('OnHide', self.OnHide)
 end
 
 function OwnerSelector:OnShow()
@@ -51,11 +50,6 @@ function OwnerSelector:OnShow()
     self:RegisterEvent('OWNER_REMOVED', 'UpdateEnable')
     self:RegisterEvent('UPDATE_ALL', 'Update')
     self:Update()
-end
-
-function OwnerSelector:OnHide()
-    self:UnregisterAllEvents()
-    self:CloseMenu()
 end
 
 function OwnerSelector:OnClick(button)

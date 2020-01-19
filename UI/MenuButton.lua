@@ -26,6 +26,15 @@ local ns = select(2, ...)
 local MenuButton = ns.Addon:NewClass('UI.MenuButton', 'Button')
 MenuButton.GenerateName = ns.NameGenerator('tdBag2DropMenu')
 
+function MenuButton:Constructor()
+    self:SetScript('OnHide', self.OnHide)
+end
+
+function MenuButton:OnHide()
+    self:CloseMenu()
+    self:UnregisterAllEvents()
+end
+
 function MenuButton:ToggleMenu()
     if self:IsMenuOpened() then
         CloseDropDownMenus()
