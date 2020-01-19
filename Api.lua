@@ -109,19 +109,21 @@ local BAG_TEMPLATES = { --
 
 local BAG_SETS = {}
 local INV_IDS = {}
+local BAG_IDS = {}
 do
-    for i = 1, NUM_BAG_SLOTS do
-        local id = i
-        tinsert(BAGS[BAG_ID.BAG], id)
+    local function touch(bag, bagId)
+        local slot = ContainerIDToInventoryID(bag)
+        INV_IDS[slot] = bag
+        BAG_IDS[bag] = slot
 
-        INV_IDS[ContainerIDToInventoryID(id)] = id
+        tinsert(BAGS[bagId], bag)
     end
 
+    for i = 1, NUM_BAG_SLOTS do
+        touch(i, BAG_ID.BAG)
+    end
     for i = 1, NUM_BANKBAGSLOTS do
-        local id = i + NUM_BAG_SLOTS
-        tinsert(BAGS[BAG_ID.BANK], id)
-
-        INV_IDS[ContainerIDToInventoryID(id)] = id
+        touch(i + NUM_BAG_SLOTS, BAG_ID.BANK)
     end
 
     tinsert(BAGS[BAG_ID.BAG], KEYRING_CONTAINER)
@@ -257,16 +259,16 @@ function ns.IsContainerBag(bag)
     return tonumber(bag)
 end
 
-function ns.InvToBag(inv)
+function ns.SlotToBag(inv)
     return INV_IDS[inv]
+end
+
+function ns.BagToSlot(bag)
+    return BAG_IDS[bag]
 end
 
 function ns.IsSelf(owner)
     return not owner or owner == PLAYER
-end
-
-function ns.GetInvIds()
-    return INV_IDS
 end
 
 function ns.AnchorTooltip(frame)

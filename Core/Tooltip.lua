@@ -35,10 +35,10 @@ Tooltip.EMPTY = {}
 Tooltip.CACHED_EMPTY = {cached = true}
 
 Tooltip.SPACES = {
-    {key = 'equip', label = L['Equipped']}, --
-    {key = 'bags', label = L['Inventory']}, --
-    {key = 'banks', label = L['Bank']}, --
-    {key = 'mails', label = L['Mail']}, --
+    L['Equipped'], --
+    L['Inventory'], --
+    L['Bank'], --
+    L['Mail'], --
 }
 
 function Tooltip:OnInitialize()
@@ -112,9 +112,8 @@ function Tooltip:GetCounts(counts)
     local places = 0
     local total = 0
     local sb = {}
-    for i, v in ipairs(self.SPACES) do
-        local count = counts[v.key]
-        local label = v.label
+    for i, label in ipairs(self.SPACES) do
+        local count = counts[i]
 
         if count and count > 0 then
             places = places + 1

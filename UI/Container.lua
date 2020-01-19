@@ -76,6 +76,7 @@ end
 
 function Container:BAG_SIZE_CHANGED(_, bag)
     if self:HasBag(bag) then
+        self.bagOrdered = nil
         self:RequestLayout()
     end
 end

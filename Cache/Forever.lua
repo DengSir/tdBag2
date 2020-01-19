@@ -11,7 +11,6 @@ local strsplit = strsplit
 local tDeleteItem = tDeleteItem
 
 ---- WOW
-local ContainerIDToInventoryID = ContainerIDToInventoryID
 local GetContainerItemInfo = GetContainerItemInfo
 local GetContainerNumFreeSlots = GetContainerNumFreeSlots
 local GetContainerNumSlots = GetContainerNumSlots
@@ -167,7 +166,7 @@ function Forever:MAIL_CLOSED()
     end
 
     db.size = #db
-    self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
+    self.Cacher:RemoveCache(ns.REALM, ns.PLAYER, ns.MAIL_CONTAINER)
 end
 
 function Forever:BAG_UPDATE(_, bag)
@@ -183,7 +182,7 @@ function Forever:PLAYER_MONEY()
 end
 
 function Forever:PLAYER_EQUIPMENT_CHANGED(_, slot)
-    self:SaveEquip(slot)
+    self:SaveEquip(slot, true)
 end
 
 function Forever:ParseItem(link, count, timeout)
@@ -217,19 +216,24 @@ function Forever:SaveBag(bag)
             local _, count, _, _, _, _, link = GetContainerItemInfo(bag, slot)
             items[slot] = self:ParseItem(link, count)
         end
-
-        if not ns.IsBaseBag(bag) then
-            self:SaveEquip(ContainerIDToInventoryID(bag))
-        end
     end
     self.player[bag] = items
+
+    if not ns.IsBaseBag(bag) then
+        local slot = ns.BagToSlot(bag)
+        self:SaveEquip(slot, true)
+    end
 end
 
-function Forever:SaveEquip(slot)
+function Forever:SaveEquip(slot, toRemoveCache)
     local link = GetInventoryItemLink('player', slot)
     local count = GetInventoryItemCount('player', slot)
 
     self.player[ns.EQUIP_CONTAINER][slot] = self:ParseItem(link, count)
+
+    if toRemoveCache then
+        self.Cacher:RemoveCache(ns.REALM, ns.PLAYER, ns.EQUIP_CONTAINER, slot)
+    end
 end
 
 function Forever:FindData(...)
@@ -296,7 +300,7 @@ function Forever:GetBagInfo(realm, name, bag)
         data.family = bagData.family or data.family or 0
         data.owned = true
         data.free = free
-        data.slot = ns.IsCustomBag(bag) and ContainerIDToInventoryID(bag) or nil
+        data.slot = ns.BagToSlot(bag)
 
         if data.slot then
             local info = self:GetItemInfo(realm, name, ns.EQUIP_CONTAINER, data.slot)

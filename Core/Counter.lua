@@ -3,6 +3,10 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 12/3/2019, 2:52:21 PM
 
+local pairs, ipairs = pairs, ipairs
+
+local GetItemCount = GetItemCount
+
 ---@type ns
 local ns = select(2, ...)
 local Cache = ns.Cache
@@ -26,9 +30,9 @@ function Counter:GetBagItemCount(owner, bag, itemId)
 
     local count = 0
     for slot = 1, info.count do
-        local id = Cache:GetItemID(owner, bag, slot)
-        if id == itemId then
-            count = count + (Cache:GetItemInfo(owner, bag, slot).count or 1)
+        local info = Cache:GetItemInfo(owner, bag, slot)
+        if info.id == itemId then
+            count = count + (info.count or 1)
         end
     end
     return count
@@ -36,8 +40,10 @@ end
 
 function Counter:GetOwnerItemCount(owner, itemId)
     local info = Cache:GetOwnerInfo(owner)
-    local equip = self:GetBagItemCount(owner, ns.EQUIP_CONTAINER, itemId)
     local mails = self:GetBagItemCount(owner, ns.MAIL_CONTAINER, itemId)
+    local equipInBag = self:GetEquippedBagCount(owner, ns.BAG_ID.BAG, itemId)
+    local equipInBank = self:GetEquippedBagCount(owner, ns.BAG_ID.BANK, itemId)
+    local equip = self:GetBagItemCount(owner, ns.EQUIP_CONTAINER, itemId)
     local bags, banks = 0, 0
 
     if info.cached then
@@ -51,13 +57,35 @@ function Counter:GetOwnerItemCount(owner, itemId)
         local owned = GetItemCount(itemId, true)
         local carrying = GetItemCount(itemId)
 
-        bags = carrying - equip
-        banks = owned - carrying
+        bags = carrying - equip - equipInBag
+        banks = owned - carrying - equipInBank
     end
-    return {equip = equip, bags = bags, banks = banks, mails = mails, cached = info.cached}
+
+    equip = equip + equipInBag + equipInBank
+
+    return {equip, bags, banks, mails, cached = info.cached}
 end
 
 function Counter:GetOwnerItemTotal(owner, itemId)
-    local info = self:GetOwnerItemCount(owner, itemId)
-    return info.equip + info.bags + info.banks + info.mails
+    local counts = self:GetOwnerItemCount(owner, itemId)
+    local count = 0
+    for i, v in ipairs(counts) do
+        count = count + v
+    end
+    return count
+end
+
+function Counter:GetEquippedBagCount(owner, bagId, itemId)
+    local count = 0
+    local bags = ns.GetBags(bagId)
+    for _, bag in ipairs(bags) do
+        local slot = ns.BagToSlot(bag)
+        if slot then
+            local info = Cache:GetItemInfo(owner, ns.EQUIP_CONTAINER, slot)
+            if itemId == info.id then
+                count = count + (info.count or 1)
+            end
+        end
+    end
+    return count
 end

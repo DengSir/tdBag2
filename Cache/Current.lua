@@ -7,7 +7,6 @@
 local select = select
 
 ---- WOW
-local ContainerIDToInventoryID = ContainerIDToInventoryID
 local GetBankSlotCost = GetBankSlotCost
 local GetContainerItemInfo = GetContainerItemInfo
 local GetContainerNumFreeSlots = GetContainerNumFreeSlots
@@ -58,7 +57,7 @@ function Current:GetBagInfo(bag)
         data.count = GetContainerNumSlots(bag)
 
         if ns.IsCustomBag(bag) then
-            data.slot = ContainerIDToInventoryID(bag)
+            data.slot = ns.BagToSlot(bag)
             data.link = GetInventoryItemLink('player', data.slot)
             data.icon = GetInventoryItemTexture('player', data.slot)
 
