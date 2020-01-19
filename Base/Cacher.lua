@@ -17,7 +17,7 @@ local null = {}
 local symbol = {}
 
 function Cacher:Constructor()
-    self._cache = {}
+    self[symbol] = {}
 end
 
 local mt = {
@@ -53,16 +53,21 @@ end
 function Cacher:Patch(cls, ...)
     local len = select('#', ...)
     local last = select(len, ...)
-    local advance = type(last) ~= 'string' and last
+    local advance
 
-    for i = 1, advance and len - 1 or len do
+    if type(last) ~= 'string' then
+        len = len - 1
+        advance = not not last
+    end
+
+    for i = 1, len do
         local method = select(i, ...)
         cls[method] = self:Generate(cls[method], advance)
     end
 end
 
 function Cacher:FindCache(...)
-    local cache = self._cache
+    local cache = self[symbol]
     for i = 1, select('#', ...) do
         local key = select(i, ...)
         if key == nil then
@@ -75,5 +80,6 @@ function Cacher:FindCache(...)
 end
 
 function Cacher:RemoveCache(...)
+    print('RemoveCache', ...)
     wipe(self:FindCache(...))
 end

@@ -98,7 +98,7 @@ function ContainerFrame:PlaceSearchBox()
         if self.PluginFrame:IsShown() then
             self.SearchBox:SetPoint('RIGHT', self.PluginFrame, 'LEFT', -4, 0)
         else
-            self.SearchBox:SetPoint('RIGHT', self, 'TOPRIGHT', -25, -42)
+            self.SearchBox:SetPoint('RIGHT', self, 'TOPRIGHT', -20, -42)
         end
 
         if self.BagFrame:IsShown() then

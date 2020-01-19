@@ -33,8 +33,13 @@ local INVSLOT_LAST_EQUIPPED = INVSLOT_LAST_EQUIPPED
 ---@type ns
 local ns = select(2, ...)
 
+local REALM = ns.REALM
+local PLAYER = ns.PLAYER
 local BAGS = ns.GetBags(ns.BAG_ID.BAG)
 local BANKS = ns.GetBags(ns.BAG_ID.BANK)
+local MAIL_CONTAINER = ns.MAIL_CONTAINER
+local EQUIP_CONTAINER = ns.EQUIP_CONTAINER
+
 local NO_RESULT = {cached = true}
 
 ---@class tdBag2ForeverCharacter
@@ -68,7 +73,7 @@ end
 function Forever:PLAYER_LOGIN()
     self:SetupCache()
     self:SetupEvents()
-    self:Update()
+    self:UpdateData()
 end
 
 function Forever:SetupCache()
@@ -79,8 +84,8 @@ function Forever:SetupCache()
     self.realm = self.db[realm]
     self.realm[player] = self.realm[player] or {}
     self.player = self.realm[player]
-    self.player[ns.EQUIP_CONTAINER] = self.player[ns.EQUIP_CONTAINER] or {}
-    self.player[ns.MAIL_CONTAINER] = self.player[ns.MAIL_CONTAINER] or {}
+    self.player[EQUIP_CONTAINER] = self.player[EQUIP_CONTAINER] or {}
+    self.player[MAIL_CONTAINER] = self.player[MAIL_CONTAINER] or {}
 
     self.player.faction = UnitFactionGroup('player')
     self.player.class = UnitClassBase('player')
@@ -108,7 +113,7 @@ function Forever:SetupEvents()
     self:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
 end
 
-function Forever:Update()
+function Forever:UpdateData()
     for _, bag in ipairs(BAGS) do
         self:SaveBag(bag)
     end
@@ -124,7 +129,7 @@ end
 
 function Forever:BANKFRAME_OPENED()
     self.atBank = true
-    self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
+    self.Cacher:RemoveCache(REALM, PLAYER)
     self:SendMessage('BANK_OPENED')
 end
 
@@ -133,6 +138,7 @@ function Forever:BANKFRAME_CLOSED()
         for _, bag in ipairs(ns.GetBags(ns.BAG_ID.BANK)) do
             self:SaveBag(bag)
         end
+        self.Cacher:RemoveCache(REALM, PLAYER)
         self.atBank = nil
     end
     self:SendMessage('BANK_CLOSED')
@@ -140,7 +146,7 @@ end
 
 function Forever:MAIL_SHOW()
     self.atMail = true
-    self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
+    self.Cacher:RemoveCache(REALM, PLAYER, MAIL_CONTAINER)
 end
 
 function Forever:MAIL_CLOSED()
@@ -148,7 +154,7 @@ function Forever:MAIL_CLOSED()
         return
     end
 
-    local db = wipe(self.player[ns.MAIL_CONTAINER])
+    local db = wipe(self.player[MAIL_CONTAINER])
     local now = time()
 
     local num, total = GetInboxNumItems()
@@ -166,7 +172,7 @@ function Forever:MAIL_CLOSED()
     end
 
     db.size = #db
-    self.Cacher:RemoveCache(ns.REALM, ns.PLAYER, ns.MAIL_CONTAINER)
+    self.Cacher:RemoveCache(REALM, PLAYER, MAIL_CONTAINER)
 end
 
 function Forever:BAG_UPDATE(_, bag)
@@ -182,7 +188,8 @@ function Forever:PLAYER_MONEY()
 end
 
 function Forever:PLAYER_EQUIPMENT_CHANGED(_, slot)
-    self:SaveEquip(slot, true)
+    self:SaveEquip(slot)
+    self.Cacher:RemoveCache(REALM, PLAYER, EQUIP_CONTAINER, slot)
 end
 
 function Forever:ParseItem(link, count, timeout)
@@ -221,19 +228,15 @@ function Forever:SaveBag(bag)
 
     if not ns.IsBaseBag(bag) then
         local slot = ns.BagToSlot(bag)
-        self:SaveEquip(slot, true)
+        self:SaveEquip(slot)
     end
 end
 
-function Forever:SaveEquip(slot, toRemoveCache)
+function Forever:SaveEquip(slot)
     local link = GetInventoryItemLink('player', slot)
     local count = GetInventoryItemCount('player', slot)
 
-    self.player[ns.EQUIP_CONTAINER][slot] = self:ParseItem(link, count)
-
-    if toRemoveCache then
-        self.Cacher:RemoveCache(ns.REALM, ns.PLAYER, ns.EQUIP_CONTAINER, slot)
-    end
+    self.player[EQUIP_CONTAINER][slot] = self:ParseItem(link, count)
 end
 
 function Forever:FindData(...)
@@ -303,7 +306,7 @@ function Forever:GetBagInfo(realm, name, bag)
         data.slot = ns.BagToSlot(bag)
 
         if data.slot then
-            local info = self:GetItemInfo(realm, name, ns.EQUIP_CONTAINER, data.slot)
+            local info = self:GetItemInfo(realm, name, EQUIP_CONTAINER, data.slot)
             data.icon = info.icon
             data.link = info.link
             data.id = info.id
