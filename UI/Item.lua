@@ -6,6 +6,9 @@
 ---- LUA
 local _G = _G
 local select = select
+local next = next
+local floor = math.floor
+local format = string.format
 
 ---- WOW
 local BankButtonIDToInvSlotID = BankButtonIDToInvSlotID
@@ -29,6 +32,7 @@ local SetItemButtonTexture = SetItemButtonTexture
 ---- UI
 local StackSplitFrame = StackSplitFrame
 local GameTooltip = GameTooltip
+local UIParent = UIParent
 
 ---- G
 local ITEM_STARTS_QUEST = ITEM_STARTS_QUEST
@@ -37,6 +41,8 @@ local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON
 local LE_ITEM_QUALITY_POOR = LE_ITEM_QUALITY_POOR
 local NEW_ITEM_ATLAS_BY_QUALITY = NEW_ITEM_ATLAS_BY_QUALITY
 local TEXTURE_ITEM_QUEST_BANG = TEXTURE_ITEM_QUEST_BANG
+local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS
+local MAX_BLIZZARD_ITEMS = NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
 
 ---@type ns
 local ns = select(2, ...)
@@ -63,8 +69,9 @@ local LibJunk = LibStub('LibJunk-1.0')
 ---@field private newitemglowAnim AnimationGroup
 ---@field private flashAnim AnimationGroup
 local Item = ns.Addon:NewClass('UI.Item', 'Button.ContainerFrameItemButtonTemplate')
-Item.pool = {}
 
+local pool = {}
+local index = 0
 local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
 
 function Item:Constructor()
@@ -104,15 +111,28 @@ function Item:Constructor()
     self:SetScript('OnEvent', nil)
 end
 
----@return tdBag2Item
 function Item:Alloc()
-    local object = next(self.pool)
-    if not object then
-        object = Item:New(UIParent)
+    local obj = next(pool)
+    if not obj then
+        obj = self:Create()
     else
-        self.pool[object] = nil
+        pool[obj] = nil
     end
-    return object
+    return obj
+end
+
+function Item:Create()
+    if index < MAX_BLIZZARD_ITEMS then
+        index = index + 1
+
+        local i = floor(index / MAX_CONTAINER_ITEMS) + 1
+        local j = index % MAX_CONTAINER_ITEMS + 1
+        local item = _G[format('ContainerFrame%dItem%d', i, j)]
+        if item then
+            return Item:Bind(item, UIParent)
+        end
+    end
+    return Item:New(UIParent)
 end
 
 function Item:Free()
@@ -120,7 +140,7 @@ function Item:Free()
     self.slot = nil
     self:SetID(0)
     self:Hide()
-    self.pool[self] = true
+    pool[self] = true
 end
 
 function Item:Init(parent, meta, bag, slot)
@@ -395,21 +415,4 @@ function Item:IsJunk()
         return
     end
     return LibJunk:IsJunk(self.info.id)
-end
-
-do
-    for c = 1, NUM_CONTAINER_FRAMES do
-        for i = 1, MAX_CONTAINER_ITEMS do
-            local item = _G[format('ContainerFrame%dItem%d', c, i)]
-            if item then
-                item:SetID(0)
-                item:ClearAllPoints()
-                item:Hide()
-                item:UnregisterAllEvents()
-
-                Item:Bind(item, UIParent)
-                Item.pool[item] = true
-            end
-        end
-    end
 end

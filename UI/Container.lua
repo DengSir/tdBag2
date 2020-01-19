@@ -212,7 +212,7 @@ function Container:CreateBagFrame(bag)
     return frame
 end
 
-function Container:CreateItemButton(bag, slot)
+function Container:AllocItemButton(bag, slot)
     local itemButton = ns.UI.Item:Alloc()
     itemButton:Init(self:GetBagFrame(bag), self.meta, bag, slot)
     self.itemButtons[bag][slot] = itemButton
@@ -220,7 +220,7 @@ function Container:CreateItemButton(bag, slot)
 end
 
 function Container:GetItemButton(bag, slot)
-    return self.itemButtons[bag][slot] or self:CreateItemButton(bag, slot)
+    return self.itemButtons[bag][slot] or self:AllocItemButton(bag, slot)
 end
 
 function Container:RequestLayout()
