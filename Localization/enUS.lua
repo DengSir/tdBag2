@@ -19,6 +19,7 @@ L['Equipped'] = true
 L['Inventory'] = true
 L['Bank'] = true
 L['Mail'] = true
+L['COD'] = true
 
 L.TOOLTIP_CHANGE_PLAYER = 'View another character\'s items.'
 L.TOOLTIP_RETURN_TO_SELF = 'Return to the current character.'

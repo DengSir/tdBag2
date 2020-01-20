@@ -41,6 +41,7 @@ end
 function Counter:GetOwnerItemCount(owner, itemId)
     local info = Cache:GetOwnerInfo(owner)
     local mails = self:GetBagItemCount(owner, ns.MAIL_CONTAINER, itemId)
+    local cods = self:GetBagItemCount(owner, ns.COD_CONTAINER, itemId)
     local equipInBag = self:GetEquippedBagCount(owner, ns.BAG_ID.BAG, itemId)
     local equipInBank = self:GetEquippedBagCount(owner, ns.BAG_ID.BANK, itemId)
     local equip = self:GetBagItemCount(owner, ns.EQUIP_CONTAINER, itemId)
@@ -63,7 +64,7 @@ function Counter:GetOwnerItemCount(owner, itemId)
 
     equip = equip + equipInBag + equipInBank
 
-    return {equip, bags, banks, mails, cached = info.cached}
+    return {equip, bags, banks, mails, cods, cached = info.cached}
 end
 
 function Counter:GetOwnerItemTotal(owner, itemId)

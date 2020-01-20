@@ -39,6 +39,7 @@ Tooltip.SPACES = {
     L['Inventory'], --
     L['Bank'], --
     L['Mail'], --
+    L['COD'],
 }
 
 function Tooltip:OnInitialize()

@@ -8,6 +8,7 @@ local select, pairs, ipairs = select, pairs, ipairs
 local tinsert = table.insert
 local tonumber = tonumber
 local strsplit = strsplit
+local time = time
 local tDeleteItem = tDeleteItem
 
 ---- WOW
@@ -25,20 +26,24 @@ local UnitFactionGroup = UnitFactionGroup
 local UnitFullName = UnitFullName
 local UnitRace = UnitRace
 local UnitSex = UnitSex
+local GetInboxNumItems = GetInboxNumItems
+local GetInboxHeaderInfo = GetInboxHeaderInfo
+local GetInboxItemLink = GetInboxItemLink
+local GetInboxItem = GetInboxItem
 
 ---- G
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local INVSLOT_LAST_EQUIPPED = INVSLOT_LAST_EQUIPPED
+local ATTACHMENTS_MAX_RECEIVE = ATTACHMENTS_MAX_RECEIVE
 
 ---@type ns
 local ns = select(2, ...)
 
-local REALM = ns.REALM
-local PLAYER = ns.PLAYER
 local BAGS = ns.GetBags(ns.BAG_ID.BAG)
 local BANKS = ns.GetBags(ns.BAG_ID.BANK)
 local MAIL_CONTAINER = ns.MAIL_CONTAINER
 local EQUIP_CONTAINER = ns.EQUIP_CONTAINER
+local COD_CONTAINER = ns.COD_CONTAINER
 
 local NO_RESULT = {cached = true}
 
@@ -62,15 +67,9 @@ local Forever = ns.Addon:NewModule('Forever', 'AceEvent-3.0')
 function Forever:OnInitialize()
     self.Cacher = ns.Cacher:New()
     self.Cacher:Patch(self, 'GetBagInfo', 'GetOwnerInfo', 'GetItemInfo')
-
-    if IsLoggedIn() then
-        self:PLAYER_LOGIN()
-    else
-        self:RegisterEvent('PLAYER_LOGIN')
-    end
 end
 
-function Forever:PLAYER_LOGIN()
+function Forever:OnEnable()
     self:SetupCache()
     self:SetupEvents()
     self:UpdateData()
@@ -84,8 +83,8 @@ function Forever:SetupCache()
     self.realm = self.db[realm]
     self.realm[player] = self.realm[player] or {}
     self.player = self.realm[player]
+
     self.player[EQUIP_CONTAINER] = self.player[EQUIP_CONTAINER] or {}
-    self.player[MAIL_CONTAINER] = self.player[MAIL_CONTAINER] or {}
 
     self.player.faction = UnitFactionGroup('player')
     self.player.class = UnitClassBase('player')
@@ -129,7 +128,7 @@ end
 
 function Forever:BANKFRAME_OPENED()
     self.atBank = true
-    self.Cacher:RemoveCache(REALM, PLAYER)
+    self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
     self:SendMessage('BANK_OPENED')
 end
 
@@ -138,7 +137,7 @@ function Forever:BANKFRAME_CLOSED()
         for _, bag in ipairs(ns.GetBags(ns.BAG_ID.BANK)) do
             self:SaveBag(bag)
         end
-        self.Cacher:RemoveCache(REALM, PLAYER)
+        self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
         self.atBank = nil
     end
     self:SendMessage('BANK_CLOSED')
@@ -146,32 +145,40 @@ end
 
 function Forever:MAIL_SHOW()
     self.atMail = true
-    self.Cacher:RemoveCache(REALM, PLAYER, MAIL_CONTAINER)
+    self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
 end
 
 function Forever:MAIL_CLOSED()
     if self.atMail then
-        local db = wipe(self.player[MAIL_CONTAINER])
+        local mails = {}
+        local cods = {}
         local now = time()
 
         local num, total = GetInboxNumItems()
         for i = 1, num do
-            local daysLeft = select(7, GetInboxHeaderInfo(i))
+            local codAmount, daysLeft = select(6, GetInboxHeaderInfo(i))
             local timeout = now + daysLeft * 86400
+            local isCod = codAmount > 0
+
             for j = 1, ATTACHMENTS_MAX_RECEIVE do
                 local link = GetInboxItemLink(i, j)
                 if link then
                     local count = select(4, GetInboxItem(i, j))
 
-                    tinsert(db, self:ParseItem(link, count, timeout))
+                    tinsert(isCod and cods or mails, self:ParseItem(link, count, timeout))
                 end
             end
         end
 
-        db.size = #db
-        self.Cacher:RemoveCache(REALM, PLAYER, MAIL_CONTAINER)
-        self.atMail = nil
+        mails.size = #mails
+        cods.size = #cods
+
+        self.player[MAIL_CONTAINER] = mails
+        self.player[COD_CONTAINER] = mails
+
+        self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
     end
+    self.atMail = nil
 end
 
 function Forever:BAG_UPDATE(_, bag)
@@ -188,7 +195,7 @@ end
 
 function Forever:PLAYER_EQUIPMENT_CHANGED(_, slot)
     self:SaveEquip(slot)
-    self.Cacher:RemoveCache(REALM, PLAYER, EQUIP_CONTAINER, slot)
+    self.Cacher:RemoveCache(ns.REALM, ns.PLAYER, EQUIP_CONTAINER, slot)
 end
 
 function Forever:ParseItem(link, count, timeout)
