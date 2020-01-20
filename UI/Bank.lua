@@ -17,7 +17,7 @@ local ContainerFrame = ns.UI.ContainerFrame
 local Bank = ns.Addon:NewClass('UI.Bank', ContainerFrame)
 
 function Bank:OnHide()
-    if not self.updatingManaged and not self.meta:IsCached() then
+    if not self.updatingManaged then
         CloseBankFrame()
     end
     ContainerFrame.OnHide(self)
