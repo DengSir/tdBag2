@@ -178,7 +178,14 @@
             </Layer>
         </Layers>
     </Frame>
-    <Button name="tdBag2BagTemplate" registerForClicks="LeftButtonUp,RightButtonUp" virtual="true">
+    <Button name="tdBag2BaseBagTemplate" registerForClicks="LeftButtonUp,RightButtonUp" virtual="true">
+        <Scripts>
+            <OnLoad>
+                self:RegisterForDrag('LeftButton')
+            </OnLoad>
+        </Scripts>
+    </Button>
+    <Button name="tdBag2BagTemplate" inherits="tdBag2BaseBagTemplate" virtual="true">
         <Size x="26" y="26" />
         <Layers>
             <Layer level="BACKGROUND">
@@ -200,13 +207,8 @@
         </NormalTexture>
         <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
         <HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
-        <Scripts>
-            <OnLoad>
-                self:RegisterForDrag('LeftButton')
-            </OnLoad>
-        </Scripts>
     </Button>
-    <Button name="tdBag2KeyringTemplate" virtual="true">
+    <Button name="tdBag2KeyringTemplate" inherits="tdBag2BaseBagTemplate" virtual="true">
         <Size x="12" y="26" />
         <NormalTexture file="Interface\Buttons\UI-Button-KeyRing">
             <Size x="14" y="29" />
@@ -229,11 +231,6 @@
             </Anchors>
             <TexCoords left="0" right="0.5625" top="0" bottom="0.609375"/>
         </PushedTexture>
-        <Scripts>
-            <OnLoad>
-                self:RegisterForDrag('LeftButton')
-            </OnLoad>
-        </Scripts>
     </Button>
     <CheckButton name="tdBag2ToggleButtonTemplate" virtual="true">
         <Size x="24" y="24" />
