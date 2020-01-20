@@ -174,7 +174,7 @@ function Forever:MAIL_CLOSED()
         cods.size = #cods
 
         self.player[MAIL_CONTAINER] = mails
-        self.player[COD_CONTAINER] = mails
+        self.player[COD_CONTAINER] = cods
 
         self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
     end
