@@ -150,29 +150,28 @@ function Forever:MAIL_SHOW()
 end
 
 function Forever:MAIL_CLOSED()
-    if not self.atMail then
-        return
-    end
+    if self.atMail then
+        local db = wipe(self.player[MAIL_CONTAINER])
+        local now = time()
 
-    local db = wipe(self.player[MAIL_CONTAINER])
-    local now = time()
+        local num, total = GetInboxNumItems()
+        for i = 1, num do
+            local daysLeft = select(7, GetInboxHeaderInfo(i))
+            local timeout = now + daysLeft * 86400
+            for j = 1, ATTACHMENTS_MAX_RECEIVE do
+                local link = GetInboxItemLink(i, j)
+                if link then
+                    local count = select(4, GetInboxItem(i, j))
 
-    local num, total = GetInboxNumItems()
-    for i = 1, num do
-        local daysLeft = select(7, GetInboxHeaderInfo(i))
-        local timeout = now + daysLeft * 86400
-        for j = 1, ATTACHMENTS_MAX_RECEIVE do
-            local link = GetInboxItemLink(i, j)
-            if link then
-                local count = select(4, GetInboxItem(i, j))
-
-                tinsert(db, self:ParseItem(link, count, timeout))
+                    tinsert(db, self:ParseItem(link, count, timeout))
+                end
             end
         end
-    end
 
-    db.size = #db
-    self.Cacher:RemoveCache(REALM, PLAYER, MAIL_CONTAINER)
+        db.size = #db
+        self.Cacher:RemoveCache(REALM, PLAYER, MAIL_CONTAINER)
+        self.atMail = nil
+    end
 end
 
 function Forever:BAG_UPDATE(_, bag)
