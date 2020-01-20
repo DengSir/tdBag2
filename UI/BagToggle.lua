@@ -63,13 +63,3 @@ end
 function BagToggle:OnLeave()
     GameTooltip:Hide()
 end
-
-Addon:RegisterPluginButton({
-    key = 'BagToggle',
-    text = L['Bag Toggle'],
-    icon = ns.BAG_ICONS[ns.BAG_ID.BAG],
-    order = 10000,
-    init = function(button, frame)
-        BagToggle:Bind(button, frame.meta)
-    end,
-})

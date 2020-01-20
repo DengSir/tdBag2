@@ -29,15 +29,14 @@ local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local NUM_BANKBAGSLOTS = NUM_BANKBAGSLOTS
 local EQUIP_CONTAINER = 'equip'
 local MAIL_CONTAINER = 'mail'
-
-local PLAYER = UnitName('player')
-local REALM = GetRealmName()
+local COD_CONTAINER = 'cod'
 
 ---@type ns
 local ns = select(2, ...)
 
 ns.EQUIP_CONTAINER = EQUIP_CONTAINER
 ns.MAIL_CONTAINER = MAIL_CONTAINER
+ns.COD_CONTAINER = COD_CONTAINER
 
 ns.ITEM_SIZE = 37
 ns.ITEM_SPACING = 2
@@ -140,8 +139,9 @@ ns.BAG_ICONS = BAG_ICONS
 ns.BAG_TITLES = BAG_TITLES
 ns.BAG_CLASSES = BAG_CLASSES
 ns.BAG_TEMPLATES = BAG_TEMPLATES
-ns.PLAYER = PLAYER
-ns.REALM = REALM
+
+ns.PLAYER = nil
+ns.REALM = nil
 
 ns.BAG_FAMILY = { --
     [1] = 'Quiver',
@@ -268,7 +268,7 @@ function ns.BagToSlot(bag)
 end
 
 function ns.IsSelf(owner)
-    return not owner or owner == PLAYER
+    return not owner or owner == ns.PLAYER
 end
 
 function ns.AnchorTooltip(frame)

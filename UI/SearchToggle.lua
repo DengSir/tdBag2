@@ -124,13 +124,3 @@ function SearchToggle:CreateMenu()
     end
     return result
 end
-
-ns.Addon:RegisterPluginButton({
-    key = 'SearchToggle',
-    text = SEARCH,
-    icon = [[Interface\Minimap\Tracking\None]],
-    order = 10001,
-    init = function(button, frame)
-        SearchToggle:Bind(button, frame.meta)
-    end,
-})
