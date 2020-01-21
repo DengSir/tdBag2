@@ -80,6 +80,5 @@ function Cacher:FindCache(...)
 end
 
 function Cacher:RemoveCache(...)
-    print('RemoveCache', ...)
     wipe(self:FindCache(...))
 end
