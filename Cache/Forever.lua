@@ -66,7 +66,11 @@ local Forever = ns.Addon:NewModule('Forever', 'AceEvent-3.0')
 
 function Forever:OnInitialize()
     self.Cacher = ns.Cacher:New()
-    self.Cacher:Patch(self, 'GetBagInfo', 'GetOwnerInfo', 'GetItemInfo')
+    self.Cacher:Patch(self, 'GetBagInfo', 'GetOwnerInfo')
+    self.Cacher:Patch(self, 'GetItemInfo', true)
+    self.GetItemInfo.Cachable = function(info)
+        return not info.noCache
+    end
 end
 
 function Forever:OnEnable()
@@ -339,6 +343,8 @@ function Forever:GetItemInfo(realm, name, bag, slot)
         if name then
             data.link = link
             data.quality = quality
+        else
+            data.noCache = true
         end
         return data
     end
