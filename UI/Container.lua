@@ -66,6 +66,7 @@ function Container:OnShow()
     self:RegisterFrameEvent('CONTAINER_LAYOUT', 'RequestLayout')
     self:RegisterFrameEvent('BAG_ORDER_CHANGED', 'UpdateBagOrder')
     self:RegisterFrameEvent('OWNER_CHANGED', 'Update')
+    self:RegisterFrameEvent('REMAIN_LIMIT_CHANGED')
     self:RequestLayout()
 end
 
@@ -87,6 +88,7 @@ local Updaters = {
     UpdateCooldown = ns.UI.Item.UpdateCooldown,
     UpdateBorder = ns.UI.Item.UpdateBorder,
     UpdateSlotColor = ns.UI.Item.UpdateSlotColor,
+    UpdateRemain = ns.UI.Item.UpdateRemain,
     UpdateLocked = function(item)
         item:UpdateInfo()
         item:UpdateLocked()
@@ -102,6 +104,7 @@ local Updaters = {
         item:Free()
     end,
 }
+Container.Updaters = Updaters
 
 function Container:BAG_FOCUS_UPDATED(_, bag)
     self:ForBag(self.lastFocusBag, Updaters.UpdateFocus)
@@ -131,6 +134,10 @@ end
 
 function Container:ITEM_COLOR_UPDATE()
     return self:ForAll(Updaters.UpdateSlotColor)
+end
+
+function Container:REMAIN_LIMIT_CHANGED()
+    return self:ForAll(Updaters.UpdateRemain)
 end
 
 function Container:UpdateAllBorders()

@@ -109,7 +109,7 @@ function Addon:SetupOptionFrame()
         return {type = 'group', name = '  |cffffffff' .. name .. '|r', order = orderGen(), args = args}
     end
 
-    local function frame(bagId, name)
+    local function baseFrame(bagId, name, args)
         return {
             type = 'group',
             name = '  |cffffffff' .. name .. '|r',
@@ -126,44 +126,49 @@ function Addon:SetupOptionFrame()
             get = function(item)
                 return self.db.profile.frames[bagId][item[#item]]
             end,
-            args = {
-                desc = desc(format(L.DESC_FRAMES, name)),
-                appearance = inline(L['Appearance'], { --
-                    managed = toggle(L['Blizzard Panel']),
-                    tradeBagOrder = drop(L['Trade Containers Location'], {
-                        {name = L['Default'], value = ns.TRADE_BAG_ORDER.NONE},
-                        {name = L['Top'], value = ns.TRADE_BAG_ORDER.TOP},
-                        {name = L['Bottom'], value = ns.TRADE_BAG_ORDER.BOTTOM},
-                    }),
-                    reverseBag = toggle(L['Reverse Bag Order']),
-                    reverseSlot = toggle(L['Reverse Slot Order']),
-                    column = range(L['Columns'], 6, 36, 1),
-                    scale = range(L['Item Scale'], 0.5, 2),
-                }),
-                features = inline(L['Features'], { --
-                    tokenFrame = toggle(L['Token Frame']),
-                    bagFrame = toggle(L['Bag Frame']),
-                    pluginButtons = toggle(L['Plugin Buttons']),
-                }),
-                buttons = {
-                    type = 'group',
-                    inline = true,
-                    name = L['Plugin Buttons'],
-                    order = orderGen(),
-                    hidden = function()
-                        return not self.db.profile.frames[bagId].pluginButtons
-                    end,
-                    set = function(item, value)
-                        self.db.profile.frames[bagId].disableButtons[item[#item]] = not value
-                        ns.Events:FireFrame('PLUGIN_BUTTON_UPDATE', bagId)
-                    end,
-                    get = function(item)
-                        return not self.db.profile.frames[bagId].disableButtons[item[#item]]
-                    end,
-                    args = BAG_ARGS[bagId],
-                },
-            },
+            args = args,
         }
+    end
+
+    local function frame(bagId, name)
+        return baseFrame(bagId, name, {
+            desc = desc(format(L.DESC_FRAMES, name)),
+            appearance = inline(L['Appearance'], { --
+                managed = toggle(L['Blizzard Panel']),
+                iconCharacter = toggle(L['Show Character Portrait']),
+                reverseBag = toggle(L['Reverse Bag Order']),
+                reverseSlot = toggle(L['Reverse Slot Order']),
+                column = range(L['Columns'], 6, 36, 1),
+                scale = range(L['Item Scale'], 0.5, 2),
+                tradeBagOrder = drop(L['Trade Containers Location'], {
+                    {name = L['Default'], value = ns.TRADE_BAG_ORDER.NONE},
+                    {name = L['Top'], value = ns.TRADE_BAG_ORDER.TOP},
+                    {name = L['Bottom'], value = ns.TRADE_BAG_ORDER.BOTTOM},
+                }),
+            }),
+            features = inline(L['Features'], { --
+                tokenFrame = toggle(L['Token Frame']),
+                bagFrame = toggle(L['Bag Frame']),
+                pluginButtons = toggle(L['Plugin Buttons']),
+            }),
+            buttons = {
+                type = 'group',
+                inline = true,
+                name = L['Plugin Buttons'],
+                order = orderGen(),
+                hidden = function()
+                    return not self.db.profile.frames[bagId].pluginButtons
+                end,
+                set = function(item, value)
+                    self.db.profile.frames[bagId].disableButtons[item[#item]] = not value
+                    ns.Events:FireFrame('PLUGIN_BUTTON_UPDATE', bagId)
+                end,
+                get = function(item)
+                    return not self.db.profile.frames[bagId].disableButtons[item[#item]]
+                end,
+                args = BAG_ARGS[bagId],
+            },
+        })
     end
 
     local function fireGlobalKey(key)
@@ -174,6 +179,10 @@ function Addon:SetupOptionFrame()
         elseif t == 'function' then
             event()
         end
+    end
+
+    local function daysValue(days)
+        return {name = L['Less than %s days']:format(days), value = days}
     end
 
     local charProfileKey = format('%s - %s', ns.PLAYER, ns.REALM)
@@ -221,7 +230,6 @@ function Addon:SetupOptionFrame()
                 appearanceHeader = header(L['Appearance']),
                 iconJunk = fullToggle(L['Show Junk Icon']),
                 iconQuestStarter = fullToggle(L['Show Quest Starter Icon']),
-                iconChar = fullToggle(L['Show Character Portrait']),
                 textOffline = fullToggle(L['Show Offline Text in Bag\'s Title']),
             }),
             colors = treeItem(L['Color Settings'], {
@@ -288,6 +296,23 @@ function Addon:SetupOptionFrame()
             framesTitle = treeTitle(L['Frame Settings']),
             [ns.BAG_ID.BAG] = frame(ns.BAG_ID.BAG, L['Inventory']),
             [ns.BAG_ID.BANK] = frame(ns.BAG_ID.BANK, L['Bank']),
+            [ns.BAG_ID.MAIL] = baseFrame(ns.BAG_ID.MAIL, L['Mail'], {
+                desc = desc(format(L.DESC_FRAMES, L['Mail'])),
+                appearance = inline(L['Appearance'], { --
+                    managed = toggle(L['Blizzard Panel']),
+                    iconCharacter = toggle(L['Show Character Portrait']),
+                    reverseBag = toggle(L['Reverse Bag Order']),
+                    reverseSlot = toggle(L['Reverse Slot Order']),
+                    column = range(L['Columns'], 6, 36, 1),
+                    scale = range(L['Item Scale'], 0.5, 2),
+                    remainLimit = drop(L['Time Remaining'], {
+                        {name = L['Always show'], value = 0}, --
+                        {name = L['Never show'], value = -1}, --
+                        {name = L['Less than one day'], value = 1}, --
+                        daysValue(3), daysValue(5), daysValue(10), daysValue(15), daysValue(20),
+                    }),
+                }),
+            }),
         },
     }
 

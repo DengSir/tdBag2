@@ -11,10 +11,12 @@
     <Script file="Bag.lua" />
     <Script file="BagFrame.lua" />
     <Script file="Container.lua" />
+    <Script file="TitleContainer.lua" />
     <Script file="Frame.lua" />
     <Script file="ContainerFrame.lua" />
     <Script file="Inventory.lua" />
     <Script file="Bank.lua" />
+    <Script file="Mail.lua" />
     <Script file="BagToggle.lua" />
     <Script file="SearchToggle.lua" />
     <Script file="SearchBox.lua" />

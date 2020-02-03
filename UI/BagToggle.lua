@@ -5,9 +5,13 @@
 
 ---- LUA
 local select = select
+local tinsert = table.insert
+local format = string.format
 
 ---- WOW
 local PlaySound = PlaySound
+local IsAltKeyDown = IsAltKeyDown
+local IsControlKeyDown = IsControlKeyDown
 
 ---- UI
 local GameTooltip = GameTooltip
@@ -38,10 +42,42 @@ function BagToggle:OnClick(button)
         self.meta:ToggleOption('bagFrame')
         self:OnEnter()
         ns.PlayToggleSound(self.meta.profile.bagFrame)
-    else
+    elseif IsControlKeyDown() then
+        Addon:ToggleOwnerFrame(BAG_ID.MAIL, self.meta.owner)
+    elseif IsAltKeyDown() then
         local bagId = self.meta:IsBag() and BAG_ID.BANK or BAG_ID.BAG
         Addon:ToggleOwnerFrame(bagId, self.meta.owner)
+    else
+        self:ToggleMenu()
     end
+end
+
+function BagToggle:CreateMenu()
+    if not self.menuTable then
+        local menuTable = {}
+
+        local function addNode(bagId, text)
+            tinsert(menuTable, {
+                text = text,
+                notCheckable = true,
+                func = function()
+                    return Addon:ToggleOwnerFrame(bagId, self.meta.owner)
+                end,
+            })
+        end
+
+        if not self.meta:IsBag() then
+            addNode(BAG_ID.BAG, format('%s |cffffd100(%s)|r', L.TOOLTIP_TOGGLE_BAG, L.HOTKEY_ALT_RIGHT))
+        end
+        if not self.meta:IsBank() then
+            addNode(BAG_ID.BANK, format('%s |cffffd100(%s)|r', L.TOOLTIP_TOGGLE_BANK, L.HOTKEY_ALT_RIGHT))
+        end
+        if not self.meta:IsMail() then
+            addNode(BAG_ID.MAIL, format('%s |cffffd100(%s)|r', L.TOOLTIP_TOGGLE_MAIL, L.HOTKEY_CTRL_RIGHT))
+        end
+        self.menuTable = menuTable
+    end
+    return self.menuTable
 end
 
 function BagToggle:OnEnter()
@@ -52,11 +88,7 @@ function BagToggle:OnEnter()
     else
         GameTooltip:AddLine(ns.LeftButtonTip(L.TOOLTIP_SHOW_BAG_FRAME))
     end
-    if self.meta:IsBank() then
-        GameTooltip:AddLine(ns.RightButtonTip(L.TOOLTIP_TOGGLE_BAG))
-    else
-        GameTooltip:AddLine(ns.RightButtonTip(L.TOOLTIP_TOGGLE_BANK))
-    end
+    GameTooltip:AddLine(ns.RightButtonTip(L.TOOLTIP_TOGGLE_OTHER_FRAME))
     GameTooltip:Show()
 end
 

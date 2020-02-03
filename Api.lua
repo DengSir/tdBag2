@@ -41,6 +41,8 @@ ns.COD_CONTAINER = COD_CONTAINER
 ns.ITEM_SIZE = 37
 ns.ITEM_SPACING = 2
 
+ns.SECONDS_OF_DAY = 24 * 60 * 60
+
 ns.LEFT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:228:283|t]]
 ns.RIGHT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:330:385|t]]
 
@@ -69,6 +71,7 @@ ns.RACE_ICON_TCOORDS = {
 ns.TOKENS = {20560, 20559, 20558}
 
 -- @debug@
+---@type L
 local L = LibStub('AceLocale-3.0'):GetLocale('tdBag2')
 -- @end-debug@
 --[===[@non-debug@
@@ -79,31 +82,37 @@ ns.L = L
 local BAG_ID = { --
     BAG = 'bag',
     BANK = 'bank',
+    MAIL = 'mail',
 }
 
 local BAG_ICONS = { --
     [BAG_ID.BAG] = [[Interface\Buttons\Button-Backpack-Up]],
     [BAG_ID.BANK] = [[Interface\ICONS\INV_Misc_Bag_13]],
+    [BAG_ID.MAIL] = [[Interface\MailFrame\Mail-Icon]],
 }
 
 local BAG_TITLES = { --
     [BAG_ID.BAG] = L.TITLE_BAG,
     [BAG_ID.BANK] = L.TITLE_BANK,
+    [BAG_ID.MAIL] = L.TITLE_MAIL,
 }
 
 local BAGS = { --
     [BAG_ID.BAG] = {BACKPACK_CONTAINER},
     [BAG_ID.BANK] = {BANK_CONTAINER},
+    [BAG_ID.MAIL] = {MAIL_CONTAINER, COD_CONTAINER},
 }
 
 local BAG_CLASSES = { --
     [BAG_ID.BAG] = 'Inventory',
     [BAG_ID.BANK] = 'Bank',
+    [BAG_ID.MAIL] = 'Mail',
 }
 
 local BAG_TEMPLATES = { --
     [BAG_ID.BAG] = 'tdBag2FrameTemplate',
     [BAG_ID.BANK] = 'tdBag2FrameTemplate',
+    [BAG_ID.MAIL] = 'tdBag2BaseFrameTemplate',
 }
 
 local BAG_SETS = {}
@@ -171,11 +180,13 @@ ns.FRAME_OPTION_EVENTS = { --
 
     reverseBag = 'BAG_ORDER_CHANGED',
     tradeBagOrder = 'BAG_ORDER_CHANGED',
+
+    iconCharacter = 'ICON_CHARACTER_TOGGLED',
+    remainLimit = 'REMAIN_LIMIT_CHANGED',
 }
 
 ns.OPTION_EVENTS = { --
     textOffline = 'TEXT_OFFLINE_TOGGLED',
-    iconChar = 'ICON_CHARACTER_TOGGLED',
 
     iconJunk = 'ITEM_BORDER_UPDATE',
     iconQuestStarter = 'ITEM_BORDER_UPDATE',

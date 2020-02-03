@@ -3,6 +3,22 @@
     <Frame name="tdBag2BaseFrameTemplate" inherits="PortraitFrameTemplate" hidden="true" toplevel="true" movable="true" enableMouse="true" frameStrata="MEDIUM" clampedToScreen="true" virtual="true">
         <Layers>
             <Layer level="BORDER" textureSubLevel="1">
+                <Texture parentKey="BtnCornerLeft" inherits="UI-Frame-BtnCornerLeft" hidden="true">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="-2" y="-1"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="BtnCornerRight" inherits="UI-Frame-BtnCornerRight" hidden="true">
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="-1"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="ButtonBottomBorder" inherits="_UI-Frame-BtnBotTile" hidden="true">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.BtnCornerLeft" relativePoint="BOTTOMRIGHT" y="3"/>
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BtnCornerRight" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                </Texture>
                 <MaskTexture parentKey="CircleMask" file="Interface\CharacterFrame\TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
                     <Anchors>
                         <Anchor point="TOPLEFT" relativeKey="$parent.portrait"/>
@@ -40,39 +56,19 @@
             <Frame parentKey="Inset" useParentLevel="true" inherits="InsetFrameTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="4" y="-60" />
-                    <Anchor point="BOTTOMRIGHT" x="-6" y="26" />
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="4" />
                 </Anchors>
             </Frame>
             <EditBox parentKey="SearchBox" inherits="SearchBoxTemplate">
                 <Size y="28"/>
                 <Anchors>
-                    <Anchor point="LEFT" x="74" y="-42" />
-                    <Anchor point="RIGHT" x="-15" y="-42" />
+                    <Anchor point="LEFT" relativePoint="TOPLEFT" x="74" y="-42" />
+                    <Anchor point="RIGHT" relativePoint="TOPRIGHT" x="-15" y="-42" />
                 </Anchors>
             </EditBox>
         </Frames>
     </Frame>
-    <Frame name="tdBag2FrameTemplate" inherits="tdBag2BaseFrameTemplate" hidden="true" toplevel="true" movable="true" enableMouse="true" frameStrata="MEDIUM" clampedToScreen="true" virtual="true">
-        <Layers>
-            <Layer level="BORDER" textureSubLevel="1">
-                <Texture parentKey="BtnCornerLeft" inherits="UI-Frame-BtnCornerLeft">
-                    <Anchors>
-                        <Anchor point="BOTTOMLEFT" x="-2" y="-1"/>
-                    </Anchors>
-                </Texture>
-                <Texture parentKey="BtnCornerRight" inherits="UI-Frame-BtnCornerRight">
-                    <Anchors>
-                        <Anchor point="BOTTOMRIGHT" x="0" y="-1"/>
-                    </Anchors>
-                </Texture>
-                <Texture parentKey="ButtonBottomBorder" inherits="_UI-Frame-BtnBotTile">
-                    <Anchors>
-                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.BtnCornerLeft" relativePoint="BOTTOMRIGHT" y="3"/>
-                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BtnCornerRight" relativePoint="BOTTOMLEFT"/>
-                    </Anchors>
-                </Texture>
-            </Layer>
-        </Layers>
+    <Frame name="tdBag2FrameTemplate" inherits="tdBag2BaseFrameTemplate" virtual="true">
         <Frames>
             <Frame parentKey="BagFrame" hidden="true">
                 <Size x="1" y="26"/>
@@ -284,4 +280,32 @@
             </OnMouseUp>
         </Scripts>
     </CheckButton>
+    <Frame name="tdBag2ContainerTitleTemplate" virtual="true">
+        <Size y="20" />
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString parentKey="Text" inherits="GameFontNormalSmallLeft">
+                    <Anchors>
+                        <Anchor point="CENTER" />
+                    </Anchors>
+                </FontString>
+                <Texture file="Interface\Tooltips\UI-Tooltip-Border">
+                    <Size y="8" />
+                    <Anchors>
+                        <Anchor point="LEFT" />
+                        <Anchor point="RIGHT" relativeKey="$parent.Text" relativePoint="LEFT" x="-5" y="0" />
+                    </Anchors>
+                    <TexCoords left="0.81" right="0.94" top="0.5" bottom="1" />
+                </Texture>
+                <Texture file="Interface\Tooltips\UI-Tooltip-Border">
+                    <Size y="8" />
+                    <Anchors>
+                        <Anchor point="RIGHT" />
+                        <Anchor point="LEFT" relativeKey="$parent.Text" relativePoint="RIGHT" x="5" y="0" />
+                    </Anchors>
+                    <TexCoords left="0.81" right="0.94" top="0.5" bottom="1" />
+                </Texture>
+            </Layer>
+        </Layers>
+    </Frame>
 </Ui>

@@ -21,6 +21,8 @@ local LibWindow = LibStub('LibWindow-1.1')
 local ContainerFrame = ns.Addon:NewClass('UI.ContainerFrame', Frame)
 
 function ContainerFrame:Constructor(_, bagId)
+    self:ShowBottomBar()
+
     ns.UI.MoneyFrame:Bind(self.MoneyFrame, self.meta)
     ns.UI.TokenFrame:Bind(self.TokenFrame, self.meta)
     ns.UI.BagFrame:Bind(self.BagFrame, self.meta)

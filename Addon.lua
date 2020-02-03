@@ -41,6 +41,8 @@ local BAG_ID = ns.BAG_ID
 ---@field pluginButtons boolean
 ---@field window table
 ---@field tradeBagOrder string
+---@field iconCharacter boolean
+---@field remainLimit number
 ---@field hiddenBags table<number, boolean>
 
 ---@class tdBag2Profile
@@ -102,6 +104,7 @@ function Addon:OnInitialize()
                     pluginButtons = true,
                     scale = 1,
                     tradeBagOrder = ns.TRADE_BAG_ORDER.BOTTOM,
+                    iconCharacter = false,
                     hiddenBags = {},
                 },
                 [BAG_ID.BANK] = { --
@@ -116,6 +119,17 @@ function Addon:OnInitialize()
                     pluginButtons = true,
                     scale = 1,
                     tradeBagOrder = ns.TRADE_BAG_ORDER.NONE,
+                    iconCharacter = false,
+                    hiddenBags = {},
+                },
+                [BAG_ID.MAIL] = { --
+                    window = {point = 'TOPLEFT', x = 50, y = -100},
+                    column = 12,
+                    reverseSlot = false,
+                    managed = true,
+                    scale = 1,
+                    iconCharacter = false,
+                    remainLimit = 0,
                     hiddenBags = {},
                 },
             },
@@ -175,6 +189,13 @@ function Addon:OnInitialize()
     -- clear old options
     do
         self.db.global.quickfix = nil
+
+        if self.db.profile.iconChar then
+            for _, bagId in pairs(ns.BAG_ID) do
+                self.db.profile.frames[bagId].iconCharacter = true
+            end
+            self.db.profile.iconChar = nil
+        end
     end
 
     self:SetupDefaultSearchRecords()

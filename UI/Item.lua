@@ -7,6 +7,7 @@
 local _G = _G
 local select = select
 local next = next
+local time = time
 local floor = math.floor
 local format = string.format
 
@@ -44,6 +45,8 @@ local TEXTURE_ITEM_QUEST_BANG = TEXTURE_ITEM_QUEST_BANG
 local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS
 local MAX_BLIZZARD_ITEMS = NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
 
+local RAID_INSTANCE_EXPIRES_EXPIRED = RED_FONT_COLOR:WrapTextInColorCode(RAID_INSTANCE_EXPIRES_EXPIRED)
+
 ---@type ns
 local ns = select(2, ...)
 local Addon = ns.Addon
@@ -51,6 +54,8 @@ local Cache = ns.Cache
 local Search = ns.Search
 local Unfit = ns.Unfit
 local LibJunk = LibStub('LibJunk-1.0')
+
+local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
 
 ---@class ItemInfo
 ---@field cached boolean
@@ -68,6 +73,7 @@ local LibJunk = LibStub('LibJunk-1.0')
 ---@field private Overlay Frame
 ---@field private newitemglowAnim AnimationGroup
 ---@field private flashAnim AnimationGroup
+---@field private Timeout FontString
 local Item = ns.Addon:NewClass('UI.Item', 'Button.ContainerFrameItemButtonTemplate')
 
 local pool = {}
@@ -75,8 +81,10 @@ local index = 0
 local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
 
 function Item:Constructor()
-    self.Cooldown = _G[self:GetName() .. 'Cooldown']
-    self.QuestBorder = _G[self:GetName() .. 'IconQuestTexture']
+    local name = self:GetName()
+    self.Cooldown = _G[name .. 'Cooldown']
+    self.QuestBorder = _G[name .. 'IconQuestTexture']
+    self.Timeout = _G[name .. 'Stock']
 
     self:SuperCall('UnregisterAllEvents')
 
@@ -251,6 +259,7 @@ function Item:Update()
     self:UpdateCooldown()
     self:UpdateFocus()
     self:UpdateSlotColor()
+    self:UpdateRemain()
 end
 
 function Item:GetItem()
@@ -368,6 +377,44 @@ function Item:UpdateSearch()
     if isNew then
         self.newitemglowAnim:Play()
     end
+end
+
+function Item:UpdateRemain()
+    if not self.info.timeout then
+        self.Timeout:Hide()
+        return
+    end
+    local remainLimit = self.meta.profile.remainLimit
+    if not remainLimit or remainLimit < 0 then
+        self.Timeout:Hide()
+        return
+    end
+
+    local remain = self.info.timeout - time()
+    local days = floor(remain / DAY)
+
+    if remainLimit > 0 and days > remainLimit then
+        self.Timeout:Hide()
+        return
+    end
+
+    local text
+    if remain < 0 then
+        text = RAID_INSTANCE_EXPIRES_EXPIRED
+    elseif remain < MINUTE then
+        text = format('|cffff2020%ds|r', remain)
+    elseif remain < HOUR then
+        text = format('|cffff2020%dm|r', remain / MINUTE)
+    elseif remain < DAY then
+        text = format('|cffff2020%dh|r', remain / HOUR)
+    elseif days <= 5 then
+        text = format('|cffff2020%dd|r', days)
+    else
+        text = format('|cff20ff20%dd|r', days)
+    end
+
+    self.Timeout:SetText(text)
+    self.Timeout:Show()
 end
 
 function Item:GetBagFamily()

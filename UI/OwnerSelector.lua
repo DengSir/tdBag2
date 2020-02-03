@@ -46,7 +46,7 @@ end
 
 function OwnerSelector:OnShow()
     self:RegisterFrameEvent('OWNER_CHANGED', 'UpdateIcon')
-    self:RegisterEvent('ICON_CHARACTER_TOGGLED', 'UpdateIcon')
+    self:RegisterFrameEvent('ICON_CHARACTER_TOGGLED', 'UpdateIcon')
     self:RegisterEvent('OWNER_REMOVED', 'UpdateEnable')
     self:RegisterEvent('UPDATE_ALL', 'Update')
     self:Update()
@@ -83,7 +83,7 @@ function OwnerSelector:UpdateEnable()
 end
 
 function OwnerSelector:UpdateIcon()
-    if not self.meta.sets.iconChar then
+    if not self.meta.profile.iconCharacter then
         self.portrait:SetTexture(ns.BAG_ICONS[self.meta.bagId])
         self.portrait:SetTexCoord(0, 1, 0, 1)
     elseif self.meta:IsSelf() then

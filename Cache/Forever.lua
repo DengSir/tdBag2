@@ -9,6 +9,7 @@ local tinsert = table.insert
 local tonumber = tonumber
 local strsplit = strsplit
 local time = time
+local floor = math.floor
 local tDeleteItem = tDeleteItem
 
 ---- WOW
@@ -44,6 +45,7 @@ local BANKS = ns.GetBags(ns.BAG_ID.BANK)
 local MAIL_CONTAINER = ns.MAIL_CONTAINER
 local EQUIP_CONTAINER = ns.EQUIP_CONTAINER
 local COD_CONTAINER = ns.COD_CONTAINER
+local SECONDS_OF_DAY = ns.SECONDS_OF_DAY
 
 local NO_RESULT = {cached = true}
 
@@ -161,7 +163,7 @@ function Forever:MAIL_CLOSED()
         local num, total = GetInboxNumItems()
         for i = 1, num do
             local codAmount, daysLeft = select(6, GetInboxHeaderInfo(i))
-            local timeout = now + daysLeft * 86400
+            local timeout = floor(now + daysLeft * SECONDS_OF_DAY)
             local isCod = codAmount > 0
 
             for j = 1, ATTACHMENTS_MAX_RECEIVE do

@@ -45,18 +45,20 @@ function TitleFrame:OnHide()
     end
 end
 
-function TitleFrame:OnMouseDown()
-    if not self.meta.profile.managed and (not self.meta.sets.lockFrame or IsAltKeyDown()) then
+function TitleFrame:OnMouseDown(button)
+    if button == 'LeftButton' and not self.meta.profile.managed and (not self.meta.sets.lockFrame or IsAltKeyDown()) then
         self.meta.frame:StartMoving()
         self.moving = true
     end
 end
 
-function TitleFrame:OnMouseUp()
-    local parent = self.meta.frame
-    parent:StopMovingOrSizing()
-    parent:SavePosition()
-    self.moving = nil
+function TitleFrame:OnMouseUp(button)
+    if button == 'LeftButton' then
+        local parent = self.meta.frame
+        parent:StopMovingOrSizing()
+        parent:SavePosition()
+        self.moving = nil
+    end
 end
 
 function TitleFrame:OnClick(button)

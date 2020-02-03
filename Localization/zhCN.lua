@@ -9,6 +9,7 @@ end
 
 L.TITLE_BAG = '%s的背包'
 L.TITLE_BANK = '%s的银行'
+L.TITLE_MAIL = '%s的邮箱'
 
 L['Total'] = '总共'
 L['|cffff2020(Offline)|r'] = '|cffff2020(离线)|r'
@@ -25,12 +26,17 @@ L.TOOLTIP_HIDE_BAG_FRAME = '隐藏背包列表'
 L.TOOLTIP_SHOW_BAG_FRAME = '显示背包列表'
 L.TOOLTIP_TOGGLE_BAG = '打开背包'
 L.TOOLTIP_TOGGLE_BANK = '打开银行'
+L.TOOLTIP_TOGGLE_MAIL = '打开邮箱'
+L.TOOLTIP_TOGGLE_OTHER_FRAME = '打开其它背包'
 L.TOOLTIP_PURCHASE_BANK_SLOT = '购买银行空位'
 L.TOOLTIP_WATCHED_TOKENS = '切换展示的代币'
 L.TOOLTIP_SHOW_BAG = '显示背包'
 L.TOOLTIP_HIDE_BAG = '隐藏背包'
 L.TOOLTIP_SEARCH_TOGGLE = '搜索背包'
 L.TOOLTIP_SEARCH_RECORDS = '打开/保存搜索条件'
+
+L.HOTKEY_CTRL_RIGHT = 'Ctrl-右键'
+L.HOTKEY_ALT_RIGHT = 'Alt-右键'
 
 ---- options
 
@@ -47,6 +53,12 @@ L['Reverse Bag Order'] = '反向背包排列'
 L['Reverse Slot Order'] = '反向物品排列'
 L['Columns'] = '列数'
 L['Item Scale'] = '物品缩放'
+
+L['Time Remaining'] = '剩余时间'
+L['Always show'] = '始终显示'
+L['Never show'] = '从不显示'
+L['Less than one day'] = '低于1天'
+L['Less than %s days'] = '低于%s天'
 
 L['Features'] = '功能'
 L['Token Frame'] = '代币'

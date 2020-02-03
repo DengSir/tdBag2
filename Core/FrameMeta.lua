@@ -41,6 +41,10 @@ function FrameMeta:IsBag()
     return self.bagId == BAG_ID.BAG
 end
 
+function FrameMeta:IsMail()
+    return self.bagId == BAG_ID.MAIL
+end
+
 function FrameMeta:IsCached()
     return Cache:IsOwnerBagCached(self.owner, self.bags[1])
 end

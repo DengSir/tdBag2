@@ -124,3 +124,10 @@ function Frame:ToggleSearchBoxFocus()
         self.SearchBox:SetFocus()
     end
 end
+
+function Frame:ShowBottomBar()
+    self.BtnCornerLeft:Hide()
+    self.BtnCornerRight:Hide()
+    self.ButtonBottomBorder:Hide()
+    self.Inset:SetPoint('BOTTOMRIGHT', -6, 26)
+end
