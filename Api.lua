@@ -152,14 +152,14 @@ ns.BAG_TEMPLATES = BAG_TEMPLATES
 ns.PLAYER = nil
 ns.REALM = nil
 
-ns.BAG_FAMILY = { --
-    [1] = 'Quiver',
-    [2] = 'Quiver',
-    [3] = 'Soul',
-    [4] = 'Soul',
-    [6] = 'Herb',
-    [7] = 'Enchant',
-    [9] = 'Keyring',
+ns.BAG_FAMILY_KEYS = { --
+    [1] = 'colorQuiver',
+    [2] = 'colorQuiver',
+    [3] = 'colorSoul',
+    [4] = 'colorSoul',
+    [6] = 'colorHerb',
+    [7] = 'colorEnchant',
+    [9] = 'colorKeyring',
 }
 
 ns.TRADE_BAG_ORDER = { --

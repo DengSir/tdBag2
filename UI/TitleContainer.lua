@@ -48,7 +48,6 @@ function TitleContainer:Layout()
 
     local x, y = 0, 0
     local size = ns.ITEM_SIZE + ns.ITEM_SPACING
-    local isMail = self.meta.bagId == ns.BAG_ID.MAIL
 
     for _, label in pairs(self.titleLabels) do
         label:Hide()
@@ -59,14 +58,6 @@ function TitleContainer:Layout()
     local addHeight = multi and -5 or 0
 
     for _, bag in ipairs(bags) do
-        local numSlots = self:NumSlots(bag)
-        local slotBegin, slotEnd, slotStep
-        if not reverseSlot then
-            slotBegin, slotEnd, slotStep = 1, numSlots, 1
-        else
-            slotBegin, slotEnd, slotStep = numSlots, 1, -1
-        end
-
         if multi then
             local label = self:GetTitleLabel(bag)
             label:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, -y * size - addHeight)
@@ -74,6 +65,14 @@ function TitleContainer:Layout()
             label:SetScale(scale)
             label:Show()
             addHeight = addHeight + 20
+        end
+
+        local numSlots = self:NumSlots(bag)
+        local slotBegin, slotEnd, slotStep
+        if not reverseSlot then
+            slotBegin, slotEnd, slotStep = 1, numSlots, 1
+        else
+            slotBegin, slotEnd, slotStep = numSlots, 1, -1
         end
 
         for slot = slotBegin, slotEnd, slotStep do
@@ -91,7 +90,7 @@ function TitleContainer:Layout()
             x = x + 1
         end
 
-        if isMail and x > 0 then
+        if x > 0 then
             y = y + 1
             x = 0
         end

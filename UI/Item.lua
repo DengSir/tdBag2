@@ -16,6 +16,7 @@ local BankButtonIDToInvSlotID = BankButtonIDToInvSlotID
 local CreateFrame = CreateFrame
 local CursorUpdate = CursorUpdate
 local GetItemInfo = GetItemInfo
+local GetItemFamily = GetItemFamily
 local GetItemQualityColor = GetItemQualityColor
 local IsBattlePayItem = IsBattlePayItem
 local ResetCursor = ResetCursor
@@ -45,8 +46,6 @@ local TEXTURE_ITEM_QUEST_BANG = TEXTURE_ITEM_QUEST_BANG
 local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS
 local MAX_BLIZZARD_ITEMS = NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
 
-local RAID_INSTANCE_EXPIRES_EXPIRED = RED_FONT_COLOR:WrapTextInColorCode(RAID_INSTANCE_EXPIRES_EXPIRED)
-
 ---@type ns
 local ns = select(2, ...)
 local Addon = ns.Addon
@@ -55,6 +54,7 @@ local Search = ns.Search
 local Unfit = ns.Unfit
 local LibJunk = LibStub('LibJunk-1.0')
 
+local EXPIRED = GRAY_FONT_COLOR:WrapTextInColorCode(ns.L['Expired'])
 local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
 
 ---@class ItemInfo
@@ -176,6 +176,7 @@ end
 function Item:OnEnter()
     if self:IsCached() then
         local Overlay = self.Overlay or self:CreateOverlay()
+        Overlay:Hide()
         Overlay:SetParent(self)
         Overlay:SetAllPoints(true)
         Overlay:Show()
@@ -207,6 +208,7 @@ end
 function Item:CreateOverlay()
     local Overlay = CreateFrame('Button')
     Overlay:RegisterForClicks('anyUp')
+    Overlay:Hide()
 
     local function OverlayOnEnter(self)
         ---@type tdBag2Item
@@ -333,9 +335,9 @@ function Item:UpdateSlotColor()
 
     if self.meta.sets.colorSlots and not self.hasItem then
         local family = self:GetBagFamily()
-        local name = ns.BAG_FAMILY[family]
-        if name then
-            color = self.meta.sets['color' .. name]
+        local key = ns.BAG_FAMILY_KEYS[family]
+        if key then
+            color = self.meta.sets[key]
         else
             color = self.meta.sets.colorNormal
         end
@@ -400,7 +402,7 @@ function Item:UpdateRemain()
 
     local text
     if remain < 0 then
-        text = RAID_INSTANCE_EXPIRES_EXPIRED
+        text = EXPIRED
     elseif remain < MINUTE then
         text = format('|cffff2020%ds|r', remain)
     elseif remain < HOUR then

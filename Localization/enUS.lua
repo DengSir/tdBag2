@@ -16,6 +16,8 @@ L.TITLE_MAIL = '%s\'s Mail'
 L['Total'] = true
 L['|cffff2020(Offline)|r'] = true
 L['Bag Toggle'] = true
+L['Expired'] = true
+
 L['Equipped'] = true
 L['Inventory'] = true
 L['Bank'] = true

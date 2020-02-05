@@ -14,6 +14,8 @@ L.TITLE_MAIL = '%s的邮箱'
 L['Total'] = '总共'
 L['|cffff2020(Offline)|r'] = '|cffff2020(离线)|r'
 L['Bag Toggle'] = '背包按钮'
+L['Expired'] = '过期'
+
 L['Equipped'] = '装备'
 L['Inventory'] = '背包'
 L['Bank'] = '银行'

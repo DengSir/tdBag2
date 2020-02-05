@@ -26,6 +26,33 @@ local ns = select(2, ...)
 local MenuButton = ns.Addon:NewClass('UI.MenuButton', 'Button')
 MenuButton.GenerateName = ns.NameGenerator('tdBag2DropMenu')
 
+MenuButton.SEPARATOR = {
+    text = '',
+    hasArrow = false,
+    dist = 0,
+    isTitle = true,
+    isUninteractable = true,
+    notCheckable = true,
+    iconOnly = true,
+    icon = [[Interface\Common\UI-TooltipDivider-Transparent]],
+    tCoordLeft = 0,
+    tCoordRight = 1,
+    tCoordTop = 0,
+    tCoordBottom = 1,
+    tSizeX = 0,
+    tSizeY = 8,
+    tFitDropDownSizeX = true,
+    iconInfo = {
+        tCoordLeft = 0,
+        tCoordRight = 1,
+        tCoordTop = 0,
+        tCoordBottom = 1,
+        tSizeX = 0,
+        tSizeY = 8,
+        tFitDropDownSizeX = true,
+    },
+}
+
 function MenuButton:Constructor()
     self:SetScript('OnHide', self.OnHide)
 end

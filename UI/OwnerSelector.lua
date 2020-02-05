@@ -11,9 +11,6 @@ local ipairs = ipairs
 
 ---- WOW
 local CreateFrame = CreateFrame
-local EasyMenu_Initialize = EasyMenu_Initialize
-local HideDropDownMenu = HideDropDownMenu
-local ToggleDropDownMenu = ToggleDropDownMenu
 local SetPortraitTexture = SetPortraitTexture
 
 ---- UI
@@ -135,7 +132,7 @@ function OwnerSelector:CreateOwnerMenu(name)
                 text = DELETE,
                 func = function()
                     Cache:DeleteOwnerInfo(name)
-                    HideDropDownMenu(1)
+                    self:CloseMenu()
                 end,
             },
         },
