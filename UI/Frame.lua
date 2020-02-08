@@ -20,10 +20,11 @@ local ns = select(2, ...)
 local LibWindow = LibStub('LibWindow-1.1')
 
 ---@class tdBag2Frame: Frame
----@field private meta tdBag2FrameMeta
----@field private TitleFrame tdBag2TitleFrame
----@field private OwnerSelector tdBag2OwnerSelector
----@field private SearchBox tdBag2SearchBox
+---@field protected meta tdBag2FrameMeta
+---@field protected TitleFrame tdBag2TitleFrame
+---@field protected OwnerSelector tdBag2OwnerSelector
+---@field protected SearchBox tdBag2SearchBox
+---@field protected Container tdBag2Container
 local Frame = ns.Addon:NewClass('UI.Frame', 'Frame')
 
 function Frame:Constructor(_, bagId)
@@ -114,6 +115,10 @@ function Frame:UpdateSpecial()
         self:SetScript('OnSizeChanged', self.OnSizeChanged)
         self:OnSizeChanged()
     end
+end
+
+function Frame:UpdateSize()
+    return self:SetSize(self.Container:GetWidth() + 24, self.Container:GetHeight() + 78)
 end
 
 function Frame:ToggleSearchBoxFocus()

@@ -9,9 +9,6 @@ local format = string.format
 local wipe = table.wipe or wipe
 local type = type
 
----- WOW
-local UnitFullName = UnitFullName
-
 ---@type ns
 local ns = select(2, ...)
 local Addon = ns.Addon

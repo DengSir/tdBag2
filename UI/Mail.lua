@@ -15,7 +15,3 @@ function Mail:Constructor()
         self:UpdateSize()
     end)
 end
-
-function Mail:UpdateSize()
-    return self:SetSize(self.Container:GetWidth() + 24, self.Container:GetHeight() + 78)
-end

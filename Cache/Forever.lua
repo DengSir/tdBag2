@@ -24,7 +24,6 @@ local GetMoney = GetMoney
 local IsLoggedIn = IsLoggedIn
 local UnitClassBase = UnitClassBase
 local UnitFactionGroup = UnitFactionGroup
-local UnitFullName = UnitFullName
 local UnitRace = UnitRace
 local UnitSex = UnitSex
 local GetInboxNumItems = GetInboxNumItems
@@ -82,13 +81,11 @@ function Forever:OnEnable()
 end
 
 function Forever:SetupCache()
-    local player, realm = UnitFullName('player')
-
     self.db = ns.Addon.db.global.forever
-    self.db[realm] = self.db[realm] or {}
-    self.realm = self.db[realm]
-    self.realm[player] = self.realm[player] or {}
-    self.player = self.realm[player]
+    self.db[ns.REALM] = self.db[ns.REALM] or {}
+    self.realm = self.db[ns.REALM]
+    self.realm[ns.PLAYER] = self.realm[ns.PLAYER] or {}
+    self.player = self.realm[ns.PLAYER]
 
     self.player[EQUIP_CONTAINER] = self.player[EQUIP_CONTAINER] or {}
 
@@ -97,9 +94,9 @@ function Forever:SetupCache()
     self.player.race = select(2, UnitRace('player'))
     self.player.gender = UnitSex('player')
 
-    local owners = {player}
+    local owners = {ns.PLAYER}
     for k in pairs(self.realm) do
-        if k ~= player then
+        if k ~= ns.PLAYER then
             tinsert(owners, k)
         end
     end
