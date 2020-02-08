@@ -300,7 +300,7 @@ function Forever:GetBagInfo(realm, name, bag)
             data.family = 0
         end
     elseif ns.IsEquip(bag) then
-        data.count = INVSLOT_LAST_EQUIPPED
+        data.count = INVSLOT_LAST_EQUIPPED - 1
     end
 
     if bagData then

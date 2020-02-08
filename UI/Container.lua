@@ -226,7 +226,7 @@ end
 
 function Container:AllocItemButton(bag, slot)
     local itemButton = ns.UI.Item:Alloc()
-    itemButton:Init(self:GetBagFrame(bag), self.meta, bag, slot)
+    itemButton:SetBagSlot(self:GetBagFrame(bag), self.meta, bag, slot)
     self.itemButtons[bag][slot] = itemButton
     return itemButton
 end
@@ -299,7 +299,11 @@ end
 
 function Container:Layout()
     self:ForAll(Updaters.Free, true)
+    self:OnLayout()
+    self:SetScript('OnUpdate', nil)
+end
 
+function Container:OnLayout()
     local profile = self.meta.profile
     local column = profile.column
     local scale = profile.scale
@@ -341,8 +345,6 @@ function Container:Layout()
     local width = max(1, column * size * scale)
     local height = max(1, y * size * scale)
     self:SetSize(width, height)
-    self:SetScript('OnUpdate', nil)
-    self:Fire('OnLayout')
 end
 
 function Container:NumSlots(bag)

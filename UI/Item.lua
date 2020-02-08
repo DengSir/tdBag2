@@ -57,19 +57,13 @@ local LibJunk = LibStub('LibJunk-1.0')
 local EXPIRED = GRAY_FONT_COLOR:WrapTextInColorCode(ns.L['Expired'])
 local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
 
----@class ItemInfo
----@field cached boolean
----@field id number
----@field link string
----@field quality number
-
 ---@class tdBag2Item: Button
 ---@field private meta tdBag2FrameMeta
 ---@field private bag number
 ---@field private slot number
 ---@field private hasItem boolean
 ---@field private notMatched boolean
----@field private info ItemInfo
+---@field private info tdBag2CacheItemData
 ---@field private Overlay Frame
 ---@field private newitemglowAnim AnimationGroup
 ---@field private flashAnim AnimationGroup
@@ -119,6 +113,7 @@ function Item:Constructor()
     self:SetScript('OnEvent', nil)
 end
 
+---@return tdBag2Item
 function Item:Alloc()
     local obj = next(pool)
     if not obj then
@@ -151,7 +146,7 @@ function Item:Free()
     pool[self] = true
 end
 
-function Item:Init(parent, meta, bag, slot)
+function Item:SetBagSlot(parent, meta, bag, slot)
     self:SetParent(parent)
     self.meta = meta
     self.bag = bag
@@ -349,9 +344,7 @@ end
 
 function Item:UpdateCooldown()
     if self.hasItem and not self:IsCached() then
-        if ns.IsContainerBag(self.bag) then
-            ContainerFrame_UpdateCooldown(self.bag, self)
-        end
+        ContainerFrame_UpdateCooldown(self.bag, self)
     else
         self.Cooldown:Hide()
         CooldownFrame_Set(self.Cooldown, 0, 0, 0)

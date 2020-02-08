@@ -59,6 +59,12 @@
                     <Anchor point="BOTTOMRIGHT" x="-6" y="4" />
                 </Anchors>
             </Frame>
+            <Frame parentKey="Container">
+                <Size x="1" y="1"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT" x="8" y="-8" />
+                </Anchors>
+            </Frame>
             <EditBox parentKey="SearchBox" inherits="SearchBoxTemplate">
                 <Size y="28"/>
                 <Anchors>

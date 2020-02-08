@@ -69,6 +69,7 @@ local BAG_ID = ns.BAG_ID
 ---@field Bank tdBag2Bank
 ---@field Inventory tdBag2Inventory
 ---@field Container tdBag2Container
+---@field TitleContainer tdBag2TitleContainer
 ---@field TitleFrame tdBag2TitleFrame
 ---@field OwnerSelector tdBag2OwnerSelector
 ---@field SearchBox tdBag2SearchBox

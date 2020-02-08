@@ -7,6 +7,8 @@ local pairs, ipairs = pairs, ipairs
 local max = math.max
 local tinsert = table.insert
 
+local CreateFrame = CreateFrame
+
 ---@type ns
 local ns = select(2, ...)
 
@@ -38,9 +40,7 @@ function TitleContainer:GetTitleLabel(bag)
     return self.titleLabels[bag]
 end
 
-function TitleContainer:Layout()
-    self:ForAll(Updaters.Free, true)
-
+function TitleContainer:OnLayout()
     local profile = self.meta.profile
     local column = profile.column
     local scale = profile.scale
@@ -103,8 +103,6 @@ function TitleContainer:Layout()
     local width = max(1, column * size * scale)
     local height = max(1, (y * size + addHeight) * scale)
     self:SetSize(width, height)
-    self:SetScript('OnUpdate', nil)
-    self:Fire('OnLayout')
 end
 
 function TitleContainer:GetBags()
