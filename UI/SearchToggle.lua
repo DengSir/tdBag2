@@ -92,5 +92,15 @@ function SearchToggle:CreateMenu()
             })
         end
     end
+
+    tinsert(result, self.SEPARATOR)
+    tinsert(result, {
+        text = L['Global search'],
+        notCheckable = true,
+        func = function()
+            ns.Addon:ToggleFrame(ns.BAG_ID.SEARCH, true)
+        end,
+    })
+
     return result
 end

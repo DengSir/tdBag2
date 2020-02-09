@@ -17,6 +17,7 @@
     <Script file="Inventory.lua" />
     <Script file="Bank.lua" />
     <Script file="Mail.lua" />
+    <Script file="GlobalSearch.lua" />
     <Script file="BagToggle.lua" />
     <Script file="SearchToggle.lua" />
     <Script file="SearchBox.lua" />

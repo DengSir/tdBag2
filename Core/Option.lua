@@ -228,6 +228,12 @@ function Addon:SetupOptionFrame()
                 iconJunk = fullToggle(L['Show Junk Icon']),
                 iconQuestStarter = fullToggle(L['Show Quest Starter Icon']),
                 textOffline = fullToggle(L['Show Offline Text in Bag\'s Title']),
+                remainLimit = drop(L['Time Remaining'], {
+                    {name = L['Always show'], value = 0}, --
+                    {name = L['Never show'], value = -1}, --
+                    {name = L['Less than one day'], value = 1}, --
+                    daysValue(3), daysValue(5), daysValue(10), daysValue(15), daysValue(20),
+                }),
             }),
             colors = treeItem(L['Color Settings'], {
                 desc = desc(L.DESC_COLORS),
@@ -302,12 +308,14 @@ function Addon:SetupOptionFrame()
                     reverseSlot = toggle(L['Reverse Slot Order']),
                     column = range(L['Columns'], 6, 36, 1),
                     scale = range(L['Item Scale'], 0.5, 2),
-                    remainLimit = drop(L['Time Remaining'], {
-                        {name = L['Always show'], value = 0}, --
-                        {name = L['Never show'], value = -1}, --
-                        {name = L['Less than one day'], value = 1}, --
-                        daysValue(3), daysValue(5), daysValue(10), daysValue(15), daysValue(20),
-                    }),
+                }),
+            }),
+            [ns.BAG_ID.SEARCH] = baseFrame(ns.BAG_ID.SEARCH, L['Global search'], {
+                desc = desc(format(L.DESC_FRAMES, L['Global search'])),
+                appearance = inline(L['Appearance'], { --
+                    managed = fullToggle(L['Blizzard Panel']),
+                    column = range(L['Columns'], 6, 36, 1),
+                    scale = range(L['Item Scale'], 0.5, 2),
                 }),
             }),
         },

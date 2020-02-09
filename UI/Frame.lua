@@ -35,6 +35,10 @@ function Frame:Constructor(_, bagId)
     ns.UI.OwnerSelector:Bind(self.OwnerSelector, self.meta)
     ns.UI.SearchBox:Bind(self.SearchBox, self.meta)
 
+    self.Container:SetScript('OnSizeChanged', function()
+        return self:UpdateSize()
+    end)
+
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)
 
@@ -49,7 +53,7 @@ end
 
 function Frame:OnHide()
     PlaySound(863) -- SOUNDKIT.IG_BACKPACK_CLOSE
-    self.meta.owner = nil
+    self.meta:SetOwner(nil)
     self:UnregisterAllEvents()
 end
 

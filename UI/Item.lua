@@ -70,6 +70,8 @@ local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
 ---@field private Timeout FontString
 local Item = ns.Addon:NewClass('UI.Item', 'Button.ContainerFrameItemButtonTemplate')
 
+Item._Meta.__uiname = 'tdBag2Item'
+
 local pool = {}
 local index = 0
 local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
@@ -379,7 +381,7 @@ function Item:UpdateRemain()
         self.Timeout:Hide()
         return
     end
-    local remainLimit = self.meta.profile.remainLimit
+    local remainLimit = self.meta.sets.remainLimit
     if not remainLimit or remainLimit < 0 then
         self.Timeout:Hide()
         return

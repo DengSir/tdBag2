@@ -69,7 +69,7 @@ end
 
 function TitleFrame:Update()
     local title = format(self.title, Cache:GetOwnerInfo(self.meta.owner).name)
-    if self.meta.sets.textOffline and self.meta:IsCached() then
+    if self.meta.sets.textOffline and self.meta:IsCached() and not self.meta:IsGlobalSearch() then
         title = title .. ' ' .. L['|cffff2020(Offline)|r']
     end
     self:SetText(title)

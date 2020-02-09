@@ -32,13 +32,13 @@ function SearchBox:OnTextChanged()
     if self:IsInIMECompositionMode() then
         return
     end
-    Addon:SetSearch(self:GetText():lower())
+    self:SetSearch(self:GetText():lower())
 end
 
 function SearchBox:OnEscapePressed()
     self:ClearFocus()
     self:SetText('')
-    Addon:SetSearch(nil)
+    self:SetSearch(nil)
 end
 
 function SearchBox:UpdateText()
@@ -46,4 +46,8 @@ function SearchBox:UpdateText()
     if text ~= self:GetText() then
         self:SetText(text or '')
     end
+end
+
+function SearchBox:SetSearch(text)
+    return Addon:SetSearch(text)
 end

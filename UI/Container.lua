@@ -30,14 +30,21 @@ local KEYRING_CONTAINER = KEYRING_CONTAINER
 ---@field private bagOrdered number[]
 local Container = ns.Addon:NewClass('UI.Container', 'Frame')
 
+local mt = {
+    __index = function(t, k)
+        t[k] = {}
+        return t[k]
+    end,
+}
+
 function Container:Constructor(_, meta)
     self.meta = meta
     self.bagFrames = {}
-    self.itemButtons = {}
+    self.itemButtons = setmetatable({}, mt)
 
-    for _, bag in ipairs(self.meta.bags) do
-        self.itemButtons[bag] = {}
-    end
+    -- for _, bag in ipairs(self.meta.bags) do
+    --     self.itemButtons[bag] = {}
+    -- end
 
     self:SetSize(1, 1)
 
@@ -62,11 +69,11 @@ function Container:OnShow()
     self:RegisterEvent('GET_ITEM_INFO_RECEIVED')
     self:RegisterEvent('ITEM_BORDER_UPDATE', 'UpdateAllBorders')
     self:RegisterEvent('ITEM_COLOR_UPDATE')
+    self:RegisterEvent('REMAIN_LIMIT_CHANGED')
     self:RegisterEvent('UPDATE_ALL', 'Update')
     self:RegisterFrameEvent('CONTAINER_LAYOUT', 'RequestLayout')
     self:RegisterFrameEvent('BAG_ORDER_CHANGED', 'UpdateBagOrder')
     self:RegisterFrameEvent('OWNER_CHANGED', 'Update')
-    self:RegisterFrameEvent('REMAIN_LIMIT_CHANGED')
     self:RequestLayout()
 end
 
@@ -287,7 +294,7 @@ end
 
 function Container:IterateBags()
     local bags
-    if self.meta.profile.tradeBagOrder ~= TRADE_BAG_ORDER.NONE then
+    if self.meta.profile.tradeBagOrder and self.meta.profile.tradeBagOrder ~= TRADE_BAG_ORDER.NONE then
         bags = self.bagOrdered or self:BuildOrderedBags()
     else
         bags = self.meta.bags

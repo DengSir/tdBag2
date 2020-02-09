@@ -2,5 +2,6 @@
 ..\FrameXML\UI.xsd">
     <Script file="Forever.lua" />
     <Script file="Current.lua" />
+    <Script file="GlobalSearch.lua" />
     <Script file="Cache.lua" />
 </Ui>

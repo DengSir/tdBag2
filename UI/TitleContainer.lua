@@ -17,24 +17,17 @@ local L = ns.L
 local Container = ns.UI.Container
 local Updaters = Container.Updaters
 
-local BAG_TITLES = { --
-    [ns.MAIL_CONTAINER] = L['Mail'],
-    [ns.COD_CONTAINER] = L['COD'],
-}
-
 ---@class tdBag2TitleContainer: tdBag2Container
 local TitleContainer = ns.Addon:NewClass('UI.TitleContainer', ns.UI.Container)
 
 function TitleContainer:Constructor()
     self.titleLabels = {}
-    self.numSlots = {}
 end
 
 function TitleContainer:GetTitleLabel(bag)
     if not self.titleLabels[bag] then
         local frame = CreateFrame('Frame', nil, self, 'tdBag2ContainerTitleTemplate')
         frame:SetHeight(20)
-        frame.Text:SetText(BAG_TITLES[bag])
         self.titleLabels[bag] = frame
     end
     return self.titleLabels[bag]
@@ -58,16 +51,18 @@ function TitleContainer:OnLayout()
     local addHeight = multi and -5 or 0
 
     for _, bag in ipairs(bags) do
+        local bagInfo = ns.Cache:GetBagInfo(self.meta.owner, bag)
         if multi then
             local label = self:GetTitleLabel(bag)
             label:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, -y * size - addHeight)
             label:SetWidth(column * size - ns.ITEM_SPACING)
             label:SetScale(scale)
+            label.Text:SetText(bagInfo.title or '')
             label:Show()
             addHeight = addHeight + 20
         end
 
-        local numSlots = self:NumSlots(bag)
+        local numSlots = bagInfo.count or 0
         local slotBegin, slotEnd, slotStep
         if not reverseSlot then
             slotBegin, slotEnd, slotStep = 1, numSlots, 1
@@ -111,12 +106,7 @@ function TitleContainer:GetBags()
         local numSlots = Container.NumSlots(self, bag)
         if numSlots > 0 then
             tinsert(bags, bag)
-            self.numSlots[bag] = numSlots
         end
     end
     return bags
-end
-
-function TitleContainer:NumSlots(bag)
-    return self.numSlots[bag]
 end

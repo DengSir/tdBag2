@@ -39,6 +39,8 @@ local ATTACHMENTS_MAX_RECEIVE = ATTACHMENTS_MAX_RECEIVE
 ---@type ns
 local ns = select(2, ...)
 
+local L = ns.L
+
 local BAGS = ns.GetBags(ns.BAG_ID.BAG)
 local BANKS = ns.GetBags(ns.BAG_ID.BANK)
 local MAIL_CONTAINER = ns.MAIL_CONTAINER
@@ -298,6 +300,11 @@ function Forever:GetBagInfo(realm, name, bag)
         end
     elseif ns.IsEquip(bag) then
         data.count = INVSLOT_LAST_EQUIPPED - 1
+        data.title = L['Equipped']
+    elseif ns.IsMail(bag) then
+        data.title = L['Mail']
+    elseif bag == ns.COD_CONTAINER then
+        data.title = L['COD']
     end
 
     if bagData then

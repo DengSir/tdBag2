@@ -10,8 +10,4 @@ local Mail = ns.Addon:NewClass('UI.Mail', ns.UI.Frame)
 
 function Mail:Constructor()
     ns.UI.TitleContainer:Bind(self.Container, self.meta)
-
-    self.Container:SetScript('OnSizeChanged', function()
-        self:UpdateSize()
-    end)
 end

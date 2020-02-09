@@ -45,6 +45,10 @@ function FrameMeta:IsMail()
     return self.bagId == BAG_ID.MAIL
 end
 
+function FrameMeta:IsGlobalSearch()
+    return self.bagId == BAG_ID.SEARCH
+end
+
 function FrameMeta:IsCached()
     return Cache:IsOwnerBagCached(self.owner, self.bags[1])
 end

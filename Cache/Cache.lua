@@ -7,6 +7,7 @@
 local ns = select(2, ...)
 local Forever = ns.Forever
 local Current = ns.Current
+local GlobalSearch = ns.GlobalSearch
 
 ---@class tdBag2CacheOwnerData
 ---@field name string
@@ -29,6 +30,7 @@ local Current = ns.Current
 ---@field link string
 ---@field icon string
 ---@field id number
+---@field title string
 
 ---@class tdBag2CacheItemData
 ---@field link string
@@ -45,17 +47,18 @@ local Current = ns.Current
 local Cache = {}
 ns.Cache = Cache
 
+local GLOBAL_SEARCH_OWNER = ns.GLOBAL_SEARCH_OWNER
 local CACHED_EMPTY = {cached = true}
 
 function Cache:GetOwnerAddress(owner)
-    return ns.REALM, owner or ns.PLAYER
+    return ns.REALM, owner or ns.PLAYER, owner == GLOBAL_SEARCH_OWNER
 end
 
 function Cache:GetOwnerInfo(owner)
-    local realm, name = self:GetOwnerAddress(owner)
-    local cached = self:IsOwnerCached(realm, name)
-
-    if cached then
+    local realm, name, isGlobalSearch = self:GetOwnerAddress(owner)
+    if isGlobalSearch then
+        return CACHED_EMPTY
+    elseif self:IsOwnerCached(realm, name) then
         return Forever:GetOwnerInfo(realm, name)
     else
         return Current:GetOwnerInfo()
@@ -63,10 +66,10 @@ function Cache:GetOwnerInfo(owner)
 end
 
 function Cache:GetBagInfo(owner, bag)
-    local realm, name = self:GetOwnerAddress(owner)
-    local cached = self:IsBagCached(realm, name, bag)
-
-    if cached then
+    local realm, name, isGlobalSearch = self:GetOwnerAddress(owner)
+    if isGlobalSearch then
+        return GlobalSearch:GetBagInfo(bag)
+    elseif self:IsBagCached(realm, name, bag) then
         return Forever:GetBagInfo(realm, name, bag)
     else
         return Current:GetBagInfo(bag)
@@ -74,10 +77,10 @@ function Cache:GetBagInfo(owner, bag)
 end
 
 function Cache:GetItemInfo(owner, bag, slot)
-    local realm, name = self:GetOwnerAddress(owner)
-    local cached = self:IsBagCached(realm, name, bag)
-
-    if cached then
+    local realm, name, isGlobalSearch = self:GetOwnerAddress(owner)
+    if isGlobalSearch then
+        return GlobalSearch:GetItemInfo(bag, slot)
+    elseif self:IsBagCached(realm, name, bag) then
         return Forever:GetItemInfo(realm, name, bag, slot)
     else
         return Current:GetItemInfo(bag, slot)
