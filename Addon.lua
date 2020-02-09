@@ -27,9 +27,16 @@ local UIParent = UIParent
 ---@field Current tdBag2Current
 ---@field Cacher tdBag2Cacher
 ---@field Tooltip tdBag2Tooltip
+---@field GlobalSearch tdBag2GlobalSearch
 local ns = select(2, ...)
 local L = ns.L
 local BAG_ID = ns.BAG_ID
+
+_G.BINDING_HEADER_TDBAG2 = 'tdBag2'
+_G.BINDING_NAME_TDBAG2_TOGGLE_BAG = L.TOOLTIP_TOGGLE_BAG
+_G.BINDING_NAME_TDBAG2_TOGGLE_BANK = L.TOOLTIP_TOGGLE_BANK
+_G.BINDING_NAME_TDBAG2_TOGGLE_MAIL = L.TOOLTIP_TOGGLE_MAIL
+_G.BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 
 ---@class tdBag2FrameProfile
 ---@field column number
@@ -42,7 +49,6 @@ local BAG_ID = ns.BAG_ID
 ---@field window table
 ---@field tradeBagOrder string
 ---@field iconCharacter boolean
----@field remainLimit number
 ---@field hiddenBags table<number, boolean>
 
 ---@class tdBag2Profile
@@ -58,6 +64,7 @@ local BAG_ID = ns.BAG_ID
 ---@field colorSlots boolean
 ---@field lockFrame boolean
 ---@field emptyAlpha number
+---@field remainLimit number
 ---@field tokens table
 ---@field searches string[]
 
@@ -86,6 +93,8 @@ ns.Unfit = LibStub('Unfit-1.0')
 local Addon = LibStub('AceAddon-3.0'):NewAddon('tdBag2', 'LibClass-2.0', 'AceHook-3.0', 'AceEvent-3.0')
 ns.Addon = Addon
 _G.tdBag2 = Addon
+
+Addon.BAG_ID = BAG_ID
 
 function Addon:OnInitialize()
     self.frames = {}
@@ -130,8 +139,14 @@ function Addon:OnInitialize()
                     managed = true,
                     scale = 1,
                     iconCharacter = false,
-                    remainLimit = 0,
-                    hiddenBags = {},
+                },
+
+                [BAG_ID.SEARCH] = {
+                    window = {point = 'CENTER', x = 0, y = 0},
+                    column = 16,
+                    reverseSlot = false,
+                    managed = true,
+                    scale = 1,
                 },
             },
 
@@ -164,6 +179,7 @@ function Addon:OnInitialize()
             iconQuestStarter = true,
             textOffline = true,
             tipCount = true,
+            remainLimit = 0,
 
             tokens = {[20560] = true, [20559] = true, [20558] = true},
 
@@ -196,6 +212,12 @@ function Addon:OnInitialize()
                 self.db.profile.frames[bagId].iconCharacter = true
             end
             self.db.profile.iconChar = nil
+        end
+
+        local remainLimit = self.db.profile.frames[BAG_ID.MAIL].remainLimit
+        if remainLimit then
+            self.db.profile.remainLimit = remainLimit
+            self.db.profile.frames[BAG_ID.MAIL].remainLimit = nil
         end
     end
 
