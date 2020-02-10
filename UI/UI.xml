@@ -7,6 +7,7 @@
     <Script file="Token.lua" />
     <Script file="TokenFrame.lua" />
     <Script file="OwnerSelector.lua" />
+    <Script file="ItemBase.lua" />
     <Script file="Item.lua" />
     <Script file="Bag.lua" />
     <Script file="BagFrame.lua" />

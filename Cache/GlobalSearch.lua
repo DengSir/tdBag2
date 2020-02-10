@@ -60,23 +60,26 @@ function GlobalSearch:Search(text)
                     local bagInfo = Cache:GetBagInfo(owner, bag)
                     for slot = 1, bagInfo.count or 0 do
                         local itemInfo = Cache:GetItemInfo(owner, bag, slot)
-                        if Search:Matches(itemInfo.link, text) then
-                            tinsert(items, {
-                                cached = true,
-                                link = itemInfo.link,
-                                count = itemInfo.count,
-                                icon = itemInfo.icon,
-                                quality = itemInfo.quality,
-                                id = itemInfo.id,
-                                timeout = itemInfo.timeout,
-                            })
+                        if itemInfo.link then
+                            if Search:Matches(itemInfo.link, text) then
+                                tinsert(items, {
+                                    cached = true,
+                                    link = itemInfo.link,
+                                    count = itemInfo.count,
+                                    icon = itemInfo.icon,
+                                    quality = itemInfo.quality,
+                                    id = itemInfo.id,
+                                    timeout = itemInfo.timeout,
+                                })
+                            end
                         end
                     end
                 end
 
-                if #items > 0 then
+                local count = #items
+                if count > 0 then
                     bagInfo.title = v.title:format(owner)
-                    bagInfo.count = #items
+                    bagInfo.count = count
                     bagInfo.cached = true
                     bagInfo.owned = true
                     bagInfo.items = items

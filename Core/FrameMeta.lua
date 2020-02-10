@@ -15,12 +15,14 @@ local BAG_ID = ns.BAG_ID
 ---@field profile tdBag2FrameProfile
 ---@field frame tdBag2Frame
 ---@field sets tdBag2Profile
+---@field itemClass tdBag2ItemBase
 local FrameMeta = ns.Addon:NewClass('FrameMeta')
 
 function FrameMeta:Constructor(bagId, frame)
     self.bagId = bagId
     self.bags = ns.GetBags(bagId)
     self.frame = frame
+    self.itemClass = ns.UI[ns.BAG_ITEM_CLASSES[bagId]]
     self:Update()
 end
 
@@ -43,6 +45,10 @@ end
 
 function FrameMeta:IsMail()
     return self.bagId == BAG_ID.MAIL
+end
+
+function FrameMeta:IsEquip()
+    return self.bagId == BAG_ID.EQUIP
 end
 
 function FrameMeta:IsGlobalSearch()
@@ -83,5 +89,5 @@ function FrameMeta:ToggleOption(key)
 end
 
 function FrameMeta:IsBagHidden(bag)
-    return self.profile.hiddenBags[bag]
+    return self.profile.hiddenBags and self.profile.hiddenBags[bag]
 end

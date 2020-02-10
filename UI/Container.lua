@@ -30,26 +30,20 @@ local KEYRING_CONTAINER = KEYRING_CONTAINER
 ---@field private bagOrdered number[]
 local Container = ns.Addon:NewClass('UI.Container', 'Frame')
 
-local mt = {
-    __index = function(t, k)
-        t[k] = {}
-        return t[k]
-    end,
-}
-
 function Container:Constructor(_, meta)
     self.meta = meta
     self.bagFrames = {}
-    self.itemButtons = setmetatable({}, mt)
+    self.itemButtons = {}
 
-    -- for _, bag in ipairs(self.meta.bags) do
-    --     self.itemButtons[bag] = {}
-    -- end
+    for _, bag in ipairs(self.meta.bags) do
+        self.itemButtons[bag] = {}
+    end
 
     self:SetSize(1, 1)
 
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)
+    self:SetScript('OnSizeChanged', self.OnSizeChanged)
 end
 
 function Container:OnShow()
@@ -80,6 +74,10 @@ end
 function Container:OnHide()
     self:UnregisterAllEvents()
     self.lastFocusBag = nil
+end
+
+function Container:OnSizeChanged()
+    return self.meta.frame:UpdateSize()
 end
 
 function Container:BAG_SIZE_CHANGED(_, bag)
@@ -232,7 +230,7 @@ function Container:CreateBagFrame(bag)
 end
 
 function Container:AllocItemButton(bag, slot)
-    local itemButton = ns.UI.Item:Alloc()
+    local itemButton = self.meta.itemClass:Alloc()
     itemButton:SetBagSlot(self:GetBagFrame(bag), self.meta, bag, slot)
     self.itemButtons[bag][slot] = itemButton
     return itemButton
@@ -356,4 +354,12 @@ end
 
 function Container:NumSlots(bag)
     return Cache:GetBagInfo(self.meta.owner, bag).count or 0
+end
+
+function Container:GetRealWidth()
+    return self:GetWidth()
+end
+
+function Container:GetRealHeight()
+    return self:GetHeight()
 end

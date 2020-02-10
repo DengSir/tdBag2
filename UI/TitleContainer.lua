@@ -18,10 +18,54 @@ local Container = ns.UI.Container
 local Updaters = Container.Updaters
 
 ---@class tdBag2TitleContainer: tdBag2Container
+---@field alwaysShowTitle boolean
 local TitleContainer = ns.Addon:NewClass('UI.TitleContainer', ns.UI.Container)
 
 function TitleContainer:Constructor()
     self.titleLabels = {}
+
+    local parent = self:GetParent()
+
+    self.ScrollFrame = CreateFrame('ScrollFrame', nil, self:GetParent(), 'tdBag2ScrollFrameTemplate')
+    self.ScrollFrame:SetPoint(self:GetPoint(1))
+    self.ScrollFrame:SetScrollChild(self)
+    self.ScrollFrame:SetSize(1, 1)
+    self.ScrollFrame.scrollBarHideable = true
+
+    self.ScrollFrame.GetVerticalScrollRange = function()
+        return self.ScrollFrame:GetHeight() - self:GetHeight()
+    end
+
+    self.ScrollFrame:SetScript('OnScrollRangeChanged', function(f)
+        local yrange = self:GetHeight() - self.ScrollFrame:GetHeight()
+        if yrange < 0 then
+            yrange = 0
+        end
+        return ScrollFrame_OnScrollRangeChanged(f, 0, yrange)
+    end)
+
+    self.ScrollFrame.ScrollBar:ClearAllPoints()
+    self.ScrollFrame.ScrollBar:SetPoint('TOPRIGHT', parent.Inset or parent, 'TOPRIGHT', 0, -20)
+    self.ScrollFrame.ScrollBar:SetPoint('BOTTOMRIGHT', parent.Inset or parent, 'BOTTOMRIGHT', 0, 18)
+
+    self:SetScript('OnSizeChanged', self.OnSizeChanged)
+
+    self:SetParent(self.ScrollFrame)
+    self:ClearAllPoints()
+    self:SetPoint('TOPLEFT')
+end
+
+function TitleContainer:OnSizeChanged()
+    local width = self:GetWidth()
+    local height = self:GetHeight()
+    local maxHeight = UIParent:GetHeight() * 0.7 - 100
+
+    if height > maxHeight then
+        self.ScrollFrame:SetSize(width + 20, maxHeight)
+    else
+        self.ScrollFrame:SetSize(width, height)
+    end
+    Container.OnSizeChanged(self)
 end
 
 function TitleContainer:GetTitleLabel(bag)
@@ -52,7 +96,7 @@ function TitleContainer:OnLayout()
 
     for _, bag in ipairs(bags) do
         local bagInfo = ns.Cache:GetBagInfo(self.meta.owner, bag)
-        if multi then
+        if multi or self.alwaysShowTitle then
             local label = self:GetTitleLabel(bag)
             label:SetPoint('TOPLEFT', self, 'TOPLEFT', 0, -y * size - addHeight)
             label:SetWidth(column * size - ns.ITEM_SPACING)
@@ -109,4 +153,16 @@ function TitleContainer:GetBags()
         end
     end
     return bags
+end
+
+function TitleContainer:SetAlwaysShowTitle(flag)
+    self.alwaysShowTitle = flag or nil
+end
+
+function TitleContainer:GetRealWidth()
+    return self.ScrollFrame:GetWidth()
+end
+
+function TitleContainer:GetRealHeight()
+    return self.ScrollFrame:GetHeight()
 end

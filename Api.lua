@@ -93,6 +93,7 @@ local BAG_ICONS = { --
     [BAG_ID.BAG] = [[Interface\Buttons\Button-Backpack-Up]],
     [BAG_ID.BANK] = [[Interface\ICONS\INV_Misc_Bag_13]],
     [BAG_ID.MAIL] = [[Interface\MailFrame\Mail-Icon]],
+    [BAG_ID.EQUIP] = [[Interface\ICONS\INV_Helmet_51]],
     [BAG_ID.SEARCH] = [[Interface\ICONS\INV_Misc_Spyglass_03]],
 }
 
@@ -100,6 +101,7 @@ local BAG_TITLES = { --
     [BAG_ID.BAG] = L.TITLE_BAG,
     [BAG_ID.BANK] = L.TITLE_BANK,
     [BAG_ID.MAIL] = L.TITLE_MAIL,
+    [BAG_ID.EQUIP] = L.TITLE_EQUIP,
     [BAG_ID.SEARCH] = L['Global search'],
 }
 
@@ -115,13 +117,23 @@ local BAG_CLASSES = { --
     [BAG_ID.BAG] = 'Inventory',
     [BAG_ID.BANK] = 'Bank',
     [BAG_ID.MAIL] = 'Mail',
+    [BAG_ID.EQUIP] = 'Equip',
     [BAG_ID.SEARCH] = 'GlobalSearch',
+}
+
+local BAG_ITEM_CLASSES = { --
+    [BAG_ID.BAG] = 'Item',
+    [BAG_ID.BANK] = 'Item',
+    [BAG_ID.MAIL] = 'ItemBase',
+    [BAG_ID.EQUIP] = 'ItemBase',
+    [BAG_ID.SEARCH] = 'ItemBase',
 }
 
 local BAG_TEMPLATES = { --
     [BAG_ID.BAG] = 'tdBag2FrameTemplate',
     [BAG_ID.BANK] = 'tdBag2FrameTemplate',
     [BAG_ID.MAIL] = 'tdBag2BaseFrameTemplate',
+    [BAG_ID.EQUIP] = 'tdBag2BaseFrameTemplate',
     [BAG_ID.SEARCH] = 'tdBag2BaseFrameTemplate',
 }
 
@@ -158,6 +170,7 @@ ns.BAG_ICONS = BAG_ICONS
 ns.BAG_TITLES = BAG_TITLES
 ns.BAG_CLASSES = BAG_CLASSES
 ns.BAG_TEMPLATES = BAG_TEMPLATES
+ns.BAG_ITEM_CLASSES = BAG_ITEM_CLASSES
 
 ns.PLAYER = nil
 ns.REALM = nil

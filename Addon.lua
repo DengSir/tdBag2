@@ -140,6 +140,14 @@ function Addon:OnInitialize()
                     scale = 1,
                     iconCharacter = false,
                 },
+                [BAG_ID.EQUIP] = {
+                    window = {point = 'TOPLEFT', x = 50, y = -100},
+                    column = 6,
+                    reverseSlot = false,
+                    managed = true,
+                    scale = 1,
+                    iconCharacter = true,
+                },
 
                 [BAG_ID.SEARCH] = {
                     window = {point = 'CENTER', x = 0, y = 0},

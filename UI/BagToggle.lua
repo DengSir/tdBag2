@@ -75,6 +75,9 @@ function BagToggle:CreateMenu()
         if not self.meta:IsMail() then
             addNode(BAG_ID.MAIL, format('%s |cffffd100(%s)|r', L.TOOLTIP_TOGGLE_MAIL, L.HOTKEY_CTRL_RIGHT))
         end
+        if not self.meta:IsEquip() then
+            addNode(BAG_ID.EQUIP, L.TOOLTIP_TOGGLE_EQUIP)
+        end
         self.menuTable = menuTable
     end
     return self.menuTable

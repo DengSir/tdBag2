@@ -314,4 +314,14 @@
             </Layer>
         </Layers>
     </Frame>
+    <ScrollFrame name="tdBag2ScrollFrameTemplate" virtual="true" inherits="UIPanelScrollFrameCodeTemplate">
+        <Frames>
+            <Slider parentKey="ScrollBar" hidden="true" inherits="UIPanelStretchableArtScrollBarTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="6" y="-16"/>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="6" y="16"/>
+                </Anchors>
+            </Slider>
+        </Frames>
+    </ScrollFrame>
 </Ui>

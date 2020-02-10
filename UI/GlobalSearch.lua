@@ -3,16 +3,28 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 2/9/2020, 1:14:38 AM
 
+local setmetatable = setmetatable
+
 ---@type ns
 local ns = select(2, ...)
 
 local Frame = ns.UI.Frame
 
 ---@class tdBag2GlobalSearchFrame: tdBag2Frame
+---@field Container tdBag2TitleContainer
 local GlobalSearch = ns.Addon:NewClass('UI.GlobalSearch', Frame)
 
 function GlobalSearch:Constructor()
     ns.UI.TitleContainer:Bind(self.Container, self.meta)
+
+    setmetatable(self.Container.itemButtons, {
+        __index = function(t, k)
+            t[k] = {}
+            return t[k]
+        end,
+    })
+
+    self.Container:SetAlwaysShowTitle(true)
 
     self.OwnerSelector:UpdateIcon()
     self.OwnerSelector:Hide()

@@ -11,3 +11,9 @@ local Mail = ns.Addon:NewClass('UI.Mail', ns.UI.Frame)
 function Mail:Constructor()
     ns.UI.TitleContainer:Bind(self.Container, self.meta)
 end
+
+local Equip = ns.Addon:NewClass('UI.Equip', ns.UI.Frame)
+
+function Equip:Constructor()
+    ns.UI.Container:Bind(self.Container, self.meta)
+end

@@ -35,10 +35,6 @@ function Frame:Constructor(_, bagId)
     ns.UI.OwnerSelector:Bind(self.OwnerSelector, self.meta)
     ns.UI.SearchBox:Bind(self.SearchBox, self.meta)
 
-    self.Container:SetScript('OnSizeChanged', function()
-        return self:UpdateSize()
-    end)
-
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)
 
@@ -122,7 +118,8 @@ function Frame:UpdateSpecial()
 end
 
 function Frame:UpdateSize()
-    return self:SetSize(self.Container:GetWidth() + 24, self.Container:GetHeight() + 78)
+    return self:SetSize(self.Container:GetRealWidth() + 24,
+                        self.Container:GetRealHeight() + 78 + (self.bottomBar and 22 or 0))
 end
 
 function Frame:ToggleSearchBoxFocus()
@@ -135,6 +132,7 @@ function Frame:ToggleSearchBoxFocus()
 end
 
 function Frame:ShowBottomBar()
+    self.bottomBar = true
     self.BtnCornerLeft:Hide()
     self.BtnCornerRight:Hide()
     self.ButtonBottomBorder:Hide()

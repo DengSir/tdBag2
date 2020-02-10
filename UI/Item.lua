@@ -52,12 +52,14 @@ local Addon = ns.Addon
 local Cache = ns.Cache
 local Search = ns.Search
 local Unfit = ns.Unfit
+local ItemBase = ns.UI.ItemBase
 local LibJunk = LibStub('LibJunk-1.0')
 
 local EXPIRED = GRAY_FONT_COLOR:WrapTextInColorCode(ns.L['Expired'])
 local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
+local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
 
----@class tdBag2Item: Button
+---@class tdBag2Item: tdBag2ItemBase
 ---@field private meta tdBag2FrameMeta
 ---@field private bag number
 ---@field private slot number
@@ -68,34 +70,17 @@ local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
 ---@field private newitemglowAnim AnimationGroup
 ---@field private flashAnim AnimationGroup
 ---@field private Timeout FontString
-local Item = ns.Addon:NewClass('UI.Item', 'Button.ContainerFrameItemButtonTemplate')
-
-Item._Meta.__uiname = 'tdBag2Item'
-
-local pool = {}
-local index = 0
-local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
+local Item = ns.Addon:NewClass('UI.Item', ItemBase)
+Item.pool = {}
+Item.GenerateName = ns.NameGenerator('tdBag2Item')
 
 function Item:Constructor()
     local name = self:GetName()
     self.Cooldown = _G[name .. 'Cooldown']
-    self.QuestBorder = _G[name .. 'IconQuestTexture']
     self.Timeout = _G[name .. 'Stock']
 
-    self:SuperCall('UnregisterAllEvents')
-
-    self.QuestBorder:SetTexture(TEXTURE_ITEM_QUEST_BANG)
-    self.QuestBorder:ClearAllPoints()
-    self.QuestBorder:SetPoint('BOTTOMLEFT', 5, 4)
-    self.QuestBorder:SetSize(8.88, 25.46)
-    self.QuestBorder:SetTexCoord(0.14, 0.38, 0.23, 0.9)
-    self.QuestBorder:SetAlpha(0.9)
-
-    self.IconBorder:SetTexture([[Interface\Buttons\UI-ActionButton-Border]])
-    self.IconBorder:SetBlendMode('ADD')
-    self.IconBorder:ClearAllPoints()
-    self.IconBorder:SetPoint('CENTER')
-    self.IconBorder:SetSize(67, 67)
+    self.Cooldown:ClearAllPoints()
+    self.Cooldown:SetAllPoints(true)
 
     self.NewItemTexture:SetTexture([[Interface\Buttons\UI-ActionButton-Border]])
     self.NewItemTexture:SetBlendMode('ADD')
@@ -115,17 +100,7 @@ function Item:Constructor()
     self:SetScript('OnEvent', nil)
 end
 
----@return tdBag2Item
-function Item:Alloc()
-    local obj = next(pool)
-    if not obj then
-        obj = self:Create()
-    else
-        pool[obj] = nil
-    end
-    return obj
-end
-
+local index = 0
 function Item:Create()
     if index < MAX_BLIZZARD_ITEMS then
         index = index + 1
@@ -137,27 +112,7 @@ function Item:Create()
             return Item:Bind(item, UIParent)
         end
     end
-    return Item:New(UIParent)
-end
-
-function Item:Free()
-    self.bag = nil
-    self.slot = nil
-    self:SetID(0)
-    self:Hide()
-    pool[self] = true
-end
-
-function Item:SetBagSlot(parent, meta, bag, slot)
-    self:SetParent(parent)
-    self.meta = meta
-    self.bag = bag
-    self.slot = slot
-    self:SetID(slot)
-end
-
-function Item:OnShow()
-    self:Update()
+    return Item:Bind(CreateFrame('Button', Item:GenerateName(), UIParent, 'ContainerFrameItemButtonTemplate'))
 end
 
 function Item:OnHide()
@@ -170,85 +125,6 @@ function Item:OnHide()
     end
 end
 
-function Item:OnEnter()
-    if self:IsCached() then
-        local Overlay = self.Overlay or self:CreateOverlay()
-        Overlay:Hide()
-        Overlay:SetParent(self)
-        Overlay:SetAllPoints(true)
-        Overlay:Show()
-    elseif self.hasItem then
-        if ns.IsBank(self.bag) then
-            ns.AnchorTooltip(self)
-            GameTooltip:SetInventoryItem('player', BankButtonIDToInvSlotID(self.slot))
-            GameTooltip:Show()
-            CursorUpdate(self)
-        elseif ns.IsEquip(self.bag) then
-            ns.AnchorTooltip(self)
-            GameTooltip:SetInventoryItem('player', self.slot)
-            GameTooltip:Show()
-            CursorUpdate(self)
-        else
-            ContainerFrameItemButton_OnEnter(self)
-        end
-        self:UpdateBorder()
-    else
-        self:OnLeave()
-    end
-end
-
-function Item:OnLeave()
-    GameTooltip:Hide()
-    ResetCursor()
-end
-
-function Item:CreateOverlay()
-    local Overlay = CreateFrame('Button')
-    Overlay:RegisterForClicks('anyUp')
-    Overlay:Hide()
-
-    local function OverlayOnEnter(self)
-        ---@type tdBag2Item
-        local parent = self:GetParent()
-        local item = parent:IsCached() and parent.info.link
-        if item then
-            ns.AnchorTooltip(self)
-            GameTooltip:SetHyperlink(item, parent.info.count)
-            GameTooltip:Show()
-        end
-        parent:LockHighlight()
-        CursorUpdate(parent)
-    end
-
-    local function OverlayOnLeave(self)
-        self:GetParent():OnLeave()
-        self:Hide()
-    end
-
-    local function OverlayOnHide(self)
-        local parent = self:GetParent()
-        if parent then
-            parent:UnlockHighlight()
-        end
-    end
-
-    local function OverlayOnClick(self, button)
-        local parent = self:GetParent()
-        local link = parent:IsCached() and parent.info.link
-        HandleModifiedItemClick(link)
-    end
-
-    Overlay.UpdateTooltip = OverlayOnEnter
-    Overlay:SetScript('OnShow', OverlayOnEnter)
-    Overlay:SetScript('OnHide', OverlayOnHide)
-    Overlay:SetScript('OnEnter', OverlayOnEnter)
-    Overlay:SetScript('OnLeave', OverlayOnLeave)
-    Overlay:SetScript('OnClick', OverlayOnClick)
-
-    Item.Overlay = Overlay
-    return Overlay
-end
-
 function Item:Update()
     self:UpdateInfo()
     self:UpdateItem()
@@ -258,22 +134,6 @@ function Item:Update()
     self:UpdateCooldown()
     self:UpdateFocus()
     self:UpdateSlotColor()
-    self:UpdateRemain()
-end
-
-function Item:GetItem()
-    return self.info.hasItem
-end
-
-function Item:UpdateInfo()
-    self.info = Cache:GetItemInfo(self.meta.owner, self.bag, self.slot)
-    self.hasItem = self.info.id
-    self.readable = self.info.readable
-end
-
-function Item:UpdateItem()
-    SetItemButtonTexture(self, self.info.icon or [[Interface\AddOns\tdBag2\Resource\UI-Backpack-EmptySlot]])
-    SetItemButtonCount(self, self.info.count)
 end
 
 function Item:UpdateLocked()
@@ -348,16 +208,8 @@ function Item:UpdateCooldown()
     if self.hasItem and not self:IsCached() then
         ContainerFrame_UpdateCooldown(self.bag, self)
     else
-        self.Cooldown:Hide()
+        -- self.Cooldown:Hide()
         CooldownFrame_Set(self.Cooldown, 0, 0, 0)
-    end
-end
-
-function Item:UpdateFocus()
-    if Addon:IsBagFocused(self.bag) then
-        self:LockHighlight()
-    else
-        self:UnlockHighlight()
     end
 end
 
@@ -368,65 +220,11 @@ function Item:UpdateSearch()
         self.flashAnim:Stop()
     end
 
-    self.notMatched = not self:IsMatched() or nil
-    self:SetAlpha(self.notMatched and 0.3 or 1)
+    ItemBase.UpdateSearch(self)
 
     if isNew then
         self.newitemglowAnim:Play()
     end
-end
-
-function Item:UpdateRemain()
-    if not self.info.timeout then
-        self.Timeout:Hide()
-        return
-    end
-    local remainLimit = self.meta.sets.remainLimit
-    if not remainLimit or remainLimit < 0 then
-        self.Timeout:Hide()
-        return
-    end
-
-    local remain = self.info.timeout - time()
-    local days = floor(remain / DAY)
-
-    if remainLimit > 0 and days > remainLimit then
-        self.Timeout:Hide()
-        return
-    end
-
-    local text
-    if remain < 0 then
-        text = EXPIRED
-    elseif remain < MINUTE then
-        text = format('|cffff2020%ds|r', remain)
-    elseif remain < HOUR then
-        text = format('|cffff2020%dm|r', remain / MINUTE)
-    elseif remain < DAY then
-        text = format('|cffff2020%dh|r', remain / HOUR)
-    elseif days <= 5 then
-        text = format('|cffff2020%dd|r', days)
-    else
-        text = format('|cff20ff20%dd|r', days)
-    end
-
-    self.Timeout:SetText(text)
-    self.Timeout:Show()
-end
-
-function Item:GetBagFamily()
-    if ns.IsBank(self.bag) or ns.IsBackpack(self.bag) then
-        return 0
-    end
-    if ns.IsKeyring(self.bag) then
-        return 9
-    end
-    local info = Cache:GetBagInfo(self.meta.owner, self.bag)
-    return info.link and GetItemFamily(info.link) or 0
-end
-
-function Item:IsCached()
-    return self.info and self.info.cached
 end
 
 function Item:IsNew()
@@ -435,28 +233,4 @@ end
 
 function Item:IsPaid()
     return IsBattlePayItem(self.bag, self.slot)
-end
-
-function Item:IsQuestItem()
-    return self.hasItem and
-               (select(12, GetItemInfo(self.info.id)) == LE_ITEM_CLASS_QUESTITEM or Search:ForQuest(self.info.link))
-end
-
-function Item:IsQuestStarter()
-    return self.hasItem and Search:TooltipPhrase(self.info.link, ITEM_STARTS_QUEST)
-end
-
-function Item:IsMatched()
-    local search = Addon:GetSearch()
-    if not search then
-        return true
-    end
-    return Search:Matches(self.info.link, search)
-end
-
-function Item:IsJunk()
-    if not self.hasItem then
-        return
-    end
-    return LibJunk:IsJunk(self.info.id)
 end

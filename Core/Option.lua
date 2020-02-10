@@ -310,6 +310,15 @@ function Addon:SetupOptionFrame()
                     scale = range(L['Item Scale'], 0.5, 2),
                 }),
             }),
+            [ns.BAG_ID.EQUIP] = baseFrame(ns.BAG_ID.EQUIP, L['Equip'], {
+                desc = desc(format(L.DESC_FRAMES, L['Equip'])),
+                appearance = inline(L['Appearance'], { --
+                    managed = toggle(L['Blizzard Panel']),
+                    iconCharacter = toggle(L['Show Character Portrait']),
+                    column = range(L['Columns'], 6, 36, 1),
+                    scale = range(L['Item Scale'], 0.5, 2),
+                }),
+            }),
             [ns.BAG_ID.SEARCH] = baseFrame(ns.BAG_ID.SEARCH, L['Global search'], {
                 desc = desc(format(L.DESC_FRAMES, L['Global search'])),
                 appearance = inline(L['Appearance'], { --

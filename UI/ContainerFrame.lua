@@ -29,12 +29,6 @@ function ContainerFrame:Constructor(_, bagId)
     ns.UI.PluginFrame:Bind(self.PluginFrame, self.meta)
     ns.UI.Container:Bind(self.Container, self.meta)
 
-    self.Container:SetScript('OnSizeChanged', function()
-        self:UpdateSize()
-        self:PlaceBagFrame()
-        self:PlaceSearchBox()
-    end)
-
     local function OnFocusChanged()
         if self:IsVisible() then
             self:SEARCH_CHANGED()
@@ -67,7 +61,9 @@ function ContainerFrame:PLUGIN_FRAME_TOGGLED()
 end
 
 function ContainerFrame:UpdateSize()
-    return self:SetSize(self.Container:GetWidth() + 24, self.Container:GetHeight() + 100)
+    Frame.UpdateSize(self)
+    self:PlaceBagFrame()
+    self:PlaceSearchBox()
 end
 
 function ContainerFrame:Update()
