@@ -158,7 +158,7 @@ function Bag:UpdateIcon()
     if self:IsKeyring() then
         -- self:SetIcon([[Interface\ContainerFrame\Keyring-Bag-Icon]])
     elseif self:IsBaseBag() then
-        self:SetIcon(ns.BAG_ICONS[self.meta.bagId])
+        self:SetIcon(self.meta.icon)
     else
         self:SetIcon(self.info.icon or [[Interface\PaperDoll\UI-PaperDoll-Slot-Bag]])
     end

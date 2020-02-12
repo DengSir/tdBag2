@@ -58,13 +58,24 @@ local EXPIRED = GRAY_FONT_COLOR:WrapTextInColorCode(ns.L['Expired'])
 local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
 
 ---@class tdBag2ItemBase: Button
+---@field protected meta tdBag2FrameMeta
+---@field protected bag number
+---@field protected slot number
+---@field protected hasItem boolean
+---@field protected notMatched boolean
+---@field protected info tdBag2CacheItemData
+---@field protected Overlay Frame
+---@field protected Timeout FontString
+---@field protected QuestBorder Texture
+---@field protected JunkIcon Texture
 local ItemBase = ns.Addon:NewClass('UI.ItemBase', 'Button')
 ItemBase.pool = {}
 ItemBase.GenerateName = ns.NameGenerator('tdBag2ItemBase')
 
 function ItemBase:Constructor()
+    self:Hide()
+
     local name = self:GetName()
-    self.Cooldown = _G[name .. 'Cooldown']
     self.QuestBorder = _G[name .. 'IconQuestTexture'] or self.IconOverlay
     self.Timeout = _G[name .. 'Stock']
 
@@ -74,6 +85,7 @@ function ItemBase:Constructor()
     self.QuestBorder:SetSize(8.88, 25.46)
     self.QuestBorder:SetTexCoord(0.14, 0.38, 0.23, 0.9)
     self.QuestBorder:SetAlpha(0.9)
+    self.QuestBorder:SetDrawLayer('ARTWORK', 2)
 
     self.IconBorder:SetTexture([[Interface\Buttons\UI-ActionButton-Border]])
     self.IconBorder:SetBlendMode('ADD')
@@ -85,7 +97,10 @@ function ItemBase:Constructor()
 
     if not self.JunkIcon then
         self.JunkIcon = self.searchOverlay
-        print(self.searchOverlay)
+        self.JunkIcon:ClearAllPoints()
+        self.JunkIcon:SetAtlas('bags-junkcoin', true)
+        self.JunkIcon:SetPoint('TOPLEFT', 1, 0)
+        self.JunkIcon:SetDrawLayer('ARTWORK', 1)
     end
 
     self.UpdateTooltip = self.OnEnter
@@ -103,7 +118,6 @@ function ItemBase:Alloc()
     else
         self.pool[obj] = nil
     end
-    obj:Hide()
     return obj
 end
 
@@ -214,6 +228,7 @@ function ItemBase:Update()
     self:UpdateInfo()
     self:UpdateItem()
     self:UpdateSearch()
+    self:UpdateLocked()
     self:UpdateBorder()
     self:UpdateFocus()
     self:UpdateRemain()
@@ -232,6 +247,10 @@ end
 function ItemBase:UpdateItem()
     SetItemButtonTexture(self, self.info.icon or [[Interface\AddOns\tdBag2\Resource\UI-Backpack-EmptySlot]])
     SetItemButtonCount(self, self.info.count)
+end
+
+function ItemBase:UpdateLocked()
+    SetItemButtonDesaturated(self, self.hasItem and (self.info.locked or self.notMatched))
 end
 
 function ItemBase:UpdateBorder()

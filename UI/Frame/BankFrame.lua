@@ -1,4 +1,4 @@
--- Bank.lua
+-- BankFrame.lua
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/17/2019, 6:42:42 PM
@@ -14,9 +14,9 @@ local ns = select(2, ...)
 local ContainerFrame = ns.UI.ContainerFrame
 
 ---@class tdBag2Bank: tdBag2ContainerFrame
-local Bank = ns.Addon:NewClass('UI.Bank', ContainerFrame)
+local BankFrame = ns.Addon:NewClass('UI.BankFrame', ContainerFrame)
 
-function Bank:OnHide()
+function BankFrame:OnHide()
     if not self.updatingManaged then
         CloseBankFrame()
     end

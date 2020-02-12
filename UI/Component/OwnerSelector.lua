@@ -81,7 +81,7 @@ end
 
 function OwnerSelector:UpdateIcon()
     if not self.meta.profile.iconCharacter then
-        self.portrait:SetTexture(ns.BAG_ICONS[self.meta.bagId])
+        self.portrait:SetTexture(self.meta.icon)
         self.portrait:SetTexCoord(0, 1, 0, 1)
     elseif self.meta:IsSelf() then
         SetPortraitTexture(self.portrait, 'player')

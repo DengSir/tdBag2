@@ -114,11 +114,11 @@ local BAGS = { --
 }
 
 local BAG_CLASSES = { --
-    [BAG_ID.BAG] = 'Inventory',
-    [BAG_ID.BANK] = 'Bank',
-    [BAG_ID.MAIL] = 'Mail',
-    [BAG_ID.EQUIP] = 'Equip',
-    [BAG_ID.SEARCH] = 'GlobalSearch',
+    [BAG_ID.BAG] = 'InventoryFrame',
+    [BAG_ID.BANK] = 'BankFrame',
+    [BAG_ID.MAIL] = 'SimpleFrame',
+    [BAG_ID.EQUIP] = 'SimpleFrame',
+    [BAG_ID.SEARCH] = 'GlobalSearchFrame',
 }
 
 local BAG_ITEM_CLASSES = { --
@@ -129,12 +129,12 @@ local BAG_ITEM_CLASSES = { --
     [BAG_ID.SEARCH] = 'ItemBase',
 }
 
-local BAG_TEMPLATES = { --
-    [BAG_ID.BAG] = 'tdBag2FrameTemplate',
-    [BAG_ID.BANK] = 'tdBag2FrameTemplate',
-    [BAG_ID.MAIL] = 'tdBag2BaseFrameTemplate',
-    [BAG_ID.EQUIP] = 'tdBag2BaseFrameTemplate',
-    [BAG_ID.SEARCH] = 'tdBag2BaseFrameTemplate',
+local BAG_CONTAINER_CLASSES = {
+    [BAG_ID.BAG] = 'Container',
+    [BAG_ID.BANK] = 'Container',
+    [BAG_ID.MAIL] = 'TitleContainer',
+    [BAG_ID.EQUIP] = 'Container',
+    [BAG_ID.SEARCH] = 'GlobalSearchContainer',
 }
 
 local BAG_SETS = {}
@@ -169,8 +169,8 @@ ns.BAG_ID = BAG_ID
 ns.BAG_ICONS = BAG_ICONS
 ns.BAG_TITLES = BAG_TITLES
 ns.BAG_CLASSES = BAG_CLASSES
-ns.BAG_TEMPLATES = BAG_TEMPLATES
 ns.BAG_ITEM_CLASSES = BAG_ITEM_CLASSES
+ns.BAG_CONTAINER_CLASSES = BAG_CONTAINER_CLASSES
 
 ns.PLAYER = nil
 ns.REALM = nil

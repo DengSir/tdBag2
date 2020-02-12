@@ -46,6 +46,9 @@ function Events:OnEnable()
     self:RegisterMessage('BANK_OPENED')
     self:RegisterMessage('BANK_CLOSED')
 
+    self:RegisterMessage('MAIL_OPENED', 'Fire')
+    self:RegisterMessage('MAIL_CLOSED', 'Fire')
+
     self:RegisterEvent('BAG_NEW_ITEMS_UPDATED', 'Fire')
     self:RegisterEvent('BAG_UPDATE_COOLDOWN', 'Fire')
     self:RegisterEvent('BAG_UPDATE_DELAYED', 'Fire')

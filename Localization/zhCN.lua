@@ -23,6 +23,7 @@ L['Inventory'] = '背包'
 L['Bank'] = '银行'
 L['Mail'] = '邮箱'
 L['COD'] = '付款取信'
+L['Equip'] = '装备'
 L['Global search'] = '全局搜索'
 
 L.TOOLTIP_CHANGE_PLAYER = '查看其他角色的物品'

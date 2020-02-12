@@ -18,7 +18,6 @@ local TitleFrame = ns.Addon:NewClass('UI.TitleFrame', 'Button')
 
 function TitleFrame:Constructor(_, meta)
     self.meta = meta
-    self.title = ns.BAG_TITLES[meta.bagId]
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)
     self:SetScript('OnMouseDown', self.OnMouseDown)
@@ -34,6 +33,7 @@ function TitleFrame:OnShow()
     self:RegisterEvent('UPDATE_ALL', 'Update')
 
     if self.meta:IsBank() then
+        self:RegisterEvent('BANK_OPENED', 'Update')
         self:RegisterEvent('BANK_CLOSED', 'Update')
     end
 end
@@ -68,7 +68,7 @@ function TitleFrame:OnClick(button)
 end
 
 function TitleFrame:Update()
-    local title = format(self.title, Cache:GetOwnerInfo(self.meta.owner).name)
+    local title = format(self.meta.title, Cache:GetOwnerInfo(self.meta.owner).name)
     if self.meta.sets.textOffline and self.meta:IsCached() and not self.meta:IsGlobalSearch() then
         title = title .. ' ' .. L['|cffff2020(Offline)|r']
     end

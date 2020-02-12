@@ -6,30 +6,20 @@
 ---- LUA
 local _G = _G
 local select = select
-local next = next
-local time = time
 local floor = math.floor
 local format = string.format
 
 ---- WOW
-local BankButtonIDToInvSlotID = BankButtonIDToInvSlotID
 local CreateFrame = CreateFrame
-local CursorUpdate = CursorUpdate
-local GetItemInfo = GetItemInfo
-local GetItemFamily = GetItemFamily
 local GetItemQualityColor = GetItemQualityColor
 local IsBattlePayItem = IsBattlePayItem
-local ResetCursor = ResetCursor
 
 local IsNewItem = C_NewItems.IsNewItem
 local RemoveNewItem = C_NewItems.RemoveNewItem
 
 local ContainerFrame_UpdateCooldown = ContainerFrame_UpdateCooldown
-local ContainerFrameItemButton_OnEnter = ContainerFrameItemButton_OnEnter
 local CooldownFrame_Set = CooldownFrame_Set
-local SetItemButtonCount = SetItemButtonCount
 local SetItemButtonDesaturated = SetItemButtonDesaturated
-local SetItemButtonTexture = SetItemButtonTexture
 
 ---- UI
 local StackSplitFrame = StackSplitFrame
@@ -37,39 +27,22 @@ local GameTooltip = GameTooltip
 local UIParent = UIParent
 
 ---- G
-local ITEM_STARTS_QUEST = ITEM_STARTS_QUEST
-local LE_ITEM_CLASS_QUESTITEM = LE_ITEM_CLASS_QUESTITEM
 local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON
-local LE_ITEM_QUALITY_POOR = LE_ITEM_QUALITY_POOR
-local NEW_ITEM_ATLAS_BY_QUALITY = NEW_ITEM_ATLAS_BY_QUALITY
-local TEXTURE_ITEM_QUEST_BANG = TEXTURE_ITEM_QUEST_BANG
 local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS
 local MAX_BLIZZARD_ITEMS = NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
 
+local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
+
 ---@type ns
 local ns = select(2, ...)
-local Addon = ns.Addon
-local Cache = ns.Cache
 local Search = ns.Search
 local Unfit = ns.Unfit
 local ItemBase = ns.UI.ItemBase
 local LibJunk = LibStub('LibJunk-1.0')
 
-local EXPIRED = GRAY_FONT_COLOR:WrapTextInColorCode(ns.L['Expired'])
-local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
-local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
-
 ---@class tdBag2Item: tdBag2ItemBase
----@field private meta tdBag2FrameMeta
----@field private bag number
----@field private slot number
----@field private hasItem boolean
----@field private notMatched boolean
----@field private info tdBag2CacheItemData
----@field private Overlay Frame
 ---@field private newitemglowAnim AnimationGroup
 ---@field private flashAnim AnimationGroup
----@field private Timeout FontString
 local Item = ns.Addon:NewClass('UI.Item', ItemBase)
 Item.pool = {}
 Item.GenerateName = ns.NameGenerator('tdBag2Item')
@@ -79,9 +52,6 @@ function Item:Constructor()
     self.Cooldown = _G[name .. 'Cooldown']
     self.Timeout = _G[name .. 'Stock']
 
-    self.Cooldown:ClearAllPoints()
-    self.Cooldown:SetAllPoints(true)
-
     self.NewItemTexture:SetTexture([[Interface\Buttons\UI-ActionButton-Border]])
     self.NewItemTexture:SetBlendMode('ADD')
     self.NewItemTexture:ClearAllPoints()
@@ -89,8 +59,6 @@ function Item:Constructor()
     self.NewItemTexture:SetSize(67, 67)
 
     self.BattlepayItemTexture:Hide()
-
-    self.nt = self:GetNormalTexture()
 
     self.UpdateTooltip = self.OnEnter
     self:SetScript('OnShow', self.OnShow)
@@ -109,7 +77,7 @@ function Item:Create()
         local j = index % MAX_CONTAINER_ITEMS + 1
         local item = _G[format('ContainerFrame%dItem%d', i, j)]
         if item then
-            return Item:Bind(item, UIParent)
+            return Item:Bind(item)
         end
     end
     return Item:Bind(CreateFrame('Button', Item:GenerateName(), UIParent, 'ContainerFrameItemButtonTemplate'))
@@ -130,14 +98,15 @@ function Item:Update()
     self:UpdateItem()
     self:UpdateSearch()
     self:UpdateLocked()
-    self:UpdateBorder()
-    self:UpdateCooldown()
     self:UpdateFocus()
+    self:UpdateBorder()
     self:UpdateSlotColor()
+    self:SetScript('OnUpdate', self.SecondaryUpdate)
 end
 
-function Item:UpdateLocked()
-    SetItemButtonDesaturated(self, self.hasItem and (self.info.locked or self.notMatched))
+function Item:SecondaryUpdate()
+    self:UpdateCooldown()
+    self:SetScript('OnUpdate', nil)
 end
 
 function Item:UpdateBorder()
@@ -208,7 +177,7 @@ function Item:UpdateCooldown()
     if self.hasItem and not self:IsCached() then
         ContainerFrame_UpdateCooldown(self.bag, self)
     else
-        -- self.Cooldown:Hide()
+        self.Cooldown:Hide()
         CooldownFrame_Set(self.Cooldown, 0, 0, 0)
     end
 end

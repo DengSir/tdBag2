@@ -11,6 +11,9 @@ local GetItemCount = GetItemCount
 local ns = select(2, ...)
 local Cache = ns.Cache
 
+local BAGS = ns.GetBags(ns.BAG_ID.BAG)
+local BANKS = ns.GetBags(ns.BAG_ID.BANK)
+
 ---@class tdBag2Counter
 local Counter = ns.Addon:NewModule('Counter')
 
@@ -48,10 +51,10 @@ function Counter:GetOwnerItemCount(owner, itemId)
     local bags, banks = 0, 0
 
     if info.cached then
-        for _, bag in ipairs(ns.GetBags(ns.BAG_ID.BAG)) do
+        for _, bag in ipairs(BAGS) do
             bags = bags + self:GetBagItemCount(owner, bag, itemId)
         end
-        for _, bag in ipairs(ns.GetBags(ns.BAG_ID.BANK)) do
+        for _, bag in ipairs(BANKS) do
             banks = banks + self:GetBagItemCount(owner, bag, itemId)
         end
     else

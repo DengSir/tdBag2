@@ -1,4 +1,4 @@
--- Inventory.lua
+-- InventoryFrame.lua
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/25/2019, 1:56:22 AM
@@ -10,7 +10,7 @@ local ns = select(2, ...)
 local ContainerFrame = ns.UI.ContainerFrame
 
 ---@class tdBag2Inventory: tdBag2ContainerFrame
-local Inventory = ns.Addon:NewClass('UI.Inventory', ContainerFrame)
+local InventoryFrame = ns.Addon:NewClass('UI.InventoryFrame', ContainerFrame)
 
 local MAIN_MENU_BUTTONS = {
     MainMenuBarBackpackButton, --
@@ -29,19 +29,19 @@ for i, v in ipairs(MAIN_MENU_BUTTONS) do
     v.SetChecked = SetChecked
 end
 
-function Inventory:OnShow()
+function InventoryFrame:OnShow()
     ContainerFrame.OnShow(self)
 
     self:HighlightMainMenu(true)
 end
 
-function Inventory:OnHide()
+function InventoryFrame:OnHide()
     ContainerFrame.OnHide(self)
 
     self:HighlightMainMenu(false)
 end
 
-function Inventory:HighlightMainMenu(flag)
+function InventoryFrame:HighlightMainMenu(flag)
     for _, button in ipairs(MAIN_MENU_BUTTONS) do
         button:RawSetChecked(flag)
     end

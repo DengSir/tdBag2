@@ -30,6 +30,9 @@ local KEYRING_CONTAINER = KEYRING_CONTAINER
 ---@field private bagOrdered number[]
 local Container = ns.Addon:NewClass('UI.Container', 'Frame')
 
+Container.GetRealWidth = Container.GetWidth
+Container.GetRealHeight = Container.GetHeight
+
 function Container:Constructor(_, meta)
     self.meta = meta
     self.bagFrames = {}
@@ -53,13 +56,29 @@ function Container:OnShow()
         self:RegisterEvent('ITEM_LOCK_CHANGED')
         self:RegisterEvent('BAG_UPDATE_COOLDOWN')
         self:RegisterEvent('BAG_NEW_ITEMS_UPDATED', 'UpdateAllBorders')
-        self:RegisterEvent('BANK_CLOSED', 'OnShow')
         self:RegisterEvent('BAG_CLOSED', 'UpdateBagOrder')
+
+        if self.meta:IsBank() then
+            self:RegisterEvent('BANK_CLOSED', 'OnShow')
+        end
     else
         self:UnregisterAllEvents()
+
+        if self.meta:IsBank() then
+            self:RegisterEvent('BANK_OPENED', 'OnShow')
+        elseif self.meta:IsMail() then
+            self:RegisterEvent('MAIL_OPENED', 'RequestLayout')
+            self:RegisterEvent('MAIL_CLOSED', 'RequestLayout')
+        end
     end
+
+    if self.meta:IsGlobalSearch() then
+        self:RegisterEvent('GLOBAL_SEARCH_UPDATE', 'RequestLayout')
+    else
+        self:RegisterEvent('SEARCH_CHANGED')
+    end
+
     self:RegisterEvent('BAG_FOCUS_UPDATED')
-    self:RegisterEvent('SEARCH_CHANGED')
     self:RegisterEvent('GET_ITEM_INFO_RECEIVED')
     self:RegisterEvent('ITEM_BORDER_UPDATE', 'UpdateAllBorders')
     self:RegisterEvent('ITEM_COLOR_UPDATE')
@@ -88,12 +107,24 @@ function Container:BAG_SIZE_CHANGED(_, bag)
 end
 
 local Updaters = {
-    Update = ns.UI.Item.Update,
-    UpdateFocus = ns.UI.Item.UpdateFocus,
-    UpdateCooldown = ns.UI.Item.UpdateCooldown,
-    UpdateBorder = ns.UI.Item.UpdateBorder,
-    UpdateSlotColor = ns.UI.Item.UpdateSlotColor,
-    UpdateRemain = ns.UI.Item.UpdateRemain,
+    Update = function(item)
+        return item:Update()
+    end,
+    UpdateFocus = function(item)
+        return item:UpdateFocus()
+    end,
+    UpdateCooldown = function(item)
+        return item:UpdateCooldown()
+    end,
+    UpdateBorder = function(item)
+        return item:UpdateBorder()
+    end,
+    UpdateSlotColor = function(item)
+        return item:UpdateSlotColor()
+    end,
+    UpdateRemain = function(item)
+        return item:UpdateRemain()
+    end,
     UpdateLocked = function(item)
         item:UpdateInfo()
         item:UpdateLocked()
@@ -157,6 +188,15 @@ end
 function Container:UpdateBagOrder()
     self.bagOrdered = nil
     self:RequestLayout()
+end
+
+function Container:FreeAll()
+    for bag, buttons in pairs(self.itemButtons) do
+        for slot, itemButton in pairs(buttons) do
+            itemButton:Free()
+        end
+        wipe(buttons)
+    end
 end
 
 function Container:ForAll(method, force)
@@ -303,7 +343,7 @@ function Container:IterateBags()
 end
 
 function Container:Layout()
-    self:ForAll(Updaters.Free, true)
+    self:FreeAll()
     self:OnLayout()
     self:SetScript('OnUpdate', nil)
 end
@@ -354,12 +394,4 @@ end
 
 function Container:NumSlots(bag)
     return Cache:GetBagInfo(self.meta.owner, bag).count or 0
-end
-
-function Container:GetRealWidth()
-    return self:GetWidth()
-end
-
-function Container:GetRealHeight()
-    return self:GetHeight()
 end

@@ -16,13 +16,19 @@ local BAG_ID = ns.BAG_ID
 ---@field frame tdBag2Frame
 ---@field sets tdBag2Profile
 ---@field itemClass tdBag2ItemBase
+---@field containerClass tdBag2Container
+---@field title string
+---@field icon string
 local FrameMeta = ns.Addon:NewClass('FrameMeta')
 
 function FrameMeta:Constructor(bagId, frame)
     self.bagId = bagId
     self.bags = ns.GetBags(bagId)
+    self.title = ns.BAG_TITLES[bagId]
+    self.icon = ns.BAG_ICONS[bagId]
     self.frame = frame
     self.itemClass = ns.UI[ns.BAG_ITEM_CLASSES[bagId]]
+    self.containerClass = ns.UI[ns.BAG_CONTAINER_CLASSES[bagId]]
     self:Update()
 end
 
@@ -64,8 +70,12 @@ function FrameMeta:IsSelf()
 end
 
 function FrameMeta:SetOwner(owner)
-    self.owner = not ns.IsSelf(owner) and owner or nil
-    ns.Events:FireFrame('OWNER_CHANGED', self.bagId)
+    owner = not ns.IsSelf(owner) and owner or nil
+
+    if owner ~= self.owner then
+        self.owner = owner
+        ns.Events:FireFrame('OWNER_CHANGED', self.bagId)
+    end
 end
 
 function FrameMeta:ToggleBagHidden(bag)

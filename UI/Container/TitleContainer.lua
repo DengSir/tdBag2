@@ -155,10 +155,6 @@ function TitleContainer:GetBags()
     return bags
 end
 
-function TitleContainer:SetAlwaysShowTitle(flag)
-    self.alwaysShowTitle = flag or nil
-end
-
 function TitleContainer:GetRealWidth()
     return self.ScrollFrame:GetWidth()
 end

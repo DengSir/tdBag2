@@ -69,17 +69,18 @@ _G.BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 ---@field searches string[]
 
 ---@class UI
----@field FrameBase tdBag2Frame
 ---@field Frame tdBag2Frame
+---@field SimpleFrame tdBag2SimpleFrame
+---@field ContainerFrame tdBag2ContainerFrame
+---@field ItemBase tdBag2ItemBase
 ---@field Item tdBag2Item
 ---@field Bag tdBag2Bag
----@field Bank tdBag2Bank
----@field Inventory tdBag2Inventory
 ---@field Container tdBag2Container
 ---@field TitleContainer tdBag2TitleContainer
 ---@field TitleFrame tdBag2TitleFrame
 ---@field OwnerSelector tdBag2OwnerSelector
 ---@field SearchBox tdBag2SearchBox
+---@field GlobalSearchBox tdBag2GlobalSearchBox
 ---@field TokenFrame tdBag2TokenFrame
 ---@field Token tdBag2Token
 ---@field MenuButton tdBag2MenuButton
@@ -336,13 +337,7 @@ function Addon:CreateFrame(bagId)
     if not class then
         return
     end
-    local template = ns.BAG_TEMPLATES[bagId]
-    local frame
-    if template then
-        frame = class:Bind(CreateFrame('Frame', nil, UIParent, template), bagId)
-    else
-        frame = class:New(UIParent, bagId)
-    end
+    local frame = class:Create(bagId)
     self.frames[bagId] = frame
     return frame
 end

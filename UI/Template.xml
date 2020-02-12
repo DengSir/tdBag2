@@ -3,22 +3,6 @@
     <Frame name="tdBag2BaseFrameTemplate" inherits="PortraitFrameTemplate" hidden="true" toplevel="true" movable="true" enableMouse="true" frameStrata="MEDIUM" clampedToScreen="true" virtual="true">
         <Layers>
             <Layer level="BORDER" textureSubLevel="1">
-                <Texture parentKey="BtnCornerLeft" inherits="UI-Frame-BtnCornerLeft" hidden="true">
-                    <Anchors>
-                        <Anchor point="BOTTOMLEFT" x="-2" y="-1"/>
-                    </Anchors>
-                </Texture>
-                <Texture parentKey="BtnCornerRight" inherits="UI-Frame-BtnCornerRight" hidden="true">
-                    <Anchors>
-                        <Anchor point="BOTTOMRIGHT" x="0" y="-1"/>
-                    </Anchors>
-                </Texture>
-                <Texture parentKey="ButtonBottomBorder" inherits="_UI-Frame-BtnBotTile" hidden="true">
-                    <Anchors>
-                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.BtnCornerLeft" relativePoint="BOTTOMRIGHT" y="3"/>
-                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BtnCornerRight" relativePoint="BOTTOMLEFT"/>
-                    </Anchors>
-                </Texture>
                 <MaskTexture parentKey="CircleMask" file="Interface\CharacterFrame\TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
                     <Anchors>
                         <Anchor point="TOPLEFT" relativeKey="$parent.portrait"/>
@@ -73,8 +57,33 @@
                 </Anchors>
             </EditBox>
         </Frames>
+        <Scripts>
+            <OnLoad>
+                self.fixedHeight = 78
+            </OnLoad>
+        </Scripts>
     </Frame>
     <Frame name="tdBag2FrameTemplate" inherits="tdBag2BaseFrameTemplate" virtual="true">
+        <Layers>
+            <Layer level="BORDER" textureSubLevel="1">
+                <Texture parentKey="BtnCornerLeft" inherits="UI-Frame-BtnCornerLeft">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="-2" y="-1"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="BtnCornerRight" inherits="UI-Frame-BtnCornerRight">
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="-1"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="ButtonBottomBorder" inherits="_UI-Frame-BtnBotTile">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.BtnCornerLeft" relativePoint="BOTTOMRIGHT" y="3"/>
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BtnCornerRight" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
         <Frames>
             <Frame parentKey="BagFrame" hidden="true">
                 <Size x="1" y="26"/>
@@ -161,6 +170,12 @@
                 </Layers>
             </Button>
         </Frames>
+        <Scripts>
+            <OnLoad>
+                self.fixedHeight = 100
+                self.Inset:SetPoint('BOTTOMRIGHT', -6, 26)
+            </OnLoad>
+        </Scripts>
     </Frame>
     <Frame name="tdBag2TokenTemplate" virtual="true">
         <Size x="1" y="14" />

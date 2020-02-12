@@ -11,19 +11,22 @@ local tDeleteItem = tDeleteItem
 local PlaySound = PlaySound
 local ShowUIPanel = ShowUIPanel
 local HideUIPanel = HideUIPanel
+local CreateFrame = CreateFrame
 
 local UISpecialFrames = UISpecialFrames
+
+local UIParent = UIParent
+
+local LibWindow = LibStub('LibWindow-1.1')
 
 ---@type ns
 local ns = select(2, ...)
 
-local LibWindow = LibStub('LibWindow-1.1')
-
 ---@class tdBag2Frame: Frame
 ---@field protected meta tdBag2FrameMeta
+---@field protected fixedHeight number
+---@field protected portrait Texture
 ---@field protected TitleFrame tdBag2TitleFrame
----@field protected OwnerSelector tdBag2OwnerSelector
----@field protected SearchBox tdBag2SearchBox
 ---@field protected Container tdBag2Container
 local Frame = ns.Addon:NewClass('UI.Frame', 'Frame')
 
@@ -32,14 +35,17 @@ function Frame:Constructor(_, bagId)
     self.name = 'tdBag2Bag' .. self.meta.bagId
 
     ns.UI.TitleFrame:Bind(self.TitleFrame, self.meta)
-    ns.UI.OwnerSelector:Bind(self.OwnerSelector, self.meta)
-    ns.UI.SearchBox:Bind(self.SearchBox, self.meta)
+    self.meta.containerClass:Bind(self.Container, self.meta)
 
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)
 
     self:UpdateManaged()
     self:UpdateSpecial()
+end
+
+function Frame:Create(bagId)
+    return self:Bind(CreateFrame('Frame', nil, UIParent, 'tdBag2BaseFrameTemplate'), bagId)
 end
 
 function Frame:OnShow()
@@ -49,8 +55,10 @@ end
 
 function Frame:OnHide()
     PlaySound(863) -- SOUNDKIT.IG_BACKPACK_CLOSE
-    self.meta:SetOwner(nil)
     self:UnregisterAllEvents()
+    if not self.lockOwner then
+        self.meta.owner = nil
+    end
 end
 
 Frame.OnSizeChanged = ns.Spawned(UpdateUIPanelPositions)
@@ -118,23 +126,5 @@ function Frame:UpdateSpecial()
 end
 
 function Frame:UpdateSize()
-    return self:SetSize(self.Container:GetRealWidth() + 24,
-                        self.Container:GetRealHeight() + 78 + (self.bottomBar and 22 or 0))
-end
-
-function Frame:ToggleSearchBoxFocus()
-    if self.SearchBox:HasFocus() then
-        self.SearchBox:ClearFocus()
-    else
-        self.SearchBox:Show()
-        self.SearchBox:SetFocus()
-    end
-end
-
-function Frame:ShowBottomBar()
-    self.bottomBar = true
-    self.BtnCornerLeft:Hide()
-    self.BtnCornerRight:Hide()
-    self.ButtonBottomBorder:Hide()
-    self.Inset:SetPoint('BOTTOMRIGHT', -6, 26)
+    return self:SetSize(self.Container:GetRealWidth() + 24, self.Container:GetRealHeight() + self.fixedHeight)
 end

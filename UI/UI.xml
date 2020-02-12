@@ -1,26 +1,33 @@
 <Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
     <Include file="Template.xml" />
-    <Script file="MenuButton.lua" />
-    <Script file="TitleFrame.lua" />
-    <Script file="MoneyFrame.lua" />
-    <Script file="Token.lua" />
-    <Script file="TokenFrame.lua" />
-    <Script file="OwnerSelector.lua" />
-    <Script file="ItemBase.lua" />
-    <Script file="Item.lua" />
-    <Script file="Bag.lua" />
-    <Script file="BagFrame.lua" />
-    <Script file="Container.lua" />
-    <Script file="TitleContainer.lua" />
-    <Script file="Frame.lua" />
-    <Script file="ContainerFrame.lua" />
-    <Script file="Inventory.lua" />
-    <Script file="Bank.lua" />
-    <Script file="Mail.lua" />
-    <Script file="GlobalSearch.lua" />
-    <Script file="BagToggle.lua" />
-    <Script file="SearchToggle.lua" />
-    <Script file="SearchBox.lua" />
-    <Script file="PluginFrame.lua" />
+
+    <Script file="Abstract\MenuButton.lua" />
+
+    <Script file="Component\Bag.lua" />
+    <Script file="Component\BagFrame.lua" />
+    <Script file="Component\ItemBase.lua" />
+    <Script file="Component\Item.lua" />
+    <Script file="Component\MoneyFrame.lua" />
+    <Script file="Component\OwnerSelector.lua" />
+    <Script file="Component\SearchBox.lua" />
+    <Script file="Component\GlobalSearchBox.lua" />
+    <Script file="Component\TitleFrame.lua" />
+    <Script file="Component\Token.lua" />
+    <Script file="Component\TokenFrame.lua" />
+
+    <Script file="Container\Container.lua" />
+    <Script file="Container\TitleContainer.lua" />
+    <Script file="Container\GlobalSearchContainer.lua" />
+
+    <Script file="Frame\Frame.lua" />
+    <Script file="Frame\SimpleFrame.lua" />
+    <Script file="Frame\ContainerFrame.lua" />
+    <Script file="Frame\InventoryFrame.lua" />
+    <Script file="Frame\BankFrame.lua" />
+    <Script file="Frame\GlobalSearchFrame.lua" />
+
+    <Script file="Plugin\BagToggle.lua" />
+    <Script file="Plugin\SearchToggle.lua" />
+    <Script file="Plugin\PluginFrame.lua" />
 </Ui>

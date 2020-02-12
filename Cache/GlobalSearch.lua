@@ -30,6 +30,7 @@ local BAGS = {
 }
 
 ---@class tdBag2GlobalSearch
+---@field lastSearch string
 local GlobalSearch = ns.Addon:NewModule('GlobalSearch')
 
 function GlobalSearch:OnInitialize()
@@ -42,13 +43,21 @@ function GlobalSearch:Search(text)
         text = nil
     end
 
-    local Cache = ns.Cache
+    if self.lastSearch ~= text then
+        self.lastSearch = text
+        self:DoSearch()
+        ns.Events:Fire('GLOBAL_SEARCH_UPDATE')
+    end
+end
 
+function GlobalSearch:DoSearch()
     local results = wipe(self.results)
     local bags = wipe(self.bags)
-    local index = 1
 
-    if text then
+    if self.lastSearch then
+        local Cache = ns.Cache
+        local index = 1
+
         for _, owner in ipairs(Cache:GetOwners()) do
             for i, v in ipairs(BAGS) do
                 ---@type tdBag2CacheBagData
@@ -57,44 +66,39 @@ function GlobalSearch:Search(text)
                 local items = {}
 
                 for _, bag in ipairs(v.bags) do
-                    local bagInfo = Cache:GetBagInfo(owner, bag)
-                    for slot = 1, bagInfo.count or 0 do
+                    local info = Cache:GetBagInfo(owner, bag)
+                    for slot = 1, info.count or 0 do
                         local itemInfo = Cache:GetItemInfo(owner, bag, slot)
-                        if itemInfo.link then
-                            if Search:Matches(itemInfo.link, text) then
-                                tinsert(items, {
-                                    cached = true,
-                                    link = itemInfo.link,
-                                    count = itemInfo.count,
-                                    icon = itemInfo.icon,
-                                    quality = itemInfo.quality,
-                                    id = itemInfo.id,
-                                    timeout = itemInfo.timeout,
-                                })
-                            end
+                        if itemInfo.link and Search:Matches(itemInfo.link, self.lastSearch) then
+                            tinsert(items, {
+                                cached = true,
+                                link = itemInfo.link,
+                                count = itemInfo.count,
+                                icon = itemInfo.icon,
+                                quality = itemInfo.quality,
+                                id = itemInfo.id,
+                                timeout = itemInfo.timeout,
+                            })
                         end
                     end
                 end
 
                 local count = #items
                 if count > 0 then
-                    bagInfo.title = v.title:format(owner)
-                    bagInfo.count = count
                     bagInfo.cached = true
                     bagInfo.owned = true
+                    bagInfo.title = v.title:format(owner)
+                    bagInfo.count = count
                     bagInfo.items = items
 
                     local bag = GLOBAL_SEARCH_OWNER .. index
-                    index = index + 1
-
-                    tinsert(bags, bag)
+                    bags[index] = bag
                     results[bag] = bagInfo
+                    index = index + 1
                 end
             end
         end
     end
-
-    ns.Events:Fire('GLOBAL_SEARCH_UPDATE')
 end
 
 function GlobalSearch:GetBags()
@@ -107,5 +111,5 @@ end
 
 function GlobalSearch:GetItemInfo(bag, slot)
     local bagInfo = self:GetBagInfo(bag)
-    return bagInfo.items[slot]
+    return bagInfo and bagInfo.items[slot]
 end

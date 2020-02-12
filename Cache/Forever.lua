@@ -139,7 +139,7 @@ end
 
 function Forever:BANKFRAME_CLOSED()
     if self.atBank then
-        for _, bag in ipairs(ns.GetBags(ns.BAG_ID.BANK)) do
+        for _, bag in ipairs(BANKS) do
             self:SaveBag(bag)
         end
         self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
@@ -150,40 +150,15 @@ end
 
 function Forever:MAIL_SHOW()
     self.atMail = true
-    self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
+    self:SendMessage('MAIL_OPENED')
 end
 
 function Forever:MAIL_CLOSED()
     if self.atMail then
-        local mails = {}
-        local cods = {}
-        local now = time()
-
-        local num, total = GetInboxNumItems()
-        for i = 1, num do
-            local codAmount, daysLeft = select(6, GetInboxHeaderInfo(i))
-            local timeout = floor(now + daysLeft * SECONDS_OF_DAY)
-            local isCod = codAmount > 0
-
-            for j = 1, ATTACHMENTS_MAX_RECEIVE do
-                local link = GetInboxItemLink(i, j)
-                if link then
-                    local count = select(4, GetInboxItem(i, j))
-
-                    tinsert(isCod and cods or mails, self:ParseItem(link, count, timeout))
-                end
-            end
-        end
-
-        mails.size = #mails
-        cods.size = #cods
-
-        self.player[MAIL_CONTAINER] = mails
-        self.player[COD_CONTAINER] = cods
-
-        self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
+        self:SaveMail()
+        self.atMail = nil
     end
-    self.atMail = nil
+    self:SendMessage('MAIL_CLOSED')
 end
 
 function Forever:BAG_UPDATE(_, bag)
@@ -248,6 +223,37 @@ function Forever:SaveEquip(slot)
     local count = GetInventoryItemCount('player', slot)
 
     self.player[EQUIP_CONTAINER][slot] = self:ParseItem(link, count)
+end
+
+function Forever:SaveMail()
+    local mails = {}
+    local cods = {}
+    local now = time()
+
+    local num, total = GetInboxNumItems()
+    for i = 1, num do
+        local codAmount, daysLeft = select(6, GetInboxHeaderInfo(i))
+        local timeout = floor(now + daysLeft * SECONDS_OF_DAY)
+        local isCod = codAmount > 0
+
+        for j = 1, ATTACHMENTS_MAX_RECEIVE do
+            local link = GetInboxItemLink(i, j)
+            if link then
+                local count = select(4, GetInboxItem(i, j))
+
+                tinsert(isCod and cods or mails, self:ParseItem(link, count, timeout))
+            end
+        end
+    end
+
+    mails.size = #mails
+    cods.size = #cods
+
+    self.player[MAIL_CONTAINER] = mails
+    self.player[COD_CONTAINER] = cods
+
+    self.Cacher:RemoveCache(ns.REALM, ns.PLAYER, MAIL_CONTAINER)
+    self.Cacher:RemoveCache(ns.REALM, ns.PLAYER, COD_CONTAINER)
 end
 
 function Forever:FindData(...)
