@@ -23,6 +23,8 @@ L['Inventory'] = true
 L['Bank'] = true
 L['Mail'] = true
 L['COD'] = true
+L['Equip'] = true
+L['Global search'] = true
 
 L.TOOLTIP_CHANGE_PLAYER = 'View another character\'s items.'
 L.TOOLTIP_RETURN_TO_SELF = 'Return to the current character.'
@@ -31,6 +33,8 @@ L.TOOLTIP_SHOW_BAG_FRAME = 'Show bags list'
 L.TOOLTIP_TOGGLE_BAG = 'Open inventory'
 L.TOOLTIP_TOGGLE_BANK = 'Open bank'
 L.TOOLTIP_TOGGLE_MAIL = 'Open mailbox'
+L.TOOLTIP_TOGGLE_EQUIP = 'Open equip'
+L.TOOLTIP_TOGGLE_GLOBAL_SEARCH = 'Global search'
 L.TOOLTIP_TOGGLE_OTHER_FRAME = 'Open other bags'
 L.TOOLTIP_PURCHASE_BANK_SLOT = 'Purchase bank slot'
 L.TOOLTIP_WATCHED_TOKENS = 'Change watched tokens'
