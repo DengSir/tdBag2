@@ -3,11 +3,14 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 2/3/2020, 8:10:05 PM
 
+---- LUA
 local pairs, ipairs = pairs, ipairs
 local max = math.max
 local tinsert = table.insert
 
+---- WOW
 local CreateFrame = CreateFrame
+local ScrollFrame_OnScrollRangeChanged = ScrollFrame_OnScrollRangeChanged
 
 ---@type ns
 local ns = select(2, ...)
@@ -15,7 +18,6 @@ local ns = select(2, ...)
 local L = ns.L
 
 local Container = ns.UI.Container
-local Updaters = Container.Updaters
 
 ---@class tdBag2TitleContainer: tdBag2Container
 ---@field alwaysShowTitle boolean
@@ -47,8 +49,6 @@ function TitleContainer:Constructor()
     self.ScrollFrame.ScrollBar:ClearAllPoints()
     self.ScrollFrame.ScrollBar:SetPoint('TOPRIGHT', parent.Inset or parent, 'TOPRIGHT', 0, -20)
     self.ScrollFrame.ScrollBar:SetPoint('BOTTOMRIGHT', parent.Inset or parent, 'BOTTOMRIGHT', 0, 18)
-
-    self:SetScript('OnSizeChanged', self.OnSizeChanged)
 
     self:SetParent(self.ScrollFrame)
     self:ClearAllPoints()

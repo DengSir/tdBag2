@@ -32,6 +32,8 @@ local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 ---@type ns
 local ns = select(2, ...)
 
+local KEYRING_FAMILY = ns.KEYRING_FAMILY
+
 ---@class tdBag2Current
 local Current = {}
 ns.Current = Current
@@ -68,7 +70,7 @@ function Current:GetBagInfo(bag)
                 data.owned = true
             end
         elseif ns.IsKeyring(bag) then
-            data.family = 9
+            data.family = KEYRING_FAMILY
             data.owned = HasKey() or data.count > 0
             data.free = data.count and data.free and data.count + data.free - 32
         else

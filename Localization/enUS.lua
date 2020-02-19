@@ -12,6 +12,8 @@ end
 L.TITLE_BAG = '%s\'s Inventory'
 L.TITLE_BANK = '%s\'s Bank'
 L.TITLE_MAIL = '%s\'s Mail'
+L.TITLE_EQUIP = '%s\'s Equip'
+L.TITLE_COD = '%s\'s COD'
 
 L['Total'] = true
 L['|cffff2020(Offline)|r'] = true

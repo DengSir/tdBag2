@@ -45,6 +45,8 @@ ns.ITEM_SPACING = 2
 
 ns.SECONDS_OF_DAY = 24 * 60 * 60
 
+ns.KEYRING_FAMILY = 9
+
 ns.LEFT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:228:283|t]]
 ns.RIGHT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:330:385|t]]
 

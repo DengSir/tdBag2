@@ -47,6 +47,7 @@ local MAIL_CONTAINER = ns.MAIL_CONTAINER
 local EQUIP_CONTAINER = ns.EQUIP_CONTAINER
 local COD_CONTAINER = ns.COD_CONTAINER
 local SECONDS_OF_DAY = ns.SECONDS_OF_DAY
+local KEYRING_FAMILY = ns.KEYRING_FAMILY
 
 local NO_RESULT = {cached = true}
 
@@ -297,7 +298,7 @@ function Forever:GetBagInfo(realm, name, bag)
 
     if ns.IsContainerBag(bag) then
         if ns.IsKeyring(bag) then
-            data.family = 9
+            data.family = KEYRING_FAMILY
             data.owned = true
         elseif ns.IsBaseBag(bag) then
             data.count = GetContainerNumSlots(bag)

@@ -8,6 +8,7 @@ local ipairs, pairs = ipairs, pairs
 local max = math.max
 local select = select
 local tinsert, tremove = table.insert, table.remove
+local wipe = table.wipe or wipe
 
 ---- WOW
 local CreateFrame = CreateFrame
@@ -46,7 +47,6 @@ function Container:Constructor(_, meta)
 
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)
-    self:SetScript('OnSizeChanged', self.OnSizeChanged)
 end
 
 function Container:OnShow()
@@ -93,6 +93,10 @@ end
 function Container:OnHide()
     self:UnregisterAllEvents()
     self.lastFocusBag = nil
+
+    if self.meta.owner then
+        self.bagOrdered = nil
+    end
 end
 
 function Container:OnSizeChanged()
@@ -132,12 +136,6 @@ local Updaters = {
     UpdateSearch = function(item)
         item:UpdateSearch()
         item:UpdateLocked()
-    end,
-
-    Free = function(item)
-        local container = item:GetParent():GetParent()
-        container:FreeItem(item.bag, item.slot)
-        item:Free()
     end,
 }
 Container.Updaters = Updaters
@@ -345,6 +343,7 @@ end
 function Container:Layout()
     self:FreeAll()
     self:OnLayout()
+    self:OnSizeChanged()
     self:SetScript('OnUpdate', nil)
 end
 

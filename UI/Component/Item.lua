@@ -19,7 +19,6 @@ local RemoveNewItem = C_NewItems.RemoveNewItem
 
 local ContainerFrame_UpdateCooldown = ContainerFrame_UpdateCooldown
 local CooldownFrame_Set = CooldownFrame_Set
-local SetItemButtonDesaturated = SetItemButtonDesaturated
 
 ---- UI
 local StackSplitFrame = StackSplitFrame
@@ -35,10 +34,7 @@ local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
 
 ---@type ns
 local ns = select(2, ...)
-local Search = ns.Search
-local Unfit = ns.Unfit
 local ItemBase = ns.UI.ItemBase
-local LibJunk = LibStub('LibJunk-1.0')
 
 ---@class tdBag2Item: tdBag2ItemBase
 ---@field private newitemglowAnim AnimationGroup
@@ -101,32 +97,13 @@ function Item:Update()
     self:UpdateFocus()
     self:UpdateBorder()
     self:UpdateSlotColor()
-    self:SetScript('OnUpdate', self.SecondaryUpdate)
-end
-
-function Item:SecondaryUpdate()
     self:UpdateCooldown()
-    self:SetScript('OnUpdate', nil)
 end
 
 function Item:UpdateBorder()
     local sets = self.meta.sets
-    local id = self.info.id
-    local quality = self.info.quality
     local new = sets.glowNew and self:IsNew()
-    local r, g, b
-
-    if id then
-        if sets.glowEquipSet and Search:InSet(self.info.link) then
-            r, g, b = 0.1, 1, 1
-        elseif sets.glowQuest and self:IsQuestItem() then
-            r, g, b = 1, 0.82, 0.2
-        elseif sets.glowUnusable and Unfit:IsItemUnusable(id) then
-            r, g, b = 1, 0.1, 0.1
-        elseif sets.glowQuality and quality and quality > LE_ITEM_QUALITY_COMMON then
-            r, g, b = GetItemQualityColor(quality)
-        end
-    end
+    local r, g, b = self:GetBorderColor()
 
     if new then
         if not self.newitemglowAnim:IsPlaying() then

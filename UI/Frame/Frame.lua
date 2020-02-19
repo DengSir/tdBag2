@@ -56,6 +56,7 @@ end
 function Frame:OnHide()
     PlaySound(863) -- SOUNDKIT.IG_BACKPACK_CLOSE
     self:UnregisterAllEvents()
+
     if not self.lockOwner then
         self.meta.owner = nil
     end

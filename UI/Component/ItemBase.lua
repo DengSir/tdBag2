@@ -40,11 +40,7 @@ local UIParent = UIParent
 local ITEM_STARTS_QUEST = ITEM_STARTS_QUEST
 local LE_ITEM_CLASS_QUESTITEM = LE_ITEM_CLASS_QUESTITEM
 local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON
-local LE_ITEM_QUALITY_POOR = LE_ITEM_QUALITY_POOR
-local NEW_ITEM_ATLAS_BY_QUALITY = NEW_ITEM_ATLAS_BY_QUALITY
 local TEXTURE_ITEM_QUEST_BANG = TEXTURE_ITEM_QUEST_BANG
-local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS
-local MAX_BLIZZARD_ITEMS = NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
 
 ---@type ns
 local ns = select(2, ...)
@@ -56,6 +52,7 @@ local LibJunk = LibStub('LibJunk-1.0')
 
 local EXPIRED = GRAY_FONT_COLOR:WrapTextInColorCode(ns.L['Expired'])
 local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
+local KEYRING_FAMILY = ns.KEYRING_FAMILY
 
 ---@class tdBag2ItemBase: Button
 ---@field protected meta tdBag2FrameMeta
@@ -255,21 +252,7 @@ end
 
 function ItemBase:UpdateBorder()
     local sets = self.meta.sets
-    local id = self.info.id
-    local quality = self.info.quality
-    local r, g, b
-
-    if id then
-        if sets.glowEquipSet and Search:InSet(self.info.link) then
-            r, g, b = 0.1, 1, 1
-        elseif sets.glowQuest and self:IsQuestItem() then
-            r, g, b = 1, 0.82, 0.2
-        elseif sets.glowUnusable and Unfit:IsItemUnusable(id) then
-            r, g, b = 1, 0.1, 0.1
-        elseif sets.glowQuality and quality and quality > LE_ITEM_QUALITY_COMMON then
-            r, g, b = GetItemQualityColor(quality)
-        end
-    end
+    local r, g, b = self:GetBorderColor()
 
     self.IconBorder:SetVertexColor(r, g, b, sets.glowAlpha)
     self.IconBorder:SetShown(r)
@@ -333,10 +316,26 @@ function ItemBase:GetBagFamily()
         return 0
     end
     if ns.IsKeyring(self.bag) then
-        return 9
+        return KEYRING_FAMILY
     end
     local info = Cache:GetBagInfo(self.meta.owner, self.bag)
     return info.link and GetItemFamily(info.link) or 0
+end
+
+function ItemBase:GetBorderColor()
+    local sets = self.meta.sets
+    local quality = self.info.quality
+    if self.info.id then
+        if sets.glowEquipSet and self:IsInEquipSet() then
+            return 0.1, 1, 1
+        elseif sets.glowQuest and self:IsQuestItem() then
+            return 1, 0.82, 0.2
+        elseif sets.glowUnusable and self:IsUnusable() then
+            return 1, 0.1, 0.1
+        elseif sets.glowQuality and quality and quality > LE_ITEM_QUALITY_COMMON then
+            return GetItemQualityColor(quality)
+        end
+    end
 end
 
 function ItemBase:IsCached()
@@ -365,4 +364,12 @@ function ItemBase:IsJunk()
         return
     end
     return LibJunk:IsJunk(self.info.id)
+end
+
+function ItemBase:IsInEquipSet()
+    return Search:InSet(self.info.link)
+end
+
+function ItemBase:IsUnusable()
+    return Unfit:IsItemUnusable(self.info.id)
 end
