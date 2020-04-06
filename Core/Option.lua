@@ -144,7 +144,7 @@ function Addon:SetupOptionFrame()
                 }),
             }),
             features = inline(L['Features'], { --
-                tokenFrame = toggle(L['Token Frame']),
+                tokenFrame = toggle(L['Watch Frame']),
                 bagFrame = toggle(L['Bag Frame']),
                 pluginButtons = toggle(L['Plugin Buttons']),
             }),
@@ -182,8 +182,6 @@ function Addon:SetupOptionFrame()
         return {name = L['Less than %s days']:format(days), value = days}
     end
 
-    local charProfileKey = format('%s - %s', ns.PLAYER, ns.REALM)
-
     local options = {
         type = 'group',
         get = function(item)
@@ -201,10 +199,10 @@ function Addon:SetupOptionFrame()
                 width = 'double',
                 order = orderGen(),
                 set = function(_, checked)
-                    self.db:SetProfile(checked and charProfileKey or 'Default')
+                    self.db:SetProfile(checked and ns.PLAYER_PROFILE_KEY or 'Default')
                 end,
                 get = function()
-                    return self.db:GetCurrentProfile() == charProfileKey
+                    return self.db:GetCurrentProfile() == ns.PLAYER_PROFILE_KEY
                 end,
             },
             reset = {

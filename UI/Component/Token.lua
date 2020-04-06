@@ -25,17 +25,26 @@ function Token:Constructor()
     self:SetMouseClickEnabled(false)
 end
 
-function Token:SetItem(owner, itemId)
+function Token:SetItem(owner, itemId, watchAll)
     self.itemId = itemId
     self.Icon:SetTexture(GetItemIcon(itemId))
-    self.Count:SetText(ns.Counter:GetOwnerItemTotal(owner, itemId))
+    if watchAll then
+        self.Count:SetText(ns.Counter:GetOwnerItemTotal(owner, itemId))
+    else
+        local counts = ns.Counter:GetOwnerItemCount(owner, itemId)
+        self.Count:SetText(counts and counts[2] or '0')
+    end
     self:SetWidth(self.Count:GetWidth() + 16)
 end
 
 function Token:OnEnter()
     ns.AnchorTooltip(self)
     GameTooltip:SetHyperlink('item:' .. self.itemId)
-    GameTooltip:AddLine(' ')
-    GameTooltip:AddLine(ns.RightButtonTip(L.TOOLTIP_WATCHED_TOKENS))
+
+    if self:GetParent().meta:IsSelf() then
+        GameTooltip:AddLine(' ')
+        GameTooltip:AddLine(ns.LeftButtonTip(L.TOOLTIP_WATCHED_TOKENS_LEFTTIP))
+        GameTooltip:AddLine(ns.RightButtonTip(L.TOOLTIP_WATCHED_TOKENS_RIGHTTIP))
+    end
     GameTooltip:Show()
 end

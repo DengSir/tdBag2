@@ -177,6 +177,16 @@ ns.BAG_CONTAINER_CLASSES = BAG_CONTAINER_CLASSES
 ns.PLAYER = nil
 ns.REALM = nil
 
+ns.DEFAULT_WATCHES = { --
+    WARLOCK = {6265},
+    PRIEST = {17028, 17029},
+    MAGE = {17020, 17031, 17032},
+    DRUID = {17038, 17026},
+    PALADIN = {21177, 17033},
+    ROGUE = {5140, 5530},
+    SHAMAN = {17057, 17058},
+}
+
 ns.BAG_FAMILY_KEYS = { --
     [1] = 'colorQuiver',
     [2] = 'colorQuiver',
@@ -323,6 +333,10 @@ function ns.AnchorTooltip2(frame, anchor, x, y)
     else
         GameTooltip:SetPoint('BOTTOM' .. anchor, frame, 'TOP' .. anchor, x, y)
     end
+end
+
+function ns.GetCharacterProfileKey(name, realm)
+    return format('%s - %s', name, realm)
 end
 
 function ns.PlayToggleSound(flag)

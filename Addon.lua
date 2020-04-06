@@ -65,8 +65,14 @@ _G.BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 ---@field lockFrame boolean
 ---@field emptyAlpha number
 ---@field remainLimit number
----@field tokens table
 ---@field searches string[]
+
+---@class tdBag2WatchData
+---@field itemId number
+---@field watchAll boolean
+
+---@class tdBag2CharacterProfile
+---@field watches tdBag2WatchData[]
 
 ---@class UI
 ---@field Frame tdBag2Frame
@@ -91,6 +97,7 @@ ns.Unfit = LibStub('Unfit-1.0')
 
 ---@class Addon
 ---@field private frames table<string, tdBag2ContainerFrame>
+---@field private defaultCharacterProfile tdBag2CharacterProfile
 local Addon = LibStub('AceAddon-3.0'):NewAddon('tdBag2', 'LibClass-2.0', 'AceHook-3.0', 'AceEvent-3.0')
 ns.Addon = Addon
 _G.tdBag2 = Addon
@@ -99,8 +106,54 @@ Addon.BAG_ID = BAG_ID
 
 function Addon:OnInitialize()
     self.frames = {}
+    self:SetupBankHider()
+end
+
+function Addon:OnEnable()
+    ns.PLAYER, ns.REALM = UnitFullName('player')
+    ns.PLAYER_PROFILE_KEY = ns.GetCharacterProfileKey(ns.PLAYER, ns.REALM)
+
+    self:SetupDatabase()
+    self:SetupDefaultOptions()
+    self:SetupCharacterOptions()
+    self:CleanDeprecatedOptions()
+
+    self:SetupOptionFrame()
+    self:SetupPluginButtons()
+end
+
+function Addon:OnModuleCreated(module)
+    ns[module:GetName()] = module
+end
+
+function Addon:OnClassCreated(class, name)
+    local uiName = name:match('^UI%.(.+)$')
+    if uiName then
+        ns.UI[uiName] = class
+        ns.Events:Embed(class)
+    else
+        ns[name] = class
+    end
+end
+
+function Addon:OnProfileChanged()
+    self:SetupDefaultOptions()
+    self:UpdateAllFrameMeta()
+    self:UpdateAllManaged()
+    self:UpdateAllPosition()
+    self:UpdateAll()
+end
+
+function Addon:SetupDatabase()
+    self.defaultCharacterProfile = { --
+        watches = {first = true},
+    }
+
     self.db = LibStub('AceDB-3.0'):New('TDDB_BAG2', {
-        global = {forever = {}},
+        global = { --
+            forever = {},
+            characters = {[ns.PLAYER_PROFILE_KEY] = self.defaultCharacterProfile},
+        },
         profile = {
             frames = {
                 [BAG_ID.BAG] = { --
@@ -190,8 +243,6 @@ function Addon:OnInitialize()
             tipCount = true,
             remainLimit = 0,
 
-            tokens = {[20560] = true, [20559] = true, [20558] = true},
-
             colorSlots = true,
             colorNormal = {r = 1, g = 1, b = 1},
             colorQuiver = {r = 1, g = 0.87, b = 0.68},
@@ -211,58 +262,28 @@ function Addon:OnInitialize()
 
     self.db:RegisterCallback('OnProfileChanged', OnProfileChanged)
     self.db:RegisterCallback('OnProfileReset', OnProfileChanged)
+end
 
-    -- clear old options
-    do
-        self.db.global.quickfix = nil
+function Addon:CleanDeprecatedOptions()
+    self.db.global.quickfix = nil
 
-        if self.db.profile.iconChar then
-            for _, bagId in pairs(ns.BAG_ID) do
-                self.db.profile.frames[bagId].iconCharacter = true
-            end
-            self.db.profile.iconChar = nil
+    self.db.profile.tokens = nil
+
+    if self.db.profile.iconChar then
+        for _, bagId in pairs(ns.BAG_ID) do
+            self.db.profile.frames[bagId].iconCharacter = true
         end
-
-        local remainLimit = self.db.profile.frames[BAG_ID.MAIL].remainLimit
-        if remainLimit then
-            self.db.profile.remainLimit = remainLimit
-            self.db.profile.frames[BAG_ID.MAIL].remainLimit = nil
-        end
+        self.db.profile.iconChar = nil
     end
 
-    self:SetupDefaultSearchRecords()
-    self:SetupBankHider()
-end
-
-function Addon:OnEnable()
-    ns.PLAYER, ns.REALM = UnitFullName('player')
-    self:SetupOptionFrame()
-    self:SetupPluginButtons()
-end
-
-function Addon:OnModuleCreated(module)
-    ns[module:GetName()] = module
-end
-
-function Addon:OnClassCreated(class, name)
-    local uiName = name:match('^UI%.(.+)$')
-    if uiName then
-        ns.UI[uiName] = class
-        ns.Events:Embed(class)
-    else
-        ns[name] = class
+    local remainLimit = self.db.profile.frames[BAG_ID.MAIL].remainLimit
+    if remainLimit then
+        self.db.profile.remainLimit = remainLimit
+        self.db.profile.frames[BAG_ID.MAIL].remainLimit = nil
     end
 end
 
-function Addon:OnProfileChanged()
-    self:SetupDefaultSearchRecords()
-    self:UpdateAllFrameMeta()
-    self:UpdateAllManaged()
-    self:UpdateAllPosition()
-    self:UpdateAll()
-end
-
-function Addon:SetupDefaultSearchRecords()
+function Addon:SetupDefaultOptions()
     local searches = self.db.profile.searches
     if searches.first then
         searches.first = false
@@ -277,6 +298,26 @@ function Addon:SetupDefaultSearchRecords()
 
         for _, item in ipairs(types) do
             tinsert(searches, (GetItemClassInfo(item)))
+        end
+    end
+end
+
+function Addon:SetupCharacterOptions()
+    local character = self.db.global.characters[ns.PLAYER_PROFILE_KEY]
+    local watches = character.watches
+    if watches.first then
+        watches.first = false
+
+        local class = UnitClassBase('player')
+        local defaultWatches = ns.DEFAULT_WATCHES[class]
+        if defaultWatches then
+            for _, itemId in ipairs(defaultWatches) do
+                tinsert(watches, {itemId = itemId})
+            end
+        end
+
+        for _, itemId in ipairs(ns.TOKENS) do
+            tinsert(watches, {itemId = itemId})
         end
     end
 end
@@ -455,6 +496,14 @@ end
 
 function Addon:GetSearch()
     return self.searchText
+end
+
+---- character database
+
+function Addon:GetCharacterProfile(owner)
+    local realm, name = ns.Cache:GetOwnerAddress(owner)
+    local key = ns.GetCharacterProfileKey(name, realm)
+    return self.db.global.characters[key] or self.defaultCharacterProfile
 end
 
 ---- plugin buttons

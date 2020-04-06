@@ -133,7 +133,7 @@
                     <OnLoad function="MagicButton_OnLoad"/>
                 </Scripts>
             </Button>
-            <Button parentKey="TokenFrame" hidden="true" registerForClicks="RightButtonUp">
+            <Button parentKey="TokenFrame" hidden="true" registerForClicks="LeftButtonUp,RightButtonUp">
                 <Anchors>
                     <Anchor point="BOTTOMLEFT" x="5" y="2" />
                     <Anchor point="TOPRIGHT" relativeKey="$parent.MoneyFrame" relativePoint="TOPLEFT" x="-3" y="0" />

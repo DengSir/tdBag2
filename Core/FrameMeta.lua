@@ -5,6 +5,8 @@
 
 ---@type ns
 local ns = select(2, ...)
+
+local Addon = ns.Addon
 local Cache = ns.Cache
 local BAG_ID = ns.BAG_ID
 
@@ -12,14 +14,15 @@ local BAG_ID = ns.BAG_ID
 ---@field bagId number
 ---@field owner string
 ---@field bags number[]
----@field profile tdBag2FrameProfile
 ---@field frame tdBag2Frame
+---@field profile tdBag2FrameProfile
 ---@field sets tdBag2Profile
+---@field character tdBag2CharacterProfile
 ---@field itemClass tdBag2ItemBase
 ---@field containerClass tdBag2Container
 ---@field title string
 ---@field icon string
-local FrameMeta = ns.Addon:NewClass('FrameMeta')
+local FrameMeta = Addon:NewClass('FrameMeta')
 
 function FrameMeta:Constructor(bagId, frame)
     self.bagId = bagId
@@ -33,8 +36,9 @@ function FrameMeta:Constructor(bagId, frame)
 end
 
 function FrameMeta:Update()
-    self.profile = ns.Addon:GetFrameProfile(self.bagId)
-    self.sets = ns.Addon.db.profile
+    self.sets = Addon.db.profile
+    self.profile = Addon:GetFrameProfile(self.bagId)
+    self.character = Addon:GetCharacterProfile(self.owner)
 end
 
 function FrameMeta:HasBag(bag)
@@ -74,6 +78,7 @@ function FrameMeta:SetOwner(owner)
 
     if owner ~= self.owner then
         self.owner = owner
+        self.character = Addon:GetCharacterProfile(owner)
         ns.Events:FireFrame('OWNER_CHANGED', self.bagId)
     end
 end
@@ -90,7 +95,7 @@ function FrameMeta:SetOption(key, value)
     if event then
         ns.Events:FireFrame(event, self.bagId)
     else
-        ns.Addon:UpdateAll()
+        Addon:UpdateAll()
     end
 end
 
