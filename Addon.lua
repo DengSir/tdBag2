@@ -73,6 +73,7 @@ _G.BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 
 ---@class tdBag2CharacterProfile
 ---@field watches tdBag2WatchData[]
+---@field hiddenBags table<number, boolean>
 
 ---@class UI
 ---@field Frame tdBag2Frame
@@ -97,7 +98,6 @@ ns.Unfit = LibStub('Unfit-1.0')
 
 ---@class Addon
 ---@field private frames table<string, tdBag2ContainerFrame>
----@field private defaultCharacterProfile tdBag2CharacterProfile
 local Addon = LibStub('AceAddon-3.0'):NewAddon('tdBag2', 'LibClass-2.0', 'AceHook-3.0', 'AceEvent-3.0')
 ns.Addon = Addon
 _G.tdBag2 = Addon
@@ -107,15 +107,15 @@ Addon.BAG_ID = BAG_ID
 function Addon:OnInitialize()
     self.frames = {}
     self:SetupBankHider()
+
+    self:RegisterMessage('FOREVER_LOADED')
 end
 
 function Addon:OnEnable()
     ns.PLAYER, ns.REALM = UnitFullName('player')
-    ns.PLAYER_PROFILE_KEY = ns.GetCharacterProfileKey(ns.PLAYER, ns.REALM)
 
     self:SetupDatabase()
     self:SetupDefaultOptions()
-    self:SetupCharacterOptions()
     self:CleanDeprecatedOptions()
 
     self:SetupOptionFrame()
@@ -136,6 +136,12 @@ function Addon:OnClassCreated(class, name)
     end
 end
 
+function Addon:FOREVER_LOADED()
+    for _, owner in ipairs(ns.Forever:GetOwners()) do
+        self:SetupCharacterOptions(owner)
+    end
+end
+
 function Addon:OnProfileChanged()
     self:SetupDefaultOptions()
     self:UpdateAllFrameMeta()
@@ -145,123 +151,22 @@ function Addon:OnProfileChanged()
 end
 
 function Addon:SetupDatabase()
-    self.defaultCharacterProfile = { --
-        watches = {first = true},
-    }
-
-    self.db = LibStub('AceDB-3.0'):New('TDDB_BAG2', {
-        global = { --
-            forever = {},
-            characters = {[ns.PLAYER_PROFILE_KEY] = self.defaultCharacterProfile},
-        },
-        profile = {
-            frames = {
-                [BAG_ID.BAG] = { --
-                    window = {point = 'BOTTOMRIGHT', x = -50, y = 100},
-                    disableButtons = {},
-                    column = 8,
-                    reverseBag = false,
-                    reverseSlot = false,
-                    managed = false,
-                    bagFrame = true,
-                    tokenFrame = true,
-                    pluginButtons = true,
-                    scale = 1,
-                    tradeBagOrder = ns.TRADE_BAG_ORDER.BOTTOM,
-                    iconCharacter = false,
-                    hiddenBags = {},
-                },
-                [BAG_ID.BANK] = { --
-                    window = {point = 'TOPLEFT', x = 50, y = -100},
-                    disableButtons = {},
-                    column = 12,
-                    reverseBag = false,
-                    reverseSlot = false,
-                    managed = true,
-                    bagFrame = true,
-                    tokenFrame = true,
-                    pluginButtons = true,
-                    scale = 1,
-                    tradeBagOrder = ns.TRADE_BAG_ORDER.NONE,
-                    iconCharacter = false,
-                    hiddenBags = {},
-                },
-                [BAG_ID.MAIL] = { --
-                    window = {point = 'TOPLEFT', x = 50, y = -100},
-                    column = 12,
-                    reverseSlot = false,
-                    managed = true,
-                    scale = 1,
-                    iconCharacter = false,
-                },
-                [BAG_ID.EQUIP] = {
-                    window = {point = 'TOPLEFT', x = 50, y = -100},
-                    column = 6,
-                    reverseSlot = false,
-                    managed = true,
-                    scale = 1,
-                    iconCharacter = true,
-                },
-
-                [BAG_ID.SEARCH] = {
-                    window = {point = 'CENTER', x = 0, y = 0},
-                    column = 16,
-                    reverseSlot = false,
-                    managed = true,
-                    scale = 1,
-                },
-            },
-
-            displayMail = true,
-            displayMerchant = true,
-            displayCharacter = false,
-            displayAuction = true,
-            displayTrade = true,
-            displayCraft = true,
-            displayBank = true,
-
-            closeMail = true,
-            closeMerchant = true,
-            closeCharacter = false,
-            closeAuction = true,
-            closeTrade = true,
-            closeCraft = true,
-            closeBank = true,
-            closeCombat = false,
-
-            glowQuest = true,
-            glowUnusable = true,
-            glowQuality = true,
-            glowEquipSet = true,
-            glowNew = true,
-            glowAlpha = 0.5,
-
-            lockFrame = false,
-            iconJunk = true,
-            iconQuestStarter = true,
-            textOffline = true,
-            tipCount = true,
-            remainLimit = 0,
-
-            colorSlots = true,
-            colorNormal = {r = 1, g = 1, b = 1},
-            colorQuiver = {r = 1, g = 0.87, b = 0.68},
-            colorSoul = {r = 0.64, g = 0.39, b = 1},
-            colorEnchant = {r = 0.64, g = 0.83, b = 1},
-            colorHerb = {r = 0.5, g = 1, b = 0.5},
-            colorKeyring = {r = 1, g = 0.67, b = 0.95},
-            emptyAlpha = 0.9,
-
-            searches = {first = true},
-        },
-    }, true)
+    self.db = LibStub('AceDB-3.0'):New('TDDB_BAG2', ns.PROFILE, true)
 
     local function OnProfileChanged()
         self:OnProfileChanged()
     end
 
+    local function OnDatabaseShutdown()
+        local characters = self.db.global.characters
+        for k, v in pairs(characters) do
+            characters[k] = ns.RemoveDefaults(v, ns.CHARACTER_PROFILE)
+        end
+    end
+
     self.db:RegisterCallback('OnProfileChanged', OnProfileChanged)
     self.db:RegisterCallback('OnProfileReset', OnProfileChanged)
+    self.db:RegisterCallback('OnDatabaseShutdown', OnDatabaseShutdown)
 end
 
 function Addon:CleanDeprecatedOptions()
@@ -302,13 +207,20 @@ function Addon:SetupDefaultOptions()
     end
 end
 
-function Addon:SetupCharacterOptions()
-    local character = self.db.global.characters[ns.PLAYER_PROFILE_KEY]
+function Addon:SetupCharacterOptions(owner)
+    local characters = self.db.global.characters
+    local realm, name = ns.GetOwnerAddress(owner)
+    local profileKey = ns.GetCharacterProfileKey(name, realm)
+
+    characters[profileKey] = ns.CopyDefaults(characters[profileKey], ns.CHARACTER_PROFILE)
+
+    local character = characters[profileKey]
     local watches = character.watches
     if watches.first then
         watches.first = false
 
-        local class = UnitClassBase('player')
+        local ownerInfo = ns.Cache:GetOwnerInfo(owner)
+        local class = ownerInfo.class
         local defaultWatches = ns.DEFAULT_WATCHES[class]
         if defaultWatches then
             for _, itemId in ipairs(defaultWatches) do
@@ -501,9 +413,9 @@ end
 ---- character database
 
 function Addon:GetCharacterProfile(owner)
-    local realm, name = ns.Cache:GetOwnerAddress(owner)
+    local realm, name = ns.GetOwnerAddress(owner)
     local key = ns.GetCharacterProfileKey(name, realm)
-    return self.db.global.characters[key] or self.defaultCharacterProfile
+    return self.db.global.characters[key] or ns.CHARACTER_PROFILE
 end
 
 ---- plugin buttons

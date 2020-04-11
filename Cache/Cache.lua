@@ -47,15 +47,10 @@ local GlobalSearch = ns.GlobalSearch
 local Cache = {}
 ns.Cache = Cache
 
-local GLOBAL_SEARCH_OWNER = ns.GLOBAL_SEARCH_OWNER
 local CACHED_EMPTY = {cached = true}
 
-function Cache:GetOwnerAddress(owner)
-    return ns.REALM, owner or ns.PLAYER, owner == GLOBAL_SEARCH_OWNER
-end
-
 function Cache:GetOwnerInfo(owner)
-    local realm, name, isGlobalSearch = self:GetOwnerAddress(owner)
+    local realm, name, isGlobalSearch = ns.GetOwnerAddress(owner)
     if isGlobalSearch then
         return CACHED_EMPTY
     elseif self:IsOwnerCached(realm, name) then
@@ -66,7 +61,7 @@ function Cache:GetOwnerInfo(owner)
 end
 
 function Cache:GetBagInfo(owner, bag)
-    local realm, name, isGlobalSearch = self:GetOwnerAddress(owner)
+    local realm, name, isGlobalSearch = ns.GetOwnerAddress(owner)
     if isGlobalSearch then
         return GlobalSearch:GetBagInfo(bag)
     elseif self:IsBagCached(realm, name, bag) then
@@ -77,7 +72,7 @@ function Cache:GetBagInfo(owner, bag)
 end
 
 function Cache:GetItemInfo(owner, bag, slot)
-    local realm, name, isGlobalSearch = self:GetOwnerAddress(owner)
+    local realm, name, isGlobalSearch = ns.GetOwnerAddress(owner)
     if isGlobalSearch then
         return GlobalSearch:GetItemInfo(bag, slot)
     elseif self:IsBagCached(realm, name, bag) then
@@ -109,7 +104,7 @@ function Cache:GetItemID(owner, bag, slot)
 end
 
 function Cache:IsOwnerBagCached(owner, bag)
-    local realm, name = self:GetOwnerAddress(owner)
+    local realm, name = ns.GetOwnerAddress(owner)
     return self:IsBagCached(realm, name, bag)
 end
 
@@ -122,5 +117,5 @@ function Cache:HasMultiOwners()
 end
 
 function Cache:DeleteOwnerInfo(owner)
-    return Forever:DeleteOwnerInfo(self:GetOwnerAddress(owner))
+    return Forever:DeleteOwnerInfo(ns.GetOwnerAddress(owner))
 end

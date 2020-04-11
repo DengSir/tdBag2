@@ -81,6 +81,7 @@ function Forever:OnEnable()
     self:SetupCache()
     self:SetupEvents()
     self:UpdateData()
+    self:SendMessage('FOREVER_LOADED')
 end
 
 function Forever:SetupCache()

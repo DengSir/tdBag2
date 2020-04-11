@@ -84,7 +84,7 @@ function FrameMeta:SetOwner(owner)
 end
 
 function FrameMeta:ToggleBagHidden(bag)
-    self.profile.hiddenBags[bag] = not self.profile.hiddenBags[bag] or nil
+    self.character.hiddenBags[bag] = not self.character.hiddenBags[bag]
     ns.Events:Fire('UPDATE_ALL')
 end
 
@@ -104,5 +104,5 @@ function FrameMeta:ToggleOption(key)
 end
 
 function FrameMeta:IsBagHidden(bag)
-    return self.profile.hiddenBags and self.profile.hiddenBags[bag]
+    return self.character.hiddenBags[bag]
 end

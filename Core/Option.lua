@@ -182,6 +182,8 @@ function Addon:SetupOptionFrame()
         return {name = L['Less than %s days']:format(days), value = days}
     end
 
+    local playerProfileKey = ns.GetCharacterProfileKey(ns.PLAYER, ns.REALM)
+
     local options = {
         type = 'group',
         get = function(item)
@@ -199,10 +201,10 @@ function Addon:SetupOptionFrame()
                 width = 'double',
                 order = orderGen(),
                 set = function(_, checked)
-                    self.db:SetProfile(checked and ns.PLAYER_PROFILE_KEY or 'Default')
+                    self.db:SetProfile(checked and playerProfileKey or 'Default')
                 end,
                 get = function()
-                    return self.db:GetCurrentProfile() == ns.PLAYER_PROFILE_KEY
+                    return self.db:GetCurrentProfile() == playerProfileKey
                 end,
             },
             reset = {

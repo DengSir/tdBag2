@@ -4,6 +4,7 @@
 -- @Date   : 10/18/2019, 1:11:20 PM
 
 ---- LUA
+local type, next = type, next
 local pairs = pairs
 local select = select
 local format = string.format
@@ -31,6 +32,8 @@ local EQUIP_CONTAINER = 'equip'
 local MAIL_CONTAINER = 'mail'
 local COD_CONTAINER = 'cod'
 
+local GLOBAL_SEARCH_OWNER = '$search'
+
 ---@type ns
 local ns = select(2, ...)
 
@@ -38,7 +41,7 @@ ns.EQUIP_CONTAINER = EQUIP_CONTAINER
 ns.MAIL_CONTAINER = MAIL_CONTAINER
 ns.COD_CONTAINER = COD_CONTAINER
 
-ns.GLOBAL_SEARCH_OWNER = '$search'
+ns.GLOBAL_SEARCH_OWNER = GLOBAL_SEARCH_OWNER
 
 ns.ITEM_SIZE = 37
 ns.ITEM_SPACING = 2
@@ -247,6 +250,118 @@ ns.OPTION_EVENTS = { --
     end,
 }
 
+ns.CHARACTER_PROFILE = { --
+    watches = {first = true},
+    hiddenBags = {[KEYRING_CONTAINER] = true},
+}
+
+ns.PROFILE = {
+    global = { --
+        forever = {},
+        characters = {},
+    },
+    profile = {
+        frames = {
+            [BAG_ID.BAG] = { --
+                window = {point = 'BOTTOMRIGHT', x = -50, y = 100},
+                disableButtons = {},
+                column = 8,
+                reverseBag = false,
+                reverseSlot = false,
+                managed = false,
+                bagFrame = true,
+                tokenFrame = true,
+                pluginButtons = true,
+                scale = 1,
+                tradeBagOrder = ns.TRADE_BAG_ORDER.BOTTOM,
+                iconCharacter = false,
+                hiddenBags = {},
+            },
+            [BAG_ID.BANK] = { --
+                window = {point = 'TOPLEFT', x = 50, y = -100},
+                disableButtons = {},
+                column = 12,
+                reverseBag = false,
+                reverseSlot = false,
+                managed = true,
+                bagFrame = true,
+                tokenFrame = true,
+                pluginButtons = true,
+                scale = 1,
+                tradeBagOrder = ns.TRADE_BAG_ORDER.NONE,
+                iconCharacter = false,
+                hiddenBags = {},
+            },
+            [BAG_ID.MAIL] = { --
+                window = {point = 'TOPLEFT', x = 50, y = -100},
+                column = 12,
+                reverseSlot = false,
+                managed = true,
+                scale = 1,
+                iconCharacter = false,
+            },
+            [BAG_ID.EQUIP] = {
+                window = {point = 'TOPLEFT', x = 50, y = -100},
+                column = 6,
+                reverseSlot = false,
+                managed = true,
+                scale = 1,
+                iconCharacter = true,
+            },
+
+            [BAG_ID.SEARCH] = {
+                window = {point = 'CENTER', x = 0, y = 0},
+                column = 16,
+                reverseSlot = false,
+                managed = true,
+                scale = 1,
+            },
+        },
+
+        displayMail = true,
+        displayMerchant = true,
+        displayCharacter = false,
+        displayAuction = true,
+        displayTrade = true,
+        displayCraft = true,
+        displayBank = true,
+
+        closeMail = true,
+        closeMerchant = true,
+        closeCharacter = false,
+        closeAuction = true,
+        closeTrade = true,
+        closeCraft = true,
+        closeBank = true,
+        closeCombat = false,
+
+        glowQuest = true,
+        glowUnusable = true,
+        glowQuality = true,
+        glowEquipSet = true,
+        glowNew = true,
+        glowAlpha = 0.5,
+
+        lockFrame = false,
+        iconJunk = true,
+        iconQuestStarter = true,
+        textOffline = true,
+        tipCount = true,
+        remainLimit = 0,
+
+        colorSlots = true,
+        colorNormal = {r = 1, g = 1, b = 1},
+        colorQuiver = {r = 1, g = 0.87, b = 0.68},
+        colorSoul = {r = 0.64, g = 0.39, b = 1},
+        colorEnchant = {r = 0.64, g = 0.83, b = 1},
+        colorHerb = {r = 0.5, g = 1, b = 0.5},
+        colorKeyring = {r = 1, g = 0.67, b = 0.95},
+        emptyAlpha = 0.9,
+
+        searches = {first = true},
+    },
+}
+
 local function riter(t, i)
     i = i - 1
     if i > 0 then
@@ -335,6 +450,10 @@ function ns.AnchorTooltip2(frame, anchor, x, y)
     end
 end
 
+function ns.GetOwnerAddress(owner)
+    return ns.REALM, owner or ns.PLAYER, owner == GLOBAL_SEARCH_OWNER
+end
+
 function ns.GetCharacterProfileKey(name, realm)
     return format('%s - %s', name, realm)
 end
@@ -370,4 +489,27 @@ function ns.NameGenerator(name)
         index = index + 1
         return name .. index
     end
+end
+
+function ns.CopyDefaults(dest, src)
+    dest = dest or {}
+    for k, v in pairs(src) do
+        if type(v) == 'table' then
+            dest[k] = ns.CopyDefaults(dest[k], v)
+        elseif dest[k] == nil then
+            dest[k] = v
+        end
+    end
+    return dest
+end
+
+function ns.RemoveDefaults(dest, src)
+    for k, v in pairs(src) do
+        if type(v) == 'table' then
+            dest[k] = ns.RemoveDefaults(dest[k], v)
+        elseif dest[k] == v then
+            dest[k] = nil
+        end
+    end
+    return next(dest) and dest or nil
 end
