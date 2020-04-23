@@ -28,7 +28,7 @@ function TitleContainer:Constructor()
 
     local parent = self:GetParent()
 
-    self.ScrollFrame = CreateFrame('ScrollFrame', nil, self:GetParent(), 'tdBag2ScrollFrameTemplate')
+    self.ScrollFrame = CreateFrame('ScrollFrame', nil, self:GetParent(), ns.Addon:GetCurrentSkin().ScrollFrame)
     self.ScrollFrame:SetPoint(self:GetPoint(1))
     self.ScrollFrame:SetScrollChild(self)
     self.ScrollFrame:SetSize(1, 1)
@@ -46,9 +46,9 @@ function TitleContainer:Constructor()
         return ScrollFrame_OnScrollRangeChanged(f, 0, yrange)
     end)
 
-    self.ScrollFrame.ScrollBar:ClearAllPoints()
-    self.ScrollFrame.ScrollBar:SetPoint('TOPRIGHT', parent.Inset or parent, 'TOPRIGHT', 0, -20)
-    self.ScrollFrame.ScrollBar:SetPoint('BOTTOMRIGHT', parent.Inset or parent, 'BOTTOMRIGHT', 0, 18)
+    -- self.ScrollFrame.ScrollBar:ClearAllPoints()
+    -- self.ScrollFrame.ScrollBar:SetPoint('TOPRIGHT', parent.Inset or parent, 'TOPRIGHT', 0, -20)
+    -- self.ScrollFrame.ScrollBar:SetPoint('BOTTOMRIGHT', parent.Inset or parent, 'BOTTOMRIGHT', 0, 18)
 
     self:SetParent(self.ScrollFrame)
     self:ClearAllPoints()
@@ -70,7 +70,7 @@ end
 
 function TitleContainer:GetTitleLabel(bag)
     if not self.titleLabels[bag] then
-        local frame = CreateFrame('Frame', nil, self, 'tdBag2ContainerTitleTemplate')
+        local frame = CreateFrame('Frame', nil, self, ns.Addon:GetCurrentSkin().ContainerTitle)
         frame:SetHeight(20)
         self.titleLabels[bag] = frame
     end

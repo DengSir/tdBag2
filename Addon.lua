@@ -75,6 +75,15 @@ _G.BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 ---@field watches tdBag2WatchData[]
 ---@field hiddenBags table<number, boolean>
 
+---@class tdBag2SkinData
+---@field Frame string
+---@field ContainerFrame string
+---@field Keyring string
+---@field Bag string
+---@field ContainerTitle string
+---@field PluginButton string
+---@field ScrollFrame string
+
 ---@class UI
 ---@field Frame tdBag2Frame
 ---@field SimpleFrame tdBag2SimpleFrame
@@ -98,6 +107,7 @@ ns.Unfit = LibStub('Unfit-1.0')
 
 ---@class Addon
 ---@field private frames table<string, tdBag2ContainerFrame>
+---@field private skins table<string, tdBag2SkinData>
 local Addon = LibStub('AceAddon-3.0'):NewAddon('tdBag2', 'LibClass-2.0', 'AceHook-3.0', 'AceEvent-3.0')
 ns.Addon = Addon
 _G.tdBag2 = Addon
@@ -105,8 +115,29 @@ _G.tdBag2 = Addon
 Addon.BAG_ID = BAG_ID
 
 function Addon:OnInitialize()
+    self.skins = {}
     self.frames = {}
     self:SetupBankHider()
+
+    self:RegisterSkin('Blizzard', {
+        Frame = 'tdBag2BaseFrameTemplate',
+        ContainerFrame = 'tdBag2FrameTemplate',
+        Keyring = 'tdBag2KeyringTemplate',
+        Bag = 'tdBag2BagTemplate',
+        ScrollFrame = 'tdBag2ScrollFrameTemplate',
+        ContainerTitle = 'tdBag2ContainerTitleTemplate',
+        PluginButton = 'tdBag2ToggleButtonTemplate',
+    })
+
+    self:RegisterSkin('Glass', {
+        Frame = 'tdBag2GlassBaseFrameTemplate',
+        ContainerFrame = 'tdBag2GlassFrameTemplate',
+        Keyring = 'tdBag2KeyringTemplate',
+        Bag = 'tdBag2BagTemplate',
+        ScrollFrame = 'tdBag2GlassScrollFrameTemplate',
+        ContainerTitle = 'tdBag2ContainerTitleTemplate',
+        PluginButton = 'tdBag2GlassToggleButtonTemplate',
+    })
 
     self:RegisterMessage('FOREVER_LOADED')
 end
@@ -451,4 +482,12 @@ function Addon:RegisterPluginButton(opts)
     if self.RefreshPluginOptions then
         self:RefreshPluginOptions()
     end
+end
+
+function Addon:RegisterSkin(key, skinData)
+    self.skins[key] = skinData
+end
+
+function Addon:GetCurrentSkin()
+    return self.skins[self.db.profile.skin]
 end

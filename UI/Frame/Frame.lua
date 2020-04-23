@@ -45,7 +45,7 @@ function Frame:Constructor(_, bagId)
 end
 
 function Frame:Create(bagId)
-    return self:Bind(CreateFrame('Frame', nil, UIParent, 'tdBag2BaseFrameTemplate'), bagId)
+    return self:Bind(CreateFrame('Frame', nil, UIParent, ns.Addon:GetCurrentSkin().Frame), bagId)
 end
 
 function Frame:OnShow()
@@ -127,5 +127,6 @@ function Frame:UpdateSpecial()
 end
 
 function Frame:UpdateSize()
-    return self:SetSize(self.Container:GetRealWidth() + 24, self.Container:GetRealHeight() + self.fixedHeight)
+    return self:SetSize(self.Container:GetRealWidth() + self.fixedWidth,
+                        self.Container:GetRealHeight() + self.fixedHeight)
 end

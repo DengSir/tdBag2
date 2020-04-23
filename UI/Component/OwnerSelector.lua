@@ -34,7 +34,7 @@ OwnerSelector.menuOffset = {xOffset = 8}
 
 function OwnerSelector:Constructor(_, meta)
     self.meta = meta
-    self.portrait = self.meta.frame.portrait
+    self.portrait = self.meta.frame.portrait or self.texture
     self:SetScript('OnClick', self.OnClick)
     self:SetScript('OnEnter', self.OnEnter)
     self:SetScript('OnLeave', self.OnLeave)

@@ -58,7 +58,7 @@ function PluginFrame:Update()
 end
 
 function PluginFrame:CreatePluginButton(plugin)
-    local button = CreateFrame('CheckButton', nil, self, 'tdBag2ToggleButtonTemplate')
+    local button = CreateFrame('CheckButton', nil, self, ns.Addon:GetCurrentSkin().PluginButton)
     button:Hide()
     button.texture:SetTexture(plugin.icon)
     plugin.init(button, self)

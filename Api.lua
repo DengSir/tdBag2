@@ -359,6 +359,8 @@ ns.PROFILE = {
         emptyAlpha = 0.9,
 
         searches = {first = true},
+
+        skin = 'Blizzard',
     },
 }
 

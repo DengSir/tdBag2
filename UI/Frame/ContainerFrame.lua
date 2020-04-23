@@ -40,7 +40,7 @@ function ContainerFrame:Constructor(_, bagId)
 end
 
 function ContainerFrame:Create(bagId)
-    return self:Bind(CreateFrame('Frame', nil, UIParent, 'tdBag2FrameTemplate'), bagId)
+    return self:Bind(CreateFrame('Frame', nil, UIParent, ns.Addon:GetCurrentSkin().ContainerFrame), bagId)
 end
 
 function ContainerFrame:OnShow()
@@ -111,7 +111,9 @@ function ContainerFrame:PlaceSearchBox()
     end
 end
 
-ContainerFrame.PLUGIN_BUTTON_UPDATE = ns.Spawned(ContainerFrame.PlaceSearchBox)
+ContainerFrame.PLUGIN_BUTTON_UPDATE = ns.Spawned(function(self)
+    self:PlaceSearchBox()
+end)
 
 function ContainerFrame:IsSearchBoxSpaceEnough()
     return self:GetWidth() - self.BagFrame:GetWidth() -

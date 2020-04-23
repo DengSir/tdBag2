@@ -1,0 +1,150 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Button name="tdBag2GlassToggleButtonTemplate" virtual="true">
+        <Size x="20" y="20"/>
+        <HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
+        <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+        <NormalTexture file="Interface\Buttons\UI-Quickslot2">
+            <Size x="34" y="34"/>
+            <Anchors>
+                <Anchor point="CENTER" x="0" y="0"/>
+            </Anchors>
+        </NormalTexture>
+        <Layers>
+            <Layer level="BACKGROUND" textureSubLevel="0">
+                <Texture parentKey="bg">
+                    <Color r="0" g="0" b="0"/>
+                </Texture>
+            </Layer>
+            <Layer level="BACKGROUND" textureSubLevel="1">
+                <Texture parentKey="texture"/>
+            </Layer>
+        </Layers>
+    </Button>
+    <Frame name="tdBag2GlassBaseFrameTemplate" hidden="true" toplevel="true" movable="true" enableMouse="true" frameStrata="MEDIUM" clampedToScreen="true" virtual="true">
+        <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+            <EdgeSize val="16"/>
+            <TileSize val="16"/>
+            <BackgroundInsets left="4" right="4" top="4" bottom="4"/>
+        </Backdrop>
+        <Frames>
+            <Button parentKey="Close" inherits="UIPanelCloseButton">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" />
+                </Anchors>
+            </Button>
+            <Button parentKey="OwnerSelector" registerForClicks="LeftButtonUp,RightButtonUp" inherits="tdBag2GlassToggleButtonTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="8" y="-8" />
+                </Anchors>
+            </Button>
+            <Frame parentKey="Inset" useParentLevel="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="-56" />
+                    <Anchor point="BOTTOMRIGHT" x="0" y="0" />
+                </Anchors>
+            </Frame>
+            <Button parentKey="TitleFrame" registerForClicks="LeftButtonUp,RightButtonUp">
+                <Size x="1" y="20" />
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.OwnerSelector" relativePoint="TOPRIGHT" x="8" y="0" />
+                    <Anchor point="RIGHT" relativeKey="$parent.Close" relativePoint="LEFT" />
+                </Anchors>
+                <ButtonText parentKey="Text" justifyH="LEFT" />
+                <NormalFont style="GameFontNormalLeft"/>
+                <HighlightFont style="GameFontHighlightLeft"/>
+            </Button>
+            <Frame parentKey="Container">
+                <Size x="1" y="1"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT" x="8" y="-8" />
+                </Anchors>
+            </Frame>
+            <EditBox parentKey="SearchBox" inherits="SearchBoxTemplate">
+                <Size y="28"/>
+                <!-- <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+                    <EdgeSize val="16"/>
+                    <TileSize val="16"/>
+                    <BackgroundInsets left="4" right="4" top="4" bottom="4"/>
+                </Backdrop> -->
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="TOPLEFT" x="15" y="-45" />
+                    <Anchor point="RIGHT" relativePoint="TOPRIGHT" x="-10" y="-45" />
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        SearchBoxTemplate_OnLoad(self)
+                    </OnLoad>
+                </Scripts>
+            </EditBox>
+        </Frames>
+        <Scripts>
+            <OnLoad>
+                self.fixedWidth = 14
+                self.fixedHeight = 72
+                self:SetBackdropColor(0, 0, 0, 0.8)
+            </OnLoad>
+        </Scripts>
+    </Frame>
+    <Frame name="tdBag2GlassFrameTemplate" inherits="tdBag2GlassBaseFrameTemplate" virtual="true">
+        <Frames>
+            <Frame parentKey="BagFrame" hidden="true">
+                <Size x="1" y="26"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="8" y="-32" />
+                </Anchors>
+            </Frame>
+            <Frame parentKey="PluginFrame" hidden="true">
+                <Size x="1" y="20" />
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.OwnerSelector" relativePoint="RIGHT" />
+                </Anchors>
+            </Frame>
+            <Button parentKey="MoneyFrame">
+                <Size x="160" y="24" />
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" x="0" y="2" />
+                </Anchors>
+            </Button>
+            <Button parentKey="TokenFrame" hidden="true" registerForClicks="LeftButtonUp,RightButtonUp">
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" x="0" y="2" />
+                    <Anchor point="TOPRIGHT" relativeKey="$parent.MoneyFrame" relativePoint="TOPLEFT" x="-3" y="0" />
+                </Anchors>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnLoad>
+                self.fixedWidth = 14
+                self.fixedHeight = 90
+                self:SetBackdropColor(0, 0, 0, 0.8)
+                self.Inset:SetPoint('BOTTOMRIGHT', 0, 22)
+                self.TitleFrame:SetPoint('TOPLEFT', self.PluginFrame, 'TOPRIGHT', 5, 0)
+
+                self.PlaceSearchBox = function(self)
+                    self.SearchBox:Show()
+
+                    if self.BagFrame:IsShown() then
+                        self.SearchBox:SetPoint('LEFT', self.BagFrame, 'RIGHT', 10, 0)
+                    else
+                        self.SearchBox:SetPoint('LEFT', self, 'TOPLEFT', 15, -45)
+                    end
+                end
+
+                self.IsSearchBoxSpaceEnough = function()
+                    return true
+                end
+            </OnLoad>
+        </Scripts>
+    </Frame>
+    <ScrollFrame name="tdBag2GlassScrollFrameTemplate" virtual="true" inherits="UIPanelScrollFrameCodeTemplate">
+        <Frames>
+            <Slider parentKey="ScrollBar" hidden="true" inherits="UIPanelScrollBarTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="-16" y="-16"/>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="-16" y="16"/>
+                </Anchors>
+            </Slider>
+        </Frames>
+    </ScrollFrame>
+</Ui>

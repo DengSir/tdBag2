@@ -59,6 +59,7 @@
         </Frames>
         <Scripts>
             <OnLoad>
+                self.fixedWidth = 24
                 self.fixedHeight = 78
             </OnLoad>
         </Scripts>
@@ -172,6 +173,7 @@
         </Frames>
         <Scripts>
             <OnLoad>
+                self.fixedWidth = 24
                 self.fixedHeight = 100
                 self.Inset:SetPoint('BOTTOMRIGHT', -6, 26)
             </OnLoad>
@@ -333,8 +335,8 @@
         <Frames>
             <Slider parentKey="ScrollBar" hidden="true" inherits="UIPanelStretchableArtScrollBarTemplate">
                 <Anchors>
-                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="6" y="-16"/>
-                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="6" y="16"/>
+                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="-14" y="-12"/>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="-14" y="11"/>
                 </Anchors>
             </Slider>
         </Frames>
