@@ -1,6 +1,10 @@
 <Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
     <Frame name="tdBag2BaseFrameTemplate" inherits="PortraitFrameTemplate" hidden="true" toplevel="true" movable="true" enableMouse="true" frameStrata="MEDIUM" clampedToScreen="true" virtual="true">
+        <KeyValues>
+            <KeyValue key="fixedWidth" value="24" type="number"/>
+            <KeyValue key="fixedHeight" value="78" type="number"/>
+        </KeyValues>
         <Layers>
             <Layer level="BORDER" textureSubLevel="1">
                 <MaskTexture parentKey="CircleMask" file="Interface\CharacterFrame\TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
@@ -36,6 +40,11 @@
                         <Anchor point="TOPLEFT" x="-4" y="0"/>
                     </Anchors>
                 </HighlightTexture>
+                <Scripts>
+                    <OnLoad>
+                        self.menuOffset = {xOffset = 8}
+                    </OnLoad>
+                </Scripts>
             </Button>
             <Frame parentKey="Inset" useParentLevel="true" inherits="InsetFrameTemplate">
                 <Anchors>
@@ -57,14 +66,12 @@
                 </Anchors>
             </EditBox>
         </Frames>
-        <Scripts>
-            <OnLoad>
-                self.fixedWidth = 24
-                self.fixedHeight = 78
-            </OnLoad>
-        </Scripts>
     </Frame>
     <Frame name="tdBag2FrameTemplate" inherits="tdBag2BaseFrameTemplate" virtual="true">
+        <KeyValues>
+            <KeyValue key="fixedWidth" value="24" type="number"/>
+            <KeyValue key="fixedHeight" value="100" type="number"/>
+        </KeyValues>
         <Layers>
             <Layer level="BORDER" textureSubLevel="1">
                 <Texture parentKey="BtnCornerLeft" inherits="UI-Frame-BtnCornerLeft">
@@ -169,12 +176,15 @@
                         </Texture>
                     </Layer>
                 </Layers>
+                <Scripts>
+                    <OnLoad>
+                        self.menuOffset = {xOffset = -5}
+                    </OnLoad>
+                </Scripts>
             </Button>
         </Frames>
         <Scripts>
             <OnLoad>
-                self.fixedWidth = 24
-                self.fixedHeight = 100
                 self.Inset:SetPoint('BOTTOMRIGHT', -6, 26)
             </OnLoad>
         </Scripts>

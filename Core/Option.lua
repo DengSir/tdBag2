@@ -21,6 +21,7 @@ local BAG_ARGS = { --
     [ns.BAG_ID.BAG] = {},
     [ns.BAG_ID.BANK] = {},
 }
+local STYLES = {}
 
 function Addon:SetupOptionFrame()
     local order = 0
@@ -51,6 +52,10 @@ function Addon:SetupOptionFrame()
 
     local function header(name)
         return {type = 'header', order = orderGen(), name = name}
+    end
+
+    local function line()
+        return header('')
     end
 
     local function desc(name)
@@ -217,7 +222,27 @@ function Addon:SetupOptionFrame()
                     self.db:ResetProfile()
                 end,
             },
-            header1 = {type = 'header', name = '', order = orderGen()},
+            header1 = line(),
+            reload = {
+                type = 'group',
+                name = RELOADUI,
+                inline = true,
+                order = orderGen(),
+                hidden = function()
+                    return not self:IsNeedReload()
+                end,
+                args = {
+                    reloadtext = desc(L['Need to reload UI to make some settings take effect']),
+                    reload = {
+                        type = 'execute',
+                        name = RELOADUI,
+                        order = orderGen(),
+                        func = function()
+                            C_UI.Reload()
+                        end,
+                    },
+                },
+            },
             globalTitle = treeTitle(L['Global Settings']),
             general = treeItem(GENERAL, {
                 desc = desc(L.DESC_GENERAL),
@@ -234,6 +259,20 @@ function Addon:SetupOptionFrame()
                     {name = L['Less than one day'], value = 1}, --
                     daysValue(3), daysValue(5), daysValue(10), daysValue(15), daysValue(20),
                 }),
+                style = { --
+                    type = 'select',
+                    name = L['Bag Style'],
+                    order = orderGen(),
+                    values = function()
+                        local values = {}
+
+                        for styleName in pairs(self.styles) do
+                            values[styleName] = styleName
+                        end
+
+                        return values
+                    end,
+                },
             }),
             colors = treeItem(L['Color Settings'], {
                 desc = desc(L.DESC_COLORS),

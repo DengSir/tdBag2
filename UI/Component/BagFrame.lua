@@ -33,10 +33,10 @@ function BagFrame:Update()
     local spacing = self.SPACING
     local button, prevButton
     local width, height = 0, 0
-    local skin = ns.Addon:GetCurrentSkin()
+    local style = ns.Addon:GetCurrentStyle()
 
     for i, bag in ipairs(self.meta.bags) do
-        local template = ns.IsKeyring(bag) and skin.Keyring or skin.Bag
+        local template = ns.IsKeyring(bag) and style.templates.Keyring or style.templates.Bag
         button = ns.UI.Bag:Bind(CreateFrame('Button', nil, self, template), self.meta, bag)
         if i == 1 then
             button:SetPoint('LEFT')

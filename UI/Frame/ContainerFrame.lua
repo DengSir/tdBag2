@@ -21,7 +21,7 @@ local LibWindow = LibStub('LibWindow-1.1')
 ---@field protected BagFrame tdBag2BagFrame
 ---@field protected TokenFrame tdBag2TokenFrame
 ---@field protected PluginFrame tdBag2PluginFrame
-local ContainerFrame = ns.Addon:NewClass('UI.ContainerFrame', SimpleFrame)
+local ContainerFrame = Addon:NewClass('UI.ContainerFrame', SimpleFrame)
 
 function ContainerFrame:Constructor(_, bagId)
     ns.UI.MoneyFrame:Bind(self.MoneyFrame, self.meta)
@@ -40,7 +40,8 @@ function ContainerFrame:Constructor(_, bagId)
 end
 
 function ContainerFrame:Create(bagId)
-    return self:Bind(CreateFrame('Frame', nil, UIParent, ns.Addon:GetCurrentSkin().ContainerFrame), bagId)
+    return self:Bind(CreateFrame('Frame', nil, UIParent, Addon:GetCurrentSkinTemplate(ns.TEMPLATES.ContainerFrame)),
+                     bagId)
 end
 
 function ContainerFrame:OnShow()
@@ -92,30 +93,13 @@ function ContainerFrame:PlaceTokenFrame()
 end
 
 function ContainerFrame:PlaceSearchBox()
-    if not self.meta.profile.bagFrame or self.SearchBox:HasFocus() or Addon:GetSearch() or self:IsSearchBoxSpaceEnough() then
-        self.SearchBox:Show()
-
-        if self.PluginFrame:IsShown() then
-            self.SearchBox:SetPoint('RIGHT', self.PluginFrame, 'LEFT', -4, 0)
-        else
-            self.SearchBox:SetPoint('RIGHT', self, 'TOPRIGHT', -20, -42)
-        end
-
-        if self.BagFrame:IsShown() then
-            self.SearchBox:SetPoint('LEFT', self.BagFrame, 'RIGHT', 15, 0)
-        else
-            self.SearchBox:SetPoint('LEFT', self, 'TOPLEFT', 74, -42)
-        end
-    else
-        self.SearchBox:Hide()
-    end
+    error('Not implement')
 end
 
 ContainerFrame.PLUGIN_BUTTON_UPDATE = ns.Spawned(function(self)
-    self:PlaceSearchBox()
+    return self:PlaceSearchBox()
 end)
 
 function ContainerFrame:IsSearchBoxSpaceEnough()
-    return self:GetWidth() - self.BagFrame:GetWidth() -
-               (self.meta.profile.pluginButtons and self.PluginFrame:GetWidth() or 0) > 140
+    return true
 end

@@ -22,9 +22,13 @@
         </Layers>
     </Button>
     <Frame name="tdBag2GlassBaseFrameTemplate" hidden="true" toplevel="true" movable="true" enableMouse="true" frameStrata="MEDIUM" clampedToScreen="true" virtual="true">
+        <KeyValues>
+            <KeyValue key="fixedWidth" value="14" type="number"/>
+            <KeyValue key="fixedHeight" value="72" type="number"/>
+        </KeyValues>
         <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-            <EdgeSize val="16"/>
-            <TileSize val="16"/>
+            <EdgeSize val="12"/>
+            <TileSize val="12"/>
             <BackgroundInsets left="4" right="4" top="4" bottom="4"/>
         </Backdrop>
         <Frames>
@@ -60,38 +64,102 @@
                     <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT" x="8" y="-8" />
                 </Anchors>
             </Frame>
-            <EditBox parentKey="SearchBox" inherits="SearchBoxTemplate">
+            <EditBox parentKey="SearchBox" autoFocus="false">
                 <Size y="28"/>
-                <!-- <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-                    <EdgeSize val="16"/>
-                    <TileSize val="16"/>
+                <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+                    <EdgeSize val="12"/>
+                    <TileSize val="12"/>
                     <BackgroundInsets left="4" right="4" top="4" bottom="4"/>
-                </Backdrop> -->
+                </Backdrop>
                 <Anchors>
-                    <Anchor point="LEFT" relativePoint="TOPLEFT" x="15" y="-45" />
-                    <Anchor point="RIGHT" relativePoint="TOPRIGHT" x="-10" y="-45" />
+                    <Anchor point="LEFT" relativePoint="TOPLEFT" x="6" y="-45" />
+                    <Anchor point="RIGHT" relativePoint="TOPRIGHT" x="-6" y="-45" />
                 </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString parentKey="Instructions" justifyH="LEFT" justifyV="MIDDLE" inherits="GameFontDisableSmall" setAllPoints="true">
+                            <Color r="0.35" g="0.35" b="0.35"/>
+                        </FontString>
+                    </Layer>
+                    <Layer level="OVERLAY">
+                        <Texture file="Interface\Common\UI-Searchbox-Icon" parentKey="searchIcon">
+                            <Size x="14" y="14"/>
+                            <Anchors>
+                                <Anchor point="LEFT" x="7" y="-2"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Button name="$parentClearButton" parentKey="clearButton" hidden="true">
+                        <Size x="17" y="17"/>
+                        <Anchors>
+                            <Anchor point="RIGHT" x="-3" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <Texture file="Interface\FriendsFrame\ClearBroadcastIcon" alpha="0.5" parentKey="texture">
+                                    <Size>
+                                        <AbsDimension x="17" y="17"/>
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                        <Scripts>
+                            <OnEnter>
+                                self.texture:SetAlpha(1.0);
+                            </OnEnter>
+                            <OnLeave>
+                                self.texture:SetAlpha(0.5);
+                            </OnLeave>
+                            <OnMouseDown>
+                                if self:IsEnabled() then
+                                    self.texture:SetPoint("TOPLEFT", self, "TOPLEFT", 1, -1);
+                                end
+                            </OnMouseDown>
+                            <OnMouseUp>
+                                self.texture:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0);
+                            </OnMouseUp>
+                            <OnClick function="SearchBoxTemplateClearButton_OnClick"/>
+                        </Scripts>
+                    </Button>
+                </Frames>
                 <Scripts>
                     <OnLoad>
                         SearchBoxTemplate_OnLoad(self)
+                        self:SetTextInsets(20, 20, 0, 0)
+                        self:SetBackdropColor(0, 0, 0, 0.5)
+                        self:SetBackdropBorderColor(1, 1, 1, 0.8)
+                        self.Instructions:SetPoint('TOPLEFT', self, 'TOPLEFT', 20, 0)
                     </OnLoad>
+                    <OnEscapePressed function="EditBox_ClearFocus"/>
+                    <OnEnterPressed function="EditBox_ClearFocus"/>
+                    <OnEditFocusLost function="SearchBoxTemplate_OnEditFocusLost"/>
+                    <OnEditFocusGained function="SearchBoxTemplate_OnEditFocusGained"/>
+                    <OnTextChanged function="SearchBoxTemplate_OnTextChanged"/>
                 </Scripts>
+                <FontString inherits="GameFontHighlightSmall"/>
             </EditBox>
         </Frames>
         <Scripts>
             <OnLoad>
-                self.fixedWidth = 14
-                self.fixedHeight = 72
                 self:SetBackdropColor(0, 0, 0, 0.8)
             </OnLoad>
         </Scripts>
     </Frame>
     <Frame name="tdBag2GlassFrameTemplate" inherits="tdBag2GlassBaseFrameTemplate" virtual="true">
+        <KeyValues>
+            <KeyValue key="fixedWidth" value="14" type="number"/>
+            <KeyValue key="fixedHeight" value="90" type="number"/>
+        </KeyValues>
         <Frames>
             <Frame parentKey="BagFrame" hidden="true">
                 <Size x="1" y="26"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="8" y="-32" />
+                    <Anchor point="TOPRIGHT" x="-8" y="-32" />
                 </Anchors>
             </Frame>
             <Frame parentKey="PluginFrame" hidden="true">
@@ -115,25 +183,9 @@
         </Frames>
         <Scripts>
             <OnLoad>
-                self.fixedWidth = 14
-                self.fixedHeight = 90
                 self:SetBackdropColor(0, 0, 0, 0.8)
                 self.Inset:SetPoint('BOTTOMRIGHT', 0, 22)
                 self.TitleFrame:SetPoint('TOPLEFT', self.PluginFrame, 'TOPRIGHT', 5, 0)
-
-                self.PlaceSearchBox = function(self)
-                    self.SearchBox:Show()
-
-                    if self.BagFrame:IsShown() then
-                        self.SearchBox:SetPoint('LEFT', self.BagFrame, 'RIGHT', 10, 0)
-                    else
-                        self.SearchBox:SetPoint('LEFT', self, 'TOPLEFT', 15, -45)
-                    end
-                end
-
-                self.IsSearchBoxSpaceEnough = function()
-                    return true
-                end
             </OnLoad>
         </Scripts>
     </Frame>

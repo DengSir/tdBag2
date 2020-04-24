@@ -2,4 +2,5 @@
 ..\FrameXML\UI.xsd">
     <Include file="Blizzard.xml" />
     <Include file="Glass.xml" />
+    <Script file="Style.lua" />
 </Ui>

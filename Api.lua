@@ -206,6 +206,16 @@ ns.TRADE_BAG_ORDER = { --
     BOTTOM = 'bottom',
 }
 
+ns.TEMPLATES = {
+    Frame = 'Frame',
+    ContainerFrame = 'ContainerFrame',
+    Keyring = 'Keyring',
+    Bag = 'Bag',
+    ScrollFrame = 'ScrollFrame',
+    ContainerTitle = 'ContainerTitle',
+    PluginButton = 'PluginButton',
+}
+
 ns.FRAME_OPTION_EVENTS = { --
     bagFrame = 'BAG_FRAME_TOGGLED',
     managed = 'MANAGED_TOGGLED',
@@ -360,7 +370,7 @@ ns.PROFILE = {
 
         searches = {first = true},
 
-        skin = 'Blizzard',
+        style = 'Blizzard',
     },
 }
 

@@ -84,6 +84,7 @@ L['No record'] = true
 L['Restore default Settings'] = true
 L['Are you sure you want to restore the current Settings?'] = true
 L['Global Settings'] = true
+L['Need to reload UI to make some settings take effect'] = true
 
 L['Lock Frames'] = true
 L['Show Junk Icon'] = true
@@ -92,6 +93,7 @@ L['Show Quest Starter Icon'] = true
 L['Show Offline Text in Bag\'s Title'] = true
 L['Show Item Count in Tooltip'] = true
 L['Trade Containers Location'] = true
+L['Bag Style'] = true
 
 L['Default'] = true
 L['Top'] = true

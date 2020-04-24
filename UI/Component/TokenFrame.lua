@@ -25,7 +25,6 @@ local Events = ns.Events
 ---@field private meta tdBag2FrameMeta
 ---@field private buttons tdBag2Token[]
 local TokenFrame = ns.Addon:NewClass('UI.TokenFrame', ns.UI.MenuButton)
-TokenFrame.menuOffset = {xOffset = -5}
 
 local SPACING, PADDING = 5, 10
 

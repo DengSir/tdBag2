@@ -28,7 +28,8 @@ function TitleContainer:Constructor()
 
     local parent = self:GetParent()
 
-    self.ScrollFrame = CreateFrame('ScrollFrame', nil, self:GetParent(), ns.Addon:GetCurrentSkin().ScrollFrame)
+    self.ScrollFrame = CreateFrame('ScrollFrame', nil, self:GetParent(),
+                                   ns.Addon:GetCurrentSkinTemplate(ns.TEMPLATES.ScrollFrame))
     self.ScrollFrame:SetPoint(self:GetPoint(1))
     self.ScrollFrame:SetScrollChild(self)
     self.ScrollFrame:SetSize(1, 1)
@@ -70,7 +71,7 @@ end
 
 function TitleContainer:GetTitleLabel(bag)
     if not self.titleLabels[bag] then
-        local frame = CreateFrame('Frame', nil, self, ns.Addon:GetCurrentSkin().ContainerTitle)
+        local frame = CreateFrame('Frame', nil, self, ns.Addon:GetCurrentSkinTemplate(ns.TEMPLATES.ContainerTitle))
         frame:SetHeight(20)
         self.titleLabels[bag] = frame
     end

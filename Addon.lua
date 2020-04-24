@@ -65,6 +65,7 @@ _G.BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 ---@field lockFrame boolean
 ---@field emptyAlpha number
 ---@field remainLimit number
+---@field style string
 ---@field searches string[]
 
 ---@class tdBag2WatchData
@@ -75,7 +76,7 @@ _G.BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 ---@field watches tdBag2WatchData[]
 ---@field hiddenBags table<number, boolean>
 
----@class tdBag2SkinData
+---@class tdBag2StyleTemplates
 ---@field Frame string
 ---@field ContainerFrame string
 ---@field Keyring string
@@ -83,6 +84,10 @@ _G.BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 ---@field ContainerTitle string
 ---@field PluginButton string
 ---@field ScrollFrame string
+
+---@class tdBag2StyleData
+---@field templates tdBag2StyleTemplates
+---@field overrides table<string, table<string, any>>
 
 ---@class UI
 ---@field Frame tdBag2Frame
@@ -105,9 +110,12 @@ ns.UI = {}
 ns.Search = LibStub('LibItemSearch-1.2')
 ns.Unfit = LibStub('Unfit-1.0')
 
+---@alias tdBag2Frames table<string, tdBag2ContainerFrame>
+
 ---@class Addon
----@field private frames table<string, tdBag2ContainerFrame>
----@field private skins table<string, tdBag2SkinData>
+---@field private frames tdBag2Frames
+---@field private styles table<string, tdBag2StyleData>
+---@field private styleName string
 local Addon = LibStub('AceAddon-3.0'):NewAddon('tdBag2', 'LibClass-2.0', 'AceHook-3.0', 'AceEvent-3.0')
 ns.Addon = Addon
 _G.tdBag2 = Addon
@@ -115,29 +123,11 @@ _G.tdBag2 = Addon
 Addon.BAG_ID = BAG_ID
 
 function Addon:OnInitialize()
-    self.skins = {}
+    self.styles = {}
     self.frames = {}
+
     self:SetupBankHider()
-
-    self:RegisterSkin('Blizzard', {
-        Frame = 'tdBag2BaseFrameTemplate',
-        ContainerFrame = 'tdBag2FrameTemplate',
-        Keyring = 'tdBag2KeyringTemplate',
-        Bag = 'tdBag2BagTemplate',
-        ScrollFrame = 'tdBag2ScrollFrameTemplate',
-        ContainerTitle = 'tdBag2ContainerTitleTemplate',
-        PluginButton = 'tdBag2ToggleButtonTemplate',
-    })
-
-    self:RegisterSkin('Glass', {
-        Frame = 'tdBag2GlassBaseFrameTemplate',
-        ContainerFrame = 'tdBag2GlassFrameTemplate',
-        Keyring = 'tdBag2KeyringTemplate',
-        Bag = 'tdBag2BagTemplate',
-        ScrollFrame = 'tdBag2GlassScrollFrameTemplate',
-        ContainerTitle = 'tdBag2ContainerTitleTemplate',
-        PluginButton = 'tdBag2GlassToggleButtonTemplate',
-    })
+    self:SetupDefaultStyles()
 
     self:RegisterMessage('FOREVER_LOADED')
 end
@@ -146,6 +136,7 @@ function Addon:OnEnable()
     ns.PLAYER, ns.REALM = UnitFullName('player')
 
     self:SetupDatabase()
+    self:SetupCurrentStyle()
     self:SetupDefaultOptions()
     self:CleanDeprecatedOptions()
 
@@ -179,6 +170,22 @@ function Addon:OnProfileChanged()
     self:UpdateAllManaged()
     self:UpdateAllPosition()
     self:UpdateAll()
+end
+
+function Addon:SetupCurrentStyle()
+    self.styleName = self.db.profile.style
+
+    local style = self:GetCurrentStyle()
+
+    if style.overrides then
+        for className, overrides in pairs(style.overrides) do
+            local class = ns.UI[className]
+
+            for k, v in pairs(overrides) do
+                class[k] = v
+            end
+        end
+    end
 end
 
 function Addon:SetupDatabase()
@@ -484,10 +491,18 @@ function Addon:RegisterPluginButton(opts)
     end
 end
 
-function Addon:RegisterSkin(key, skinData)
-    self.skins[key] = skinData
+function Addon:RegisterStyle(styleName, style)
+    self.styles[styleName] = style
 end
 
-function Addon:GetCurrentSkin()
-    return self.skins[self.db.profile.skin]
+function Addon:GetCurrentStyle()
+    return self.styles[self.styleName]
+end
+
+function Addon:GetCurrentSkinTemplate(name)
+    return self.styles[self.styleName].templates[name]
+end
+
+function Addon:IsNeedReload()
+    return self.styleName ~= self.db.profile.style and next(self.frames)
 end
