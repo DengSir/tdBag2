@@ -71,6 +71,19 @@ function Addon:SetupOptionFrame()
         }
     end
 
+    local function warning(name)
+        return {
+            type = 'description',
+            order = orderGen(),
+            name = '|cffff0000' .. name .. '|r',
+            fontSize = 'medium',
+            image = [[Interface\DialogFrame\UI-Dialog-Icon-AlertNew]],
+            imageWidth = 32,
+            imageHeight = 32,
+            -- imageCoords = {.2, .8, .2, .8},
+        }
+    end
+
     local function separator()
         return {type = 'description', order = orderGen(), name = '\n', fontSize = 'medium'}
     end
@@ -80,13 +93,18 @@ function Addon:SetupOptionFrame()
             type = 'select',
             name = name,
             order = orderGen(),
-            values = {},
-            sorting = {},
         }
 
-        for i, v in ipairs(values) do
-            opts.values[v.value] = v.name
-            opts.sorting[i] = v.value
+        if type(values) == 'function' then
+            opts.values = values
+        else
+            opts.values = {}
+            opts.sorting = {}
+
+            for i, v in ipairs(values) do
+                opts.values[v.value] = v.name
+                opts.sorting[i] = v.value
+            end
         end
         return opts
     end
@@ -229,10 +247,12 @@ function Addon:SetupOptionFrame()
                 inline = true,
                 order = orderGen(),
                 hidden = function()
-                    return not self:IsNeedReload()
+                    return
+                        not (self.styleName ~= self.db.profile.style and next(self.frames) and self.db.profile.style ~=
+                            self.styleInProfileLosed)
                 end,
                 args = {
-                    reloadtext = desc(L['Need to reload UI to make some settings take effect']),
+                    reloadtext = warning(L['Need to reload UI to make some settings take effect']),
                     reload = {
                         type = 'execute',
                         name = RELOADUI,
@@ -250,6 +270,13 @@ function Addon:SetupOptionFrame()
                 lockFrame = fullToggle(L['Lock Frames']),
                 tipCount = fullToggle(L['Show Item Count in Tooltip']),
                 appearanceHeader = header(L['Appearance']),
+                style = drop(L['Bag Style'], function()
+                    local values = {}
+                    for styleName in pairs(self.styles) do
+                        values[styleName] = styleName
+                    end
+                    return values
+                end),
                 iconJunk = fullToggle(L['Show Junk Icon']),
                 iconQuestStarter = fullToggle(L['Show Quest Starter Icon']),
                 textOffline = fullToggle(L['Show Offline Text in Bag\'s Title']),
@@ -259,20 +286,6 @@ function Addon:SetupOptionFrame()
                     {name = L['Less than one day'], value = 1}, --
                     daysValue(3), daysValue(5), daysValue(10), daysValue(15), daysValue(20),
                 }),
-                style = { --
-                    type = 'select',
-                    name = L['Bag Style'],
-                    order = orderGen(),
-                    values = function()
-                        local values = {}
-
-                        for styleName in pairs(self.styles) do
-                            values[styleName] = styleName
-                        end
-
-                        return values
-                    end,
-                },
             }),
             colors = treeItem(L['Color Settings'], {
                 desc = desc(L.DESC_COLORS),

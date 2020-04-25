@@ -26,7 +26,9 @@ function GlobalSearchFrame:Constructor()
     self.meta.owner = ns.GLOBAL_SEARCH_OWNER
     self.lockOwner = true
 
-    self.OwnerSelector:Hide()
+    if self.OwnerSelector then
+        self.OwnerSelector:Hide()
+    end
 
     if self.portrait then
         self.portrait:SetTexture(self.meta.icon)

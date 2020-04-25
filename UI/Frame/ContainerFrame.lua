@@ -22,6 +22,7 @@ local LibWindow = LibStub('LibWindow-1.1')
 ---@field protected TokenFrame tdBag2TokenFrame
 ---@field protected PluginFrame tdBag2PluginFrame
 local ContainerFrame = Addon:NewClass('UI.ContainerFrame', SimpleFrame)
+ContainerFrame.TEMPLATE = 'tdBag2FrameTemplate'
 
 function ContainerFrame:Constructor(_, bagId)
     ns.UI.MoneyFrame:Bind(self.MoneyFrame, self.meta)
@@ -40,8 +41,7 @@ function ContainerFrame:Constructor(_, bagId)
 end
 
 function ContainerFrame:Create(bagId)
-    return self:Bind(CreateFrame('Frame', nil, UIParent, Addon:GetCurrentSkinTemplate(ns.TEMPLATES.ContainerFrame)),
-                     bagId)
+    return self:Bind(CreateFrame('Frame', nil, UIParent, self.TEMPLATE), bagId)
 end
 
 function ContainerFrame:OnShow()

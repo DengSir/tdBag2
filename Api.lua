@@ -10,6 +10,8 @@ local select = select
 local format = string.format
 local tinsert = table.insert
 local tonumber = tonumber
+local assert = assert
+local unpack = unpack
 
 ---- WOW
 local C_Timer = C_Timer
@@ -36,6 +38,8 @@ local GLOBAL_SEARCH_OWNER = '$search'
 
 ---@type ns
 local ns = select(2, ...)
+
+ns.DEFAULT_STYLE = 'Blizzard'
 
 ns.EQUIP_CONTAINER = EQUIP_CONTAINER
 ns.MAIL_CONTAINER = MAIL_CONTAINER
@@ -204,16 +208,6 @@ ns.TRADE_BAG_ORDER = { --
     NONE = 'none',
     TOP = 'top',
     BOTTOM = 'bottom',
-}
-
-ns.TEMPLATES = {
-    Frame = 'Frame',
-    ContainerFrame = 'ContainerFrame',
-    Keyring = 'Keyring',
-    Bag = 'Bag',
-    ScrollFrame = 'ScrollFrame',
-    ContainerTitle = 'ContainerTitle',
-    PluginButton = 'PluginButton',
 }
 
 ns.FRAME_OPTION_EVENTS = { --
@@ -524,4 +518,27 @@ function ns.RemoveDefaults(dest, src)
         end
     end
     return next(dest) and dest or nil
+end
+
+function ns.Hook(...)
+    local tbl, key, func
+    local n = select('#', ...)
+    if n == 3 then
+        tbl, key, func = ...
+    elseif n == 2 then
+        tbl, key, func = _G, ...
+    else
+        assert(false)
+    end
+
+    local function pack(...)
+        return select('#', ...), {...}
+    end
+
+    local orig = tbl[key]
+    tbl[key] = function(...)
+        local n, r = pack(orig(...))
+        func(...)
+        return unpack(r, 1, n)
+    end
 end

@@ -97,8 +97,8 @@ function MenuButton:GetDropMenu()
             end
         end
 
-        if self.menuOffset then
-            for k, v in pairs(self.menuOffset) do
+        if self.MENU_OFFSET then
+            for k, v in pairs(self.MENU_OFFSET) do
                 frame[k] = v
             end
         end

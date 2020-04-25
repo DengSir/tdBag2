@@ -242,7 +242,8 @@ function ItemBase:UpdateInfo()
 end
 
 function ItemBase:UpdateItem()
-    SetItemButtonTexture(self, self.info.icon or [[Interface\AddOns\tdBag2\Resource\UI-Backpack-EmptySlot]])
+    SetItemButtonTexture(self, self.info.icon or self.EMPTY_SLOT_TEXTURE or
+                             [[Interface\AddOns\tdBag2\Resource\UI-Backpack-EmptySlot]])
     SetItemButtonCount(self, self.info.count)
 end
 

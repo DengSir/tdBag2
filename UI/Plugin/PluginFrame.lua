@@ -17,6 +17,8 @@ local ns = select(2, ...)
 ---@field menuButtons Button[]
 ---@field pluginButtons table<string, Button>
 local PluginFrame = ns.Addon:NewClass('UI.PluginFrame', 'Frame')
+PluginFrame.SPACING = 3
+PluginFrame.BUTTON_TEMPLATE = 'tdBag2ToggleButtonTemplate'
 
 function PluginFrame:Constructor(_, meta)
     self.meta = meta
@@ -50,15 +52,15 @@ function PluginFrame:Update()
 
     for i, button in ipairs(menuButtons) do
         button:ClearAllPoints()
-        button:SetPoint('RIGHT', -(i - 1) * (button:GetWidth() + 3), 0)
+        button:SetPoint('RIGHT', -(i - 1) * (button:GetWidth() + self.SPACING), 0)
         button:Show()
     end
 
-    self:SetWidth(#menuButtons == 0 and 1 or #menuButtons * (menuButtons[1]:GetWidth() + 3) + 1)
+    self:SetWidth(#menuButtons == 0 and 1 or #menuButtons * (menuButtons[1]:GetWidth() + self.SPACING) - self.SPACING)
 end
 
 function PluginFrame:CreatePluginButton(plugin)
-    local button = CreateFrame('CheckButton', nil, self, ns.Addon:GetCurrentSkinTemplate(ns.TEMPLATES.PluginButton))
+    local button = CreateFrame('CheckButton', nil, self, self.BUTTON_TEMPLATE)
     button:Hide()
     button.texture:SetTexture(plugin.icon)
     plugin.init(button, self)

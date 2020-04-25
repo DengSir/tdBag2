@@ -9,17 +9,15 @@ local ns = select(2, ...)
 local Addon = ns.Addon
 
 function Addon:SetupDefaultStyles()
-    self:RegisterStyle('Blizzard', {
-        templates = {
-            Frame = 'tdBag2BaseFrameTemplate',
-            ContainerFrame = 'tdBag2FrameTemplate',
-            Keyring = 'tdBag2KeyringTemplate',
-            Bag = 'tdBag2BagTemplate',
-            ScrollFrame = 'tdBag2ScrollFrameTemplate',
-            ContainerTitle = 'tdBag2ContainerTitleTemplate',
-            PluginButton = 'tdBag2ToggleButtonTemplate',
-        },
+    self:RegisterStyle(ns.DEFAULT_STYLE, {
         overrides = {
+            OwnerSelector = { --
+                MENU_OFFSET = {xOffset = 8},
+            },
+            TokenFrame = { --
+                MENU_OFFSET = {xOffset = -5},
+            },
+
             ContainerFrame = {
                 IsSearchBoxSpaceEnough = function(self)
                     return self:GetWidth() - self.BagFrame:GetWidth() -
@@ -31,7 +29,7 @@ function Addon:SetupDefaultStyles()
                         self.SearchBox:Show()
 
                         if self.PluginFrame:IsShown() then
-                            self.SearchBox:SetPoint('RIGHT', self.PluginFrame, 'LEFT', -4, 0)
+                            self.SearchBox:SetPoint('RIGHT', self.PluginFrame, 'LEFT', -8, 0)
                         else
                             self.SearchBox:SetPoint('RIGHT', self, 'TOPRIGHT', -20, -42)
                         end
@@ -43,31 +41,6 @@ function Addon:SetupDefaultStyles()
                         end
                     else
                         self.SearchBox:Hide()
-                    end
-                end,
-            },
-        },
-    })
-
-    self:RegisterStyle('Glass', {
-        templates = {
-            Frame = 'tdBag2GlassBaseFrameTemplate',
-            ContainerFrame = 'tdBag2GlassFrameTemplate',
-            Keyring = 'tdBag2KeyringTemplate',
-            Bag = 'tdBag2BagTemplate',
-            ScrollFrame = 'tdBag2GlassScrollFrameTemplate',
-            ContainerTitle = 'tdBag2ContainerTitleTemplate',
-            PluginButton = 'tdBag2GlassToggleButtonTemplate',
-        },
-        overrides = {
-            ContainerFrame = {
-                PlaceSearchBox = function(self)
-                    self.SearchBox:Show()
-
-                    if self.BagFrame:IsShown() then
-                        self.SearchBox:SetPoint('RIGHT', self.BagFrame, 'LEFT', -6, 0)
-                    else
-                        self.SearchBox:SetPoint('RIGHT', self, 'TOPRIGHT', -6, -45)
                     end
                 end,
             },

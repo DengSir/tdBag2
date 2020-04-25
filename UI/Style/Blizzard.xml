@@ -40,11 +40,6 @@
                         <Anchor point="TOPLEFT" x="-4" y="0"/>
                     </Anchors>
                 </HighlightTexture>
-                <Scripts>
-                    <OnLoad>
-                        self.menuOffset = {xOffset = 8}
-                    </OnLoad>
-                </Scripts>
             </Button>
             <Frame parentKey="Inset" useParentLevel="true" inherits="InsetFrameTemplate">
                 <Anchors>
@@ -176,11 +171,6 @@
                         </Texture>
                     </Layer>
                 </Layers>
-                <Scripts>
-                    <OnLoad>
-                        self.menuOffset = {xOffset = -5}
-                    </OnLoad>
-                </Scripts>
             </Button>
         </Frames>
         <Scripts>

@@ -76,18 +76,9 @@ _G.BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 ---@field watches tdBag2WatchData[]
 ---@field hiddenBags table<number, boolean>
 
----@class tdBag2StyleTemplates
----@field Frame string
----@field ContainerFrame string
----@field Keyring string
----@field Bag string
----@field ContainerTitle string
----@field PluginButton string
----@field ScrollFrame string
-
 ---@class tdBag2StyleData
----@field templates tdBag2StyleTemplates
 ---@field overrides table<string, table<string, any>>
+---@field hooks table<string, table<string, function>>
 
 ---@class UI
 ---@field Frame tdBag2Frame
@@ -173,9 +164,18 @@ function Addon:OnProfileChanged()
 end
 
 function Addon:SetupCurrentStyle()
-    self.styleName = self.db.profile.style
+    local style
+    for _, styleName in ipairs{self.db.profile.style, ns.DEFAULT_STYLE} do
+        style = self.styles[styleName]
+        if style then
+            self.styleName = styleName
+            break
+        end
+    end
 
-    local style = self:GetCurrentStyle()
+    if self.styleName ~= self.db.profile.style then
+        self.styleInProfileLosed = self.db.profile.style
+    end
 
     if style.overrides then
         for className, overrides in pairs(style.overrides) do
@@ -183,6 +183,16 @@ function Addon:SetupCurrentStyle()
 
             for k, v in pairs(overrides) do
                 class[k] = v
+            end
+        end
+    end
+
+    if style.hooks then
+        for className, hooks in pairs(style.hooks) do
+            local class = ns.UI[className]
+
+            for k, v in pairs(hooks) do
+                ns.Hook(class, k, v)
             end
         end
     end
@@ -497,12 +507,4 @@ end
 
 function Addon:GetCurrentStyle()
     return self.styles[self.styleName]
-end
-
-function Addon:GetCurrentSkinTemplate(name)
-    return self.styles[self.styleName].templates[name]
-end
-
-function Addon:IsNeedReload()
-    return self.styleName ~= self.db.profile.style and next(self.frames)
 end
