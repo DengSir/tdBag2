@@ -25,8 +25,8 @@ local Events = ns.Events
 ---@field private meta tdBag2FrameMeta
 ---@field private buttons tdBag2Token[]
 local TokenFrame = ns.Addon:NewClass('UI.TokenFrame', ns.UI.MenuButton)
-
-local SPACING, PADDING = 5, 10
+TokenFrame.SPACING = 5
+TokenFrame.PADDING = 10
 
 function TokenFrame:Constructor(_, meta)
     self.meta = meta
@@ -98,14 +98,14 @@ end
 
 function TokenFrame:Update()
     local index = 0
-    local width = PADDING * 2
+    local width = self.PADDING * 2
     for _, watch in ipairs(self.meta.character.watches) do
         index = index + 1
         local button = self:GetButton(index)
         button:SetItem(self.meta.owner, watch.itemId, watch.watchAll)
         button:Show()
 
-        width = width + button:GetWidth() + SPACING
+        width = width + button:GetWidth() + self.SPACING
 
         if width > self:GetWidth() then
             button:Hide()

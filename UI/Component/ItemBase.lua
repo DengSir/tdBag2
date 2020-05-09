@@ -353,6 +353,9 @@ function ItemBase:IsQuestStarter()
 end
 
 function ItemBase:IsMatched()
+    if self.meta:IsGlobalSearch() then
+        return true
+    end
     local search = Addon:GetSearch()
     if not search then
         return true

@@ -24,7 +24,6 @@ local Counter = ns.Counter
 
 ---@class tdBag2Tooltip
 local Tooltip = ns.Addon:NewModule('Tooltip', 'AceHook-3.0')
-Tooltip:Disable()
 Tooltip.APIS = {
     'SetMerchantItem', 'SetBuybackItem', 'SetBagItem', 'SetAuctionItem', 'SetAuctionSellItem', 'SetLootItem',
     'SetLootRollItem', 'SetInventoryItem', 'SetTradePlayerItem', 'SetTradeTargetItem', 'SetQuestItem',
@@ -48,22 +47,17 @@ function Tooltip:OnInitialize()
     self.GetOwnerItemInfo.Cachable = function(info)
         return info.cached
     end
-    self:Update()
 end
 
 function Tooltip:Update()
     if ns.Addon.db.profile.tipCount then
-        self:Enable()
+        self:HookTip(GameTooltip)
+        self:HookTip(ItemRefTooltip)
     else
-        self:Disable()
+        self:UnhookAll()
     end
 end
-Tooltip.Update = ns.Spawned(Tooltip.Update)
-
-function Tooltip:OnEnable()
-    self:HookTip(GameTooltip)
-    self:HookTip(ItemRefTooltip)
-end
+Tooltip.OnEnable = Tooltip.Update
 
 function Tooltip:HookTip(tip)
     for _, api in ipairs(self.APIS) do

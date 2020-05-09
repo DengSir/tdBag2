@@ -60,7 +60,7 @@ function Frame:OnHide()
     self:UnregisterAllEvents()
 
     if not self.lockOwner then
-        self.meta.owner = nil
+        self.meta:SetOwner(nil)
     end
 end
 
