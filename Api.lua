@@ -510,6 +510,9 @@ function ns.CopyDefaults(dest, src)
 end
 
 function ns.RemoveDefaults(dest, src)
+    if dest == nil then
+        return
+    end
     for k, v in pairs(src) do
         if type(v) == 'table' then
             dest[k] = ns.RemoveDefaults(dest[k], v)
