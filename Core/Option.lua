@@ -2,7 +2,6 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/23/2019, 3:14:52 PM
-
 ---- LUA
 local ipairs, pairs = ipairs, pairs
 local format = string.format
@@ -247,9 +246,8 @@ function Addon:SetupOptionFrame()
                 inline = true,
                 order = orderGen(),
                 hidden = function()
-                    return
-                        not (self.styleName ~= self.db.profile.style and next(self.frames) and self.db.profile.style ~=
-                            self.styleInProfileLosed)
+                    return not (self.styleName ~= self.db.profile.style and self.db.profile.style ~=
+                               self.styleInProfileLosed)
                 end,
                 args = {
                     reloadtext = warning(L['Need to reload UI to make some settings take effect']),
@@ -273,6 +271,9 @@ function Addon:SetupOptionFrame()
                 style = drop(L['Bag Style'], function()
                     local values = {}
                     for styleName in pairs(self.styles) do
+                        values[styleName] = styleName
+                    end
+                    for styleName in pairs(self.demandStyles) do
                         values[styleName] = styleName
                     end
                     return values
