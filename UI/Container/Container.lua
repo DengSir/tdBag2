@@ -73,7 +73,7 @@ function Container:OnShow()
     end
 
     if self.meta:IsGlobalSearch() then
-        self:RegisterEvent('GLOBAL_SEARCH_UPDATE', 'RequestLayout')
+        self:RegisterEvent('GLOBAL_SEARCH_UPDATE')
     else
         self:RegisterEvent('SEARCH_CHANGED')
     end
@@ -257,7 +257,7 @@ function Container:GetBagFrame(bag)
 end
 
 function Container:CreateBagFrame(bag)
-    local frame = CreateFrame('Frame', nil, self)
+    local frame = CreateFrame('Frame', nil, self.ContentParent or self)
     if ns.IsContainerBag(bag) then
         frame:SetID(bag)
     else

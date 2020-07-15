@@ -2,7 +2,6 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 2/9/2020, 2:15:15 AM
-
 local ipairs = ipairs
 local wipe = table.wipe or wipe
 local tinsert = table.insert
@@ -31,11 +30,36 @@ local BAGS = {
 
 ---@class tdBag2GlobalSearch
 ---@field lastSearch string
+---@field thread tdBag2Thread
 local GlobalSearch = ns.Addon:NewModule('GlobalSearch')
 
 function GlobalSearch:OnInitialize()
     self.results = {}
     self.bags = {}
+
+    self.updater = CreateFrame('Frame')
+    self.updater:Hide()
+
+    self.updater:SetScript('OnUpdate', function()
+        if not self.thread or (self.thread:IsDead() or self.thread:IsFinished()) then
+            self.thread = nil
+            self.updater:Hide()
+        else
+            self.thread:Resume()
+        end
+    end)
+end
+
+function GlobalSearch:CancelSearch()
+    if self.thread then
+        self.thread:Kill()
+        self.thread = nil
+        self.updater:Hide()
+    end
+end
+
+function GlobalSearch:Threshold()
+    return self.thread and self.thread:Threshold()
 end
 
 function GlobalSearch:Search(text)
@@ -45,14 +69,28 @@ function GlobalSearch:Search(text)
 
     if self.lastSearch ~= text then
         self.lastSearch = text
-        self:DoSearch()
-        ns.Events:Fire('GLOBAL_SEARCH_UPDATE')
+
+        ns.Events:Fire('GLOBAL_SEARCH_START')
+
+        self:CancelSearch()
+
+        if self.timer then
+            self.timer:Cancel()
+            self.timer = nil
+        end
+
+        self.timer = C_Timer.NewTimer(0.1, function()
+            self:CancelSearch()
+            self.thread = ns.Thread:New()
+            self.thread:Start(self.DoSearch, self)
+            self.updater:Show()
+        end)
     end
 end
 
 function GlobalSearch:DoSearch()
-    local results = wipe(self.results)
-    local bags = wipe(self.bags)
+    local results = {}
+    local bags = {}
 
     if self.lastSearch then
         local Cache = ns.Cache
@@ -80,6 +118,10 @@ function GlobalSearch:DoSearch()
                                 timeout = itemInfo.timeout,
                             })
                         end
+
+                        if self:Threshold() then
+                            return
+                        end
                     end
                 end
 
@@ -99,6 +141,12 @@ function GlobalSearch:DoSearch()
             end
         end
     end
+
+    self.bags = bags
+    self.results = results
+
+    ns.Events:Fire('GLOBAL_SEARCH_UPDATE')
+    self.thread = nil
 end
 
 function GlobalSearch:GetBags()

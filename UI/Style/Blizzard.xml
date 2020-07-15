@@ -341,4 +341,21 @@
             </Slider>
         </Frames>
     </ScrollFrame>
+    <Frame name="tdBag2SearchingTemplate" virtual="true" >
+        <Frames>
+            <Frame inherits="LoadingSpinnerTemplate">
+                <Anchors>
+                    <Anchor point="CENTER" />
+                </Anchors>
+                <Scripts>
+                    <OnShow>
+                        self.Anim:Play()
+                    </OnShow>
+                    <OnHide>
+                        self.Anim:Stop()
+                    </OnHide>
+                </Scripts>
+            </Frame>
+        </Frames>
+    </Frame>
 </Ui>

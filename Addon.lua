@@ -29,6 +29,7 @@ local UIParent = UIParent
 ---@field Cache tdBag2Cache
 ---@field Current tdBag2Current
 ---@field Cacher tdBag2Cacher
+---@field Thread tdBag2Thread
 ---@field Tooltip tdBag2Tooltip
 ---@field GlobalSearch tdBag2GlobalSearch
 local ns = select(2, ...)

@@ -2,7 +2,6 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 2/3/2020, 8:10:05 PM
-
 ---- LUA
 local pairs, ipairs = pairs, ipairs
 local max = math.max
@@ -68,7 +67,7 @@ end
 
 function TitleContainer:GetTitleLabel(bag)
     if not self.titleLabels[bag] then
-        local frame = CreateFrame('Frame', nil, self, self.TEMPLATE)
+        local frame = CreateFrame('Frame', nil, self.ContentParent or self, self.TEMPLATE)
         frame:SetHeight(20)
         self.titleLabels[bag] = frame
     end
@@ -123,6 +122,10 @@ function TitleContainer:OnLayout()
             itemButton:SetPoint('TOPLEFT', self, 'TOPLEFT', x * size, -y * size - addHeight)
             itemButton:SetScale(scale)
             itemButton:Show()
+
+            if self.Threshold and self:Threshold() then
+                return
+            end
 
             x = x + 1
         end
