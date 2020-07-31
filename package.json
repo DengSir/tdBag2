@@ -4,7 +4,8 @@
   "description": "Another bag addon",
   "main": "index.js",
   "scripts": {
-    "test": "echo not implemented"
+    "test": "echo not implemented",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,8 @@
       "enUS": "Localization/enUS.lua",
       "zhCN": "Localization/zhCN.lua"
     }
+  },
+  "devDependencies": {
+    "conventional-changelog": "^3.1.21"
   }
 }
