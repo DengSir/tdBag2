@@ -2,10 +2,10 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 12/31/2019, 1:07:26 PM
-
 ---- LUA
 local select, pairs, ipairs = select, pairs, ipairs
 local tinsert = table.insert
+local sort = table.sort or sort
 local tonumber = tonumber
 local strsplit = strsplit
 local time = time
@@ -98,12 +98,16 @@ function Forever:SetupCache()
     self.player.race = select(2, UnitRace('player'))
     self.player.gender = UnitSex('player')
 
-    local owners = {ns.PLAYER}
+    local owners = {}
     for k in pairs(self.realm) do
         if k ~= ns.PLAYER then
             tinsert(owners, k)
         end
     end
+    sort(owners, function(a, b)
+        return self.realm[a].money > self.realm[b].money
+    end)
+    tinsert(owners, 1, ns.PLAYER)
 
     self.owners = owners
 end
