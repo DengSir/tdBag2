@@ -8,7 +8,7 @@ local ns = select(2, ...)
 
 local GlobalSearch = ns.GlobalSearch
 
----@class tdBag2GlobalSearchBox: EditBox
+---@type tdBag2GlobalSearchBox
 local GlobalSearchBox = ns.Addon:NewClass('UI.GlobalSearchBox', 'EditBox')
 
 function GlobalSearchBox:Constructor()

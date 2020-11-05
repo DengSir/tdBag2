@@ -15,10 +15,6 @@ local Search = ns.Search
 local BAG_ID = ns.BAG_ID
 local GLOBAL_SEARCH_OWNER = ns.GLOBAL_SEARCH_OWNER
 
----@class tdBag2GlobalSearchBagItem
----@field title string
----@field bags string[]
-
 ---@type tdBag2GlobalSearchBagItem[]
 local BAGS = {
     {title = L.TITLE_BAG, bags = ns.GetBags(BAG_ID.BAG)}, --
@@ -28,9 +24,7 @@ local BAGS = {
     {title = L.TITLE_COD, bags = {ns.COD_CONTAINER}}, --
 }
 
----@class tdBag2GlobalSearch
----@field lastSearch string
----@field thread tdBag2Thread
+---@type tdBag2GlobalSearch
 local GlobalSearch = ns.Addon:NewModule('GlobalSearch')
 
 function GlobalSearch:OnInitialize()

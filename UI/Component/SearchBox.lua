@@ -7,8 +7,7 @@
 local ns = select(2, ...)
 local Addon = ns.Addon
 
----@class tdBag2SearchBox: EditBox
----@field private meta tdBag2FrameMeta
+---@class tdBag2SearchBox
 local SearchBox = Addon:NewClass('UI.SearchBox', 'EditBox')
 
 function SearchBox:Constructor(_, meta)

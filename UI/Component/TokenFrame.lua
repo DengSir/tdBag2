@@ -21,9 +21,7 @@ local ns = select(2, ...)
 local L = ns.L
 local Events = ns.Events
 
----@class tdBag2TokenFrame: tdBag2MenuButton
----@field private meta tdBag2FrameMeta
----@field private buttons tdBag2Token[]
+---@type tdBag2TokenFrame
 local TokenFrame = ns.Addon:NewClass('UI.TokenFrame', ns.UI.MenuButton)
 TokenFrame.SPACING = 5
 TokenFrame.PADDING = 10

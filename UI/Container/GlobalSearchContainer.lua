@@ -11,8 +11,7 @@ local coroutine = coroutine
 local debugprofilestart = debugprofilestart
 local debugprofilestop = debugprofilestop
 
----@class tdBag2GlobalSearchContainer: tdBag2TitleContainer
----@field thread tdBag2Thread
+---@type tdBag2GlobalSearchContainer
 local GlobalSearchContainer = ns.Addon:NewClass('UI.GlobalSearchContainer', TitleContainer)
 GlobalSearchContainer.SEARCHING_TEMPLATE = 'tdBag2SearchingTemplate'
 

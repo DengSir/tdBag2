@@ -13,8 +13,7 @@ local CreateFrame = CreateFrame
 ---@type ns
 local ns = select(2, ...)
 
----@class tdBag2BagFrame
----@field protected meta tdBag2FrameMeta
+---@type tdBag2BagFrame
 local BagFrame = ns.Addon:NewClass('UI.BagFrame', 'Frame')
 BagFrame.SPACING = 3
 BagFrame.BAG_TEMPLATE = 'tdBag2BagTemplate'

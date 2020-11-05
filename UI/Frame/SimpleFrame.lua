@@ -7,9 +7,7 @@
 local ns = select(2, ...)
 local Frame = ns.UI.Frame
 
----@class tdBag2SimpleFrame: tdBag2Frame
----@field protected OwnerSelector tdBag2OwnerSelector
----@field protected SearchBox tdBag2SearchBox
+---@type tdBag2SimpleFrame
 local SimpleFrame = ns.Addon:NewClass('UI.SimpleFrame', Frame)
 
 function SimpleFrame:Constructor()

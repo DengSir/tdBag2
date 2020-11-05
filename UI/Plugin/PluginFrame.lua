@@ -12,10 +12,7 @@ local CreateFrame = CreateFrame
 ---@type ns
 local ns = select(2, ...)
 
----@class tdBag2PluginFrame: Frame
----@field meta tdBag2FrameMeta
----@field menuButtons Button[]
----@field pluginButtons table<string, Button>
+---@type tdBag2PluginFrame
 local PluginFrame = ns.Addon:NewClass('UI.PluginFrame', 'Frame')
 PluginFrame.SPACING = 3
 PluginFrame.BUTTON_TEMPLATE = 'tdBag2ToggleButtonTemplate'

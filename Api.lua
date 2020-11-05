@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/18/2019, 1:11:20 PM
-
+--
 ---- LUA
 local type, next = type, next
 local pairs = pairs
@@ -122,28 +122,12 @@ local BAGS = { --
     [BAG_ID.SEARCH] = {},
 }
 
-local BAG_CLASSES = { --
-    [BAG_ID.BAG] = 'InventoryFrame',
-    [BAG_ID.BANK] = 'BankFrame',
-    [BAG_ID.MAIL] = 'SimpleFrame',
-    [BAG_ID.EQUIP] = 'SimpleFrame',
-    [BAG_ID.SEARCH] = 'GlobalSearchFrame',
-}
-
-local BAG_ITEM_CLASSES = { --
-    [BAG_ID.BAG] = 'Item',
-    [BAG_ID.BANK] = 'Item',
-    [BAG_ID.MAIL] = 'ItemBase',
-    [BAG_ID.EQUIP] = 'ItemBase',
-    [BAG_ID.SEARCH] = 'ItemBase',
-}
-
-local BAG_CONTAINER_CLASSES = {
-    [BAG_ID.BAG] = 'Container',
-    [BAG_ID.BANK] = 'Container',
-    [BAG_ID.MAIL] = 'TitleContainer',
-    [BAG_ID.EQUIP] = 'Container',
-    [BAG_ID.SEARCH] = 'GlobalSearchContainer',
+local BAG_CLASSES = {
+    [BAG_ID.BAG] = {Frame = 'InventoryFrame', Item = 'Item', Container = 'Container'},
+    [BAG_ID.BANK] = {Frame = 'BankFrame', Item = 'Item', Container = 'Container'},
+    [BAG_ID.MAIL] = {Frame = 'SimpleFrame', Item = 'ItemBase', Container = 'TitleContainer'},
+    [BAG_ID.EQUIP] = {Frame = 'SimpleFrame', Item = 'ItemBase', Container = 'Container'},
+    [BAG_ID.SEARCH] = {Frame = 'GlobalSearchFrame', Item = 'ItemBase', Container = 'GlobalSearchContainer'},
 }
 
 local BAG_SETS = {}
@@ -178,8 +162,6 @@ ns.BAG_ID = BAG_ID
 ns.BAG_ICONS = BAG_ICONS
 ns.BAG_TITLES = BAG_TITLES
 ns.BAG_CLASSES = BAG_CLASSES
-ns.BAG_ITEM_CLASSES = BAG_ITEM_CLASSES
-ns.BAG_CONTAINER_CLASSES = BAG_CONTAINER_CLASSES
 
 ns.PLAYER = nil
 ns.REALM = nil

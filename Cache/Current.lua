@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 1/2/2020, 9:55:26 PM
-
+--
 ---- LUA
 local select = select
 
@@ -34,7 +34,7 @@ local ns = select(2, ...)
 
 local KEYRING_FAMILY = ns.KEYRING_FAMILY
 
----@class tdBag2Current
+---@type tdBag2Current
 local Current = {}
 ns.Current = Current
 

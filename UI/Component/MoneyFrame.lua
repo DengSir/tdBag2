@@ -25,8 +25,7 @@ local ns = select(2, ...)
 local L = ns.L
 local Cache = ns.Cache
 
----@class tdBag2MoneyFrame: Button
----@field private meta tdBag2FrameMeta
+---@type tdBag2MoneyFrame
 local MoneyFrame = ns.Addon:NewClass('UI.MoneyFrame', 'Button')
 
 MoneyFrame.GenerateName = ns.NameGenerator('tdBag2MoneyFrame')

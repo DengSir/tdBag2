@@ -13,7 +13,7 @@ local CloseBankFrame = CloseBankFrame
 local ns = select(2, ...)
 local ContainerFrame = ns.UI.ContainerFrame
 
----@class tdBag2Bank: tdBag2ContainerFrame
+---@type tdBag2Bank
 local BankFrame = ns.Addon:NewClass('UI.BankFrame', ContainerFrame)
 
 function BankFrame:OnHide()

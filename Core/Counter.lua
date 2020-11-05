@@ -14,7 +14,7 @@ local Cache = ns.Cache
 local BAGS = ns.GetBags(ns.BAG_ID.BAG)
 local BANKS = ns.GetBags(ns.BAG_ID.BANK)
 
----@class tdBag2Counter
+---@type tdBag2Counter
 local Counter = ns.Addon:NewModule('Counter')
 
 function Counter:OnInitialize()

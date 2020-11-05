@@ -25,8 +25,7 @@ local L = ns.L
 local Addon = ns.Addon
 local BAG_ID = ns.BAG_ID
 
----@class tdBag2BagToggle: tdBag2MenuButton
----@field private meta tdBag2FrameMeta
+---@type tdBag2BagToggle
 local BagToggle = ns.Addon:NewClass('UI.BagToggle', ns.UI.MenuButton)
 
 function BagToggle:Constructor(_, meta)

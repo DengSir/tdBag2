@@ -36,9 +36,7 @@ local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
 local ns = select(2, ...)
 local ItemBase = ns.UI.ItemBase
 
----@class tdBag2Item: tdBag2ItemBase
----@field private newitemglowAnim AnimationGroup
----@field private flashAnim AnimationGroup
+---@type tdBag2Item
 local Item = ns.Addon:NewClass('UI.Item', ItemBase)
 Item.pool = {}
 Item.GenerateName = ns.NameGenerator('tdBag2Item')

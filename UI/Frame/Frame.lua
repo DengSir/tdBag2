@@ -2,6 +2,9 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 1/7/2020, 12:31:57 AM
+--
+---@type ns
+local ns = select(2, ...)
 
 local _G = _G
 
@@ -19,24 +22,16 @@ local UIParent = UIParent
 
 local LibWindow = LibStub('LibWindow-1.1')
 
----@type ns
-local ns = select(2, ...)
-
----@class tdBag2Frame: Frame
----@field protected meta tdBag2FrameMeta
----@field protected fixedHeight number
----@field protected portrait Texture
----@field protected TitleFrame tdBag2TitleFrame
----@field protected Container tdBag2Container
+---@type tdBag2Frame
 local Frame = ns.Addon:NewClass('UI.Frame', 'Frame')
 Frame.TEMPLATE = 'tdBag2BaseFrameTemplate'
 
-function Frame:Constructor(_, bagId)
-    self.meta = ns.FrameMeta:New(bagId, self)
+function Frame:Constructor(_, meta)
+    self.meta = meta
     self.name = 'tdBag2Bag' .. self.meta.bagId
 
     ns.UI.TitleFrame:Bind(self.TitleFrame, self.meta)
-    self.meta.containerClass:Bind(self.Container, self.meta)
+    self.meta.class.Container:Bind(self.Container, self.meta)
 
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)

@@ -54,17 +54,7 @@ local EXPIRED = GRAY_FONT_COLOR:WrapTextInColorCode(ns.L['Expired'])
 local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
 local KEYRING_FAMILY = ns.KEYRING_FAMILY
 
----@class tdBag2ItemBase: Button
----@field protected meta tdBag2FrameMeta
----@field protected bag number
----@field protected slot number
----@field protected hasItem boolean
----@field protected notMatched boolean
----@field protected info tdBag2CacheItemData
----@field protected Overlay Frame
----@field protected Timeout FontString
----@field protected QuestBorder Texture
----@field protected JunkIcon Texture
+---@type tdBag2ItemBase
 local ItemBase = ns.Addon:NewClass('UI.ItemBase', 'Button')
 ItemBase.pool = {}
 ItemBase.GenerateName = ns.NameGenerator('tdBag2ItemBase')

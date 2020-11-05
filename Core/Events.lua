@@ -27,8 +27,7 @@ local BAG_ID = ns.BAG_ID
 
 local METHODS = {'RegisterEvent', 'UnregisterEvent', 'UnregisterAllEvents'}
 
----@class Events
----@field private bagSizes number[]
+---@type Events
 local Events = ns.Addon:NewModule('Events', 'AceEvent-3.0')
 Events.handler = {}
 Events.events = LibStub('CallbackHandler-1.0'):New(Events.handler, unpack(METHODS))

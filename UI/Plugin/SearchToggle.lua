@@ -18,8 +18,7 @@ local ADD = ADD
 local DELETE = DELETE
 local SEARCH = SEARCH
 
----@class tdBag2SearchToggle: tdBag2MenuButton
----@field private meta tdBag2FrameMeta
+---@type tdBag2SearchToggle
 local SearchToggle = ns.Addon:NewClass('UI.SearchToggle', ns.UI.MenuButton)
 
 function SearchToggle:Constructor(_, meta)

@@ -10,9 +10,7 @@ local ns = select(2, ...)
 
 local Frame = ns.UI.Frame
 
----@class tdBag2GlobalSearchFrame: tdBag2Frame
----@field protected Container tdBag2TitleContainer
----@field protected SearchBox tdBag2GlobalSearchBox
+---@type tdBag2GlobalSearchFrame
 local GlobalSearchFrame = ns.Addon:NewClass('UI.GlobalSearchFrame', Frame)
 
 function GlobalSearchFrame:Constructor()

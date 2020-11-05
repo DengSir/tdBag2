@@ -10,7 +10,7 @@ local setmetatable = setmetatable
 ---@type ns
 local ns = select(2, ...)
 
----@class tdBag2Cacher
+---@type tdBag2Cacher
 local Cacher = ns.Addon:NewClass('Cacher')
 
 local null = {}

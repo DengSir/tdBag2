@@ -24,11 +24,7 @@ local TRADE_BAG_ORDER = ns.TRADE_BAG_ORDER
 
 local KEYRING_CONTAINER = KEYRING_CONTAINER
 
----@class tdBag2Container: Frame
----@field private meta tdBag2FrameMeta
----@field private itemButtons table<number, table<number, tdBag2Item>>
----@field private bagSizes table<number, number>
----@field private bagOrdered number[]
+---@type tdBag2Container
 local Container = ns.Addon:NewClass('UI.Container', 'Frame')
 
 Container.GetRealWidth = Container.GetWidth
@@ -268,7 +264,7 @@ function Container:CreateBagFrame(bag)
 end
 
 function Container:AllocItemButton(bag, slot)
-    local itemButton = self.meta.itemClass:Alloc()
+    local itemButton = self.meta.class.Item:Alloc()
     itemButton:SetBagSlot(self:GetBagFrame(bag), self.meta, bag, slot)
     self.itemButtons[bag][slot] = itemButton
     return itemButton

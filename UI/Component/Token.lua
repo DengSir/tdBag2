@@ -13,10 +13,7 @@ local ns = select(2, ...)
 local L = ns.L
 local Counter = ns.Counter
 
----@class tdBag2Token: Frame
----@field private Icon Texture
----@field private Count FontString
----@field private itemId number
+---@type tdBag2Token
 local Token = ns.Addon:NewClass('UI.Token', 'Frame.tdBag2TokenTemplate')
 
 function Token:Constructor()

@@ -9,7 +9,7 @@ local coroutine = coroutine
 local debugprofilestart = debugprofilestart
 local debugprofilestop = debugprofilestop
 
----@class tdBag2Thread
+---@type tdBag2Thread
 local Thread = ns.Addon:NewClass('Thread')
 
 local KILLED = newproxy()

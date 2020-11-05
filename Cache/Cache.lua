@@ -9,41 +9,7 @@ local Forever = ns.Forever
 local Current = ns.Current
 local GlobalSearch = ns.GlobalSearch
 
----@class tdBag2CacheOwnerData
----@field name string
----@field realm string
----@field faction string
----@field class string
----@field race string
----@field gender number
----@field cached boolean
----@field money number
-
----@class tdBag2CacheBagData
----@field slot number
----@field owned boolean
----@field cached boolean
----@field count number
----@field free number
----@field family number
----@field cost number
----@field link string
----@field icon string
----@field id number
----@field title string
-
----@class tdBag2CacheItemData
----@field link string
----@field count number
----@field cached boolean
----@field icon string
----@field locked boolean
----@field quality number
----@field id number
----@field readable boolean
----@field timeout number
-
----@class tdBag2Cache
+---@type tdBag2Cache
 local Cache = {}
 ns.Cache = Cache
 

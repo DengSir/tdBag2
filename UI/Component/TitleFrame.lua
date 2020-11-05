@@ -12,8 +12,7 @@ local ns = select(2, ...)
 local L = ns.L
 local Cache = ns.Cache
 
----@class tdBag2TitleFrame: Button
----@field private meta tdBag2FrameMeta
+---@type tdBag2TitleFrame
 local TitleFrame = ns.Addon:NewClass('UI.TitleFrame', 'Button')
 
 function TitleFrame:Constructor(_, meta)

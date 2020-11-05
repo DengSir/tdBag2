@@ -19,19 +19,7 @@ local LoadAddOn = LoadAddOn
 local BankFrame = BankFrame
 local UIParent = UIParent
 
----@class ns
----@field UI UI
----@field Addon Addon
----@field Events Events
----@field FrameMeta tdBag2FrameMeta
----@field Counter tdBag2Counter
----@field Forever tdBag2Forever
----@field Cache tdBag2Cache
----@field Current tdBag2Current
----@field Cacher tdBag2Cacher
----@field Thread tdBag2Thread
----@field Tooltip tdBag2Tooltip
----@field GlobalSearch tdBag2GlobalSearch
+---@type ns
 local ns = select(2, ...)
 local L = ns.L
 local BAG_ID = ns.BAG_ID
@@ -42,75 +30,11 @@ _G.BINDING_NAME_TDBAG2_TOGGLE_BANK = L.TOOLTIP_TOGGLE_BANK
 _G.BINDING_NAME_TDBAG2_TOGGLE_MAIL = L.TOOLTIP_TOGGLE_MAIL
 _G.BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 
----@class tdBag2FrameProfile
----@field column number
----@field reverseBag boolean
----@field reverseSlot boolean
----@field managed boolean
----@field bagFrame boolean
----@field tokenFrame boolean
----@field pluginButtons boolean
----@field window table
----@field tradeBagOrder string
----@field iconCharacter boolean
----@field hiddenBags table<number, boolean>
-
----@class tdBag2Profile
----@field glowAlpha number
----@field textOffline boolean
----@field iconJunk boolean
----@field iconQuestStarter boolean
----@field glowQuest boolean
----@field glowUnusable boolean
----@field glowQuality boolean
----@field glowEquipSet boolean
----@field glowNew boolean
----@field colorSlots boolean
----@field lockFrame boolean
----@field emptyAlpha number
----@field remainLimit number
----@field style string
----@field searches string[]
-
----@class tdBag2WatchData
----@field itemId number
----@field watchAll boolean
-
----@class tdBag2CharacterProfile
----@field watches tdBag2WatchData[]
----@field hiddenBags table<number, boolean>
-
----@class tdBag2StyleData
----@field overrides table<string, table<string, any>>
----@field hooks table<string, table<string, function>>
-
----@class UI
----@field Frame tdBag2Frame
----@field SimpleFrame tdBag2SimpleFrame
----@field ContainerFrame tdBag2ContainerFrame
----@field ItemBase tdBag2ItemBase
----@field Item tdBag2Item
----@field Bag tdBag2Bag
----@field Container tdBag2Container
----@field TitleContainer tdBag2TitleContainer
----@field TitleFrame tdBag2TitleFrame
----@field OwnerSelector tdBag2OwnerSelector
----@field SearchBox tdBag2SearchBox
----@field GlobalSearchBox tdBag2GlobalSearchBox
----@field TokenFrame tdBag2TokenFrame
----@field Token tdBag2Token
----@field MenuButton tdBag2MenuButton
----@field PluginFrame tdBag2PluginFrame
 ns.UI = {}
 ns.Search = LibStub('LibItemSearch-1.2')
 ns.Unfit = LibStub('Unfit-1.0')
 
----@alias tdBag2Frames table<string, tdBag2ContainerFrame>
-
 ---@class Addon
----@field private frames tdBag2Frames
----@field private styles table<string, tdBag2StyleData>
----@field private styleName string
 local Addon = LibStub('AceAddon-3.0'):NewAddon('tdBag2', 'LibClass-2.0', 'AceHook-3.0', 'AceEvent-3.0')
 ns.Addon = Addon
 _G.tdBag2 = Addon
@@ -357,11 +281,7 @@ function Addon:GetFrameProfile(bagId)
 end
 
 function Addon:CreateFrame(bagId)
-    local class = ns.UI[ns.BAG_CLASSES[bagId]]
-    if not class then
-        return
-    end
-    local frame = class:Create(bagId)
+    local frame = ns.FrameMeta:New(bagId).frame
     self.frames[bagId] = frame
     return frame
 end
@@ -499,13 +419,6 @@ function Addon:IteratePluginButtons()
         return nop
     end
 end
-
----@class tdBag2PluginOptions
----@field icon number|string
----@field order number
----@field init function
----@field key string
----@field text  string
 
 ---@param opts tdBag2PluginOptions
 function Addon:RegisterPluginButton(opts)

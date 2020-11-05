@@ -36,9 +36,7 @@ local L = ns.L
 local Addon = ns.Addon
 local Cache = ns.Cache
 
----@class tdBag2Bag: Button
----@field private meta tdBag2FrameMeta
----@field private bag number
+---@type tdBag2Bag
 local Bag = ns.Addon:NewClass('UI.Bag', 'Button')
 
 function Bag:Constructor(_, meta, bag)

@@ -2,6 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 12/31/2019, 1:07:26 PM
+--
 ---- LUA
 local select, pairs, ipairs = select, pairs, ipairs
 local tinsert = table.insert
@@ -51,21 +52,7 @@ local KEYRING_FAMILY = ns.KEYRING_FAMILY
 
 local NO_RESULT = {cached = true}
 
----@class tdBag2ForeverCharacter
----@field faction string
----@field class string
----@field race string
----@field gender number
----@field money number
-
----@alias tdBag2ForeverRealm table<string, tdBag2ForeverCharacter>
----@alias tdBag2ForeverDB table<string, tdBag2ForeverRealm>
-
----@class tdBag2Forever
----@field player tdBag2ForeverCharacter
----@field realm tdBag2ForeverRealm
----@field db tdBag2ForeverDB
----@field owners string[]
+---@type tdBag2Forever
 local Forever = ns.Addon:NewModule('Forever', 'AceEvent-3.0')
 
 function Forever:OnInitialize()

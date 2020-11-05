@@ -18,8 +18,7 @@ local L = ns.L
 
 local Container = ns.UI.Container
 
----@class tdBag2TitleContainer: tdBag2Container
----@field alwaysShowTitle boolean
+---@type tdBag2TitleContainer
 local TitleContainer = ns.Addon:NewClass('UI.TitleContainer', ns.UI.Container)
 TitleContainer.TEMPLATE = 'tdBag2ContainerTitleTemplate'
 TitleContainer.SCROLL_TEMPLATE = 'tdBag2ScrollFrameTemplate'

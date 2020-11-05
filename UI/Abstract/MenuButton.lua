@@ -21,8 +21,7 @@ local UIParent = UIParent
 ---@type ns
 local ns = select(2, ...)
 
----@class tdBag2MenuButton: Button
----@field private EnterBlocker Frame
+---@type tdBag2MenuButton
 local MenuButton = ns.Addon:NewClass('UI.MenuButton', 'Button')
 MenuButton.GenerateName = ns.NameGenerator('tdBag2DropMenu')
 
