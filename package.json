@@ -28,7 +28,8 @@
       "zhCN": "Localization/zhCN.lua"
     }
   },
-  "devDependencies": {
-    "conventional-changelog": "^3.1.21"
+  "devDependencies": {},
+  "dependencies": {
+    "conventional-changelog-cli": "^2.1.1"
   }
 }
