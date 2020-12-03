@@ -1,3 +1,12 @@
+## [1.9.1](https://github.com/DengSir/tdBag2/compare/v1.9.0...v1.9.1) (2020-12-03)
+
+
+### Features
+
+* sort character with money ([14bfea3](https://github.com/DengSir/tdBag2/commit/14bfea3f63709c1ae60f7f1d4416454a7c723b37))
+
+
+
 # [1.9.0](https://github.com/DengSir/tdBag2/compare/v1.8.3...v1.9.0) (2020-07-31)
 
 
