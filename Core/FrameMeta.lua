@@ -18,9 +18,13 @@ function FrameMeta:Constructor(bagId)
     self.bags = ns.GetBags(bagId)
     self.title = ns.BAG_TITLES[bagId]
     self.icon = ns.BAG_ICONS[bagId]
-    self.class = ns.BAG_CLASSES[bagId]
-    self.frame = self.class.Frame:Create(bagId)
+    self.class = {}
+    for k, v in pairs(ns.BAG_CLASSES[bagId]) do
+        self.class[k] = ns.UI[v]
+    end
+
     self:Update()
+    self.frame = self.class.Frame:Create(self)
 end
 
 function FrameMeta:Update()
@@ -73,7 +77,7 @@ end
 
 function FrameMeta:ToggleBagHidden(bag)
     self.character.hiddenBags[bag] = not self.character.hiddenBags[bag]
-    ns.Events:Fire('UPDATE_ALL')
+    Addon:UpdateAll()
 end
 
 function FrameMeta:SetOption(key, value)

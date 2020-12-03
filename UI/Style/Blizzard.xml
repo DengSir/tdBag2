@@ -40,6 +40,11 @@
                         <Anchor point="TOPLEFT" x="-4" y="0"/>
                     </Anchors>
                 </HighlightTexture>
+                <Scripts>
+                    <OnLoad>
+                        self.portrait = self:GetParent().portrait
+                    </OnLoad>
+                </Scripts>
             </Button>
             <Frame parentKey="Inset" useParentLevel="true" inherits="InsetFrameTemplate">
                 <Anchors>

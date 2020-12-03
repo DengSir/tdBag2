@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/18/2019, 10:26:06 AM
-
+--
 ---- LUA
 local select = select
 local tinsert = table.insert
@@ -32,7 +32,7 @@ local OwnerSelector = ns.Addon:NewClass('UI.OwnerSelector', ns.UI.MenuButton)
 
 function OwnerSelector:Constructor(_, meta)
     self.meta = meta
-    self.portrait = self.meta.frame.portrait or self.texture
+    self.portrait = self.portrait or self.texture
     self:SetScript('OnClick', self.OnClick)
     self:SetScript('OnEnter', self.OnEnter)
     self:SetScript('OnLeave', self.OnLeave)
@@ -49,6 +49,7 @@ end
 
 function OwnerSelector:OnClick(button)
     if button == 'RightButton' then
+        self:CloseMenu()
         self.meta:SetOwner(nil)
     else
         self:OnLeave()
