@@ -96,6 +96,7 @@ function Item:Update()
     self:UpdateBorder()
     self:UpdateSlotColor()
     self:UpdateCooldown()
+    self:UpdatePlugin()
 end
 
 function Item:UpdateBorder()
