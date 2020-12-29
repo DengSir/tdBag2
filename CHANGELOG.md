@@ -1,3 +1,13 @@
+# [1.10.0](https://github.com/DengSir/tdBag2/compare/v1.9.1...v1.10.0) (2020-12-29)
+
+
+### Features
+
+* Added item plugin feature ([cce5554](https://github.com/DengSir/tdBag2/commit/cce55545d21dc69c5d51c4becad00738f4403508))
+* support item plugin ([9b7e34a](https://github.com/DengSir/tdBag2/commit/9b7e34af421e82e021203f686b9ee919f18d5d9e))
+
+
+
 ## [1.9.1](https://github.com/DengSir/tdBag2/compare/v1.9.0...v1.9.1) (2020-12-03)
 
 
