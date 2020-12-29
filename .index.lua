@@ -84,12 +84,21 @@
 ---@field private styles table<string, tdBag2StyleData>
 ---@field private styleName string
 
----@class tdBag2PluginOptions
+---@class tdBag2ButtonPluginOptions
+---@field type 'Button'
 ---@field icon number|string
 ---@field order number
 ---@field init function
 ---@field key string
 ---@field text  string
+
+---@class tdBag2ItemPluginOptions
+---@field type 'Item'
+---@field init function
+---@field update function
+---@field text string
+
+---@alias tdBag2PluginOptions tdBag2ButtonPluginOptions|tdBag2ItemPluginOptions
 
 ---@class tdBag2Cacher
 
@@ -281,3 +290,5 @@
 
 ---@class tdBag2SearchToggle: tdBag2MenuButton
 ---@field private meta tdBag2FrameMeta
+
+---@class Addon

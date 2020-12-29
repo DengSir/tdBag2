@@ -527,3 +527,11 @@ function ns.Hook(...)
         return unpack(r, 1, n)
     end
 end
+
+function ns.safeipairs(t)
+    if t then
+        return ipairs(t)
+    else
+        return nop
+    end
+end

@@ -2,6 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 9/17/2019, 12:04:55 AM
+--
 ---- LUA
 local ipairs, pairs, nop, tinsert, sort = ipairs, pairs, nop, tinsert, sort
 
@@ -24,6 +25,8 @@ local ns = select(2, ...)
 local L = ns.L
 local BAG_ID = ns.BAG_ID
 
+local safeipairs = ns.safeipairs
+
 _G.BINDING_HEADER_TDBAG2 = 'tdBag2'
 _G.BINDING_NAME_TDBAG2_TOGGLE_BAG = L.TOOLTIP_TOGGLE_BAG
 _G.BINDING_NAME_TDBAG2_TOGGLE_BANK = L.TOOLTIP_TOGGLE_BANK
@@ -34,7 +37,7 @@ ns.UI = {}
 ns.Search = LibStub('LibItemSearch-1.2')
 ns.Unfit = LibStub('Unfit-1.0')
 
----@class Addon
+---@type Addon
 local Addon = LibStub('AceAddon-3.0'):NewAddon('tdBag2', 'LibClass-2.0', 'AceHook-3.0', 'AceEvent-3.0')
 ns.Addon = Addon
 _G.tdBag2 = Addon
@@ -45,6 +48,7 @@ function Addon:OnInitialize()
     self.styles = {}
     self.demandStyles = {}
     self.frames = {}
+    self.plugins = {}
 
     self:SetupBankHider()
     self:SetupDefaultStyles()
@@ -245,7 +249,8 @@ function Addon:SetupPluginButtons()
     if IsAddOnLoaded('tdPack2') then
         local tdPack2 = LibStub('AceAddon-3.0'):GetAddon('tdPack2', true)
         if tdPack2 then
-            self:RegisterPluginButton({
+            self:RegisterPlugin({
+                type = 'Button',
                 key = 'tdPack2',
                 icon = [[Interface\AddOns\tdPack2\Resource\INV_Pet_Broom]],
                 init = function(button, frame)
@@ -255,7 +260,8 @@ function Addon:SetupPluginButtons()
         end
     end
 
-    self:RegisterPluginButton({
+    self:RegisterPlugin({
+        type = 'Button',
         key = 'BagToggle',
         text = L['Bag Toggle'],
         icon = ns.BAG_ICONS[ns.BAG_ID.BAG],
@@ -265,7 +271,8 @@ function Addon:SetupPluginButtons()
         end,
     })
 
-    self:RegisterPluginButton({
+    self:RegisterPlugin({
+        type = 'Button',
         key = 'SearchToggle',
         text = SEARCH,
         icon = [[Interface\Minimap\Tracking\None]],
@@ -413,28 +420,13 @@ end
 
 ---@return fun():number, tdBag2PluginOptions
 function Addon:IteratePluginButtons()
-    if self.pluginButtons then
-        return ipairs(self.pluginButtons)
-    else
-        return nop
-    end
+    return safeipairs(self.plugins.Button)
 end
 
 ---@param opts tdBag2PluginOptions
 function Addon:RegisterPluginButton(opts)
-    self.pluginButtons = self.pluginButtons or {}
-
-    opts.order = opts.order or #self.pluginButtons
-    opts.text = opts.text or opts.key
-
-    tinsert(self.pluginButtons, opts)
-    sort(self.pluginButtons, function(a, b)
-        return a.order < b.order
-    end)
-
-    if self.RefreshPluginOptions then
-        self:RefreshPluginOptions()
-    end
+    opts.type = 'Button'
+    return self:RegisterPlugin(opts)
 end
 
 -- style
@@ -450,20 +442,36 @@ end
 
 -- item plugin
 
-function Addon:RegisterItemPlugin(name, render)
-    self.itemPlugins = self.itemPlugins or {}
-
-    tinsert(self.itemPlugins, render)
-end
-
 function Addon:IterateItemPlugins()
-    if self.itemPlugins then
-        return ipairs(self.itemPlugins)
-    else
-        return nop
-    end
+    return safeipairs(self.plugins.Item)
 end
 
 function Addon:HasAnyItemPlugin()
-    return not not self.itemPlugins
+    return not not self.plugins.Item
+end
+
+--- plugin
+---@param opts tdBag2PluginOptions
+function Addon:RegisterPlugin(opts)
+    if opts.type == 'Button' then
+        self.plugins.Button = self.plugins.Button or {}
+
+        opts.order = opts.order or #self.plugins.Button
+        opts.text = opts.text or opts.key
+
+        tinsert(self.plugins.Button, opts)
+        sort(self.plugins.Button, function(a, b)
+            return a.order < b.order
+        end)
+    elseif opts.type == 'Item' then
+        self.plugins.Item = self.plugins.Item or {}
+
+        tinsert(self.plugins.Item, opts)
+    else
+        assert(false)
+    end
+
+    if self.RefreshPluginOptions then
+        self:RefreshPluginOptions()
+    end
 end
