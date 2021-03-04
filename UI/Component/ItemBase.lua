@@ -259,10 +259,10 @@ function ItemBase:UpdateSpecialBorder()
 
     if self.hasItem then
         if IsArtifactRelicItem and IsArtifactRelicItem(self.info.id) then
-            self.IconOverlay:SetTexture([[Interface\Artifacts\RelicIconFrame]])
+            local r, g, b = self:GetBorderColor()
+            self.IconOverlay:SetTexture([[Interface\AddOns\tdBag2\Resource\RelicIconFrame]])
             self.IconOverlay:Show()
-            self.IconOverlay:SetVertexColor(self:GetBorderColor())
-            return true
+            self.IconOverlay:SetVertexColor(r, g, b, 1 - (1 - self.meta.sets.glowAlpha) / 2)
         elseif C_AzeriteEmpoweredItem and C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(self.info.id) then
             self.IconOverlay:SetAtlas('AzeriteIconFrame')
             self.IconOverlay:Show()

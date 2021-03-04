@@ -260,6 +260,27 @@ function Addon:SetupPluginButtons()
         end
     end
 
+    if ns.IS_RETAIL then
+        self:RegisterPlugin({
+            type = 'Button',
+            key = 'SortBag',
+            icon = [[Interface\AddOns\tdPack2\Resource\INV_Pet_Broom]],
+            init = function(button, frame)
+                if frame.meta.bagId == BAG_ID.BANK then
+                    button:SetScript('OnClick', function()
+                        if ns.Forever.atBank then
+                            SortBankBags()
+                        end
+                    end)
+                else
+                    button:SetScript('OnClick', function()
+                        SortBags()
+                    end)
+                end
+            end
+        })
+    end
+
     self:RegisterPlugin({
         type = 'Button',
         key = 'BagToggle',

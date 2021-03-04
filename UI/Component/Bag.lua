@@ -2,7 +2,6 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https:\dengsir.github.io
 -- @Date   : 10\17\2019, 3:23:57 PM
-
 ---- WOW
 local CursorCanGoInSlot = CursorCanGoInSlot
 local CursorHasItem = CursorHasItem
@@ -37,11 +36,25 @@ local Addon = ns.Addon
 local Cache = ns.Cache
 
 ---@type tdBag2Bag
-local Bag = ns.Addon:NewClass('UI.Bag', 'Button')
+local Bag = ns.Addon:NewClass('UI.Bag', ns.IS_RETAIL and ns.UI.MenuButton or 'Button')
 
 function Bag:Constructor(_, meta, bag)
     self.meta = meta
     self.bag = bag
+
+    if ns.IS_RETAIL then
+        local FilterIcon = CreateFrame('Frame', nil, self)
+        FilterIcon:SetPoint('CENTER', self, 'TOPRIGHT', -3, -3)
+        FilterIcon:SetSize(18, 18)
+
+        local Icon = FilterIcon:CreateTexture(nil, 'OVERLAY')
+        Icon:SetAtlas('bags-icon-consumables')
+        Icon:SetPoint('CENTER')
+        Icon:SetAllPoints(true)
+
+        FilterIcon.Icon = Icon
+        self.FilterIcon = FilterIcon
+    end
 
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.UnregisterAllEvents)
@@ -83,6 +96,7 @@ end
 function Bag:OnEnter()
     self:UpdateTooltip()
     Addon:FocusBag(self.bag)
+    print(self.bag)
 end
 
 function Bag:OnLeave()
@@ -107,6 +121,8 @@ function Bag:OnClick(button)
             elseif self.info.slot then
                 PutItemInBag(self.info.slot)
             end
+        elseif ns.IS_RETAIL then
+            self:ToggleMenu()
         end
     end
 end
@@ -150,6 +166,7 @@ end
 
 function Bag:UpdateInfo()
     self.info = Cache:GetBagInfo(self.meta.owner, self.bag)
+    self:SetID(self.bag)
 end
 
 function Bag:UpdateIcon()
@@ -280,4 +297,42 @@ end
 
 function Bag:IsHidden()
     return self.meta:IsBagHidden(self.bag)
+end
+
+if ns.IS_RETAIL then
+    function Bag:GetDropMenu()
+        if not self.dropdown then
+            local dropdown = CreateFrame('Frame', self:GenerateName(), self, 'UIDropDownMenuTemplate')
+            UIDropDownMenu_Initialize(dropdown, ContainerFrameFilterDropDown_Initialize, 'MENU')
+            self.dropdown = dropdown
+        end
+        return self.dropdown
+    end
+
+    Bag.CreateMenu = nop
+    Bag.OnMenuOpened = nop
+    Bag.OnMenuClosed = nop
+
+    function Bag:UpdateFlag()
+        self.FilterIcon:Hide()
+        if self.bag > 0 and not self.meta:IsCached() then
+            if not IsInventoryItemProfessionBag('player', ContainerIDToInventoryID(self.bag)) then
+                for i = LE_BAG_FILTER_FLAG_EQUIPMENT, NUM_LE_BAG_FILTER_FLAGS do
+                    local active = false;
+                    if self.bag > NUM_BAG_SLOTS then
+                        active = GetBankBagSlotFlag(self.bag - NUM_BAG_SLOTS, i)
+                    else
+                        active = GetBagSlotFlag(self.bag, i)
+                    end
+                    if (active) then
+                        self.FilterIcon.Icon:SetAtlas(BAG_FILTER_ICONS[i], true)
+                        self.FilterIcon:Show()
+                        break
+                    end
+                end
+            end
+        end
+    end
+
+    ns.Hook(Bag, 'Update', Bag.UpdateFlag)
 end

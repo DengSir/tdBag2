@@ -198,7 +198,7 @@
 ---@class tdBag2MenuButton: Button
 ---@field private EnterBlocker Frame
 
----@class tdBag2Bag: Button
+---@class tdBag2Bag: tdBag2MenuButton
 ---@field private meta tdBag2FrameMeta
 ---@field private bag number
 

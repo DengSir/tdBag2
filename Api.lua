@@ -156,6 +156,10 @@ do
         tinsert(BAGS[BAG_ID.BAG], KEYRING_CONTAINER)
     end
 
+    if ns.IS_RETAIL then
+        tinsert(BAGS[BAG_ID.BANK], REAGENTBANK_CONTAINER)
+    end
+
     for bagId, v in pairs(BAGS) do
         for _, bag in pairs(v) do
             BAG_SETS[bag] = bagId
