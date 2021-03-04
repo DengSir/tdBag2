@@ -135,6 +135,7 @@
 ---@field locked boolean
 ---@field quality number
 ---@field id number
+---@field bound boolean
 ---@field readable boolean
 ---@field timeout number
 

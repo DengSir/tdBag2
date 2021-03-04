@@ -40,7 +40,7 @@ local UIParent = UIParent
 ---- G
 local ITEM_STARTS_QUEST = ITEM_STARTS_QUEST
 local LE_ITEM_CLASS_QUESTITEM = LE_ITEM_CLASS_QUESTITEM
-local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON
+local LE_ITEM_QUALITY_COMMON = Enum.ItemQuality.Common or Enum.ItemQuality.Standard or LE_ITEM_QUALITY_COMMON
 local TEXTURE_ITEM_QUEST_BANG = TEXTURE_ITEM_QUEST_BANG
 
 ---@type ns
@@ -56,7 +56,7 @@ local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
 local KEYRING_FAMILY = ns.KEYRING_FAMILY
 
 ---@type tdBag2ItemBase
-local ItemBase = ns.Addon:NewClass('UI.ItemBase', 'Button')
+local ItemBase = ns.Addon:NewClass('UI.ItemBase', ns.IS_CLASSIC and 'Button' or 'ItemButton')
 ItemBase.pool = {}
 ItemBase.GenerateName = ns.NameGenerator('tdBag2ItemBase')
 
@@ -64,7 +64,7 @@ function ItemBase:Constructor()
     self:Hide()
 
     local name = self:GetName()
-    self.QuestBorder = _G[name .. 'IconQuestTexture'] or self.IconOverlay
+    self.QuestBorder = _G[name .. 'IconQuestTexture']
     self.Timeout = _G[name .. 'Stock']
 
     self.QuestBorder:SetTexture(TEXTURE_ITEM_QUEST_BANG)
@@ -167,7 +167,7 @@ function ItemBase:OnEnter()
 end
 
 function ItemBase:OnLeave()
-    GameTooltip:Hide()
+    GameTooltip_Hide()
     ResetCursor()
 end
 
@@ -249,15 +249,66 @@ function ItemBase:UpdateLocked()
     SetItemButtonDesaturated(self, self.hasItem and (self.info.locked or self.notMatched))
 end
 
+function ItemBase:UpdateSpecialBorder()
+    self.IconOverlay:SetVertexColor(1, 1, 1)
+    self.IconOverlay:Hide()
+
+    if self.IconOverlay2 then
+        self.IconOverlay2:Hide()
+    end
+
+    if self.hasItem then
+        if IsArtifactRelicItem and IsArtifactRelicItem(self.info.id) then
+            self.IconOverlay:SetTexture([[Interface\Artifacts\RelicIconFrame]])
+            self.IconOverlay:Show()
+            self.IconOverlay:SetVertexColor(self:GetBorderColor())
+            return true
+        elseif C_AzeriteEmpoweredItem and C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID(self.info.id) then
+            self.IconOverlay:SetAtlas('AzeriteIconFrame')
+            self.IconOverlay:Show()
+        elseif IsCorruptedItem and IsCorruptedItem(self.info.id) then
+            self.IconOverlay:SetAtlas('Nzoth-inventory-icon')
+            self.IconOverlay:Show()
+        elseif not self:IsCached() and not self.info.bound and IsCosmeticItem and IsCosmeticItem(self.info.id) then
+            self.IconOverlay:SetAtlas('CosmeticIconFrame')
+            self.IconOverlay:Show()
+        elseif C_Soulbinds and C_Soulbinds.IsItemConduitByItemInfo(self.info.id) then
+            local color = BAG_ITEM_QUALITY_COLORS[self.info.quality]
+            self.IconOverlay:SetVertexColor(color.r, color.g, color.b)
+            self.IconOverlay:SetAtlas('ConduitIconFrame')
+            self.IconOverlay:Show()
+            self.IconOverlay2:SetAtlas('ConduitIconFrame-Corners')
+            self.IconOverlay2:Show()
+        end
+    end
+end
+
+-- if ns.IS_CLASSIC then
 function ItemBase:UpdateBorder()
     local sets = self.meta.sets
-    local r, g, b = self:GetBorderColor()
 
-    self.IconBorder:SetVertexColor(r, g, b, sets.glowAlpha)
-    self.IconBorder:SetShown(r)
+    if not self:UpdateSpecialBorder() then
+        local r, g, b = self:GetBorderColor()
+        self.IconBorder:SetVertexColor(r, g, b, sets.glowAlpha)
+        self.IconBorder:SetShown(r)
+    else
+        self.IconBorder:Hide()
+    end
+
     self.QuestBorder:SetShown(sets.iconQuestStarter and self:IsQuestStarter())
     self.JunkIcon:SetShown(sets.iconJunk and self:IsJunk())
+
+    if ContainerFrameItemButton_UpdateItemUpgradeIcon then
+        ContainerFrameItemButton_UpdateItemUpgradeIcon(self)
+    end
 end
+-- else
+--     function ItemBase:UpdateBorder()
+--         local sets = self.meta.sets
+--         SetItemButtonQuality(self, self.info.quality, self.info.id)
+--         self.QuestBorder:SetShown(sets.iconQuestStarter and self:IsQuestStarter())
+--     end
+-- end
 
 function ItemBase:UpdateFocus()
     if Addon:IsBagFocused(self.bag) then
@@ -351,7 +402,8 @@ function ItemBase:GetBorderColor()
         elseif sets.glowUnusable and self:IsUnusable() then
             return 1, 0.1, 0.1
         elseif sets.glowQuality and quality and quality > LE_ITEM_QUALITY_COMMON then
-            return GetItemQualityColor(quality)
+            local color = BAG_ITEM_QUALITY_COLORS[quality]
+            return color.r, color.g, color.b
         end
     end
 end
@@ -365,8 +417,18 @@ function ItemBase:IsQuestItem()
                (select(12, GetItemInfo(self.info.id)) == LE_ITEM_CLASS_QUESTITEM or Search:ForQuest(self.info.link))
 end
 
-function ItemBase:IsQuestStarter()
-    return self.hasItem and Search:TooltipPhrase(self.info.link, ITEM_STARTS_QUEST)
+if ns.IS_CLASSIC then
+    function ItemBase:IsQuestStarter()
+        return self.hasItem and Search:TooltipPhrase(self.info.link, ITEM_STARTS_QUEST)
+    end
+else
+    function ItemBase:IsQuestStarter()
+        if not self.hasItem or self:IsCached() then
+            return false
+        end
+        local isQuestItem, questId, isActive = GetContainerItemQuestInfo(self.bag, self.slot)
+        return questId and not isActive
+    end
 end
 
 function ItemBase:IsMatched()

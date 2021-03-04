@@ -61,7 +61,9 @@ Tooltip.OnEnable = Tooltip.Update
 
 function Tooltip:HookTip(tip)
     for _, api in ipairs(self.APIS) do
-        self:SecureHook(tip, api, 'OnTooltipItem')
+        if tip[api] then
+            self:SecureHook(tip, api, 'OnTooltipItem')
+        end
     end
 
     for _, shoppingTip in ipairs(tip.shoppingTooltips) do

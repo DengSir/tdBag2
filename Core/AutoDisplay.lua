@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/24/2019, 10:24:55 AM
-
+--
 ---@type ns
 local ns = select(2, ...)
 local Addon = ns.Addon
@@ -35,9 +35,12 @@ function AutoDisplay:OnInitialize()
     self:RegisterDisplayFrame('Character', CharacterFrame)
     self:RegisterDisplayEvent('Auction', 'AUCTION_HOUSE_SHOW', 'AUCTION_HOUSE_CLOSED')
     self:RegisterDisplayEvent('Craft', 'TRADE_SKILL_SHOW', 'TRADE_SKILL_CLOSE')
-    self:RegisterDisplayEvent('Craft', 'CRAFT_SHOW', 'CRAFT_CLOSE')
     self:RegisterDisplayEvent('Trade', 'TRADE_SHOW', 'TRADE_CLOSED')
     self:RegisterDisplayEvent('Bank', 'BANKFRAME_OPENED', 'BANKFRAME_CLOSED')
+
+    if ns.IS_CLASSIC then
+        self:RegisterDisplayEvent('Craft', 'CRAFT_SHOW', 'CRAFT_CLOSE')
+    end
 
     self:RegisterEvent('PLAYER_REGEN_DISABLED')
 end

@@ -27,7 +27,7 @@ local UIParent = UIParent
 
 ---- G
 local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON
-local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS
+local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS or 36
 local MAX_BLIZZARD_ITEMS = NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
 
 local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
@@ -99,36 +99,43 @@ function Item:Update()
     self:UpdatePlugin()
 end
 
-function Item:UpdateBorder()
-    local sets = self.meta.sets
-    local new = sets.glowNew and self:IsNew()
-    local r, g, b = self:GetBorderColor()
+if ns.IS_CLASSIC then
+    function Item:UpdateBorder()
+        local sets = self.meta.sets
+        local new = sets.glowNew and self:IsNew()
+        local r, g, b = self:GetBorderColor()
 
-    if new then
-        if not self.newitemglowAnim:IsPlaying() then
-            self.newitemglowAnim:Play()
-            self.flashAnim:Play()
+        if new then
+            if not self.newitemglowAnim:IsPlaying() then
+                self.newitemglowAnim:Play()
+                self.flashAnim:Play()
+            end
+
+            local paid = self:IsPaid()
+
+            self.BattlepayItemTexture:SetShown(paid)
+            self.NewItemTexture:SetShown(not paid)
+            self.NewItemTexture:SetVertexColor(r or 1, g or 1, b or 1)
+        else
+            if self.newitemglowAnim:IsPlaying() or self.flashAnim:IsPlaying() then
+                self.flashAnim:Stop()
+                self.newitemglowAnim:Stop()
+            end
+
+            self.BattlepayItemTexture:Hide()
+            self.NewItemTexture:Hide()
         end
 
-        local paid = self:IsPaid()
-
-        self.BattlepayItemTexture:SetShown(paid)
-        self.NewItemTexture:SetShown(not paid)
-        self.NewItemTexture:SetVertexColor(r or 1, g or 1, b or 1)
-    else
-        if self.newitemglowAnim:IsPlaying() or self.flashAnim:IsPlaying() then
-            self.flashAnim:Stop()
-            self.newitemglowAnim:Stop()
-        end
-
-        self.BattlepayItemTexture:Hide()
-        self.NewItemTexture:Hide()
+        self.IconBorder:SetVertexColor(r, g, b, sets.glowAlpha)
+        self.IconBorder:SetShown(r and not new)
+        self.QuestBorder:SetShown(sets.iconQuestStarter and self:IsQuestStarter())
+        self.JunkIcon:SetShown(sets.iconJunk and self:IsJunk())
     end
-
-    self.IconBorder:SetVertexColor(r, g, b, sets.glowAlpha)
-    self.IconBorder:SetShown(r and not new)
-    self.QuestBorder:SetShown(sets.iconQuestStarter and self:IsQuestStarter())
-    self.JunkIcon:SetShown(sets.iconJunk and self:IsJunk())
+-- else
+--     function ItemBase:UpdateBorder()
+--         SetItemButtonQuality(self, self.info.quality, self.info.id)
+--         self.QuestBorder:SetShown(sets.iconQuestStarter and self:IsQuestStarter())
+--     end
 end
 
 function Item:UpdateSlotColor()

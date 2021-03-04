@@ -89,7 +89,7 @@ function Current:GetItemInfo(bag, slot)
     local data = {}
     if ns.IsContainerBag(bag) then
         local _
-        data.icon, data.count, data.locked, data.quality, data.readable, _, data.link, _, _, data.id =
+        data.icon, data.count, data.locked, data.quality, data.readable, _, data.link, _, _, data.id, data.bound =
             GetContainerItemInfo(bag, slot)
     elseif ns.IsEquip(bag) then
         data.link = GetInventoryItemLink('player', slot)

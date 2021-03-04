@@ -39,6 +39,9 @@ local GLOBAL_SEARCH_OWNER = '$search'
 ---@type ns
 local ns = select(2, ...)
 
+ns.IS_CLASSIC = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
+ns.IS_RETAIL = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+
 ns.DEFAULT_STYLE = 'Blizzard'
 
 ns.EQUIP_CONTAINER = EQUIP_CONTAINER
@@ -149,7 +152,9 @@ do
         touch(i + NUM_BAG_SLOTS, BAG_ID.BANK)
     end
 
-    tinsert(BAGS[BAG_ID.BAG], KEYRING_CONTAINER)
+    if ns.IS_CLASSIC then
+        tinsert(BAGS[BAG_ID.BAG], KEYRING_CONTAINER)
+    end
 
     for bagId, v in pairs(BAGS) do
         for _, bag in pairs(v) do

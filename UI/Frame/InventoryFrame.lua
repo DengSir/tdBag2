@@ -25,7 +25,7 @@ local function SetChecked(self)
 end
 
 for i, v in ipairs(MAIN_MENU_BUTTONS) do
-    v.RawSetChecked = v.SetChecked
+    v.RawSetChecked = v.SetChecked or nop
     v.SetChecked = SetChecked
 end
 
