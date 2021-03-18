@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/18/2019, 12:58:19 PM
-
+--
 ---- LUA
 local ipairs = ipairs
 local select = select
@@ -44,6 +44,11 @@ function Events:OnEnable()
 
     self:RegisterMessage('BANK_OPENED')
     self:RegisterMessage('BANK_CLOSED')
+
+    if ns.FLAG_PROFESSION_BAG then
+        self:RegisterEvent('BANK_BAG_SLOT_FLAGS_UPDATED')
+        self:RegisterEvent('BAG_SLOT_FLAGS_UPDATED', 'Fire')
+    end
 
     self:RegisterMessage('MAIL_OPENED', 'Fire')
     self:RegisterMessage('MAIL_CLOSED', 'Fire')
@@ -139,4 +144,8 @@ function Events:ITEM_LOCK_CHANGED(_, bag, slot)
             self:Fire('BAG_LOCK_CHANGED', bag)
         end
     end
+end
+
+function Events:BANK_BAG_SLOT_FLAGS_UPDATED(_, id)
+    self:Fire('BAG_SLOT_FLAGS_UPDATED', id - NUM_BAG_SLOTS)
 end

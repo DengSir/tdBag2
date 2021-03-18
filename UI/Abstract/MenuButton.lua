@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 11/29/2019, 2:59:16 PM
-
+--
 ---- LUA
 local _G = _G
 local pairs = pairs
@@ -65,13 +65,19 @@ function MenuButton:ToggleMenu()
     if self:IsMenuOpened() then
         CloseDropDownMenus()
         PlaySound(851) -- IG_MAINMENU_CLOSE
-    else
-        MenuButton.LastDropdown = self
-        CloseDropDownMenus()
-        ToggleDropDownMenu(1, nil, self:GetDropMenu(), self, 0, 0, self:CreateMenu())
-        self:OnMenuOpened()
-        PlaySound(850) -- IG_MAINMENU_OPEN
+        return
     end
+
+    local menu = self:CreateMenu()
+    if not menu then
+        return
+    end
+
+    MenuButton.LastDropdown = self
+    CloseDropDownMenus()
+    ToggleDropDownMenu(1, nil, self:GetDropMenu(), self, 0, 0, menu)
+    self:OnMenuOpened()
+    PlaySound(850) -- IG_MAINMENU_OPEN
 end
 
 function MenuButton:CloseMenu()
@@ -117,6 +123,9 @@ function MenuButton:CreateEnterBlocker()
         return self:GetParent():UnlockHighlight()
     end)
     EnterBlocker:SetMouseClickEnabled(false)
+    EnterBlocker.HandlesGlobalMouseEvent = function()
+        return true
+    end
     MenuButton.EnterBlocker = EnterBlocker
     return EnterBlocker
 end

@@ -28,6 +28,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local BACKPACK_CONTAINER = BACKPACK_CONTAINER
 local BANK_CONTAINER = BANK_CONTAINER
 local KEYRING_CONTAINER = KEYRING_CONTAINER
+local REAGENTBANK_CONTAINER = REAGENTBANK_CONTAINER
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local NUM_BANKBAGSLOTS = NUM_BANKBAGSLOTS
 local EQUIP_CONTAINER = 'equip'
@@ -41,6 +42,7 @@ local ns = select(2, ...)
 
 ns.IS_CLASSIC = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 ns.IS_RETAIL = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+ns.FLAG_PROFESSION_BAG = not not IsInventoryItemProfessionBag
 
 ns.DEFAULT_STYLE = 'Blizzard'
 
@@ -398,6 +400,10 @@ function ns.IsKeyring(bag)
     return bag == KEYRING_CONTAINER
 end
 
+function ns.IsReagent(bag)
+    return bag == REAGENTBANK_CONTAINER
+end
+
 function ns.IsEquip(bag)
     return bag == EQUIP_CONTAINER
 end
@@ -407,7 +413,7 @@ function ns.IsMail(bag)
 end
 
 function ns.IsBaseBag(bag)
-    return ns.IsBackpack(bag) or ns.IsBank(bag) or ns.IsKeyring(bag)
+    return ns.IsBackpack(bag) or ns.IsBank(bag) or ns.IsKeyring(bag) or ns.IsReagent(bag)
 end
 
 function ns.IsCustomBag(bag)

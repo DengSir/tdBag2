@@ -1,7 +1,8 @@
 -- Bag.lua
 -- @Author : Dencer (tdaddon@163.com)
--- @Link   : https:\dengsir.github.io
--- @Date   : 10\17\2019, 3:23:57 PM
+-- @Link   : https://dengsir.github.io
+-- @Date   : 10/17/2019, 3:23:57 PM
+--
 ---- WOW
 local CursorCanGoInSlot = CursorCanGoInSlot
 local CursorHasItem = CursorHasItem
@@ -36,13 +37,13 @@ local Addon = ns.Addon
 local Cache = ns.Cache
 
 ---@type tdBag2Bag
-local Bag = ns.Addon:NewClass('UI.Bag', ns.IS_RETAIL and ns.UI.MenuButton or 'Button')
+local Bag = ns.Addon:NewClass('UI.Bag', ns.FLAG_PROFESSION_BAG and ns.UI.MenuButton or 'Button')
 
 function Bag:Constructor(_, meta, bag)
     self.meta = meta
     self.bag = bag
 
-    if ns.IS_RETAIL then
+    if ns.FLAG_PROFESSION_BAG then
         local FilterIcon = CreateFrame('Frame', nil, self)
         FilterIcon:SetPoint('CENTER', self, 'TOPRIGHT', -3, -3)
         FilterIcon:SetSize(18, 18)
@@ -96,7 +97,6 @@ end
 function Bag:OnEnter()
     self:UpdateTooltip()
     Addon:FocusBag(self.bag)
-    print(self.bag)
 end
 
 function Bag:OnLeave()
@@ -295,36 +295,105 @@ function Bag:IsCustomBag()
     return self:IsBackpackBag() or self:IsBankBag()
 end
 
+function Bag:IsReagent()
+    return ns.IsReagent(self.bag)
+end
+
 function Bag:IsHidden()
     return self.meta:IsBagHidden(self.bag)
 end
 
-if ns.IS_RETAIL then
-    function Bag:GetDropMenu()
-        if not self.dropdown then
-            local dropdown = CreateFrame('Frame', self:GenerateName(), self, 'UIDropDownMenuTemplate')
-            UIDropDownMenu_Initialize(dropdown, ContainerFrameFilterDropDown_Initialize, 'MENU')
-            self.dropdown = dropdown
+if ns.FLAG_PROFESSION_BAG then
+    local IsInventoryItemProfessionBag = IsInventoryItemProfessionBag
+
+    function Bag:CreateMenu()
+        if self.meta:IsCached() then
+            return
         end
-        return self.dropdown
+
+        if self:IsReagent() then
+            return
+        end
+
+        local menu = {}
+
+        if self:IsBackpackBag() or self:IsBankBag() then
+            tinsert(menu, {text = BAG_FILTER_ASSIGN_TO, isTitle = true, notCheckable = true})
+
+            for i = LE_BAG_FILTER_FLAG_EQUIPMENT, NUM_LE_BAG_FILTER_FLAGS do
+                if i ~= LE_BAG_FILTER_FLAG_JUNK then
+                    tinsert(menu, {
+                        text = BAG_FILTER_LABELS[i],
+                        checked = self:GetSlotFlag(i),
+                        func = function(_, _, _, value)
+                            self:SetSlotFlag(i, not value)
+                        end,
+                    })
+                end
+            end
+        end
+
+        tinsert(menu, {text = BAG_FILTER_CLEANUP, isTitle = true, notCheckable = true})
+
+        tinsert(menu, {
+            text = BAG_FILTER_IGNORE,
+            isNotRadio = true,
+            checked = self:IsAutosortDisabled(),
+            func = function(_, _, _, value)
+                self:SetAutosortDisabled(not value)
+            end,
+        })
+
+        return menu
     end
 
-    Bag.CreateMenu = nop
-    Bag.OnMenuOpened = nop
-    Bag.OnMenuClosed = nop
+    function Bag:SetAutosortDisabled(state)
+        if self:IsBackpack() then
+            SetBackpackAutosortDisabled(state)
+        elseif self:IsBank() then
+            SetBankAutosortDisabled(state)
+        elseif self:IsBackpackBag() then
+            SetBagSlotFlag(self.bag, LE_BAG_FILTER_FLAG_IGNORE_CLEANUP, state)
+        elseif self:IsBankBag() then
+            SetBankBagSlotFlag(self.bag - NUM_BAG_SLOTS, LE_BAG_FILTER_FLAG_IGNORE_CLEANUP, state)
+        end
+    end
+
+    function Bag:IsAutosortDisabled()
+        if self:IsBackpack() then
+            return GetBackpackAutosortDisabled()
+        elseif self:IsBank() then
+            return GetBankAutosortDisabled()
+        elseif self:IsBackpackBag() then
+            return GetBagSlotFlag(self.bag, LE_BAG_FILTER_FLAG_IGNORE_CLEANUP)
+        elseif self:IsBankBag() then
+            return GetBankBagSlotFlag(self.bag - NUM_BAG_SLOTS, LE_BAG_FILTER_FLAG_IGNORE_CLEANUP)
+        end
+    end
+
+    function Bag:GetSlotFlag(id)
+        if self:IsBackpackBag() then
+            return GetBagSlotFlag(self.bag, id)
+        elseif self:IsBankBag() then
+            return GetBankBagSlotFlag(self.bag - NUM_BAG_SLOTS, id)
+        end
+    end
+
+    function Bag:SetSlotFlag(id, flag)
+        if self:IsBackpackBag() then
+            SetBagSlotFlag(self.bag, id, flag)
+        elseif self:IsBankBag() then
+            SetBankBagSlotFlag(self.bag - NUM_BAG_SLOTS, id, flag)
+        end
+    end
 
     function Bag:UpdateFlag()
         self.FilterIcon:Hide()
+
         if self.bag > 0 and not self.meta:IsCached() then
             if not IsInventoryItemProfessionBag('player', ContainerIDToInventoryID(self.bag)) then
                 for i = LE_BAG_FILTER_FLAG_EQUIPMENT, NUM_LE_BAG_FILTER_FLAGS do
-                    local active = false;
-                    if self.bag > NUM_BAG_SLOTS then
-                        active = GetBankBagSlotFlag(self.bag - NUM_BAG_SLOTS, i)
-                    else
-                        active = GetBagSlotFlag(self.bag, i)
-                    end
-                    if (active) then
+                    if self:GetSlotFlag(i) then
                         self.FilterIcon.Icon:SetAtlas(BAG_FILTER_ICONS[i], true)
                         self.FilterIcon:Show()
                         break
@@ -335,4 +404,9 @@ if ns.IS_RETAIL then
     end
 
     ns.Hook(Bag, 'Update', Bag.UpdateFlag)
+    ns.Hook(Bag, 'OnShow', function(self)
+        if not self.meta:IsCached() then
+            self:RegisterEvent('BAG_SLOT_FLAGS_UPDATED', 'UpdateFlag')
+        end
+    end)
 end

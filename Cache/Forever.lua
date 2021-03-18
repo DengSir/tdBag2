@@ -212,6 +212,7 @@ function Forever:SaveBag(bag)
 end
 
 function Forever:SaveEquip(slot)
+    print(slot)
     local link = GetInventoryItemLink('player', slot)
     local count = GetInventoryItemCount('player', slot)
 
