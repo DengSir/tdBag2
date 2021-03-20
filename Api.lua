@@ -43,6 +43,7 @@ local ns = select(2, ...)
 ns.IS_CLASSIC = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 ns.IS_RETAIL = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 ns.FLAG_PROFESSION_BAG = not not IsInventoryItemProfessionBag
+ns.FLAG_QUST_ITEM = not not GetContainerItemQuestInfo
 
 ns.DEFAULT_STYLE = 'Blizzard'
 
