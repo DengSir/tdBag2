@@ -1,3 +1,12 @@
+# [2.0.0](https://github.com/DengSir/tdBag2/compare/v1.10.0...v2.0.0) (2021-05-20)
+
+
+### Features
+
+* support classic bcc ([076c2e2](https://github.com/DengSir/tdBag2/commit/076c2e27c7dccc441beead13408496379d20a7eb))
+
+
+
 # [1.10.0](https://github.com/DengSir/tdBag2/compare/v1.9.1...v1.10.0) (2020-12-29)
 
 
