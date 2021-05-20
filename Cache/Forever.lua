@@ -75,7 +75,7 @@ end
 function Forever:UpgradeCache()
     local database = ns.Addon.db.global.forever
 
-    if database.version and database.version >= 10200 then
+    if database.version and database.version >= 20000 then
         return
     end
 
