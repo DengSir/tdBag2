@@ -65,10 +65,39 @@ function Forever:OnInitialize()
 end
 
 function Forever:OnEnable()
+    self:UpgradeCache()
     self:SetupCache()
     self:SetupEvents()
     self:UpdateData()
     self:SendMessage('FOREVER_LOADED')
+end
+
+function Forever:UpgradeCache()
+    local database = ns.Addon.db.global.forever
+
+    if database.version and database.version >= 10200 then
+        return
+    end
+
+    database.version = ns.VERSION
+
+    local db = {}
+
+    for _, realm in ipairs(ns.REALMS) do
+        local realmDb = database[realm]
+        if realmDb then
+            database[realm] = nil
+            for name, data in pairs(realmDb) do
+                if not name:find('-', nil, true) or not data.name then
+                    data.name = format('%s-%s', name, realm)
+                    data.realm = ns.REALM
+                end
+                db[data.name] = data
+            end
+        end
+    end
+
+    database[ns.REALM] = db
 end
 
 function Forever:SetupCache()

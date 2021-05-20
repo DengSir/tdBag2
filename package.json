@@ -26,6 +26,10 @@
     "localizations": {
       "enUS": "Localization/enUS.lua",
       "zhCN": "Localization/zhCN.lua"
+    },
+    "builds": {
+      "classic": "11307",
+      "bcc": "20501"
     }
   },
   "devDependencies": {},

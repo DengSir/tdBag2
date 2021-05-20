@@ -57,7 +57,15 @@ function Addon:OnInitialize()
 end
 
 function Addon:OnEnable()
-    ns.PLAYER, ns.REALM = UnitFullName('player')
+    ns.PLAYER = format('%s-%s', UnitFullName('player'))
+    ns.REALMS = (function()
+        local realms = GetAutoCompleteRealms()
+        if realms and realms[1] then
+            return realms
+        end
+        return {(GetRealmName():gsub('%s+', ''))}
+    end)()
+    ns.REALM = ns.REALMS[1]
 
     self:SetupDatabase()
     self:ScanPluginAddons()

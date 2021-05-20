@@ -39,6 +39,10 @@ local GLOBAL_SEARCH_OWNER = '$search'
 ---@type ns
 local ns = select(2, ...)
 
+ns.VERSION = tonumber((GetAddOnMetadata('tdBag2', 'Version'):gsub('(%d+)%.?', function(x)
+    return format('%02d', tonumber(x))
+end))) or 0
+
 ns.DEFAULT_STYLE = 'Blizzard'
 
 ns.EQUIP_CONTAINER = EQUIP_CONTAINER
@@ -443,6 +447,9 @@ function ns.GetOwnerAddress(owner)
 end
 
 function ns.GetCharacterProfileKey(name, realm)
+    if name:find('-') then
+        name, realm = name:match('(.+)-(.+)')
+    end
     return format('%s - %s', name, realm)
 end
 
@@ -452,7 +459,7 @@ end
 
 function ns.GetOwnerColoredName(owner)
     local color = RAID_CLASS_COLORS[owner.class or 'PRIEST']
-    return format('|cff%02x%02x%02x%s|r', color.r * 0xFF, color.g * 0xFF, color.b * 0xFF, owner.name)
+    return format('|cff%02x%02x%02x%s|r', color.r * 0xFF, color.g * 0xFF, color.b * 0xFF, Ambiguate(owner.name, 'none'))
 end
 
 function ns.LeftButtonTip(text)
