@@ -19,6 +19,7 @@ local ContainerIDToInventoryID = ContainerIDToInventoryID
 local GetScreenHeight = GetScreenHeight
 local GetScreenWidth = GetScreenWidth
 local PlaySound = PlaySound
+local Ambiguate = Ambiguate
 
 ---- UI
 local GameTooltip = GameTooltip
@@ -61,6 +62,7 @@ ns.KEYRING_FAMILY = 9
 ns.LEFT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:228:283|t]]
 ns.RIGHT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:330:385|t]]
 
+-- @classic@
 ns.RACE_ICON_TCOORDS = {
     ['HUMAN_MALE'] = {0, 0.25, 0, 0.25},
     ['DWARF_MALE'] = {0.25, 0.5, 0, 0.25},
@@ -82,6 +84,37 @@ ns.RACE_ICON_TCOORDS = {
     ['TROLL_FEMALE'] = {0.5, 0.75, 0.75, 1.0},
     ['ORC_FEMALE'] = {0.75, 1.0, 0.75, 1.0},
 }
+-- @end-classic@
+
+-- @bcc@
+ns.RACE_ICON_TCOORDS = {
+    ['HUMAN_MALE'] = {0, 0.125, 0, 0.25},
+    ['DWARF_MALE'] = {0.125, 0.25, 0, 0.25},
+    ['GNOME_MALE'] = {0.25, 0.375, 0, 0.25},
+    ['NIGHTELF_MALE'] = {0.375, 0.5, 0, 0.25},
+
+    ['TAUREN_MALE'] = {0, 0.125, 0.25, 0.5},
+    ['SCOURGE_MALE'] = {0.125, 0.25, 0.25, 0.5},
+    ['TROLL_MALE'] = {0.25, 0.375, 0.25, 0.5},
+    ['ORC_MALE'] = {0.375, 0.5, 0.25, 0.5},
+
+    ['HUMAN_FEMALE'] = {0, 0.125, 0.5, 0.75},
+    ['DWARF_FEMALE'] = {0.125, 0.25, 0.5, 0.75},
+    ['GNOME_FEMALE'] = {0.25, 0.375, 0.5, 0.75},
+    ['NIGHTELF_FEMALE'] = {0.375, 0.5, 0.5, 0.75},
+
+    ['TAUREN_FEMALE'] = {0, 0.125, 0.75, 1.0},
+    ['SCOURGE_FEMALE'] = {0.125, 0.25, 0.75, 1.0},
+    ['TROLL_FEMALE'] = {0.25, 0.375, 0.75, 1.0},
+    ['ORC_FEMALE'] = {0.375, 0.5, 0.75, 1.0},
+
+    ['BLOODELF_MALE'] = {0.5, 0.625, 0.25, 0.5},
+    ['BLOODELF_FEMALE'] = {0.5, 0.625, 0.75, 1.0},
+
+    ['DRAENEI_MALE'] = {0.5, 0.625, 0, 0.25},
+    ['DRAENEI_FEMALE'] = {0.5, 0.625, 0.5, 0.75},
+}
+-- @end-bcc@
 
 ns.TOKENS = {20560, 20559, 20558}
 

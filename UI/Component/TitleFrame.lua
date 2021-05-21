@@ -2,10 +2,11 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/18/2019, 10:14:01 AM
-
+--
 local format = string.format
 
 local IsAltKeyDown = IsAltKeyDown
+local Ambiguate = Ambiguate
 
 ---@type ns
 local ns = select(2, ...)
@@ -67,7 +68,7 @@ function TitleFrame:OnClick(button)
 end
 
 function TitleFrame:Update()
-    local title = format(self.meta.title, Cache:GetOwnerInfo(self.meta.owner).name)
+    local title = format(self.meta.title, Ambiguate(Cache:GetOwnerInfo(self.meta.owner).name, 'none'))
     if self.meta.sets.textOffline and self.meta:IsCached() and not self.meta:IsGlobalSearch() then
         title = title .. ' ' .. L['|cffff2020(Offline)|r']
     end
