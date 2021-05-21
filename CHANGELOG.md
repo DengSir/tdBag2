@@ -1,3 +1,12 @@
+## [2.0.2](https://github.com/DengSir/tdBag2/compare/v2.0.1...v2.0.2) (2021-05-21)
+
+
+### Bug Fixes
+
+* race coords ([8550889](https://github.com/DengSir/tdBag2/commit/8550889faf2113d0af0411c9f17fa2f5f88919df))
+
+
+
 ## [2.0.1](https://github.com/DengSir/tdBag2/compare/v2.0.0...v2.0.1) (2021-05-21)
 
 
