@@ -12,8 +12,6 @@ local tinsert = table.insert
 local tDeleteItem = tDeleteItem
 
 local PlaySound = PlaySound
-local ShowUIPanel = ShowUIPanel
-local HideUIPanel = HideUIPanel
 local CreateFrame = CreateFrame
 
 local UISpecialFrames = UISpecialFrames
@@ -89,7 +87,7 @@ function Frame:UpdateManaged()
 
     local shown = self:IsShown()
     if shown then
-        HideUIPanel(self)
+        ns.HideUIPanel(self)
     end
 
     self:SetAttribute('UIPanelLayout-enabled', managed)
@@ -99,7 +97,7 @@ function Frame:UpdateManaged()
     self:SetAttribute('UIPanelLayout-pushable', managed and 1)
 
     if shown then
-        ShowUIPanel(self)
+        ns.ShowUIPanel(self)
     end
 
     self:UpdateSpecial()

@@ -7,8 +7,6 @@
 local ipairs, pairs, nop, tinsert, sort = ipairs, pairs, nop, tinsert, sort
 
 ---- WOW
-local ShowUIPanel = ShowUIPanel
-local HideUIPanel = HideUIPanel
 local CreateFrame = CreateFrame
 local GetItemClassInfo = GetItemClassInfo
 local GetNumAddOns = GetNumAddOns
@@ -316,14 +314,14 @@ function Addon:ShowFrame(bagId, manual)
     local frame = self:GetFrame(bagId) or self:CreateFrame(bagId)
     if frame and not frame:IsShown() then
         frame.manual = manual
-        ShowUIPanel(frame)
+        ns.ShowUIPanel(frame)
     end
 end
 
 function Addon:HideFrame(bagId, manual)
     local frame = self:GetFrame(bagId)
     if frame and (manual or not frame.manual) then
-        HideUIPanel(frame)
+        ns.HideUIPanel(frame)
     end
 end
 

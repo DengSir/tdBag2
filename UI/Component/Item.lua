@@ -68,7 +68,7 @@ function Item:Create()
         index = index + 1
 
         local i = floor(index / MAX_CONTAINER_ITEMS) + 1
-        local j = index % MAX_CONTAINER_ITEMS + 1
+        local j = (index - 1) % MAX_CONTAINER_ITEMS + 1
         local item = _G[format('ContainerFrame%dItem%d', i, j)]
         if item then
             return Item:Bind(item)

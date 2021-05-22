@@ -42,6 +42,7 @@ local ITEM_STARTS_QUEST = ITEM_STARTS_QUEST
 local LE_ITEM_CLASS_QUESTITEM = LE_ITEM_CLASS_QUESTITEM
 local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON
 local TEXTURE_ITEM_QUEST_BANG = TEXTURE_ITEM_QUEST_BANG
+local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
 
 ---@type ns
 local ns = select(2, ...)
@@ -351,7 +352,9 @@ function ItemBase:GetBorderColor()
         elseif sets.glowUnusable and self:IsUnusable() then
             return 1, 0.1, 0.1
         elseif sets.glowQuality and quality and quality > LE_ITEM_QUALITY_COMMON then
-            return GetItemQualityColor(quality)
+            local color = ITEM_QUALITY_COLORS[quality]
+            return color.r, color.g, color.b
+            -- return GetItemQualityColor(quality)
         end
     end
 end
@@ -360,9 +363,12 @@ function ItemBase:IsCached()
     return self.info and self.info.cached
 end
 
+local IsQuestItem = ns.memorize(function(link)
+    return select(12, GetItemInfo(link)) == LE_ITEM_CLASS_QUESTITEM or Search:ForQuest(link) or false
+end)
+
 function ItemBase:IsQuestItem()
-    return self.hasItem and
-               (select(12, GetItemInfo(self.info.id)) == LE_ITEM_CLASS_QUESTITEM or Search:ForQuest(self.info.link))
+    return self.hasItem and IsQuestItem(self.info.link)
 end
 
 function ItemBase:IsQuestStarter()
