@@ -1,3 +1,12 @@
+## [2.0.3](https://github.com/DengSir/tdBag2/compare/v2.0.2...v2.0.3) (2021-05-22)
+
+
+### Bug Fixes
+
+* open bag in combat ([541fb79](https://github.com/DengSir/tdBag2/commit/541fb79dd79a109412b920d6bce03e8499792526))
+
+
+
 ## [2.0.2](https://github.com/DengSir/tdBag2/compare/v2.0.1...v2.0.2) (2021-05-21)
 
 
