@@ -1,3 +1,12 @@
+## [2.0.4](https://github.com/DengSir/tdBag2/compare/v2.0.3...v2.0.4) (2021-05-26)
+
+
+### Bug Fixes
+
+* error ([8f5b17d](https://github.com/DengSir/tdBag2/commit/8f5b17d54ce058c0f5921dba8ebdc273e00fc73c))
+
+
+
 ## [2.0.3](https://github.com/DengSir/tdBag2/compare/v2.0.2...v2.0.3) (2021-05-22)
 
 
