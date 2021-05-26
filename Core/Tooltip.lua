@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/24/2019, 1:03:40 PM
-
+--
 ---- LUA
 local ipairs, select = ipairs, select
 local tinsert, tconcat = table.insert, table.concat
@@ -92,7 +92,7 @@ function Tooltip:AddOwners(tip, item)
         local info = self:GetOwnerItemInfo(owner, item)
         if info and info.total then
             local r, g, b = info.color.r, info.color.g, info.color.b
-            tip:AddDoubleLine(info.name, info.text, r, g, b, r, g, b)
+            tip:AddDoubleLine(Ambiguate(info.name, 'none'), info.text, r, g, b, r, g, b)
             owners = owners + 1
             total = total + info.total
         end

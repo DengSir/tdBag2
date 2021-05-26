@@ -68,7 +68,8 @@ function TitleFrame:OnClick(button)
 end
 
 function TitleFrame:Update()
-    local title = format(self.meta.title, Ambiguate(Cache:GetOwnerInfo(self.meta.owner).name, 'none'))
+    local name = Cache:GetOwnerInfo(self.meta.owner).name
+    local title = name and format(self.meta.title, Ambiguate(name, 'none')) or self.meta.title
     if self.meta.sets.textOffline and self.meta:IsCached() and not self.meta:IsGlobalSearch() then
         title = title .. ' ' .. L['|cffff2020(Offline)|r']
     end
