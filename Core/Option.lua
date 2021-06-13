@@ -300,6 +300,7 @@ function Addon:SetupOptionFrame()
                 separator1 = separator(),
                 colorHeader = header(L['Slot Colors']),
                 colorSlots = fullToggle(L['Color Empty Slots by Bag Type']),
+                emptyAlpha = fullRange(L['Empty Slot Brightness'], 0, 1),
                 colors = {
                     type = 'group',
                     inline = true,
@@ -324,10 +325,15 @@ function Addon:SetupOptionFrame()
                         colorSoul = color(L['Soul Color']),
                         colorEnchant = color(L['Enchanting Color']),
                         colorHerb = color(L['Herbalism Color']),
+                        --[[@non-classic@
+                        colorLeather = color(L['Leatherworking Color']),
+                        colorEngineer = color(L['Engineering Color']),
+                        colorGems = color(L['Gems Color']),
+                        colorMine = color(L['Mining Color']),
+                        --@end-non-classic@]]
                         colorKeyring = color(L['Keyring Color']),
                     },
                 },
-                emptyAlpha = fullRange(L['Empty Slot Brightness'], 0, 1),
             }),
             display = treeItem(L['Auto Display'], {
                 desc = desc(L.DESC_DISPLAY),

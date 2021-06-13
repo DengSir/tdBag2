@@ -213,6 +213,7 @@ ns.DEFAULT_WATCHES = { --
     SHAMAN = {17057, 17058},
 }
 
+-- @classic@
 ns.BAG_FAMILY_KEYS = { --
     [1] = 'colorQuiver',
     [2] = 'colorQuiver',
@@ -222,6 +223,21 @@ ns.BAG_FAMILY_KEYS = { --
     [7] = 'colorEnchant',
     [9] = 'colorKeyring',
 }
+-- @end-classic@
+--[[@non-classic@
+ns.BAG_FAMILY_KEYS = { --
+    [1] = 'colorQuiver',
+    [2] = 'colorQuiver',
+    [4] = 'colorSoul',
+    [8] = 'colorLeather',
+    [32] = 'colorHerb',
+    [64] = 'colorEnchant',
+    [128] = 'colorEngineer',
+    [256] = 'colorKeyring',
+    [512] = 'colorGems',
+    [1024] = 'colorMine',
+}
+--@end-classic@]]
 
 ns.TRADE_BAG_ORDER = { --
     NONE = 'none',
@@ -379,6 +395,13 @@ ns.PROFILE = {
         colorEnchant = {r = 0.64, g = 0.83, b = 1},
         colorHerb = {r = 0.5, g = 1, b = 0.5},
         colorKeyring = {r = 1, g = 0.67, b = 0.95},
+        --[[@non-classic@
+        colorLeather = {r = 0.98, g = 0.44, b = 0.44},
+        colorEngineer = {r = 0.96, g = 1, b = 0},
+        colorGems = {r = 0.32, g = 0.61, b = 1},
+        colorMine = {r = 0.96, g = 0.27, b = 0.90},
+        --@end-non-classic@]]
+
         emptyAlpha = 0.9,
 
         searches = {first = true},

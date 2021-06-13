@@ -1,4 +1,3 @@
-
 local L = LibStub('AceLocale-3.0'):NewLocale(..., 'enUS', true)
 if not L then
     return
@@ -117,6 +116,10 @@ L['Soul Color'] = true
 L['Enchanting Color'] = true
 L['Herbalism Color'] = true
 L['Keyring Color'] = true
+L['Leatherworking Color'] = true
+L['Engineering Color'] = true
+L['Gems Color'] = true
+L['Mining Color'] = true
 L['Empty Slot Brightness'] = true
 
 L['Plugin Buttons'] = true
