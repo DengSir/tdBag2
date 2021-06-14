@@ -319,20 +319,27 @@ function Addon:SetupOptionFrame()
                         color.r, color.g, color.b = ...
                         fireGlobalKey(key)
                     end,
-                    args = {
-                        colorNormal = color(L['Normal Color']),
-                        colorQuiver = color(L['Quiver Color']),
-                        colorSoul = color(L['Soul Color']),
-                        colorEnchant = color(L['Enchanting Color']),
-                        colorHerb = color(L['Herbalism Color']),
-                        --[[@non-classic@
-                        colorLeather = color(L['Leatherworking Color']),
-                        colorEngineer = color(L['Engineering Color']),
-                        colorGems = color(L['Gems Color']),
-                        colorMine = color(L['Mining Color']),
-                        --@end-non-classic@]]
-                        colorKeyring = color(L['Keyring Color']),
-                    },
+                    -- args = {
+                    --     colorNormal = color(L['Normal Color']),
+                    --     colorQuiver = color(L['Quiver Color']),
+                    --     colorSoul = color(L['Soul Color']),
+                    --     colorEnchant = color(L['Enchanting Color']),
+                    --     colorHerb = color(L['Herbalism Color']),
+                    --     --[[@non-classic@
+                    --     colorLeather = color(L['Leatherworking Color']),
+                    --     colorEngineer = color(L['Engineering Color']),
+                    --     colorGems = color(L['Gems Color']),
+                    --     colorMine = color(L['Mining Color']),
+                    --     --@end-non-classic@]]
+                    --     colorKeyring = color(L['Keyring Color']),
+                    -- },
+                    args = (function()
+                        local args = {}
+                        for _, v in ipairs(ns.BAG_FAMILIES) do
+                            args[v.key] = color(v.name)
+                        end
+                        return args
+                    end)(),
                 },
             }),
             display = treeItem(L['Auto Display'], {
