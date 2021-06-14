@@ -1,3 +1,17 @@
+## [2.0.5](https://github.com/DengSir/tdBag2/compare/v2.0.4...v2.0.5) (2021-06-14)
+
+
+### Bug Fixes
+
+* update portrait ([0890d43](https://github.com/DengSir/tdBag2/commit/0890d43aa7e8a814d13917a1337c85c48e5380f2))
+
+
+### Features
+
+* support more SPECIAL bags ([fb33ef9](https://github.com/DengSir/tdBag2/commit/fb33ef920d037d580012819ef447a429111586dd))
+
+
+
 ## [2.0.4](https://github.com/DengSir/tdBag2/compare/v2.0.3...v2.0.4) (2021-05-26)
 
 
