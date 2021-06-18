@@ -13,3 +13,6 @@
 [submodule "Libs/LibJunk-1.0"]
 	path = Libs/LibJunk-1.0
 	url = https://github.com/DengSir/LibJunk-1.0.git
+[submodule "Libs/LibShowUIPanel-1.0"]
+	path = Libs/LibShowUIPanel-1.0
+	url = https://github.com/DengSir/LibShowUIPanel-1.0.git
