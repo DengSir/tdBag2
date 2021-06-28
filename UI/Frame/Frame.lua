@@ -34,6 +34,13 @@ function Frame:Constructor(_, meta)
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)
 
+    local close = assert(self.Close or self.CloseButton)
+    if close then
+        close:SetScript('OnClick', function()
+            return ns.HideUIPanel(self)
+        end)
+    end
+
     self:UpdateManaged()
     self:UpdateSpecial()
 end
