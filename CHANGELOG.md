@@ -1,3 +1,12 @@
+## [2.0.6](https://github.com/DengSir/tdBag2/compare/v2.0.5...v2.0.6) (2021-07-02)
+
+
+### Bug Fixes
+
+* press close button in combat ([0d6fb67](https://github.com/DengSir/tdBag2/commit/0d6fb671474bc2a101f9350c2a86079a13311a63))
+
+
+
 ## [2.0.5](https://github.com/DengSir/tdBag2/compare/v2.0.4...v2.0.5) (2021-06-14)
 
 
