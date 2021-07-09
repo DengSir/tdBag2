@@ -28,7 +28,7 @@ Tooltip.APIS = {
     'SetMerchantItem', 'SetBuybackItem', 'SetBagItem', 'SetAuctionItem', 'SetAuctionSellItem', 'SetLootItem',
     'SetLootRollItem', 'SetInventoryItem', 'SetTradePlayerItem', 'SetTradeTargetItem', 'SetQuestItem',
     'SetQuestLogItem', 'SetInboxItem', 'SetSendMailItem', 'SetHyperlink', 'SetCraftItem', 'SetTradeSkillItem',
-    'SetAction', 'SetItemByID',
+    'SetAction', 'SetItemByID', 'SetMerchantCostItem',
 }
 Tooltip.EMPTY = {}
 Tooltip.CACHED_EMPTY = {cached = true}
