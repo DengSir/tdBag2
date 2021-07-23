@@ -88,9 +88,9 @@ function Current:GetItemInfo(bag, slot)
     ---@type tdBag2CacheItemData
     local data = {}
     if ns.IsContainerBag(bag) then
-        local _
-        data.icon, data.count, data.locked, data.quality, data.readable, _, data.link, _, _, data.id =
-            GetContainerItemInfo(bag, slot)
+        data.id = GetContainerItemID(bag, slot)
+        data.link = GetContainerItemLink(bag, slot)
+        data.icon, data.count, data.locked, data.quality, data.readable = GetContainerItemInfo(bag, slot)
     elseif ns.IsEquip(bag) then
         data.link = GetInventoryItemLink('player', slot)
         data.icon = GetInventoryItemTexture('player', slot)

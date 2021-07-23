@@ -228,7 +228,8 @@ function Forever:SaveBag(bag)
         items.family = not ns.IsBaseBag(bag) and select(2, GetContainerNumFreeSlots(bag)) or nil
 
         for slot = 1, size do
-            local _, count, _, _, _, _, link = GetContainerItemInfo(bag, slot)
+            local link = GetContainerItemLink(bag, slot)
+            local _, count = GetContainerItemInfo(bag, slot)
             items[slot] = self:ParseItem(link, count)
         end
     end

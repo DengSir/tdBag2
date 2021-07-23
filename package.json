@@ -23,6 +23,7 @@
   "wow": {
     "name": "tdBag2",
     "curse_id": 349175,
+    "changelog": "CHANGELOG.md",
     "localizations": {
       "enUS": "Localization/enUS.lua",
       "zhCN": "Localization/zhCN.lua"
