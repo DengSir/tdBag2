@@ -1,3 +1,13 @@
+## [2.0.8](https://github.com/DengSir/tdBag2/compare/v2.0.7...v2.0.8) (2021-07-23)
+
+
+### Bug Fixes
+
+* never read link from GetContainerItemInfo ([29ff578](https://github.com/DengSir/tdBag2/commit/29ff57887e1e188482a19baa0a85ec2f81f3b2cc))
+* 商人界面的货币不显示数量 ([57149e2](https://github.com/DengSir/tdBag2/commit/57149e2655961b40a9e2b25d74b684f7d377347e))
+
+
+
 ## [2.0.7](https://github.com/DengSir/tdBag2/compare/v2.0.6...v2.0.7) (2021-07-02)
 
 
