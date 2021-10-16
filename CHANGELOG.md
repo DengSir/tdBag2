@@ -1,3 +1,12 @@
+## [2.0.10](https://github.com/DengSir/tdBag2/compare/v2.0.8...v2.0.10) (2021-10-16)
+
+
+### Features
+
+* tooltip support more ([547c923](https://github.com/DengSir/tdBag2/commit/547c9235c78e397c054d4311cfab0045238476a4))
+
+
+
 ## [2.0.9](https://github.com/DengSir/tdBag2/compare/v2.0.8...v2.0.9) (2021-10-11)
 
 
