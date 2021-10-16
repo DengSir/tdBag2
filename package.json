@@ -29,7 +29,7 @@
       "zhCN": "Localization/zhCN.lua"
     },
     "builds": {
-      "classic": "11307",
+      "classic": "11400",
       "bcc": "20502"
     }
   },
