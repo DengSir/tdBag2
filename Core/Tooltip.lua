@@ -28,7 +28,8 @@ Tooltip.APIS = {
     'SetMerchantItem', 'SetBuybackItem', 'SetBagItem', 'SetAuctionItem', 'SetAuctionSellItem', 'SetLootItem',
     'SetLootRollItem', 'SetInventoryItem', 'SetTradePlayerItem', 'SetTradeTargetItem', 'SetQuestItem',
     'SetQuestLogItem', 'SetInboxItem', 'SetSendMailItem', 'SetHyperlink', 'SetCraftItem', 'SetTradeSkillItem',
-    'SetAction', 'SetItemByID', 'SetMerchantCostItem',
+    'SetAction', 'SetItemByID', 'SetMerchantCostItem', 'SetGuildBankItem', 'SetExistingSocketGem', 'SetSocketGem',
+    'SetSocketedItem',
 }
 Tooltip.EMPTY = {}
 Tooltip.CACHED_EMPTY = {cached = true}
@@ -64,8 +65,11 @@ function Tooltip:HookTip(tip)
         self:SecureHook(tip, api, 'OnTooltipItem')
     end
 
-    for _, shoppingTip in ipairs(tip.shoppingTooltips) do
-        self:SecureHook(shoppingTip, 'SetCompareItem', 'OnCompareItem')
+    if tip.shoppingTooltips then
+        for _, shoppingTip in ipairs(tip.shoppingTooltips) do
+            self:SecureHook(shoppingTip, 'SetCompareItem', 'OnCompareItem')
+            self:HookTip(shoppingTip)
+        end
     end
 end
 

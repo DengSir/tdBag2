@@ -202,10 +202,10 @@ end
 
 function Forever:ParseItem(link, count, timeout)
     if link then
-        if link:find('0:0:0:0:0:%d+:%d+:%d+:0:0') then
-            link = link:match('|H%l+:(%d+)')
+        if link:find('0:0:0:0:0:-?%d+:-?%d+:-?%d+:0:0') then
+            link = link:match('|H%l+:(-?%d+)')
         else
-            link = link:match('|H%l+:([%d:]+)')
+            link = link:match('|H%l+:([%d:-]+)')
         end
 
         local count = count and count > 1 and count or nil
