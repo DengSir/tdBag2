@@ -479,8 +479,8 @@ function ns.AnchorTooltip(frame)
     end
 end
 
-function ns.AnchorTooltip2(frame, anchor, x, y)
-    GameTooltip:SetOwner(frame, 'ANCHOR_NONE')
+function ns.AnchorTooltip2(frame, anchor, x, y, owner)
+    GameTooltip:SetOwner(owner or frame, 'ANCHOR_NONE')
     if frame:GetTop() > (GetScreenHeight() / 2) then
         GameTooltip:SetPoint('TOP' .. anchor, frame, 'BOTTOM' .. anchor, x, y)
     else
