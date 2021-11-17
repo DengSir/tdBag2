@@ -1,3 +1,13 @@
+## [2.0.11](https://github.com/DengSir/tdBag2/compare/v2.0.10...v2.0.11) (2021-11-17)
+
+
+### Features
+
+* support classic ([0fcffda](https://github.com/DengSir/tdBag2/commit/0fcffdab713d99e1cd6dbe7e7e1cd48d0e527355))
+* tooltip in watch frame will show all watched items ([57314f2](https://github.com/DengSir/tdBag2/commit/57314f2b37ac4ab5b6401d646f8db86915b6d3fd))
+
+
+
 ## [2.0.10](https://github.com/DengSir/tdBag2/compare/v2.0.8...v2.0.10) (2021-10-16)
 
 
