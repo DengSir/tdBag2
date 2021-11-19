@@ -65,15 +65,8 @@ function Token:TooltipAll()
         local name, _, quality = GetItemInfo(watch.itemId)
         local icon = GetItemIcon(watch.itemId)
         local title = format('|T%s:14|t ', icon) .. (name or ('item:' .. watch.itemId))
-        local count = 0
+        local _, count = ns.Tooltip:GetCounts(ns.Counter:GetOwnerItemCount(owner, watch.itemId))
         local r, g, b = 1, 1, 1
-
-        if watch.watchAll then
-            count = ns.Counter:GetOwnerItemTotal(owner, watch.itemId)
-        else
-            local counts = ns.Counter:GetOwnerItemCount(owner, watch.itemId)
-            count = counts and counts[2] or 0
-        end
 
         if quality then
             r, g, b = GetItemQualityColor(quality)

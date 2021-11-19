@@ -25,11 +25,30 @@ local Counter = ns.Counter
 ---@type tdBag2Tooltip
 local Tooltip = ns.Addon:NewModule('Tooltip', 'AceHook-3.0')
 Tooltip.APIS = {
-    'SetMerchantItem', 'SetBuybackItem', 'SetBagItem', 'SetAuctionItem', 'SetAuctionSellItem', 'SetLootItem',
-    'SetLootRollItem', 'SetInventoryItem', 'SetTradePlayerItem', 'SetTradeTargetItem', 'SetQuestItem',
-    'SetQuestLogItem', 'SetInboxItem', 'SetSendMailItem', 'SetHyperlink', 'SetCraftItem', 'SetTradeSkillItem',
-    'SetAction', 'SetItemByID', 'SetMerchantCostItem', 'SetGuildBankItem', 'SetExistingSocketGem', 'SetSocketGem',
+    'SetMerchantItem',
+    'SetBuybackItem',
+    'SetBagItem',
+    'SetAuctionItem',
+    'SetAuctionSellItem',
+    'SetLootItem',
+    'SetLootRollItem',
+    'SetInventoryItem',
+    'SetTradePlayerItem',
+    'SetTradeTargetItem',
+    'SetQuestItem',
+    'SetQuestLogItem',
+    'SetInboxItem',
+    'SetSendMailItem',
+    'SetHyperlink',
+    'SetTradeSkillItem',
+    'SetAction',
+    'SetItemByID',
+    'SetMerchantCostItem',
+    'SetGuildBankItem',
+    'SetExistingSocketGem',
+    'SetSocketGem',
     'SetSocketedItem',
+    SetCraftItem = true,
 }
 Tooltip.EMPTY = {}
 Tooltip.CACHED_EMPTY = {cached = true}
@@ -61,9 +80,18 @@ end
 Tooltip.OnEnable = Tooltip.Update
 
 function Tooltip:HookTip(tip)
-    for _, api in ipairs(self.APIS) do
+    local api, handler
+    for k, v in pairs(self.APIS) do
+        if type(k) == 'number' then
+            api, handler = v, 'OnTooltipItem'
+        elseif type(v) == 'string' then
+            api, handler = k, v
+        else
+            api, handler = k, k
+        end
+
         if tip[api] then
-            self:SecureHook(tip, api, 'OnTooltipItem')
+            self:SecureHook(tip, api, handler)
         end
     end
 
@@ -80,11 +108,23 @@ function Tooltip:OnCompareItem(tip1, tip2)
     self:OnTooltipItem(tip2)
 end
 
-function Tooltip:OnTooltipItem(tip)
+function Tooltip:SetCraftItem(tip, index, slot)
+    if not slot then
+        return self:OnItem(tip, GetCraftItemLink(index))
+    else
+        return self:OnItem(tip, GetCraftReagentItemLink(index, slot))
+    end
+end
+
+function Tooltip:OnTooltipItem(tip, itemId)
     local _, item = tip:GetItem()
     if not item then
         return
     end
+    self:OnItem(tip, item)
+end
+
+function Tooltip:OnItem(tip, item)
     local itemId = tonumber(item and item:match('item:(%d+)'))
     if itemId and itemId ~= HEARTHSTONE_ITEM_ID then
         self:AddOwners(tip, itemId)
