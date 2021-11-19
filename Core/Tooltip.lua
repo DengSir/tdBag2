@@ -58,7 +58,8 @@ Tooltip.SPACES = {
     L['Inventory'], --
     L['Bank'], --
     L['Mail'], --
-    L['COD'],
+    L['COD'], --
+    'Guild Bank',
 }
 
 function Tooltip:OnInitialize()
@@ -175,6 +176,7 @@ end
 
 function Tooltip:GetOwnerItemInfo(owner, itemId)
     local info = Cache:GetOwnerInfo(owner)
+    dump(owner, info)
     local total, text = self:GetCounts(Counter:GetOwnerItemCount(owner, itemId))
     local item
     if total then
@@ -182,7 +184,7 @@ function Tooltip:GetOwnerItemInfo(owner, itemId)
             name = info.name,
             text = text,
             total = total,
-            color = RAID_CLASS_COLORS[info.class or 'PRIEST'],
+            color = info.guild and NORMAL_FONT_COLOR or RAID_CLASS_COLORS[info.class or 'PRIEST'],
             cached = info.cached,
         }
     elseif info.cached then

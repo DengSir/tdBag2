@@ -137,6 +137,9 @@ local BAG_ID = { --
     MAIL = 'mail',
     EQUIP = 'equip',
     SEARCH = 'global-search',
+    -- @bcc@
+    GUILDBANK = 'guild',
+    -- @end-bcc@
 }
 
 local BAG_ICONS = { --
@@ -161,6 +164,9 @@ local BAGS = { --
     [BAG_ID.MAIL] = {MAIL_CONTAINER, COD_CONTAINER},
     [BAG_ID.EQUIP] = {EQUIP_CONTAINER},
     [BAG_ID.SEARCH] = {},
+    -- @bcc@
+    [BAG_ID.GUILDBANK] = {},
+    -- @end-bcc@
 }
 
 local BAG_CLASSES = {
@@ -197,6 +203,12 @@ do
             BAG_SETS[bag] = bagId
         end
     end
+
+    -- @bcc@
+    for i = 1, MAX_GUILDBANK_TABS do
+        tinsert(BAGS[BAG_ID.GUILDBANK], 50 + i)
+    end
+    -- @end-bcc@
 end
 
 ns.BAG_ID = BAG_ID
@@ -490,6 +502,21 @@ end
 
 function ns.GetOwnerAddress(owner)
     return ns.REALM, owner or ns.PLAYER, owner == GLOBAL_SEARCH_OWNER
+end
+
+function ns.GetCurrentGuildKey()
+    local name, _, _, realm = GetGuildInfo('player')
+    if not name then
+        return
+    end
+    if not realm then
+        realm = GetRealmName()
+    end
+    return format('@%s-%s', name, realm)
+end
+
+function ns.IsGuildKey(key)
+    return key and key:find('^@')
 end
 
 function ns.GetCharacterProfileKey(name, realm)

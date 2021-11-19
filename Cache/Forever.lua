@@ -114,18 +114,45 @@ function Forever:SetupCache()
     self.player.race = select(2, UnitRace('player'))
     self.player.gender = UnitSex('player')
 
+    self:RefreshOwners()
+end
+
+function Forever:RefreshOwners()
     local owners = {}
+    local guilds = {}
+
     for k in pairs(self.realm) do
         if k ~= ns.PLAYER then
-            tinsert(owners, k)
+            if not ns.IsGuildKey(k) then
+                tinsert(owners, k)
+            else
+                tinsert(guilds, k)
+            end
         end
     end
     sort(owners, function(a, b)
-        return self.realm[a].money > self.realm[b].money
+        return (self.realm[a].money or 0) > (self.realm[b].money or 0)
     end)
     tinsert(owners, 1, ns.PLAYER)
 
+    for _, k in ipairs(guilds) do
+        tinsert(owners, k)
+    end
+
     self.owners = owners
+end
+
+function Forever:GetGuildCache()
+    local key = ns.GetCurrentGuildKey()
+    if not key then
+        return
+    end
+
+    if not self.realm[key] then
+        self.realm[key] = {guild = true, faction = UnitFactionGroup('player')}
+        self:RefreshOwners()
+    end
+    return self.realm[key]
 end
 
 function Forever:SetupEvents()
@@ -137,6 +164,8 @@ function Forever:SetupEvents()
     self:RegisterEvent('MAIL_SHOW')
     self:RegisterEvent('MAIL_CLOSED')
     self:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
+    self:RegisterEvent('GUILDBANKFRAME_CLOSED')
+    self:RegisterEvent('GUILDBANKFRAME_OPENED')
 end
 
 function Forever:UpdateData()
@@ -168,6 +197,21 @@ function Forever:BANKFRAME_CLOSED()
         self.atBank = nil
     end
     self:SendMessage('BANK_CLOSED')
+end
+
+function Forever:GUILDBANKFRAME_OPENED()
+    self.atGuildBank = true
+    self.Cacher:RemoveCache(ns.REALM, ns.GetCurrentGuildKey())
+    self:SendMessage('GUILDBANK_OPENED')
+end
+
+function Forever:GUILDBANKFRAME_CLOSED()
+    if self.atGuildBank then
+        self:SaveGuild()
+        self.Cacher:RemoveCache(ns.REALM, ns.GetCurrentGuildKey())
+        self.atGuildBank = nil
+    end
+    self:SendMessage('GUILDBANK_CLOSED')
 end
 
 function Forever:MAIL_SHOW()
@@ -279,6 +323,22 @@ function Forever:SaveMail()
     self.Cacher:RemoveCache(ns.REALM, ns.PLAYER, COD_CONTAINER)
 end
 
+function Forever:SaveGuild()
+    local guild = self:GetGuildCache()
+    for i = 1, GetNumGuildBankTabs() do
+        local items = {}
+        items.size = 98
+
+        for j = 1, 98 do
+            local link = GetGuildBankItemLink(i, j)
+            local _, count = GetGuildBankItemInfo(i, j)
+            items[j] = self:ParseItem(link, count)
+        end
+
+        guild[i + 50] = items
+    end
+end
+
 function Forever:FindData(...)
     local db = self.db
     for i = 1, select('#', ...) do
@@ -306,6 +366,7 @@ function Forever:GetOwnerInfo(realm, name)
         data.race = ownerData.race
         data.gender = ownerData.gender
         data.money = ownerData.money
+        data.guild = ownerData.guild
         return data
     end
     return NO_RESULT
