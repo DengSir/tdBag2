@@ -267,6 +267,7 @@ function Addon:SetupOptionFrame()
                 generalHeader = header(GENERAL),
                 lockFrame = fullToggle(L['Lock Frames']),
                 tipCount = fullToggle(L['Show Item Count in Tooltip']),
+                tipCountGuild = fullToggle(L['Show Guild Bank Count in Tooltip']),
                 appearanceHeader = header(L['Appearance']),
                 style = drop(L['Bag Style'], function()
                     local values = {}

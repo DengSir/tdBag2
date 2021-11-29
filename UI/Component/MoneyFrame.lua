@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/19/2019, 1:52:03 AM
-
+--
 ---- LUA
 local _G = _G
 local select = select
@@ -82,7 +82,7 @@ function MoneyFrame:OnEnter()
     local total = 0
     for _, name in ipairs(Cache:GetOwners()) do
         local owner = Cache:GetOwnerInfo(name)
-        if not owner.isguild and owner.money then
+        if owner.money then
             local name = ns.GetOwnerColoredName(owner)
             local coins = GetMoneyString(owner.money, true)
 

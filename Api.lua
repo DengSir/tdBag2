@@ -376,6 +376,7 @@ ns.PROFILE = {
         iconQuestStarter = true,
         textOffline = true,
         tipCount = true,
+        tipCountGuild = true,
         remainLimit = 0,
 
         colorSlots = true,
@@ -422,6 +423,18 @@ familyColor(512, 'colorGems', L['Gems Color'], {r = 0.32, g = 0.61, b = 1})
 familyColor(512, 'colorMine', L['Mining Color'], {r = 0.96, g = 0.27, b = 0.90})
 familyColor(256, 'colorKeyring', L['Keyring Color'], {r = 1, g = 0.67, b = 0.95})
 --@end-non-classic@]]
+
+function ns.memorize(func)
+    local cache = {}
+    return function(arg1, ...)
+        local value = cache[arg1]
+        if value == nil then
+            value = func(arg1, ...)
+            cache[arg1] = value
+        end
+        return value
+    end
+end
 
 function ns.GetBags(bagId)
     return BAGS[bagId]
@@ -504,7 +517,7 @@ function ns.GetOwnerAddress(owner)
     return ns.REALM, owner or ns.PLAYER, owner == GLOBAL_SEARCH_OWNER
 end
 
-function ns.GetCurrentGuildKey()
+function ns.GetCurrentGuildOwner()
     local name, _, _, realm = GetGuildInfo('player')
     if not name then
         return
@@ -515,9 +528,10 @@ function ns.GetCurrentGuildKey()
     return format('@%s-%s', name, realm)
 end
 
-function ns.IsGuildKey(key)
+function ns.IsGuildOwner(key)
     return key and key:find('^@')
 end
+ns.IsGuildOwner = ns.memorize(ns.IsGuildOwner)
 
 function ns.GetCharacterProfileKey(name, realm)
     if name:find('-') then
@@ -613,18 +627,6 @@ function ns.safeipairs(t)
         return ipairs(t)
     else
         return nop
-    end
-end
-
-function ns.memorize(func)
-    local cache = {}
-    return function(arg1, ...)
-        local value = cache[arg1]
-        if value == nil then
-            value = func(arg1, ...)
-            cache[arg1] = value
-        end
-        return value
     end
 end
 

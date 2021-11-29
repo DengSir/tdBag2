@@ -123,7 +123,7 @@ function Forever:RefreshOwners()
 
     for k in pairs(self.realm) do
         if k ~= ns.PLAYER then
-            if not ns.IsGuildKey(k) then
+            if not ns.IsGuildOwner(k) then
                 tinsert(owners, k)
             else
                 tinsert(guilds, k)
@@ -143,7 +143,7 @@ function Forever:RefreshOwners()
 end
 
 function Forever:GetGuildCache()
-    local key = ns.GetCurrentGuildKey()
+    local key = ns.GetCurrentGuildOwner()
     if not key then
         return
     end
@@ -201,14 +201,14 @@ end
 
 function Forever:GUILDBANKFRAME_OPENED()
     self.atGuildBank = true
-    self.Cacher:RemoveCache(ns.REALM, ns.GetCurrentGuildKey())
+    self.Cacher:RemoveCache(ns.REALM, ns.GetCurrentGuildOwner())
     self:SendMessage('GUILDBANK_OPENED')
 end
 
 function Forever:GUILDBANKFRAME_CLOSED()
     if self.atGuildBank then
         self:SaveGuild()
-        self.Cacher:RemoveCache(ns.REALM, ns.GetCurrentGuildKey())
+        self.Cacher:RemoveCache(ns.REALM, ns.GetCurrentGuildOwner())
         self.atGuildBank = nil
     end
     self:SendMessage('GUILDBANK_CLOSED')

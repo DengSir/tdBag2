@@ -59,7 +59,7 @@ Tooltip.SPACES = {
     L['Bank'], --
     L['Mail'], --
     L['COD'], --
-    'Guild Bank',
+    L['Guild bank'],
 }
 
 function Tooltip:OnInitialize()
@@ -133,15 +133,26 @@ function Tooltip:OnItem(tip, item)
     end
 end
 
+function Tooltip:FormatName(info)
+    if info.guild then
+        return Ambiguate(info.name:sub(2), 'none')
+    else
+        return Ambiguate(info.name, 'none')
+    end
+end
+
 function Tooltip:AddOwners(tip, item)
     local owners, total = 0, 0
     for _, owner in ipairs(Cache:GetOwners()) do
-        local info = self:GetOwnerItemInfo(owner, item)
-        if info and info.total then
-            local r, g, b = info.color.r, info.color.g, info.color.b
-            tip:AddDoubleLine(Ambiguate(info.name, 'none'), info.text, r, g, b, r, g, b)
-            owners = owners + 1
-            total = total + info.total
+        if ns.Addon.db.profile.tipCountGuild or not ns.IsGuildOwner(owner) then
+            local info = self:GetOwnerItemInfo(owner, item)
+            if info and info.total then
+                local r, g, b = info.color.r, info.color.g, info.color.b
+                tip:AddDoubleLine(info.name, info.text, r, g, b, r, g, b)
+
+                total = total + info.total
+                owners = owners + 1
+            end
         end
     end
 
@@ -176,12 +187,12 @@ end
 
 function Tooltip:GetOwnerItemInfo(owner, itemId)
     local info = Cache:GetOwnerInfo(owner)
-    dump(owner, info)
     local total, text = self:GetCounts(Counter:GetOwnerItemCount(owner, itemId))
+    local name = self:FormatName(info)
     local item
     if total then
         item = { --
-            name = info.name,
+            name = name,
             text = text,
             total = total,
             color = info.guild and NORMAL_FONT_COLOR or RAID_CLASS_COLORS[info.class or 'PRIEST'],

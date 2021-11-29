@@ -26,6 +26,7 @@ L['Mail'] = true
 L['COD'] = true
 L['Equip'] = true
 L['Global search'] = true
+L['Guild bank'] = true
 
 L['Move up'] = true
 L['Move down'] = true
@@ -92,6 +93,7 @@ L['Show Character Portrait'] = true
 L['Show Quest Starter Icon'] = true
 L['Show Offline Text in Bag\'s Title'] = true
 L['Show Item Count in Tooltip'] = true
+L['Show Guild Bank Count in Tooltip'] = true
 L['Trade Containers Location'] = true
 L['Bag Style'] = true
 

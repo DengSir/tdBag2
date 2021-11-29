@@ -91,7 +91,9 @@ end
 
 function Addon:FOREVER_LOADED()
     for _, owner in ipairs(ns.Forever:GetOwners()) do
-        self:SetupCharacterOptions(owner)
+        if not ns.IsGuildOwner(owner) then
+            self:SetupCharacterOptions(owner)
+        end
     end
 end
 

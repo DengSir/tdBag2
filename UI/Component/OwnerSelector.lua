@@ -119,7 +119,9 @@ end
 function OwnerSelector:CreateMenu()
     local menuList = {}
     for _, owner in ipairs(Cache:GetOwners()) do
-        tinsert(menuList, self:CreateOwnerMenu(owner))
+        if not ns.IsGuildOwner(owner) then
+            tinsert(menuList, self:CreateOwnerMenu(owner))
+        end
     end
     return menuList
 end
