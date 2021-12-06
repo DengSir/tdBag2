@@ -15,7 +15,7 @@ local BANKS = ns.GetBags(ns.BAG_ID.BANK)
 local GUILDBANKS = ns.GetBags(ns.BAG_ID.GUILDBANK)
 
 ---@type tdBag2Counter
-local Counter = ns.Addon:NewModule('Counter')
+local Counter = ns.Addon:NewModule('Counter', 'AceEvent-3.0')
 
 function Counter:OnInitialize()
     self.Cacher = ns.Cacher:New()
@@ -23,6 +23,15 @@ function Counter:OnInitialize()
     self.GetOwnerItemCount.Cachable = function(info)
         return info.cached
     end
+end
+
+function Counter:OnEnable()
+    self:RegisterMessage('GUILDBANK_OPENED', 'OnGuildBankUpdate')
+    self:RegisterMessage('GUILDBANK_CLOSED', 'OnGuildBankUpdate')
+end
+
+function Counter:OnGuildBankUpdate()
+    self.Cacher:RemoveCache(ns.GetCurrentGuildOwner())
 end
 
 function Counter:GetBagItemCount(owner, bag, itemId)
@@ -95,4 +104,8 @@ function Counter:GetEquippedBagCount(owner, bagId, itemId)
         end
     end
     return count
+end
+
+function Counter:RemoveCache(owner)
+    self.Cacher:RemoveCache(owner)
 end

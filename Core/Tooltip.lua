@@ -23,7 +23,7 @@ local Cache = ns.Cache
 local Counter = ns.Counter
 
 ---@type tdBag2Tooltip
-local Tooltip = ns.Addon:NewModule('Tooltip', 'AceHook-3.0')
+local Tooltip = ns.Addon:NewModule('Tooltip', 'AceHook-3.0', 'AceEvent-3.0')
 Tooltip.APIS = {
     'SetMerchantItem',
     'SetBuybackItem',
@@ -70,6 +70,17 @@ function Tooltip:OnInitialize()
     end
 end
 
+function Tooltip:OnEnable()
+    self:Update()
+
+    self:RegisterMessage('GUILDBANK_OPENED', 'OnGuildBankUpdate')
+    self:RegisterMessage('GUILDBANK_CLOSED', 'OnGuildBankUpdate')
+end
+
+function Tooltip:OnGuildBankUpdate()
+    self.Cacher:RemoveCache(ns.GetCurrentGuildOwner())
+end
+
 function Tooltip:Update()
     if ns.Addon.db.profile.tipCount then
         self:HookTip(GameTooltip)
@@ -78,7 +89,6 @@ function Tooltip:Update()
         self:UnhookAll()
     end
 end
-Tooltip.OnEnable = Tooltip.Update
 
 function Tooltip:HookTip(tip)
     local api, handler
