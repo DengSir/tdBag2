@@ -2,5 +2,14 @@
     "search.exclude": {
         "**/.emmylua": true,
         "**/.others": true
-    }
+    },
+    "Lua.workspace.ignoreDir": [
+        ".vscode",
+        "Libs/Ace*"
+    ],
+    "Lua.diagnostics.disable": [
+        "undefined-global",
+        "redundant-parameter",
+        "deprecated"
+    ]
 }

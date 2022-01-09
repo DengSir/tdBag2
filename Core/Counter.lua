@@ -14,7 +14,7 @@ local BAGS = ns.GetBags(ns.BAG_ID.BAG)
 local BANKS = ns.GetBags(ns.BAG_ID.BANK)
 local GUILDBANKS = ns.GetBags(ns.BAG_ID.GUILDBANK)
 
----@type tdBag2Counter
+---@class Counter: AceAddon-3.0, AceEvent-3.0
 local Counter = ns.Addon:NewModule('Counter', 'AceEvent-3.0')
 
 function Counter:OnInitialize()

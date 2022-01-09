@@ -22,7 +22,7 @@ local L = ns.L
 local Cache = ns.Cache
 local Counter = ns.Counter
 
----@type tdBag2Tooltip
+---@class Tooltip: AceAddon-3.0, AceEvent-3.0, AceHook-3.0
 local Tooltip = ns.Addon:NewModule('Tooltip', 'AceHook-3.0', 'AceEvent-3.0')
 Tooltip.APIS = {
     'SetMerchantItem',

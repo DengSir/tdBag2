@@ -37,7 +37,7 @@ local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local INVSLOT_LAST_EQUIPPED = INVSLOT_LAST_EQUIPPED
 local ATTACHMENTS_MAX_RECEIVE = ATTACHMENTS_MAX_RECEIVE
 
----@type ns
+---@class ns
 local ns = select(2, ...)
 
 local L = ns.L
@@ -52,7 +52,7 @@ local KEYRING_FAMILY = ns.KEYRING_FAMILY
 
 local NO_RESULT = {cached = true}
 
----@type tdBag2Forever
+---@class Forever: AceAddon-3.0, AceEvent-3.0
 local Forever = ns.Addon:NewModule('Forever', 'AceEvent-3.0')
 
 function Forever:OnInitialize()
@@ -356,7 +356,7 @@ end
 function Forever:GetOwnerInfo(realm, name)
     local ownerData = self:FindData(realm, name)
     if ownerData then
-        ---@type tdBag2CacheOwnerData
+
         local data = {}
         data.cached = true
         data.name = name
@@ -373,7 +373,7 @@ function Forever:GetOwnerInfo(realm, name)
 end
 
 function Forever:GetBagInfo(realm, name, bag)
-    ---@type tdBag2CacheBagData
+
     local data = {}
     local bagData = self:FindData(realm, name, bag)
 
@@ -424,7 +424,7 @@ end
 function Forever:GetItemInfo(realm, name, bag, slot)
     local itemData = self:FindData(realm, name, bag, slot)
     if itemData then
-        ---@type tdBag2CacheItemData
+
         local data = {}
         local link, count, timeout = strsplit(';', itemData)
 

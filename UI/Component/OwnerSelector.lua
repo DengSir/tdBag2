@@ -27,7 +27,7 @@ local L = ns.L
 local Addon = ns.Addon
 local Cache = ns.Cache
 
----@type tdBag2OwnerSelector
+---@class UI.OwnerSelector: EventsMixin, UI.MenuButton
 local OwnerSelector = ns.Addon:NewClass('UI.OwnerSelector', ns.UI.MenuButton)
 
 function OwnerSelector:Constructor(_, meta)

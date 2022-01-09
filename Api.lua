@@ -37,7 +37,7 @@ local COD_CONTAINER = 'cod'
 
 local GLOBAL_SEARCH_OWNER = '$search'
 
----@type ns
+---@class ns
 local ns = select(2, ...)
 
 ns.VERSION = tonumber((GetAddOnMetadata('tdBag2', 'Version'):gsub('(%d+)%.?', function(x)
@@ -123,7 +123,7 @@ ns.RACE_ICON_TCOORDS = {
 ns.TOKENS = {20560, 20559, 20558}
 
 -- @debug@
----@type L
+
 local L = LibStub('AceLocale-3.0'):GetLocale('tdBag2')
 -- @end-debug@
 --[===[@non-debug@

@@ -20,7 +20,7 @@ local ns = select(2, ...)
 local L = ns.L
 local Events = ns.Events
 
----@type tdBag2TokenFrame
+---@class UI.TokenFrame: EventsMixin, UI.MenuButton
 local TokenFrame = ns.Addon:NewClass('UI.TokenFrame', ns.UI.MenuButton)
 TokenFrame.PADDING = 10
 
@@ -121,7 +121,7 @@ function TokenFrame:CreateMenu()
         local icon = GetItemIcon(watch.itemId)
 
         menu[i] = {
-            text = format('|T%s:14|t', icon) .. (name or 'item:' .. watch.itemId),
+            text = format('|T%s:14|t', icon) .. (name or ('item:' .. watch.itemId)),
             notCheckable = true,
             colorCode = quality and '|c' .. select(4, GetItemQualityColor(quality)) or nil,
             keepShownOnClick = true,

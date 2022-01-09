@@ -25,7 +25,7 @@ local ns = select(2, ...)
 local L = ns.L
 local Cache = ns.Cache
 
----@type tdBag2MoneyFrame
+---@class UI.MoneyFrame: EventsMixin, Object, Button
 local MoneyFrame = ns.Addon:NewClass('UI.MoneyFrame', 'Button')
 
 MoneyFrame.GenerateName = ns.NameGenerator('tdBag2MoneyFrame')
@@ -33,6 +33,7 @@ MoneyFrame.GenerateName = ns.NameGenerator('tdBag2MoneyFrame')
 function MoneyFrame:Constructor(_, meta)
     self.meta = meta
 
+    ---@type SmallMoneyFrameTemplate
     self.Money = CreateFrame('Frame', self:GenerateName(), self, 'SmallMoneyFrameTemplate')
     self.Money.trialErrorButton:SetPoint('LEFT', 8, 1)
     self.Money:SetScript('OnEvent', nil)
