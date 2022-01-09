@@ -1,3 +1,18 @@
+## [2.0.12](https://github.com/DengSir/tdBag2/compare/v2.0.11...v2.0.12) (2022-01-09)
+
+
+### Bug Fixes
+
+* guildbank counts in tooltip ([5738346](https://github.com/DengSir/tdBag2/commit/5738346a287b6c4a5fd5389cc5b4f44fc68f812b))
+
+
+### Features
+
+* show guild bank count in tooltip ([a7f1591](https://github.com/DengSir/tdBag2/commit/a7f1591632872bc10e06e493df172d4b3cfc573f))
+* update tooltip ([55a5d75](https://github.com/DengSir/tdBag2/commit/55a5d7561342db0675d7814839ee7b68a85937b7))
+
+
+
 ## [2.0.11](https://github.com/DengSir/tdBag2/compare/v2.0.10...v2.0.11) (2021-11-17)
 
 
