@@ -389,7 +389,7 @@ function Forever:GetBagInfo(realm, name, bag)
             data.family = 0
         end
     elseif ns.IsEquip(bag) then
-        data.count = INVSLOT_LAST_EQUIPPED - 1
+        data.count = INVSLOT_LAST_EQUIPPED
         data.title = L['Equipped']
     elseif ns.IsMail(bag) then
         data.title = L['Mail']
@@ -424,7 +424,6 @@ end
 function Forever:GetItemInfo(realm, name, bag, slot)
     local itemData = self:FindData(realm, name, bag, slot)
     if itemData then
-
         local data = {}
         local link, count, timeout = strsplit(';', itemData)
 

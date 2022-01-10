@@ -19,6 +19,7 @@
     <Script file="Container\Container.lua" />
     <Script file="Container\TitleContainer.lua" />
     <Script file="Container\GlobalSearchContainer.lua" />
+    <Script file="Container\EquipContainer.lua" />
 
     <Script file="Frame\Frame.lua" />
     <Script file="Frame\SimpleFrame.lua" />

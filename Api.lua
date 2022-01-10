@@ -173,13 +173,13 @@ local BAG_CLASSES = {
     [BAG_ID.BAG] = {Frame = 'InventoryFrame', Item = 'Item', Container = 'Container'},
     [BAG_ID.BANK] = {Frame = 'BankFrame', Item = 'Item', Container = 'Container'},
     [BAG_ID.MAIL] = {Frame = 'SimpleFrame', Item = 'ItemBase', Container = 'TitleContainer'},
-    [BAG_ID.EQUIP] = {Frame = 'SimpleFrame', Item = 'ItemBase', Container = 'Container'},
+    [BAG_ID.EQUIP] = {Frame = 'SimpleFrame', Item = 'ItemBase', Container = 'EquipContainer'},
     [BAG_ID.SEARCH] = {Frame = 'GlobalSearchFrame', Item = 'ItemBase', Container = 'GlobalSearchContainer'},
 }
 
 local BAG_SETS = {}
-local INV_IDS = {}
 local BAG_IDS = {}
+local INV_IDS = {}
 do
     local function touch(bag, bagId)
         local slot = ContainerIDToInventoryID(bag)
@@ -209,6 +209,48 @@ do
         tinsert(BAGS[BAG_ID.GUILDBANK], 50 + i)
     end
     -- @end-bcc@
+end
+
+local INV_NAMES = {}
+local INV_ICONS = {}
+local INV_POS = {}
+do
+    local SIZE = ns.ITEM_SIZE + 3
+    local function offset(i)
+        return -i * SIZE
+    end
+
+    local INV_DATA = { --
+        HEADSLOT = {point = 'TOPLEFT', x = 0, y = offset(0)},
+        NECKSLOT = {point = 'TOPLEFT', x = 0, y = offset(1)},
+        SHOULDERSLOT = {point = 'TOPLEFT', x = 0, y = offset(2)},
+        BACKSLOT = {point = 'TOPLEFT', x = 0, y = offset(3)},
+        CHESTSLOT = {point = 'TOPLEFT', x = 0, y = offset(4)},
+        SHIRTSLOT = {point = 'TOPLEFT', x = 0, y = offset(5)},
+        TABARDSLOT = {point = 'TOPLEFT', x = 0, y = offset(6)},
+        WRISTSLOT = {point = 'TOPLEFT', x = 0, y = offset(7)},
+
+        HANDSSLOT = {point = 'TOPRIGHT', x = 0, y = offset(0)},
+        WAISTSLOT = {point = 'TOPRIGHT', x = 0, y = offset(1)},
+        LEGSSLOT = {point = 'TOPRIGHT', x = 0, y = offset(2)},
+        FEETSLOT = {point = 'TOPRIGHT', x = 0, y = offset(3)},
+        FINGER0SLOT = {point = 'TOPRIGHT', x = 0, y = offset(4)},
+        FINGER1SLOT = {point = 'TOPRIGHT', x = 0, y = offset(5)},
+        TRINKET0SLOT = {point = 'TOPRIGHT', x = 0, y = offset(6)},
+        TRINKET1SLOT = {point = 'TOPRIGHT', x = 0, y = offset(7)},
+
+        MAINHANDSLOT = {point = 'BOTTOM', x = offset(1), y = 0},
+        SECONDARYHANDSLOT = {point = 'BOTTOM', x = offset(0), y = 0},
+        RANGEDSLOT = {point = 'BOTTOM', x = offset(-1), y = 0},
+    }
+
+    for key, pos in pairs(INV_DATA) do
+        local slot, icon = GetInventorySlotInfo(key)
+
+        INV_NAMES[slot] = _G[key]
+        INV_ICONS[slot] = icon
+        INV_POS[slot] = pos
+    end
 end
 
 ns.BAG_ID = BAG_ID
@@ -532,6 +574,18 @@ function ns.IsGuildOwner(key)
     return key and key:find('^@')
 end
 ns.IsGuildOwner = ns.memorize(ns.IsGuildOwner)
+
+function ns.GetInvName(slot)
+    return INV_NAMES[slot]
+end
+
+function ns.GetInvIcon(slot)
+    return INV_ICONS[slot]
+end
+
+function ns.GetInvPos(slot)
+    return INV_POS[slot]
+end
 
 function ns.GetCharacterProfileKey(name, realm)
     if name:find('-') then

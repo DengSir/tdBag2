@@ -56,7 +56,8 @@ local EXPIRED = GRAY_FONT_COLOR:WrapTextInColorCode(ns.L['Expired'])
 local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
 local KEYRING_FAMILY = ns.KEYRING_FAMILY
 
----@class UI.ItemBase: Object, ItemButtonTemplate
+---@class UI.ItemBase: EventsMixin, Object, ItemButtonTemplate
+---@field meta FrameMeta
 ---@field EMPTY_SLOT_TEXTURE string
 local ItemBase = ns.Addon:NewClass('UI.ItemBase', 'Button')
 ItemBase.pool = {}
@@ -185,12 +186,16 @@ function ItemBase:CreateOverlay()
     Overlay:Hide()
 
     local function OverlayOnEnter(self)
-
+        ---@type UI.ItemBase
         local parent = self:GetParent()
         local item = parent:IsCached() and parent.info.link
         if item then
             ns.AnchorTooltip(self)
             GameTooltip:SetHyperlink(item, parent.info.count)
+            GameTooltip:Show()
+        elseif parent.meta:IsEquip() then
+            ns.AnchorTooltip(self)
+            GameTooltip:SetText(ns.GetInvName(parent.slot))
             GameTooltip:Show()
         end
         parent:LockHighlight()
@@ -247,9 +252,16 @@ function ItemBase:UpdateInfo()
     self.readable = self.info.readable
 end
 
+function ItemBase:GetEmptyIcon()
+    if self.meta:IsEquip() then
+        return ns.GetInvIcon(self.slot)
+    else
+        return self.EMPTY_SLOT_TEXTURE or [[Interface\AddOns\tdBag2\Resource\UI-Backpack-EmptySlot]]
+    end
+end
+
 function ItemBase:UpdateItem()
-    SetItemButtonTexture(self, self.info.icon or self.EMPTY_SLOT_TEXTURE or
-                             [[Interface\AddOns\tdBag2\Resource\UI-Backpack-EmptySlot]])
+    SetItemButtonTexture(self, self.info.icon or self:GetEmptyIcon())
     SetItemButtonCount(self, self.info.count)
 end
 

@@ -241,10 +241,6 @@ function Container:ForItem(itemId, method)
     end
 end
 
-function Container:FreeItem(bag, slot)
-    self.itemButtons[bag][slot] = nil
-end
-
 function Container:HasBag(bag)
     return bag and self.meta:HasBag(bag)
 end
