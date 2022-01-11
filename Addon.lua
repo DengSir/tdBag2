@@ -28,6 +28,7 @@ local UIParent = UIParent
 ---@field Cache Cache
 -- classes
 ---@field Thread Thread
+---@field Cacher Cacher
 ---@field FrameMeta FrameMeta
 local ns = select(2, ...)
 local L = ns.L
@@ -44,6 +45,23 @@ _G.BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 ---@class UI
 ---@field Container UI.Container
 ---@field ItemBase UI.ItemBase
+---@field BagToggle UI.BagToggle
+---@field SearchToggle UI.SearchToggle
+---@field Bag UI.Bag
+---@field MenuButton UI.MenuButton
+---@field TitleFrame UI.TitleFrame
+---@field Frame UI.Frame
+---@field GlobalSearchBox UI.GlobalSearchBox
+---@field Token UI.Token
+---@field TokenFrame UI.TokenFrame
+---@field TitleContainer UI.TitleContainer
+---@field MoneyFrame UI.MoneyFrame
+---@field BagFrame UI.BagFrame
+---@field PluginFrame UI.PluginFrame
+---@field SimpleFrame UI.SimpleFrame
+---@field ContainerFrame UI.ContainerFrame
+---@field OwnerSelector UI.OwnerSelector
+---@field SearchBox UI.SearchBox
 ns.UI = {}
 ns.Search = LibStub('LibItemSearch-1.2')
 ns.Unfit = LibStub('Unfit-1.0')
@@ -268,6 +286,7 @@ end
 
 function Addon:SetupPluginButtons()
     if IsAddOnLoaded('tdPack2') then
+        ---@type any
         local tdPack2 = LibStub('AceAddon-3.0'):GetAddon('tdPack2', true)
         if tdPack2 then
             self:RegisterPlugin({
@@ -439,11 +458,9 @@ end
 
 ---- plugin buttons
 
-
 function Addon:IteratePluginButtons()
     return safeipairs(self.plugins.Button)
 end
-
 
 function Addon:RegisterPluginButton(opts)
     opts.type = 'Button'
@@ -472,9 +489,10 @@ function Addon:HasAnyItemPlugin()
 end
 
 --- plugin
-
+---@param opts tdBag2PluginOptions
 function Addon:RegisterPlugin(opts)
     if opts.type == 'Button' then
+        ---@type tdBag2ButtonPluginOptions[]
         self.plugins.Button = self.plugins.Button or {}
 
         opts.order = opts.order or #self.plugins.Button
@@ -485,6 +503,7 @@ function Addon:RegisterPlugin(opts)
             return a.order < b.order
         end)
     elseif opts.type == 'Item' then
+        ---@type tdBag2ItemPluginOptions
         self.plugins.Item = self.plugins.Item or {}
 
         tinsert(self.plugins.Item, opts)

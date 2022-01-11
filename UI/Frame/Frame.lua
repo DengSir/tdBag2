@@ -25,6 +25,7 @@ local LibWindow = LibStub('LibWindow-1.1')
 ---@field Container UI.Container
 -- members
 ---@field lockOwner boolean
+---@field manual boolean
 local Frame = ns.Addon:NewClass('UI.Frame', 'Frame')
 Frame.TEMPLATE = 'tdBag2BaseFrameTemplate'
 

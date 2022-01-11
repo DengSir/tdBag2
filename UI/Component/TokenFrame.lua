@@ -25,6 +25,7 @@ local TokenFrame = ns.Addon:NewClass('UI.TokenFrame', ns.UI.MenuButton)
 TokenFrame.PADDING = 10
 
 function TokenFrame:Constructor(_, meta)
+    ---@type FrameMeta
     self.meta = meta
     self.buttons = {}
     self:SetScript('OnShow', self.OnShow)

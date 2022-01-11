@@ -12,7 +12,6 @@ local ipairs = ipairs
 local GetMoneyString = GetMoneyString
 local MoneyFrame_Update = MoneyFrame_Update
 local MoneyInputFrame_OpenPopup = MoneyInputFrame_OpenPopup
-local MoneyFrame_UpdateTrialErrorButton = MoneyFrame_UpdateTrialErrorButton
 
 ---- L
 local WORLD_QUEST_REWARD_FILTERS_GOLD = WORLD_QUEST_REWARD_FILTERS_GOLD

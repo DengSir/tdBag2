@@ -28,9 +28,11 @@ local Addon = ns.Addon
 local Cache = ns.Cache
 
 ---@class UI.OwnerSelector: EventsMixin, UI.MenuButton
+---@field texture? Texture
 local OwnerSelector = ns.Addon:NewClass('UI.OwnerSelector', ns.UI.MenuButton)
 
 function OwnerSelector:Constructor(_, meta)
+    ---@type FrameMeta
     self.meta = meta
     self.portrait = self.portrait or self.texture
     self:SetScript('OnClick', self.OnClick)

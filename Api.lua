@@ -676,6 +676,11 @@ function ns.Hook(...)
     end
 end
 
+---@generic T: table, V
+---@param t T
+---@return fun(table: V[], i?: integer):integer, V
+---@return T
+---@return integer i
 function ns.safeipairs(t)
     if t then
         return ipairs(t)

@@ -24,6 +24,7 @@ function FrameMeta:Constructor(bagId)
     end
 
     self:Update()
+    ---@type UI.Frame
     self.frame = self.class.Frame:Create(self)
 end
 

@@ -2,6 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 2/9/2020, 2:15:15 AM
+--
 local ipairs = ipairs
 local wipe = table.wipe or wipe
 local tinsert = table.insert
@@ -14,7 +15,6 @@ local Search = ns.Search
 
 local BAG_ID = ns.BAG_ID
 local GLOBAL_SEARCH_OWNER = ns.GLOBAL_SEARCH_OWNER
-
 
 local BAGS = {
     {title = L.TITLE_BAG, bags = ns.GetBags(BAG_ID.BAG)}, --

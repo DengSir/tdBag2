@@ -17,6 +17,7 @@ local Cache = ns.Cache
 local TitleFrame = ns.Addon:NewClass('UI.TitleFrame', 'Button')
 
 function TitleFrame:Constructor(_, meta)
+    ---@type FrameMeta
     self.meta = meta
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)

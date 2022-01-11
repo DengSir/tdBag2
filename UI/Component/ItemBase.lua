@@ -373,7 +373,6 @@ function ItemBase:GetBorderColor()
         elseif sets.glowQuality and quality and quality > LE_ITEM_QUALITY_COMMON then
             local color = ITEM_QUALITY_COLORS[quality]
             return color.r, color.g, color.b
-            -- return GetItemQualityColor(quality)
         end
     end
 end
