@@ -18,16 +18,9 @@ local CreateFrame = CreateFrame
 local CursorUpdate = CursorUpdate
 local GetItemInfo = GetItemInfo
 local GetItemFamily = GetItemFamily
-local GetItemQualityColor = GetItemQualityColor
-local IsBattlePayItem = IsBattlePayItem
 local ResetCursor = ResetCursor
 
-local IsNewItem = C_NewItems.IsNewItem
-local RemoveNewItem = C_NewItems.RemoveNewItem
-
-local ContainerFrame_UpdateCooldown = ContainerFrame_UpdateCooldown
 local ContainerFrameItemButton_OnEnter = ContainerFrameItemButton_OnEnter
-local CooldownFrame_Set = CooldownFrame_Set
 local SetItemButtonCount = SetItemButtonCount
 local SetItemButtonDesaturated = SetItemButtonDesaturated
 local SetItemButtonTexture = SetItemButtonTexture
@@ -39,8 +32,8 @@ local UIParent = UIParent
 
 ---- G
 local ITEM_STARTS_QUEST = ITEM_STARTS_QUEST
-local LE_ITEM_CLASS_QUESTITEM = LE_ITEM_CLASS_QUESTITEM
-local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON
+local LE_ITEM_CLASS_QUESTITEM = LE_ITEM_CLASS_QUESTITEM or Enum.ItemClass.Questitem
+local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON or Enum.ItemQuality.Common or Enum.ItemQuality.Standard
 local TEXTURE_ITEM_QUEST_BANG = TEXTURE_ITEM_QUEST_BANG
 local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
 
@@ -123,7 +116,7 @@ function ItemBase:Alloc()
 end
 
 function ItemBase:Create()
-    return ItemBase:Bind(CreateFrame('Button', ItemBase:GenerateName(), UIParent, 'ItemButtonTemplate'))
+    return self:Bind(CreateFrame('Button', self:GenerateName(), UIParent, 'ItemButtonTemplate'))
 end
 
 function ItemBase:Free()

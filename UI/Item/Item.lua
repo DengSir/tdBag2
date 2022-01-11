@@ -22,11 +22,9 @@ local CooldownFrame_Set = CooldownFrame_Set
 
 ---- UI
 local StackSplitFrame = StackSplitFrame
-local GameTooltip = GameTooltip
 local UIParent = UIParent
 
 ---- G
-local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON
 local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS
 local MAX_BLIZZARD_ITEMS = NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
 

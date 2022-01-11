@@ -173,7 +173,7 @@ local BAG_CLASSES = {
     [BAG_ID.BAG] = {Frame = 'InventoryFrame', Item = 'Item', Container = 'Container'},
     [BAG_ID.BANK] = {Frame = 'BankFrame', Item = 'Item', Container = 'Container'},
     [BAG_ID.MAIL] = {Frame = 'SimpleFrame', Item = 'ItemBase', Container = 'TitleContainer'},
-    [BAG_ID.EQUIP] = {Frame = 'SimpleFrame', Item = 'ItemBase', Container = 'EquipContainer'},
+    [BAG_ID.EQUIP] = {Frame = 'SimpleFrame', Item = 'EquipItem', Container = 'EquipContainer'},
     [BAG_ID.SEARCH] = {Frame = 'GlobalSearchFrame', Item = 'ItemBase', Container = 'GlobalSearchContainer'},
 }
 
@@ -430,6 +430,10 @@ ns.PROFILE = {
         searches = {first = true},
 
         style = 'Blizzard',
+
+        -- @debug@
+        colorNormal = {},
+        -- @end-debug@
     },
 }
 

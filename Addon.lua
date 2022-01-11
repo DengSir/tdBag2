@@ -233,11 +233,11 @@ function Addon:SetupDefaultOptions()
         searches.first = false
 
         local types = { --
-            LE_ITEM_CLASS_WEAPON, --
-            LE_ITEM_CLASS_ARMOR, --
-            LE_ITEM_CLASS_CONSUMABLE, --
-            LE_ITEM_CLASS_TRADEGOODS, --
-            LE_ITEM_CLASS_REAGENT, --
+            LE_ITEM_CLASS_WEAPON or Enum.ItemClass.Weapon, --
+            LE_ITEM_CLASS_ARMOR or Enum.ItemClass.Armor, --
+            LE_ITEM_CLASS_CONSUMABLE or Enum.ItemClass.Consumable, --
+            LE_ITEM_CLASS_TRADEGOODS or Enum.ItemClass.Tradegoods, --
+            LE_ITEM_CLASS_REAGENT or Enum.ItemClass.Reagent, --
         }
 
         for _, item in ipairs(types) do

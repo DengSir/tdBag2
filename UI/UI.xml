@@ -6,8 +6,6 @@
 
     <Script file="Component\Bag.lua" />
     <Script file="Component\BagFrame.lua" />
-    <Script file="Component\ItemBase.lua" />
-    <Script file="Component\Item.lua" />
     <Script file="Component\MoneyFrame.lua" />
     <Script file="Component\OwnerSelector.lua" />
     <Script file="Component\SearchBox.lua" />
@@ -15,6 +13,10 @@
     <Script file="Component\TitleFrame.lua" />
     <Script file="Component\Token.lua" />
     <Script file="Component\TokenFrame.lua" />
+
+    <Script file="Item\ItemBase.lua" />
+    <Script file="Item\Item.lua" />
+    <Script file="Item\EquipItem.lua" />
 
     <Script file="Container\Container.lua" />
     <Script file="Container\TitleContainer.lua" />
