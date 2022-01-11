@@ -10,6 +10,11 @@ local Addon = ns.Addon
 local Cache = ns.Cache
 local BAG_ID = ns.BAG_ID
 
+---@class Classes
+---@field Frame UI.Frame
+---@field Container UI.Container
+---@field Item UI.ItemBase
+
 ---@class FrameMeta: Object
 local FrameMeta = Addon:NewClass('FrameMeta')
 
@@ -18,6 +23,7 @@ function FrameMeta:Constructor(bagId)
     self.bags = ns.GetBags(bagId)
     self.title = ns.BAG_TITLES[bagId]
     self.icon = ns.BAG_ICONS[bagId]
+    ---@type Classes
     self.class = {}
     for k, v in pairs(ns.BAG_CLASSES[bagId]) do
         self.class[k] = ns.UI[v]

@@ -4,7 +4,6 @@
 -- @Date   : 2/9/2020, 2:15:15 AM
 --
 local ipairs = ipairs
-local wipe = table.wipe or wipe
 local tinsert = table.insert
 
 ---@type ns

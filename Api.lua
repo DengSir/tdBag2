@@ -326,11 +326,13 @@ ns.CHARACTER_PROFILE = { --
     hiddenBags = {[KEYRING_CONTAINER] = true},
 }
 
+---@class Database
 ns.PROFILE = {
     global = { --
         forever = {},
         characters = {},
     },
+    ---@class Profile
     profile = {
         frames = {
             [BAG_ID.BAG] = { --

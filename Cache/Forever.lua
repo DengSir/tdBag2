@@ -22,7 +22,6 @@ local GetInventoryItemLink = GetInventoryItemLink
 local GetItemIcon = GetItemIcon
 local GetItemInfo = GetItemInfo
 local GetMoney = GetMoney
-local IsLoggedIn = IsLoggedIn
 local UnitClassBase = UnitClassBase
 local UnitFactionGroup = UnitFactionGroup
 local UnitRace = UnitRace

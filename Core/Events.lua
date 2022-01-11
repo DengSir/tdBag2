@@ -2,14 +2,13 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/18/2019, 12:58:19 PM
-
+--
 ---- LUA
 local ipairs = ipairs
 local select = select
 local unpack = table.unpack or unpack
 
 ---- WOW
-local C_Timer = C_Timer
 local GetContainerNumSlots = GetContainerNumSlots
 
 ---- UI
@@ -25,12 +24,19 @@ local ns = select(2, ...)
 local Addon = ns.Addon
 local BAG_ID = ns.BAG_ID
 
-local METHODS = {'RegisterEvent', 'UnregisterEvent', 'UnregisterAllEvents'}
+local METHODS = {'RegisterEvent', 'UnregisterEvent', 'UnregisterAllEvents', 'RegisterFrameEvent'}
 
 ---@class Events: AceAddon-3.0, AceEvent-3.0
 local Events = ns.Addon:NewModule('Events', 'AceEvent-3.0')
 Events.handler = {}
-Events.events = LibStub('CallbackHandler-1.0'):New(Events.handler, unpack(METHODS))
+Events.events = LibStub('CallbackHandler-1.0'):New(Events.handler, unpack(METHODS, 1, 3))
+
+Events.handler.RegisterFrameEvent = function(self, event, callback)
+    if callback == nil then
+        callback = event
+    end
+    return self:RegisterEvent(event .. self.meta.bagId, callback)
+end
 
 function Events:OnInitialize()
     self.bagSizes = {}
@@ -61,18 +67,10 @@ function Events:OnEnable()
     self:RegisterEvent('UNIT_PORTRAIT_UPDATE', 'Fire')
 end
 
-local function RegisterFrameEvent(self, event, callback)
-    if callback == nil then
-        callback = event
-    end
-    return self:RegisterEvent(event .. self.meta.bagId, callback)
-end
-
 function Events:Embed(target)
     for _, v in ipairs(METHODS) do
         target[v] = self.handler[v]
     end
-    target.RegisterFrameEvent = RegisterFrameEvent
 end
 
 function Events:Fire(event, ...)

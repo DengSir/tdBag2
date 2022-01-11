@@ -109,6 +109,9 @@ function ItemBase:Constructor()
     end
 end
 
+---@generic T
+---@param self T
+---@return T
 function ItemBase:Alloc()
     local obj = next(self.pool)
     if not obj then

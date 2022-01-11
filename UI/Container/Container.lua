@@ -32,6 +32,7 @@ Container.GetRealWidth = Container.GetWidth
 Container.GetRealHeight = Container.GetHeight
 
 function Container:Constructor(_, meta)
+    ---@type FrameMeta
     self.meta = meta
     self.bagFrames = {}
     self.itemButtons = {}
@@ -267,6 +268,7 @@ function Container:AllocItemButton(bag, slot)
     return itemButton
 end
 
+---@return UI.ItemBase
 function Container:GetItemButton(bag, slot)
     return self.itemButtons[bag][slot] or self:AllocItemButton(bag, slot)
 end

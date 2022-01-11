@@ -189,6 +189,7 @@ function Addon:SetupCurrentStyle()
 end
 
 function Addon:SetupDatabase()
+    ---@class Db: Database, AceDB-3.0
     self.db = LibStub('AceDB-3.0'):New('TDDB_BAG2', ns.PROFILE, true)
 
     local function OnProfileChanged()
