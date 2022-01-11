@@ -392,6 +392,6 @@ end
 
 -- @debug@
 function Container:Threshold()
-    error('Not implement')
+    error('Not implemented')
 end
 -- @end-debug@

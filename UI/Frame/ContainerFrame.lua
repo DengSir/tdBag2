@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/17/2019, 10:21:54 AM
-
+--
 ---- WOW
 local CreateFrame = CreateFrame
 
@@ -13,8 +13,6 @@ local UIParent = UIParent
 local ns = select(2, ...)
 local Addon = ns.Addon
 local SimpleFrame = ns.UI.SimpleFrame
-
-local LibWindow = LibStub('LibWindow-1.1')
 
 ---@class UI.ContainerFrame: UI.SimpleFrame, tdBag2FrameTemplate
 local ContainerFrame = Addon:NewClass('UI.ContainerFrame', SimpleFrame)
@@ -89,12 +87,10 @@ function ContainerFrame:PlaceTokenFrame()
 end
 
 function ContainerFrame:PlaceSearchBox()
-    error('Not implement')
+    error('Not implemented')
 end
 
-ContainerFrame.PLUGIN_BUTTON_UPDATE = ns.Spawned(function(self)
-    return self:PlaceSearchBox()
-end)
+ContainerFrame.PLUGIN_BUTTON_UPDATE = ns.Spawned(ContainerFrame.PlaceSearchBox)
 
 function ContainerFrame:IsSearchBoxSpaceEnough()
     return true
