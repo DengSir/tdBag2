@@ -75,3 +75,25 @@ local tdBag2ScrollFrameTemplate = {}
 
 ---@class tdBag2SearchingTemplate : Frame
 local tdBag2SearchingTemplate = {}
+
+---@class tdBag2EquipContainerCenterFrameTemplate : Frame
+---@field BackgroundTopLeft Texture
+---@field BackgroundTopRight Texture
+---@field BackgroundBotLeft Texture
+---@field BackgroundBotRight Texture
+---@field BackgroundOverlay Texture
+---@field BorderTopLeft Texture
+---@field BorderTopRight Texture
+---@field BorderBottomLeft Texture
+---@field BorderBottomRight Texture
+---@field BorderLeft Texture
+---@field BorderRight Texture
+---@field BorderTop Texture
+---@field BorderBottom Texture
+---@field BorderBottom2 Texture
+local tdBag2EquipContainerCenterFrameTemplate = {}
+
+---@class tdBag2EquipBagToggleFrameTemplate : Button
+---@field ring Texture
+---@field icon Texture
+local tdBag2EquipBagToggleFrameTemplate = {}

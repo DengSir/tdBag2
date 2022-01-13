@@ -173,7 +173,7 @@ local BAG_CLASSES = {
     [BAG_ID.BAG] = {Frame = 'InventoryFrame', Item = 'Item', Container = 'Container'},
     [BAG_ID.BANK] = {Frame = 'BankFrame', Item = 'Item', Container = 'Container'},
     [BAG_ID.MAIL] = {Frame = 'SimpleFrame', Item = 'ItemBase', Container = 'TitleContainer'},
-    [BAG_ID.EQUIP] = {Frame = 'SimpleFrame', Item = 'EquipItem', Container = 'EquipContainer'},
+    [BAG_ID.EQUIP] = {Frame = 'EquipFrame', Item = 'EquipItem', Container = 'EquipContainer'},
     [BAG_ID.SEARCH] = {Frame = 'GlobalSearchFrame', Item = 'ItemBase', Container = 'GlobalSearchContainer'},
 }
 
@@ -213,35 +213,42 @@ end
 
 local INV_NAMES = {}
 local INV_ICONS = {}
-local INV_POS = {}
+local INV_ANCHORS = {}
 do
-    local SIZE = ns.ITEM_SIZE + 3
-    local function offset(i)
-        return -i * SIZE
+    local function left(i)
+        return {anchor = 'LEFT', index = i}
+    end
+
+    local function right(i)
+        return {anchor = 'RIGHT', index = i}
+    end
+
+    local function bottom(i)
+        return {anchor = 'BOTTOM', index = i}
     end
 
     local INV_DATA = { --
-        HEADSLOT = {point = 'TOPLEFT', x = 0, y = offset(0)},
-        NECKSLOT = {point = 'TOPLEFT', x = 0, y = offset(1)},
-        SHOULDERSLOT = {point = 'TOPLEFT', x = 0, y = offset(2)},
-        BACKSLOT = {point = 'TOPLEFT', x = 0, y = offset(3)},
-        CHESTSLOT = {point = 'TOPLEFT', x = 0, y = offset(4)},
-        SHIRTSLOT = {point = 'TOPLEFT', x = 0, y = offset(5)},
-        TABARDSLOT = {point = 'TOPLEFT', x = 0, y = offset(6)},
-        WRISTSLOT = {point = 'TOPLEFT', x = 0, y = offset(7)},
+        HEADSLOT = left(0),
+        NECKSLOT = left(1),
+        SHOULDERSLOT = left(2),
+        BACKSLOT = left(3),
+        CHESTSLOT = left(4),
+        SHIRTSLOT = left(5),
+        TABARDSLOT = left(6),
+        WRISTSLOT = left(7),
 
-        HANDSSLOT = {point = 'TOPRIGHT', x = 0, y = offset(0)},
-        WAISTSLOT = {point = 'TOPRIGHT', x = 0, y = offset(1)},
-        LEGSSLOT = {point = 'TOPRIGHT', x = 0, y = offset(2)},
-        FEETSLOT = {point = 'TOPRIGHT', x = 0, y = offset(3)},
-        FINGER0SLOT = {point = 'TOPRIGHT', x = 0, y = offset(4)},
-        FINGER1SLOT = {point = 'TOPRIGHT', x = 0, y = offset(5)},
-        TRINKET0SLOT = {point = 'TOPRIGHT', x = 0, y = offset(6)},
-        TRINKET1SLOT = {point = 'TOPRIGHT', x = 0, y = offset(7)},
+        HANDSSLOT = right(0),
+        WAISTSLOT = right(1),
+        LEGSSLOT = right(2),
+        FEETSLOT = right(3),
+        FINGER0SLOT = right(4),
+        FINGER1SLOT = right(5),
+        TRINKET0SLOT = right(6),
+        TRINKET1SLOT = right(7),
 
-        MAINHANDSLOT = {point = 'BOTTOM', x = offset(1), y = 0},
-        SECONDARYHANDSLOT = {point = 'BOTTOM', x = offset(0), y = 0},
-        RANGEDSLOT = {point = 'BOTTOM', x = offset(-1), y = 0},
+        MAINHANDSLOT = bottom(-1),
+        SECONDARYHANDSLOT = bottom(0),
+        RANGEDSLOT = bottom(1),
     }
 
     for key, pos in pairs(INV_DATA) do
@@ -249,7 +256,7 @@ do
 
         INV_NAMES[slot] = _G[key]
         INV_ICONS[slot] = icon
-        INV_POS[slot] = pos
+        INV_ANCHORS[slot] = pos
     end
 end
 
@@ -589,8 +596,8 @@ function ns.GetInvIcon(slot)
     return INV_ICONS[slot]
 end
 
-function ns.GetInvPos(slot)
-    return INV_POS[slot]
+function ns.GetInvAnchor(slot)
+    return INV_ANCHORS[slot]
 end
 
 function ns.GetCharacterProfileKey(name, realm)

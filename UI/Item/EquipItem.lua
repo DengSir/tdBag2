@@ -8,11 +8,14 @@ local ns = select(2, ...)
 
 local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON or Enum.ItemQuality.Common or Enum.ItemQuality.Standard
 
+local ItemBase = ns.UI.ItemBase
+
 ---@class UI.EquipItem: UI.ItemBase
-local EquipItem = ns.Addon:NewClass('UI.EquipItem', ns.UI.ItemBase)
+local EquipItem = ns.Addon:NewClass('UI.EquipItem', ItemBase)
 
 EquipItem.pool = {}
 EquipItem.GenerateName = ns.NameGenerator('tdBag2EquipItem')
+EquipItem.Free = EquipItem.Hide
 
 function EquipItem:GetBorderColor()
     if self.info.id then

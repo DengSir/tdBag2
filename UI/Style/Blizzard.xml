@@ -67,6 +67,7 @@
             </EditBox>
         </Frames>
     </Frame>
+
     <Frame name="tdBag2FrameTemplate" inherits="tdBag2BaseFrameTemplate" virtual="true">
         <KeyValues>
             <KeyValue key="fixedWidth" value="24" type="number"/>
@@ -184,6 +185,7 @@
             </OnLoad>
         </Scripts>
     </Frame>
+
     <Frame name="tdBag2TokenTemplate" virtual="true">
         <Size x="1" y="14" />
         <Layers>
@@ -202,6 +204,7 @@
             </Layer>
         </Layers>
     </Frame>
+
     <Button name="tdBag2BaseBagTemplate" registerForClicks="LeftButtonUp,RightButtonUp" virtual="true">
         <Scripts>
             <OnLoad>
@@ -209,6 +212,7 @@
             </OnLoad>
         </Scripts>
     </Button>
+
     <Button name="tdBag2BagTemplate" inherits="tdBag2BaseBagTemplate" virtual="true">
         <Size x="26" y="26" />
         <Layers>
@@ -232,6 +236,7 @@
         <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
         <HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
     </Button>
+
     <Button name="tdBag2KeyringTemplate" inherits="tdBag2BaseBagTemplate" virtual="true">
         <Size x="12" y="26" />
         <NormalTexture file="Interface\Buttons\UI-Button-KeyRing">
@@ -256,6 +261,7 @@
             <TexCoords left="0" right="0.5625" top="0" bottom="0.609375"/>
         </PushedTexture>
     </Button>
+
     <CheckButton name="tdBag2ToggleButtonTemplate" virtual="true">
         <Size x="24" y="24" />
         <Layers>
@@ -308,6 +314,7 @@
             </OnMouseUp>
         </Scripts>
     </CheckButton>
+
     <Frame name="tdBag2ContainerTitleTemplate" virtual="true">
         <Size y="20" />
         <Layers>
@@ -336,6 +343,7 @@
             </Layer>
         </Layers>
     </Frame>
+
     <ScrollFrame name="tdBag2ScrollFrameTemplate" virtual="true" inherits="UIPanelScrollFrameCodeTemplate">
         <Frames>
             <Slider parentKey="ScrollBar" hidden="true" inherits="UIPanelStretchableArtScrollBarTemplate">
@@ -346,7 +354,8 @@
             </Slider>
         </Frames>
     </ScrollFrame>
-    <Frame name="tdBag2SearchingTemplate" virtual="true" >
+
+    <Frame name="tdBag2SearchingTemplate" virtual="true">
         <Frames>
             <Frame inherits="LoadingSpinnerTemplate">
                 <Anchors>
@@ -363,4 +372,129 @@
             </Frame>
         </Frames>
     </Frame>
+
+    <Frame name="tdBag2EquipContainerCenterFrameTemplate" virtual="true">
+        <Size x="231" y="320"/>
+        <Anchors>
+            <Anchor point="TOPLEFT" x="52" y="-66"/>
+        </Anchors>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="BackgroundTopLeft">
+                    <Size x="212" y="245"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                    </Anchors>
+                    <TexCoords left="0.171875" right="1" top="0.0392156862745098" bottom="1"/>
+                </Texture>
+                <Texture parentKey="BackgroundTopRight">
+                    <Size x="19" y="245"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.BackgroundTopLeft" relativePoint="TOPRIGHT"/>
+                    </Anchors>
+                    <TexCoords left="0" right="0.296875" top="0.0392156862745098" bottom="1"/>
+                </Texture>
+                <Texture parentKey="BackgroundBotLeft">
+                    <Size x="212" y="128"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.BackgroundTopLeft" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <TexCoords left="0.171875" right="1" top="0" bottom="1"/>
+                </Texture>
+                <Texture parentKey="BackgroundBotRight">
+                    <Size x="19" y="128"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.BackgroundTopLeft" relativePoint="BOTTOMRIGHT"/>
+                    </Anchors>
+                    <TexCoords left="0" right="0.296875" top="0" bottom="1"/>
+                </Texture>
+            </Layer>
+            <Layer level="BORDER">
+                <Texture parentKey="BackgroundOverlay">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.BackgroundTopLeft"/>
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BackgroundBotRight" x="0" y="52"/>
+                    </Anchors>
+                    <Color r="0" g="0" b="0"/>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <Texture parentKey="BorderTopLeft" inherits="Char-Corner-UpperLeft">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.$parent.Inset" x="46" y="-4"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="BorderTopRight" inherits="Char-Corner-UpperRight">
+                    <Anchors>
+                        <Anchor point="TOPRIGHT" relativeKey="$parent.$parent.Inset" x="-47" y="-4"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="BorderBottomLeft" inherits="Char-Corner-LowerLeft">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.$parent.Inset" x="46" y="31"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="BorderBottomRight" inherits="Char-Corner-LowerRight">
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.$parent.Inset" x="-47" y="31"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="BorderLeft" inherits="Char-Inner-Left">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.BorderTopLeft" relativePoint="BOTTOMLEFT" x="-1"/>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.BorderBottomLeft" relativePoint="TOPLEFT" x="-1"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="BorderRight" inherits="Char-Inner-Right">
+                    <Anchors>
+                        <Anchor point="TOPRIGHT" relativeKey="$parent.BorderTopRight" relativePoint="BOTTOMRIGHT" x="1"/>
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BorderBottomRight" relativePoint="TOPRIGHT" x="1"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="BorderTop" inherits="Char-Inner-Top">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.BorderTopLeft" relativePoint="TOPRIGHT" y="1"/>
+                        <Anchor point="TOPRIGHT" relativeKey="$parent.BorderTopRight" relativePoint="TOPLEFT" y="1"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="BorderBottom" inherits="Char-Inner-Bottom">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.BorderBottomLeft" relativePoint="BOTTOMRIGHT" y="-1"/>
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BorderBottomRight" relativePoint="BOTTOMLEFT" y="-1"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="BorderBottom2" inherits="Char-Inner-Bottom">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.$parent.Inset" y="27"/>
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.$parent.Inset" y="27"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+    </Frame>
+
+    <Button name="tdBag2EquipBagToggleFrameTemplate" virtual="true">
+        <Size x="70" y="70"/>
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture parentKey="ring" file="Interface\TalentFrame\spec-filagree" setAllPoints="true">
+                    <TexCoords left="0.00390625" right="0.27734375" top="0.48437500" bottom="0.75781250"/>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <Texture parentKey="icon" mask="Interface\CharacterFrame\TempPortraitAlphaMask">
+                    <Size x="56" y="56"/>
+                    <Anchors>
+                        <Anchor point="CENTER" relativeKey="$parent.ring" relativePoint="CENTER" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight">
+            <Size x="78" y="78"/>
+            <Anchors>
+                <Anchor point="TOPLEFT" x="-4" y="0"/>
+            </Anchors>
+        </HighlightTexture>
+    </Button>
 </Ui>

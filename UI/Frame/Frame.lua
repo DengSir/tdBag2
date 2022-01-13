@@ -30,6 +30,7 @@ local Frame = ns.Addon:NewClass('UI.Frame', 'Frame')
 Frame.TEMPLATE = 'tdBag2BaseFrameTemplate'
 
 function Frame:Constructor(_, meta)
+    ---@type FrameMeta
     self.meta = meta
     self.name = 'tdBag2Bag' .. self.meta.bagId
 

@@ -77,7 +77,7 @@ function Current:GetBagInfo(bag)
             data.owned = true
         end
     elseif ns.IsEquip(bag) then
-        data.count = INVSLOT_LAST_EQUIPPED - 1
+        data.count = INVSLOT_LAST_EQUIPPED
         data.family = -4
         data.owned = true
     end

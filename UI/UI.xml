@@ -29,6 +29,7 @@
     <Script file="Frame\InventoryFrame.lua" />
     <Script file="Frame\BankFrame.lua" />
     <Script file="Frame\GlobalSearchFrame.lua" />
+    <Script file="Frame\EquipFrame.lua" />
 
     <Script file="Plugin\BagToggle.lua" />
     <Script file="Plugin\SearchToggle.lua" />
