@@ -23,7 +23,7 @@ function EquipContainer:Constructor()
 
     for slot = 1, INVSLOT_LAST_EQUIPPED do
         local itemButton = self:GetItemButton(bag, slot)
-        local anchors = ns.GetInvAnchor(slot)
+        local anchors = ns.INV_ANCHORS[slot]
         local pos = self.LAYOUT_OFFSETS[anchors.anchor]
         local point, x, y
 

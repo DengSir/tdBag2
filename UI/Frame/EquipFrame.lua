@@ -11,40 +11,19 @@ local SimpleFrame = ns.UI.SimpleFrame
 ---@class UI.EquipFrame: UI.SimpleFrame
 local EquipFrame = ns.Addon:NewClass('UI.EquipFrame', SimpleFrame)
 EquipFrame.CENTER_TEMPLATE = 'tdBag2EquipContainerCenterFrameTemplate'
+EquipFrame.TOGGLES = {ns.BAG_ID.BAG, ns.BAG_ID.BANK, ns.BAG_ID.MAIL, ns.BAG_ID.SEARCH}
 
 function EquipFrame:Constructor()
     ---@type tdBag2EquipContainerCenterFrameTemplate
-    self.CenterFrame = CreateFrame('Frame', nil, self, 'tdBag2EquipContainerCenterFrameTemplate')
+    self.CenterFrame = CreateFrame('Frame', nil, self, self.CENTER_TEMPLATE)
 
     self.toggles = {}
 
-    local function OnClick(button)
-        ns.Addon:ToggleOwnerFrame(button.bagId, self.meta.owner)
-    end
-
-    local function OnEnter(button)
-        local name = ns.Cache:GetOwnerInfo(self.meta.owner).name
-        local title = ns.BAG_TITLES[button.bagId]
-        title = name and format(title, Ambiguate(name, 'none')) or title
-        GameTooltip:SetOwner(button, 'ANCHOR_TOP')
-        GameTooltip:SetText(title)
-        GameTooltip:Show()
-    end
-
-    local bags = {ns.BAG_ID.BAG, ns.BAG_ID.BANK, ns.BAG_ID.MAIL}
-
-    for i, bagId in ipairs(bags) do
-        ---@type tdBag2EquipBagToggleFrameTemplate
-        local button = CreateFrame('Button', nil, self.CenterFrame, 'tdBag2EquipBagToggleFrameTemplate')
-        button.icon:SetTexture(ns.BAG_ICONS[bagId])
-        button.bagId = bagId
-
-        button:SetScript('OnClick', OnClick)
-        button:SetScript('OnEnter', OnEnter)
-        button:SetScript('OnLeave', GameTooltip_Hide)
+    for i, bagId in ipairs(self.TOGGLES) do
+        local button = ns.UI.EquipBagToggle:Create(self.CenterFrame, self.meta, bagId)
 
         if i == 1 then
-            button:SetPoint('LEFT', self, 'CENTER', -button:GetWidth() * #bags / 2, 0)
+            button:SetPoint('LEFT', self.CenterFrame, 'BOTTOM', -button:GetWidth() * #self.TOGGLES / 2, 60)
         else
             button:SetPoint('LEFT', self.toggles[i - 1], 'RIGHT')
         end

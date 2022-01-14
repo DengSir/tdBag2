@@ -122,7 +122,7 @@ function GlobalSearch:DoSearch()
                 if count > 0 then
                     bagInfo.cached = true
                     bagInfo.owned = true
-                    bagInfo.title = v.title:format(owner)
+                    bagInfo.title = v.title:format(Ambiguate(owner, 'none'))
                     bagInfo.count = count
                     bagInfo.items = items
 

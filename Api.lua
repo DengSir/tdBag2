@@ -158,6 +158,15 @@ local BAG_TITLES = { --
     [BAG_ID.SEARCH] = L['Global search'],
 }
 
+local BAG_TOOLTIPS = {
+    [BAG_ID.BAG] = L['Inventory'],
+    [BAG_ID.BANK] = L['Bank'],
+    [BAG_ID.MAIL] = L['Mail'],
+    [BAG_ID.EQUIP] = L['Equipped'],
+    [BAG_ID.GUILDBANK] = L['Guild bank'],
+    [BAG_ID.SEARCH] = L['Global search'],
+}
+
 local BAGS = { --
     [BAG_ID.BAG] = {BACKPACK_CONTAINER},
     [BAG_ID.BANK] = {BANK_CONTAINER},
@@ -211,9 +220,9 @@ do
     -- @end-bcc@
 end
 
-local INV_NAMES = {}
-local INV_ICONS = {}
+local INV_TOOLTIPS = {}
 local INV_ANCHORS = {}
+local INV_ICONS = {}
 do
     local function left(i)
         return {anchor = 'LEFT', index = i}
@@ -254,16 +263,21 @@ do
     for key, pos in pairs(INV_DATA) do
         local slot, icon = GetInventorySlotInfo(key)
 
-        INV_NAMES[slot] = _G[key]
         INV_ICONS[slot] = icon
         INV_ANCHORS[slot] = pos
+        INV_TOOLTIPS[slot] = _G[key]
     end
 end
 
 ns.BAG_ID = BAG_ID
 ns.BAG_ICONS = BAG_ICONS
 ns.BAG_TITLES = BAG_TITLES
+ns.BAG_TOOLTIPS = BAG_TOOLTIPS
 ns.BAG_CLASSES = BAG_CLASSES
+
+ns.INV_TOOLTIPS = INV_TOOLTIPS
+ns.INV_ANCHORS = INV_ANCHORS
+ns.INV_ICONS = INV_ICONS
 
 ns.PLAYER = nil
 ns.REALM = nil
@@ -587,18 +601,6 @@ function ns.IsGuildOwner(key)
     return key and key:find('^@')
 end
 ns.IsGuildOwner = ns.memorize(ns.IsGuildOwner)
-
-function ns.GetInvName(slot)
-    return INV_NAMES[slot]
-end
-
-function ns.GetInvIcon(slot)
-    return INV_ICONS[slot]
-end
-
-function ns.GetInvAnchor(slot)
-    return INV_ANCHORS[slot]
-end
 
 function ns.GetCharacterProfileKey(name, realm)
     if name:find('-') then

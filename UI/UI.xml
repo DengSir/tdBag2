@@ -13,6 +13,7 @@
     <Script file="Component\TitleFrame.lua" />
     <Script file="Component\Token.lua" />
     <Script file="Component\TokenFrame.lua" />
+    <Script file="Component\EquipBagToggle.lua" />
 
     <Script file="Item\ItemBase.lua" />
     <Script file="Item\Item.lua" />

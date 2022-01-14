@@ -191,7 +191,7 @@ function ItemBase:CreateOverlay()
             GameTooltip:Show()
         elseif parent.meta:IsEquip() then
             ns.AnchorTooltip(self)
-            GameTooltip:SetText(ns.GetInvName(parent.slot))
+            GameTooltip:SetText(ns.INV_TOOLTIPS[parent.slot])
             GameTooltip:Show()
         end
         parent:LockHighlight()
@@ -250,7 +250,7 @@ end
 
 function ItemBase:GetEmptyIcon()
     if self.meta:IsEquip() then
-        return ns.GetInvIcon(self.slot)
+        return ns.INV_ICONS[self.slot]
     else
         return self.EMPTY_SLOT_TEXTURE or [[Interface\AddOns\tdBag2\Resource\UI-Backpack-EmptySlot]]
     end

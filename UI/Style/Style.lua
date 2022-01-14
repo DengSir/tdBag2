@@ -81,7 +81,7 @@ function Addon:SetupDefaultStyles()
 
             EquipItem = {
                 SetBagSlot = function(self, _, _, _, slot)
-                    local anchors = ns.GetInvAnchor(slot)
+                    local anchors = ns.INV_ANCHORS[slot]
                     if anchors.anchor == 'LEFT' then
                         local texture = self:CreateTexture(nil, 'BACKGROUND', 'Char-LeftSlot', -1)
                         texture:ClearAllPoints()

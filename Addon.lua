@@ -62,6 +62,7 @@ _G.BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 ---@field ContainerFrame UI.ContainerFrame
 ---@field OwnerSelector UI.OwnerSelector
 ---@field SearchBox UI.SearchBox
+---@field EquipBagToggle UI.EquipBagToggle
 ns.UI = {}
 ns.Search = LibStub('LibItemSearch-1.2')
 ns.Unfit = LibStub('Unfit-1.0')
