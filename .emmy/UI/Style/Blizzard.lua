@@ -76,6 +76,19 @@ local tdBag2ScrollFrameTemplate = {}
 ---@class tdBag2SearchingTemplate : Frame
 local tdBag2SearchingTemplate = {}
 
+---@class tdBag2EquipBagToggleFrameTemplate : Button
+---@field ring Texture
+---@field icon Texture
+local tdBag2EquipBagToggleFrameTemplate = {}
+
+---@class __tdBag2EquipContainerCenterFrameTemplate_Toggle1 : tdBag2EquipBagToggleFrameTemplate , Button
+
+---@class __tdBag2EquipContainerCenterFrameTemplate_Toggle2 : tdBag2EquipBagToggleFrameTemplate , Button
+
+---@class __tdBag2EquipContainerCenterFrameTemplate_Toggle3 : tdBag2EquipBagToggleFrameTemplate , Button
+
+---@class __tdBag2EquipContainerCenterFrameTemplate_Toggle4 : tdBag2EquipBagToggleFrameTemplate , Button
+
 ---@class tdBag2EquipContainerCenterFrameTemplate : Frame
 ---@field BackgroundTopLeft Texture
 ---@field BackgroundTopRight Texture
@@ -91,9 +104,10 @@ local tdBag2SearchingTemplate = {}
 ---@field BorderTop Texture
 ---@field BorderBottom Texture
 ---@field BorderBottom2 Texture
+---@field Name FontString
+---@field Guild FontString
+---@field Toggle1 __tdBag2EquipContainerCenterFrameTemplate_Toggle1
+---@field Toggle2 __tdBag2EquipContainerCenterFrameTemplate_Toggle2
+---@field Toggle3 __tdBag2EquipContainerCenterFrameTemplate_Toggle3
+---@field Toggle4 __tdBag2EquipContainerCenterFrameTemplate_Toggle4
 local tdBag2EquipContainerCenterFrameTemplate = {}
-
----@class tdBag2EquipBagToggleFrameTemplate : Button
----@field ring Texture
----@field icon Texture
-local tdBag2EquipBagToggleFrameTemplate = {}

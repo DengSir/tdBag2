@@ -47,7 +47,7 @@ function Addon:SetupDefaultStyles()
             },
 
             EquipFrame = {
-                UpdateCenter = function(self)
+                UpdateBackground = function(self)
                     local ownerInfo = ns.Cache:GetOwnerInfo(self.meta.owner)
                     local texturePath = DressUpTexturePath(ownerInfo.race)
 
@@ -70,8 +70,6 @@ function Addon:SetupDefaultStyles()
         hooks = {
             EquipFrame = {
                 Constructor = function(self)
-                    self.CenterFrame.BackgroundOverlay:SetAlpha(0.3)
-
                     self.CenterFrame.BackgroundTopLeft:SetDesaturated(true)
                     self.CenterFrame.BackgroundTopRight:SetDesaturated(true)
                     self.CenterFrame.BackgroundBotLeft:SetDesaturated(true)

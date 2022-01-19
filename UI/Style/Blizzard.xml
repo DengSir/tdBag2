@@ -373,6 +373,27 @@
         </Frames>
     </Frame>
 
+    <Button name="tdBag2EquipBagToggleFrameTemplate" virtual="true">
+        <Size x="48" y="48"/>
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture parentKey="ring" file="Interface\TalentFrame\spec-filagree" setAllPoints="true">
+                    <TexCoords left="0.00390625" right="0.27734375" top="0.48437500" bottom="0.75781250"/>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <Texture parentKey="icon" mask="Interface\CharacterFrame\TempPortraitAlphaMask">
+                    <Size x="38" y="38"/>
+                    <Anchors>
+                        <Anchor point="CENTER" relativeKey="$parent.ring" relativePoint="CENTER" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight">
+        </HighlightTexture>
+    </Button>
+
     <Frame name="tdBag2EquipContainerCenterFrameTemplate" virtual="true">
         <Size x="231" y="320"/>
         <Anchors>
@@ -415,7 +436,7 @@
                         <Anchor point="TOPLEFT" relativeKey="$parent.BackgroundTopLeft"/>
                         <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BackgroundBotRight" x="0" y="52"/>
                     </Anchors>
-                    <Color r="0" g="0" b="0"/>
+                    <Color r="0" g="0" b="0" a="0.7"/>
                 </Texture>
             </Layer>
             <Layer level="OVERLAY">
@@ -471,26 +492,33 @@
                 </Texture>
             </Layer>
         </Layers>
+        <Frames>
+            <Button parentKey="Toggle1" parentArray="toggles" inherits="tdBag2EquipBagToggleFrameTemplate">
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="-96" y="24" />
+                </Anchors>
+            </Button>
+            <Button parentKey="Toggle2" parentArray="toggles" inherits="tdBag2EquipBagToggleFrameTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.Toggle1" relativePoint="RIGHT" />
+                </Anchors>
+            </Button>
+            <Button parentKey="Toggle3" parentArray="toggles" inherits="tdBag2EquipBagToggleFrameTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.Toggle2" relativePoint="RIGHT" />
+                </Anchors>
+            </Button>
+            <Button parentKey="Toggle4" parentArray="toggles" inherits="tdBag2EquipBagToggleFrameTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.Toggle3" relativePoint="RIGHT" />
+                </Anchors>
+            </Button>
+            <PlayerModel parentKey="Model" inherits="ModelWithControlsTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" />
+                    <Anchor point="BOTTOMRIGHT" x="0" y="60" />
+                </Anchors>
+            </PlayerModel>
+        </Frames>
     </Frame>
-
-    <Button name="tdBag2EquipBagToggleFrameTemplate" virtual="true">
-        <Size x="48" y="48"/>
-        <Layers>
-            <Layer level="OVERLAY">
-                <Texture parentKey="ring" file="Interface\TalentFrame\spec-filagree" setAllPoints="true">
-                    <TexCoords left="0.00390625" right="0.27734375" top="0.48437500" bottom="0.75781250"/>
-                </Texture>
-            </Layer>
-            <Layer level="ARTWORK">
-                <Texture parentKey="icon" mask="Interface\CharacterFrame\TempPortraitAlphaMask">
-                    <Size x="38" y="38"/>
-                    <Anchors>
-                        <Anchor point="CENTER" relativeKey="$parent.ring" relativePoint="CENTER" x="0" y="0"/>
-                    </Anchors>
-                </Texture>
-            </Layer>
-        </Layers>
-        <HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight">
-        </HighlightTexture>
-    </Button>
 </Ui>

@@ -39,7 +39,7 @@ local Current = {}
 ns.Current = Current
 
 function Current:GetOwnerInfo()
-
+    ---@type tdBag2OwnerInfo
     local data = {}
     data.name, data.realm = ns.PLAYER, ns.REALM
     data.class = UnitClassBase('player')
@@ -47,11 +47,12 @@ function Current:GetOwnerInfo()
     data.race = select(2, UnitRace('player'))
     data.gender = UnitSex('player')
     data.money = (GetMoney() or 0) - GetCursorMoney() - GetPlayerTradeMoney()
+    data.guild = GetGuildInfo('player')
     return data
 end
 
 function Current:GetBagInfo(bag)
-
+    ---@type tdBag2BagInfo
     local data = {}
 
     if ns.IsContainerBag(bag) then
@@ -85,7 +86,7 @@ function Current:GetBagInfo(bag)
 end
 
 function Current:GetItemInfo(bag, slot)
-
+    ---@type tdBag2ItemInfo
     local data = {}
     if ns.IsContainerBag(bag) then
         data.id = GetContainerItemID(bag, slot)

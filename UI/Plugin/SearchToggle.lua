@@ -22,6 +22,7 @@ local SEARCH = SEARCH
 local SearchToggle = ns.Addon:NewClass('UI.SearchToggle', ns.UI.MenuButton)
 
 function SearchToggle:Constructor(_, meta)
+    ---@type FrameMeta
     self.meta = meta
     self:RegisterForClicks('LeftButtonUp', 'RightButtonUp')
     self:SetScript('OnClick', self.OnClick)

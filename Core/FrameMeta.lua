@@ -30,7 +30,7 @@ function FrameMeta:Constructor(bagId)
     end
 
     self:Update()
-    ---@type UI.Frame
+    ---@type UI.Frame | UI.SimpleFrame
     self.frame = self.class.Frame:Create(self)
 end
 

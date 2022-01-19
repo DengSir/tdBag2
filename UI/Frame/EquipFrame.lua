@@ -17,18 +17,8 @@ function EquipFrame:Constructor()
     ---@type tdBag2EquipContainerCenterFrameTemplate
     self.CenterFrame = CreateFrame('Frame', nil, self, self.CENTER_TEMPLATE)
 
-    self.toggles = {}
-
     for i, bagId in ipairs(self.TOGGLES) do
-        local button = ns.UI.EquipBagToggle:Create(self.CenterFrame, self.meta, bagId)
-
-        if i == 1 then
-            button:SetPoint('LEFT', self.CenterFrame, 'BOTTOM', -button:GetWidth() * #self.TOGGLES / 2, 60)
-        else
-            button:SetPoint('LEFT', self.toggles[i - 1], 'RIGHT')
-        end
-
-        tinsert(self.toggles, button)
+        ns.UI.EquipBagToggle:Bind(assert(self.CenterFrame.toggles[i]), self.meta, bagId)
     end
 end
 
@@ -39,4 +29,18 @@ function EquipFrame:OnShow()
 end
 
 function EquipFrame:UpdateCenter()
+    self:UpdateInfo()
+    self:UpdateBackground()
+end
+
+function EquipFrame:UpdateInfo()
+    if self.meta:IsSelf() then
+        self.CenterFrame.Model:SetUnit('player')
+        self.CenterFrame.Model:Show()
+    else
+        self.CenterFrame.Model:Hide()
+    end
+end
+
+function EquipFrame:UpdateBackground()
 end

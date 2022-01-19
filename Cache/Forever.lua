@@ -112,6 +112,7 @@ function Forever:SetupCache()
     self.player.class = UnitClassBase('player')
     self.player.race = select(2, UnitRace('player'))
     self.player.gender = UnitSex('player')
+    self.player.guild = GetGuildInfo('player')
 
     self:RefreshOwners()
 end
@@ -355,7 +356,7 @@ end
 function Forever:GetOwnerInfo(realm, name)
     local ownerData = self:FindData(realm, name)
     if ownerData then
-
+        ---@type tdBag2OwnerInfo
         local data = {}
         data.cached = true
         data.name = name
@@ -372,7 +373,7 @@ function Forever:GetOwnerInfo(realm, name)
 end
 
 function Forever:GetBagInfo(realm, name, bag)
-
+    ---@type tdBag2BagInfo
     local data = {}
     local bagData = self:FindData(realm, name, bag)
 
