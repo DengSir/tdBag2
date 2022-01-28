@@ -10,8 +10,13 @@ local SimpleFrame = ns.UI.SimpleFrame
 
 ---@class UI.EquipFrame: UI.SimpleFrame
 local EquipFrame = ns.Addon:NewClass('UI.EquipFrame', SimpleFrame)
-EquipFrame.CENTER_TEMPLATE = 'tdBag2EquipContainerCenterFrameTemplate'
+EquipFrame.CENTER_TEMPLATE = 'tdBag2EquipContainerCenterFrameBaseTemplate'
 EquipFrame.TOGGLES = {ns.BAG_ID.BAG, ns.BAG_ID.BANK, ns.BAG_ID.MAIL, ns.BAG_ID.SEARCH}
+EquipFrame.FACTION_LOGO_ICONS = {
+    Alliance = [[Interface\Timer\Alliance-Logo]],
+    Horde = [[Interface\Timer\Horde-Logo]],
+    Neutral = [[Interface\Timer\Panda-Logo]],
+}
 
 function EquipFrame:Constructor()
     ---@type tdBag2EquipContainerCenterFrameTemplate
@@ -37,7 +42,11 @@ function EquipFrame:UpdateInfo()
     if self.meta:IsSelf() then
         self.CenterFrame.Model:SetUnit('player')
         self.CenterFrame.Model:Show()
+        self.CenterFrame.NoModel:Hide()
     else
+        local ownerInfo = ns.Cache:GetOwnerInfo(self.meta.owner)
+        self.CenterFrame.NoModel.Faction:SetTexture(self.FACTION_LOGO_ICONS[ownerInfo.faction])
+        self.CenterFrame.NoModel:Show()
         self.CenterFrame.Model:Hide()
     end
 end

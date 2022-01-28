@@ -47,6 +47,8 @@ function Addon:SetupDefaultStyles()
             },
 
             EquipFrame = {
+                CENTER_TEMPLATE = 'tdBag2EquipContainerCenterFrameTemplate',
+
                 UpdateBackground = function(self)
                     local ownerInfo = ns.Cache:GetOwnerInfo(self.meta.owner)
                     local texturePath = DressUpTexturePath(ownerInfo.race)

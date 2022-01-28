@@ -394,11 +394,58 @@
         </HighlightTexture>
     </Button>
 
-    <Frame name="tdBag2EquipContainerCenterFrameTemplate" virtual="true">
+    <Frame name="tdBag2EquipContainerCenterFrameBaseTemplate" virtual="true">
         <Size x="231" y="320"/>
         <Anchors>
             <Anchor point="TOPLEFT" x="52" y="-66"/>
         </Anchors>
+        <Frames>
+            <Button parentKey="Toggle1" parentArray="toggles" inherits="tdBag2EquipBagToggleFrameTemplate">
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="-96" y="24" />
+                </Anchors>
+            </Button>
+            <Button parentKey="Toggle2" parentArray="toggles" inherits="tdBag2EquipBagToggleFrameTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.Toggle1" relativePoint="RIGHT" />
+                </Anchors>
+            </Button>
+            <Button parentKey="Toggle3" parentArray="toggles" inherits="tdBag2EquipBagToggleFrameTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.Toggle2" relativePoint="RIGHT" />
+                </Anchors>
+            </Button>
+            <Button parentKey="Toggle4" parentArray="toggles" inherits="tdBag2EquipBagToggleFrameTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.Toggle3" relativePoint="RIGHT" />
+                </Anchors>
+            </Button>
+            <PlayerModel parentKey="Model" inherits="ModelWithControlsTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" />
+                    <Anchor point="BOTTOMRIGHT" x="0" y="60" />
+                </Anchors>
+            </PlayerModel>
+            <Frame parentKey="NoModel">
+                <Anchors>
+                    <Anchor point="TOPLEFT" />
+                    <Anchor point="BOTTOMRIGHT" x="0" y="60" />
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <Texture parentKey="Faction">
+                            <Size x="256" y="256"/>
+                            <Anchors>
+                                <Anchor point="CENTER" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+            </Frame>
+        </Frames>
+    </Frame>
+
+    <Frame name="tdBag2EquipContainerCenterFrameTemplate" inherits="tdBag2EquipContainerCenterFrameBaseTemplate" virtual="true">
         <Layers>
             <Layer level="BACKGROUND">
                 <Texture parentKey="BackgroundTopLeft">
@@ -492,33 +539,5 @@
                 </Texture>
             </Layer>
         </Layers>
-        <Frames>
-            <Button parentKey="Toggle1" parentArray="toggles" inherits="tdBag2EquipBagToggleFrameTemplate">
-                <Anchors>
-                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="-96" y="24" />
-                </Anchors>
-            </Button>
-            <Button parentKey="Toggle2" parentArray="toggles" inherits="tdBag2EquipBagToggleFrameTemplate">
-                <Anchors>
-                    <Anchor point="LEFT" relativeKey="$parent.Toggle1" relativePoint="RIGHT" />
-                </Anchors>
-            </Button>
-            <Button parentKey="Toggle3" parentArray="toggles" inherits="tdBag2EquipBagToggleFrameTemplate">
-                <Anchors>
-                    <Anchor point="LEFT" relativeKey="$parent.Toggle2" relativePoint="RIGHT" />
-                </Anchors>
-            </Button>
-            <Button parentKey="Toggle4" parentArray="toggles" inherits="tdBag2EquipBagToggleFrameTemplate">
-                <Anchors>
-                    <Anchor point="LEFT" relativeKey="$parent.Toggle3" relativePoint="RIGHT" />
-                </Anchors>
-            </Button>
-            <PlayerModel parentKey="Model" inherits="ModelWithControlsTemplate">
-                <Anchors>
-                    <Anchor point="TOPLEFT" />
-                    <Anchor point="BOTTOMRIGHT" x="0" y="60" />
-                </Anchors>
-            </PlayerModel>
-        </Frames>
     </Frame>
 </Ui>

@@ -112,7 +112,6 @@ function Forever:SetupCache()
     self.player.class = UnitClassBase('player')
     self.player.race = select(2, UnitRace('player'))
     self.player.gender = UnitSex('player')
-    self.player.guild = GetGuildInfo('player')
 
     self:RefreshOwners()
 end

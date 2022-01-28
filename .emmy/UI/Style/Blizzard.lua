@@ -1,3 +1,4 @@
+---@meta
 ---@class __tdBag2BaseFrameTemplate_TitleFrame : Button
 ---@field Text FontString
 local __tdBag2BaseFrameTemplate_TitleFrame = {}
@@ -81,15 +82,31 @@ local tdBag2SearchingTemplate = {}
 ---@field icon Texture
 local tdBag2EquipBagToggleFrameTemplate = {}
 
----@class __tdBag2EquipContainerCenterFrameTemplate_Toggle1 : tdBag2EquipBagToggleFrameTemplate , Button
+---@class __tdBag2EquipContainerCenterFrameBaseTemplate_Toggle1 : tdBag2EquipBagToggleFrameTemplate , Button
 
----@class __tdBag2EquipContainerCenterFrameTemplate_Toggle2 : tdBag2EquipBagToggleFrameTemplate , Button
+---@class __tdBag2EquipContainerCenterFrameBaseTemplate_Toggle2 : tdBag2EquipBagToggleFrameTemplate , Button
 
----@class __tdBag2EquipContainerCenterFrameTemplate_Toggle3 : tdBag2EquipBagToggleFrameTemplate , Button
+---@class __tdBag2EquipContainerCenterFrameBaseTemplate_Toggle3 : tdBag2EquipBagToggleFrameTemplate , Button
 
----@class __tdBag2EquipContainerCenterFrameTemplate_Toggle4 : tdBag2EquipBagToggleFrameTemplate , Button
+---@class __tdBag2EquipContainerCenterFrameBaseTemplate_Toggle4 : tdBag2EquipBagToggleFrameTemplate , Button
 
----@class tdBag2EquipContainerCenterFrameTemplate : Frame
+---@class __tdBag2EquipContainerCenterFrameBaseTemplate_Model : ModelWithControlsTemplate , PlayerModel
+
+---@class __tdBag2EquipContainerCenterFrameBaseTemplate_NoModel : Frame
+---@field Faction Texture
+---@field Class Texture
+local __tdBag2EquipContainerCenterFrameBaseTemplate_NoModel = {}
+
+---@class tdBag2EquipContainerCenterFrameBaseTemplate : Frame
+---@field Toggle1 __tdBag2EquipContainerCenterFrameBaseTemplate_Toggle1
+---@field Toggle2 __tdBag2EquipContainerCenterFrameBaseTemplate_Toggle2
+---@field Toggle3 __tdBag2EquipContainerCenterFrameBaseTemplate_Toggle3
+---@field Toggle4 __tdBag2EquipContainerCenterFrameBaseTemplate_Toggle4
+---@field Model __tdBag2EquipContainerCenterFrameBaseTemplate_Model
+---@field NoModel __tdBag2EquipContainerCenterFrameBaseTemplate_NoModel
+local tdBag2EquipContainerCenterFrameBaseTemplate = {}
+
+---@class tdBag2EquipContainerCenterFrameTemplate : tdBag2EquipContainerCenterFrameBaseTemplate , Frame
 ---@field BackgroundTopLeft Texture
 ---@field BackgroundTopRight Texture
 ---@field BackgroundBotLeft Texture
@@ -104,10 +121,4 @@ local tdBag2EquipBagToggleFrameTemplate = {}
 ---@field BorderTop Texture
 ---@field BorderBottom Texture
 ---@field BorderBottom2 Texture
----@field Name FontString
----@field Guild FontString
----@field Toggle1 __tdBag2EquipContainerCenterFrameTemplate_Toggle1
----@field Toggle2 __tdBag2EquipContainerCenterFrameTemplate_Toggle2
----@field Toggle3 __tdBag2EquipContainerCenterFrameTemplate_Toggle3
----@field Toggle4 __tdBag2EquipContainerCenterFrameTemplate_Toggle4
 local tdBag2EquipContainerCenterFrameTemplate = {}

@@ -47,7 +47,6 @@ function Current:GetOwnerInfo()
     data.race = select(2, UnitRace('player'))
     data.gender = UnitSex('player')
     data.money = (GetMoney() or 0) - GetCursorMoney() - GetPlayerTradeMoney()
-    data.guild = GetGuildInfo('player')
     return data
 end
 

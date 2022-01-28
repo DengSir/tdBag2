@@ -44,7 +44,7 @@ local MetaMixin = {}
 ---@field race string
 ---@field gender integer
 ---@field money integer
----@field guild string
+---@field guild boolean
 
 ---@class tdBag2BagInfo: tdBag2CacheInfo
 ---@field free integer
