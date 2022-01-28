@@ -1,3 +1,13 @@
+# [2.1.0](https://github.com/DengSir/tdBag2/compare/v2.0.12...v2.1.0) (2022-01-28)
+
+
+### Features
+
+* change equip bag like blizzard ([568bd82](https://github.com/DengSir/tdBag2/commit/568bd82b1ffbdb4df0c47cf65e15fb24aea8d781))
+* equip bag like blizzard ([472288f](https://github.com/DengSir/tdBag2/commit/472288fb1ba6f327e29c08f9abc62d4ed5cb92bc))
+
+
+
 ## [2.0.12](https://github.com/DengSir/tdBag2/compare/v2.0.11...v2.0.12) (2022-01-09)
 
 
