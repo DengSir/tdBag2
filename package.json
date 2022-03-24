@@ -30,7 +30,7 @@
     },
     "builds": {
       "classic": "11401",
-      "bcc": "20503"
+      "bcc": "20504"
     }
   },
   "devDependencies": {
