@@ -6,15 +6,16 @@ on:
 
 jobs:
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: true
+
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      
-      - run: npm install -g wow-curse-tools
-      - run: npm install -g conventional-changelog-cli
-      - run: wct publish --token $CURSE_TOKEN
+
+      - run: npm install --location=global wow-curse-tools
+      - run: wct publish --token ${{ secrets.CURSE_TOKEN }}
