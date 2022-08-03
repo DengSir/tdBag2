@@ -1,3 +1,12 @@
+## [2.1.2](https://github.com/DengSir/tdBag2/compare/v2.1.1...v2.1.2) (2022-08-03)
+
+
+### Features
+
+* update for wlk ([e02871d](https://github.com/DengSir/tdBag2/commit/e02871d5f4117f502083c21ad2af68ac590b8677))
+
+
+
 ## [2.1.1](https://github.com/DengSir/tdBag2/compare/v2.1.0...v2.1.1) (2022-03-24)
 
 
