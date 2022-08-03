@@ -21,7 +21,13 @@ function Token:Constructor()
     self:SetMouseClickEnabled(false)
 end
 
+function Token:Clear()
+    self.itemId = nil
+    self.currencyId = nil
+end
+
 function Token:SetItem(owner, itemId, watchAll)
+    self:Clear()
     self.itemId = itemId
     self.Icon:SetTexture(GetItemIcon(itemId))
     if watchAll then
@@ -33,11 +39,28 @@ function Token:SetItem(owner, itemId, watchAll)
     self:SetWidth(self.Count:GetWidth() + 20)
 end
 
+-- @wotlkc@
+function Token:SetCurrency(owner, currencyId, icon, count)
+    self:Clear()
+    self.currencyId = currencyId
+    self.Icon:SetTexture(icon)
+    self.Count:SetText(count)
+    self:SetWidth(self.Count:GetWidth() + 20)
+end
+-- @end-wotlkc@
+
 function Token:TooltipItem()
     ---@type UI.TokenFrame
     local parent = self:GetParent()
     ns.AnchorTooltip2(parent, 'LEFT', 0, 0, self)
-    GameTooltip:SetHyperlink('item:' .. self.itemId)
+
+    if self.itemId then
+        GameTooltip:SetHyperlink('item:' .. self.itemId)
+        -- @wotlkc@
+    else
+        GameTooltip:SetHyperlink('currency:' .. self.currencyId)
+        -- @end-wotlkc@
+    end
 
     if parent.meta:IsSelf() then
         GameTooltip:AddLine(' ')
@@ -59,6 +82,25 @@ function Token:TooltipAll()
     ns.AnchorTooltip2(parent, 'LEFT', 0, 0, self)
     GameTooltip:SetText(L['Watch Frame'])
     GameTooltip:AddLine(' ')
+
+    -- @wotlkc@
+    if parent.meta:IsSelf() then
+        for i = 1, GetNumWatchedTokens() do
+            local name, count, icon, currencyId = GetBackpackCurrencyInfo(i)
+            if name then
+                local title = format('|T%s:14|t ', icon) .. name
+                local r, g, b = 1, 1, 1
+                local quality = select(8, GetCurrencyInfo(currencyId))
+
+                if quality then
+                    r, g, b = GetItemQualityColor(quality)
+                end
+
+                GameTooltip:AddDoubleLine(title, count, r, g, b, 1, 0.82, 0)
+            end
+        end
+    end
+    -- @end-wotlkc@
 
     local owner = parent.meta.owner
     for _, watch in ipairs(watchs) do

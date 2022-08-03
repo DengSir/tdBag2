@@ -96,6 +96,28 @@ end
 function TokenFrame:Update()
     local index = 0
     local width = self.PADDING * 2
+
+    -- @wotlkc@
+    if self.meta:IsSelf() then
+        for i = 1, GetNumWatchedTokens() do
+            local name, count, icon, currencyId = GetBackpackCurrencyInfo(i)
+            if name then
+                index = index + 1
+
+                local button = self:GetButton(index)
+                button:SetCurrency(self.meta.owner, currencyId, icon, count)
+                button:Show()
+
+                width = width + button:GetWidth()
+                if width > self:GetWidth() then
+                    button:Hide()
+                    break
+                end
+            end
+        end
+    end
+    -- @end-wotlkc@
+
     for _, watch in ipairs(self.meta.character.watches) do
         index = index + 1
         local button = self:GetButton(index)

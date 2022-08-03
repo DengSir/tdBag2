@@ -57,7 +57,12 @@ function Events:OnEnable()
     self:RegisterEvent('BAG_NEW_ITEMS_UPDATED', 'Fire')
     self:RegisterEvent('BAG_UPDATE_COOLDOWN', 'Fire')
     self:RegisterEvent('BAG_UPDATE_DELAYED', 'Fire')
+    -- @non-wotlkc@
     self:RegisterEvent('CURSOR_UPDATE', 'Fire')
+    -- @end-non-wotlkc@
+    -- @wotlkc@
+    self:RegisterEvent('CURSOR_CHANGED', 'Fire')
+    -- @end-wotlkc@
     self:RegisterEvent('GET_ITEM_INFO_RECEIVED', 'Fire')
     self:RegisterEvent('PLAYER_MONEY', 'Fire')
     self:RegisterEvent('PLAYER_TRADE_MONEY', 'Fire')

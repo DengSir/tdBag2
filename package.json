@@ -30,7 +30,8 @@
     },
     "builds": {
       "classic": "11401",
-      "bcc": "20504"
+      "bcc": "20504",
+      "wotlkc": "30400"
     }
   },
   "devDependencies": {

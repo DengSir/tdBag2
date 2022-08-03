@@ -90,7 +90,7 @@ ns.RACE_ICON_TCOORDS = {
     ['ORC_FEMALE'] = {0.75, 1.0, 0.75, 1.0},
 }
 -- @end-classic@
--- @bcc@
+-- @non-classic@
 ns.RACE_ICON_TCOORDS = {
     ['HUMAN_MALE'] = {0, 0.125, 0, 0.25},
     ['DWARF_MALE'] = {0.125, 0.25, 0, 0.25},
@@ -118,7 +118,7 @@ ns.RACE_ICON_TCOORDS = {
     ['DRAENEI_MALE'] = {0.5, 0.625, 0, 0.25},
     ['DRAENEI_FEMALE'] = {0.5, 0.625, 0.5, 0.75},
 }
--- @end-bcc@
+-- @end-non-classic@
 
 ns.TOKENS = {20560, 20559, 20558}
 
@@ -137,9 +137,9 @@ local BAG_ID = { --
     MAIL = 'mail',
     EQUIP = 'equip',
     SEARCH = 'global-search',
-    -- @bcc@
+    -- @non-classic@
     GUILDBANK = 'guild',
-    -- @end-bcc@
+    -- @end-non-classic@
 }
 
 local BAG_ICONS = { --
@@ -173,9 +173,9 @@ local BAGS = { --
     [BAG_ID.MAIL] = {MAIL_CONTAINER, COD_CONTAINER},
     [BAG_ID.EQUIP] = {EQUIP_CONTAINER},
     [BAG_ID.SEARCH] = {},
-    -- @bcc@
+    -- @non-classic@
     [BAG_ID.GUILDBANK] = {},
-    -- @end-bcc@
+    -- @end-non-classic@
 }
 
 local BAG_CLASSES = {
@@ -213,11 +213,11 @@ do
         end
     end
 
-    -- @bcc@
+    -- @non-classic@
     for i = 1, MAX_GUILDBANK_TABS do
         tinsert(BAGS[BAG_ID.GUILDBANK], 50 + i)
     end
-    -- @end-bcc@
+    -- @end-non-classic@
 end
 
 local INV_TOOLTIPS = {}
