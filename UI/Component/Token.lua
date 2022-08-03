@@ -39,7 +39,7 @@ function Token:SetItem(owner, itemId, watchAll)
     self:SetWidth(self.Count:GetWidth() + 20)
 end
 
--- @wotlkc@
+-- @lkc@
 function Token:SetCurrency(owner, currencyId, icon, count)
     self:Clear()
     self.currencyId = currencyId
@@ -47,7 +47,7 @@ function Token:SetCurrency(owner, currencyId, icon, count)
     self.Count:SetText(count)
     self:SetWidth(self.Count:GetWidth() + 20)
 end
--- @end-wotlkc@
+-- @end-lkc@
 
 function Token:TooltipItem()
     ---@type UI.TokenFrame
@@ -56,10 +56,10 @@ function Token:TooltipItem()
 
     if self.itemId then
         GameTooltip:SetHyperlink('item:' .. self.itemId)
-        -- @wotlkc@
+        -- @lkc@
     else
         GameTooltip:SetHyperlink('currency:' .. self.currencyId)
-        -- @end-wotlkc@
+        -- @end-lkc@
     end
 
     if parent.meta:IsSelf() then
@@ -83,7 +83,7 @@ function Token:TooltipAll()
     GameTooltip:SetText(L['Watch Frame'])
     GameTooltip:AddLine(' ')
 
-    -- @wotlkc@
+    -- @lkc@
     if parent.meta:IsSelf() then
         for i = 1, GetNumWatchedTokens() do
             local name, count, icon, currencyId = GetBackpackCurrencyInfo(i)
@@ -100,7 +100,7 @@ function Token:TooltipAll()
             end
         end
     end
-    -- @end-wotlkc@
+    -- @end-lkc@
 
     local owner = parent.meta.owner
     for _, watch in ipairs(watchs) do

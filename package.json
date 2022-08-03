@@ -29,7 +29,7 @@
       "zhCN": "Localization/zhCN.lua"
     },
     "builds": {
-      "wotlkc": "30400"
+      "lkc": "30400"
     }
   }
 }

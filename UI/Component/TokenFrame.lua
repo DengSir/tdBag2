@@ -97,7 +97,7 @@ function TokenFrame:Update()
     local index = 0
     local width = self.PADDING * 2
 
-    -- @wotlkc@
+    -- @lkc@
     if self.meta:IsSelf() then
         for i = 1, GetNumWatchedTokens() do
             local name, count, icon, currencyId = GetBackpackCurrencyInfo(i)
@@ -116,7 +116,7 @@ function TokenFrame:Update()
             end
         end
     end
-    -- @end-wotlkc@
+    -- @end-lkc@
 
     for _, watch in ipairs(self.meta.character.watches) do
         index = index + 1
