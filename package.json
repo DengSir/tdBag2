@@ -33,8 +33,5 @@
       "bcc": "20504",
       "wotlkc": "30400"
     }
-  },
-  "devDependencies": {
-    "conventional-changelog-cli": "^2.2.2"
   }
 }
