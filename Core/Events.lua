@@ -27,7 +27,7 @@ local BAG_ID = ns.BAG_ID
 local METHODS = {'RegisterEvent', 'UnregisterEvent', 'UnregisterAllEvents', 'RegisterFrameEvent'}
 
 ---@class Events: AceAddon-3.0, AceEvent-3.0
-local Events = ns.Addon:NewModule('Events', 'AceEvent-3.0')
+local Events = ns.Addon:NewModule('Events', 'AceEvent-3.0', 'AceHook-3.0')
 Events.handler = {}
 Events.events = LibStub('CallbackHandler-1.0'):New(Events.handler, unpack(METHODS, 1, 3))
 
@@ -62,6 +62,7 @@ function Events:OnEnable()
     -- @end-non-lkc@
     -- @lkc@
     self:RegisterEvent('CURSOR_CHANGED', 'Fire')
+    self:SecureHook('BackpackTokenFrame_Update')
     -- @end-lkc@
     self:RegisterEvent('GET_ITEM_INFO_RECEIVED', 'Fire')
     self:RegisterEvent('PLAYER_MONEY', 'Fire')
@@ -143,4 +144,8 @@ function Events:ITEM_LOCK_CHANGED(_, bag, slot)
             self:Fire('BAG_LOCK_CHANGED', bag)
         end
     end
+end
+
+function Events:BackpackTokenFrame_Update()
+    self.events:Fire('WATCHED_TOKEN_CHANGED')
 end
