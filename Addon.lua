@@ -5,6 +5,7 @@
 --
 ---- LUA
 local ipairs, pairs, nop, tinsert, sort = ipairs, pairs, nop, tinsert, sort
+local ripairs = ipairs_reverse or ripairs
 
 ---- WOW
 local CreateFrame = CreateFrame
@@ -268,10 +269,24 @@ function Addon:SetupCharacterOptions(owner)
             end
         end
 
+        -- @build<3@
         for _, itemId in ipairs(ns.TOKENS) do
             tinsert(watches, {itemId = itemId})
         end
+        -- @end-build<3@
     end
+
+    if not character.version or character.version < 20200 then
+        local oldTokens = tInvert(ns.TOKENS)
+
+        for i, v in ripairs(watches) do
+            if oldTokens[v.itemId] then
+                tremove(watches, i)
+            end
+        end
+    end
+
+    character.version = ns.VERSION
 end
 
 function Addon:SetupBankHider()
