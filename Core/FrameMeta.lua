@@ -64,6 +64,10 @@ function FrameMeta:IsGlobalSearch()
     return self.bagId == BAG_ID.SEARCH
 end
 
+function FrameMeta:IsContainer()
+    return self:IsBag() or self:IsBank()
+end
+
 function FrameMeta:IsCached()
     return Cache:IsOwnerBagCached(self.owner, self.bags[1])
 end

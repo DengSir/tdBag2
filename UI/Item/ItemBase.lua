@@ -377,10 +377,26 @@ function ItemBase:IsCached()
     return self.info and self.info.cached
 end
 
+local IsQuestItem = ns.memorize(function(link)
+    return select(12, GetItemInfo(link)) == LE_ITEM_CLASS_QUESTITEM or Search:ForQuest(link) or false
+end)
+
+-- @build<3@
+function ItemBase:IsQuestItem()
+    return self.hasItem and IsQuestItem(self.info.link)
+end
+
+function ItemBase:IsQuestStarter()
+    return self.hasItem and Search:TooltipPhrase(self.info.link, ITEM_STARTS_QUEST)
+end
+-- @end-build<3@
 -- @build>3@
 function ItemBase:IsQuestItem()
     if not self.hasItem then
         return
+    end
+    if self:IsCached() or not self.meta:IsContainer() then
+        return IsQuestItem(self.info.link)
     end
     local _, questId = GetContainerItemQuestInfo(self.bag, self.slot)
     return questId
@@ -390,23 +406,13 @@ function ItemBase:IsQuestStarter()
     if not self.hasItem then
         return
     end
+    if self:IsCached() or not self.meta:IsContainer() then
+        return
+    end
     local _, questId, isActive = GetContainerItemQuestInfo(self.bag, self.slot)
     return questId and not isActive
 end
 -- @end-build>3@
--- @build<3@
-local IsQuestItem = ns.memorize(function(link)
-    return select(12, GetItemInfo(link)) == LE_ITEM_CLASS_QUESTITEM or Search:ForQuest(link) or false
-end)
-
-function ItemBase:IsQuestItem()
-    return self.hasItem and IsQuestItem(self.info.link)
-end
-
-function ItemBase:IsQuestStarter()
-    return self.hasItem and Search:TooltipPhrase(self.info.link, ITEM_STARTS_QUEST)
-end
--- @end-build<3@
 
 function ItemBase:IsMatched()
     if self.meta:IsGlobalSearch() then
