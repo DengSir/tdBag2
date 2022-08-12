@@ -57,13 +57,14 @@ function Events:OnEnable()
     self:RegisterEvent('BAG_NEW_ITEMS_UPDATED', 'Fire')
     self:RegisterEvent('BAG_UPDATE_COOLDOWN', 'Fire')
     self:RegisterEvent('BAG_UPDATE_DELAYED', 'Fire')
-    -- @non-lkc@
+    -- @build<3@
     self:RegisterEvent('CURSOR_UPDATE', 'Fire')
-    -- @end-non-lkc@
-    -- @lkc@
+    -- @end-build<3@
+    -- @build>3@
     self:RegisterEvent('CURSOR_CHANGED', 'Fire')
+    self:RegisterEvent('QUEST_LOG_UPDATE', 'Fire')
     self:SecureHook('BackpackTokenFrame_Update')
-    -- @end-lkc@
+    -- @end-build>3@
     self:RegisterEvent('GET_ITEM_INFO_RECEIVED', 'Fire')
     self:RegisterEvent('PLAYER_MONEY', 'Fire')
     self:RegisterEvent('PLAYER_TRADE_MONEY', 'Fire')
