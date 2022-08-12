@@ -1,3 +1,15 @@
+# [2.2.0](https://github.com/DengSir/tdBag2/compare/v2.1.2...v2.2.0) (2022-08-12)
+
+
+### Features
+
+* token update ([4450b58](https://github.com/DengSir/tdBag2/commit/4450b58d03a3f91cea3a86558f3a269ddb8438c5))
+* update for old tokens ([351c95b](https://github.com/DengSir/tdBag2/commit/351c95b51c8245a4cb03c9018020d81b52444111))
+* update for quest item ([92210e1](https://github.com/DengSir/tdBag2/commit/92210e18ae2b070d23c06a436ea16af1dc82dc72))
+* update for quest item ([25c8e37](https://github.com/DengSir/tdBag2/commit/25c8e37b4c4141f5f847d44d011b688e80acbb28))
+
+
+
 ## [2.1.2](https://github.com/DengSir/tdBag2/compare/v2.1.1...v2.1.2) (2022-08-03)
 
 
