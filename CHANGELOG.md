@@ -1,3 +1,12 @@
+## [2.2.1](https://github.com/DengSir/tdBag2/compare/v2.2.0...v2.2.1) (2022-09-01)
+
+
+### Bug Fixes
+
+* 打开银行时卡死 ([25eed4c](https://github.com/DengSir/tdBag2/commit/25eed4c38034096d0bc64a6c8e4fa30c52f6f041))
+
+
+
 # [2.2.0](https://github.com/DengSir/tdBag2/compare/v2.1.2...v2.2.0) (2022-08-12)
 
 
