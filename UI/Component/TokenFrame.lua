@@ -99,7 +99,7 @@ function TokenFrame:Update()
 
     -- @lkc@
     if self.meta:IsSelf() then
-        for i = 1, GetNumWatchedTokens() do
+        for i = 1, MAX_WATCHED_TOKENS do
             local name, count, icon, currencyId = GetBackpackCurrencyInfo(i)
             if name then
                 index = index + 1
