@@ -1,3 +1,12 @@
+## [2.2.2](https://github.com/DengSir/tdBag2/compare/v2.2.1...v2.2.2) (2022-09-05)
+
+
+### Bug Fixes
+
+* honor icon ([9d934cd](https://github.com/DengSir/tdBag2/commit/9d934cdfa0a7b81d896032e3c2d23478b4046326))
+
+
+
 ## [2.2.1](https://github.com/DengSir/tdBag2/compare/v2.2.0...v2.2.1) (2022-09-01)
 
 
