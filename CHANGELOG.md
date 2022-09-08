@@ -1,3 +1,12 @@
+## [2.2.3](https://github.com/DengSir/tdBag2/compare/v2.2.2...v2.2.3) (2022-09-08)
+
+
+### Bug Fixes
+
+* item watch ([ddab803](https://github.com/DengSir/tdBag2/commit/ddab80366a2763fd7a610156c6af3a0d509bdfdb))
+
+
+
 ## [2.2.2](https://github.com/DengSir/tdBag2/compare/v2.2.1...v2.2.2) (2022-09-05)
 
 
