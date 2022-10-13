@@ -1,3 +1,12 @@
+## [2.2.4](https://github.com/DengSir/tdBag2/compare/v2.2.3...v2.2.4) (2022-10-13)
+
+
+### Bug Fixes
+
+* quest border ([4876198](https://github.com/DengSir/tdBag2/commit/487619861a1ff6eb738f9c7411704b72c89db289))
+
+
+
 ## [2.2.3](https://github.com/DengSir/tdBag2/compare/v2.2.2...v2.2.3) (2022-09-08)
 
 
