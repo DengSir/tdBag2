@@ -12,7 +12,7 @@ local format = string.format
 ---- WOW
 local CreateFrame = CreateFrame
 local GetItemQualityColor = GetItemQualityColor
-local IsBattlePayItem = IsBattlePayItem
+local IsBattlePayItem = IsBattlePayItem or C_Container.IsBattlePayItem
 
 local IsNewItem = C_NewItems.IsNewItem
 local RemoveNewItem = C_NewItems.RemoveNewItem
