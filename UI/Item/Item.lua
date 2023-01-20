@@ -13,6 +13,11 @@ local format = string.format
 local CreateFrame = CreateFrame
 local GetItemQualityColor = GetItemQualityColor
 local IsBattlePayItem = IsBattlePayItem or C_Container.IsBattlePayItem
+if not IsBattlePayItem then
+    IsBattlePayItem = function(bag, slot)
+        return false
+    end
+end
 
 local IsNewItem = C_NewItems.IsNewItem
 local RemoveNewItem = C_NewItems.RemoveNewItem
