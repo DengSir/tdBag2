@@ -170,6 +170,8 @@ function Forever:SetupEvents()
     self:RegisterEvent('PLAYER_MONEY')
     self:RegisterEvent('BANKFRAME_OPENED')
     self:RegisterEvent('BANKFRAME_CLOSED')
+    self:RegisterEvent('PLAYER_INTERACTION_MANAGER_FRAME_SHOW',"DispatchInteraction")
+    self:RegisterEvent('PLAYER_INTERACTION_MANAGER_FRAME_HIDE',"DispatchInteraction")
     self:RegisterEvent('MAIL_SHOW')
     self:RegisterEvent('MAIL_CLOSED')
     self:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
@@ -190,6 +192,19 @@ function Forever:UpdateData()
 end
 
 ---- Events
+
+function Forever:DispatchInteraction(event,...)
+    local interactType = ...
+    local show = event:match("_SHOW")
+    local hide = event:match("_HIDE")
+    if interactType == Enum.PlayerInteractionType.MailInfo then
+        return show and self:MAIL_SHOW() or (hide and self:MAIL_CLOSED())
+    elseif interactType == Enum.PlayerInteractionType.Banker then
+        return show and self:BANKFRAME_OPENED() or (hide and self:BANKFRAME_CLOSED())
+    elseif interactType == Enum.PlayerInteractionType.GuildBanker then
+        return show and self:GUILDBANKFRAME_OPENED() or (hide and self:GUILDBANKFRAME_CLOSED())
+    end
+end
 
 function Forever:BANKFRAME_OPENED()
     self.atBank = true
