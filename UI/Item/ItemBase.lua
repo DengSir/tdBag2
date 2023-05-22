@@ -19,6 +19,7 @@ local CursorUpdate = CursorUpdate
 local GetItemInfo = GetItemInfo
 local GetItemFamily = GetItemFamily
 local ResetCursor = ResetCursor
+local GetContainerItemQuestInfo = C_Container and C_Container.GetContainerItemQuestInfo or GetContainerItemQuestInfo
 
 local ContainerFrameItemButton_OnEnter = ContainerFrameItemButton_OnEnter
 local SetItemButtonCount = SetItemButtonCount
