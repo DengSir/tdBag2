@@ -29,7 +29,8 @@
       "zhCN": "Localization/zhCN.lua"
     },
     "builds": {
-      "lkc": "30401"
+      "lkc": "30401",
+      "classic": "11501"
     }
   }
 }
