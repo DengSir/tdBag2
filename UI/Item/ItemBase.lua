@@ -143,6 +143,7 @@ end
 -- @debug@
 function ItemBase:OnHide()
 end
+
 -- @end-debug@
 
 function ItemBase:OnEnter()
@@ -270,7 +271,9 @@ function ItemBase:UpdateBorder()
     local sets = self.meta.sets
     local r, g, b = self:GetBorderColor()
 
-    self.IconBorder:SetVertexColor(r, g, b, sets.glowAlpha)
+    if r then
+        self.IconBorder:SetVertexColor(r, g, b, sets.glowAlpha)
+    end
     self.IconBorder:SetShown(r)
     self.QuestBorder:SetShown(sets.iconQuestStarter and self:IsQuestStarter())
     self.JunkIcon:SetShown(sets.iconJunk and self:IsJunk())
@@ -390,6 +393,7 @@ end
 function ItemBase:IsQuestStarter()
     return self.hasItem and Search:TooltipPhrase(self.info.link, ITEM_STARTS_QUEST)
 end
+
 -- @end-build<3@
 -- @build>3@
 function ItemBase:IsQuestItem()
@@ -416,6 +420,7 @@ function ItemBase:IsQuestStarter()
     local _, questId, isActive = GetContainerItemQuestInfo(self.bag, self.slot)
     return questId and not isActive
 end
+
 -- @end-build>3@
 
 function ItemBase:IsMatched()

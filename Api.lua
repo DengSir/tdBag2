@@ -162,7 +162,9 @@ local BAG_TOOLTIPS = {
     [BAG_ID.BANK] = L['Bank'],
     [BAG_ID.MAIL] = L['Mail'],
     [BAG_ID.EQUIP] = L['Equipped'],
+    -- @build>2@
     [BAG_ID.GUILDBANK] = L['Guild bank'],
+    -- @end-build>2@
     [BAG_ID.SEARCH] = L['Global search'],
 }
 
