@@ -27,7 +27,7 @@ local UIParent = UIParent
 local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS
 local MAX_BLIZZARD_ITEMS = NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
 
-local DEFAULT_SLOT_COLOR = { r = 1, g = 1, b = 1 }
+local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
 
 ---@type ns
 local ns = select(2, ...)
@@ -93,8 +93,19 @@ function Item:Update()
     self:UpdateFocus()
     self:UpdateBorder()
     self:UpdateSlotColor()
+    self:UpdateRune()
     self:UpdateCooldown()
     self:UpdatePlugin()
+end
+
+function Item:UpdateRune()
+    local texture = self:GetRuneTexture()
+    if texture then
+        self.subicon:SetTexture(texture)
+        self.subicon:Show()
+    else
+        self.subicon:Hide()
+    end
 end
 
 function Item:UpdateBorder()
@@ -176,4 +187,18 @@ end
 
 function Item:IsPaid()
     return IsBattlePayItem and IsBattlePayItem(self.bag, self.slot)
+end
+
+function Item:GetRuneTexture()
+    if self:IsCached() then
+        return
+    end
+    if not self.meta:IsContainer() then
+        return
+    end
+
+    if C_Engraving.IsEngravingEnabled() and C_Engraving.IsInventorySlotEngravable(self.bag, self.slot) then
+        local info = C_Engraving.GetRuneForInventorySlot(self.bag, self.slot)
+        return info and info.iconTexture
+    end
 end
