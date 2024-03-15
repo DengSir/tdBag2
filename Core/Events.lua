@@ -9,7 +9,7 @@ local select = select
 local unpack = table.unpack or unpack
 
 ---- WOW
-local GetContainerNumSlots = GetContainerNumSlots
+local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or GetContainerNumSlots
 
 ---- UI
 local BankFrame = BankFrame
@@ -57,11 +57,8 @@ function Events:OnEnable()
     self:RegisterEvent('BAG_NEW_ITEMS_UPDATED', 'Fire')
     self:RegisterEvent('BAG_UPDATE_COOLDOWN', 'Fire')
     self:RegisterEvent('BAG_UPDATE_DELAYED', 'Fire')
-    -- @build<3@
-    self:RegisterEvent('CURSOR_UPDATE', 'Fire')
-    -- @end-build<3@
-    -- @build>3@
     self:RegisterEvent('CURSOR_CHANGED', 'Fire')
+    -- @build>3@
     self:RegisterEvent('QUEST_LOG_UPDATE', 'Fire')
     self:SecureHook('BackpackTokenFrame_Update')
     -- @end-build>3@

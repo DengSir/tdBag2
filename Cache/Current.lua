@@ -8,14 +8,16 @@ local select = select
 
 ---- WOW
 local GetBankSlotCost = GetBankSlotCost
-local GetContainerItemInfo = GetContainerItemInfo
-local GetContainerNumFreeSlots = GetContainerNumFreeSlots
-local GetContainerNumSlots = GetContainerNumSlots
+local GetContainerItemInfo = C_Container and C_Container.GetContainerItemInfo or GetContainerItemInfo
+local GetContainerNumFreeSlots = C_Container and C_Container.GetContainerNumFreeSlots or GetContainerNumFreeSlots
+local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or GetContainerNumSlots
 local GetCursorMoney = GetCursorMoney
-local GetInventoryItemID = GetInventoryItemID
-local GetInventoryItemLink = GetInventoryItemLink
-local GetInventoryItemQuality = GetInventoryItemQuality
-local GetInventoryItemTexture = GetInventoryItemTexture
+local GetInventoryItemID = C_Container and C_Container.GetInventoryItemID or GetInventoryItemID
+local GetInventoryItemLink = C_Container and C_Container.GetInventoryItemLink or GetInventoryItemLink
+local GetInventoryItemQuality = C_Container and C_Container.GetInventoryItemQuality or GetInventoryItemQuality
+local GetInventoryItemTexture = C_Container and C_Container.GetInventoryItemTexture or GetInventoryItemTexture
+local GetContainerItemID = C_Container and C_Container.GetContainerItemID or GetContainerItemID
+local GetContainerItemLink = C_Container and C_Container.GetContainerItemLink or GetContainerItemLink
 local GetMoney = GetMoney
 local GetNumBankSlots = GetNumBankSlots
 local GetPlayerTradeMoney = GetPlayerTradeMoney
@@ -90,7 +92,18 @@ function Current:GetItemInfo(bag, slot)
     if ns.IsContainerBag(bag) then
         data.id = GetContainerItemID(bag, slot)
         data.link = GetContainerItemLink(bag, slot)
-        data.icon, data.count, data.locked, data.quality, data.readable = GetContainerItemInfo(bag, slot)
+        if C_Container then
+            local info = GetContainerItemInfo(bag, slot)
+            if info then
+                data.icon = info.iconFileID
+                data.count = info.stackCount
+                data.locked = info.isLocked
+                data.quality = info.quality
+                data.readable = info.isReadable
+            end
+        else
+            data.icon, data.count, data.locked, data.quality, data.readable = GetContainerItemInfo(bag, slot)
+        end
     elseif ns.IsEquip(bag) then
         data.link = GetInventoryItemLink('player', slot)
         data.icon = GetInventoryItemTexture('player', slot)

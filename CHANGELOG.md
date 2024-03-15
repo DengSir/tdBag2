@@ -1,3 +1,51 @@
+## [2.2.6](https://github.com/DengSir/tdBag2/compare/v2.2.5...v2.2.6) (2024-03-15)
+
+
+### Bug Fixes
+
+* plus ([1b55286](https://github.com/DengSir/tdBag2/commit/1b552860cdbed5ca5f14c25f86a8f6ce954de183))
+* plus ([9d434ce](https://github.com/DengSir/tdBag2/commit/9d434ce9a26ed417809eff3131057a2f06ab69fc))
+
+
+### Features
+
+* 支持符文 ([8d5eb1b](https://github.com/DengSir/tdBag2/commit/8d5eb1be116b4d27c60f7ee07d11379ddacc6cc0))
+
+
+
+## [2.2.5](https://github.com/DengSir/tdBag2/compare/v2.2.4...v2.2.5) (2024-03-14)
+
+
+### Bug Fixes
+
+* support 3.4.1 ([d29143c](https://github.com/DengSir/tdBag2/commit/d29143c31b4b28a1a270d5d34ee05a7b4fe0cd10))
+
+
+### Features
+
+* 支持1.15.1 ([8aad068](https://github.com/DengSir/tdBag2/commit/8aad0689d10a7583d6254bf5fbcec6ea1d26339b))
+* 支持1.15.1 ([878b3e1](https://github.com/DengSir/tdBag2/commit/878b3e1a417b1cd38286a8ac54c62fb73fa6acde))
+
+
+
+## [2.2.4](https://github.com/DengSir/tdBag2/compare/v2.2.3...v2.2.4) (2022-10-13)
+
+
+### Bug Fixes
+
+* quest border ([4876198](https://github.com/DengSir/tdBag2/commit/487619861a1ff6eb738f9c7411704b72c89db289))
+
+
+
+## [2.2.3](https://github.com/DengSir/tdBag2/compare/v2.2.2...v2.2.3) (2022-09-08)
+
+
+### Bug Fixes
+
+* item watch ([ddab803](https://github.com/DengSir/tdBag2/commit/ddab80366a2763fd7a610156c6af3a0d509bdfdb))
+
+
+
 ## [2.2.2](https://github.com/DengSir/tdBag2/compare/v2.2.1...v2.2.2) (2022-09-05)
 
 

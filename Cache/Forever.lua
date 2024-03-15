@@ -14,11 +14,12 @@ local floor = math.floor
 local tDeleteItem = tDeleteItem
 
 ---- WOW
-local GetContainerItemInfo = GetContainerItemInfo
-local GetContainerNumFreeSlots = GetContainerNumFreeSlots
-local GetContainerNumSlots = GetContainerNumSlots
-local GetInventoryItemCount = GetInventoryItemCount
-local GetInventoryItemLink = GetInventoryItemLink
+local GetContainerItemInfo = C_Container and C_Container.GetContainerItemInfo or GetContainerItemInfo
+local GetContainerNumFreeSlots = C_Container and C_Container.GetContainerNumFreeSlots or GetContainerNumFreeSlots
+local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or GetContainerNumSlots
+local GetInventoryItemCount = C_Container and C_Container.GetInventoryItemCount or GetInventoryItemCount
+local GetInventoryItemLink = C_Container and C_Container.GetInventoryItemLink or GetInventoryItemLink
+local GetContainerItemLink = C_Container and C_Container.GetContainerItemLink or GetContainerItemLink
 local GetItemIcon = GetItemIcon
 local GetItemInfo = GetItemInfo
 local GetMoney = GetMoney
@@ -272,7 +273,13 @@ function Forever:SaveBag(bag)
 
         for slot = 1, size do
             local link = GetContainerItemLink(bag, slot)
-            local _, count = GetContainerItemInfo(bag, slot)
+            local count
+            if C_Container then
+                local info = GetContainerItemInfo(bag, slot)
+                count = info and info.stackCount or nil
+            else
+                count  = select(2, GetContainerItemInfo(bag, slot))
+            end
             items[slot] = self:ParseItem(link, count)
         end
     end

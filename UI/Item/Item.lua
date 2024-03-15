@@ -11,8 +11,7 @@ local format = string.format
 
 ---- WOW
 local CreateFrame = CreateFrame
-local GetItemQualityColor = GetItemQualityColor
-local IsBattlePayItem = IsBattlePayItem
+local IsBattlePayItem = IsBattlePayItem or C_Container.IsBattlePayItem
 
 local IsNewItem = C_NewItems.IsNewItem
 local RemoveNewItem = C_NewItems.RemoveNewItem
@@ -94,8 +93,19 @@ function Item:Update()
     self:UpdateFocus()
     self:UpdateBorder()
     self:UpdateSlotColor()
+    self:UpdateRune()
     self:UpdateCooldown()
     self:UpdatePlugin()
+end
+
+function Item:UpdateRune()
+    local texture = self:GetRuneTexture()
+    if texture then
+        self.subicon:SetTexture(texture)
+        self.subicon:Show()
+    else
+        self.subicon:Hide()
+    end
 end
 
 function Item:UpdateBorder()
@@ -124,7 +134,7 @@ function Item:UpdateBorder()
         self.NewItemTexture:Hide()
     end
 
-    self.IconBorder:SetVertexColor(r, g, b, sets.glowAlpha)
+    self.IconBorder:SetVertexColor(r or 1, g or 1, b or 1, sets.glowAlpha)
     self.IconBorder:SetShown(r and not new)
     self.QuestBorder:SetShown(sets.iconQuestStarter and self:IsQuestStarter())
     self.JunkIcon:SetShown(sets.iconJunk and self:IsJunk())
@@ -176,5 +186,19 @@ function Item:IsNew()
 end
 
 function Item:IsPaid()
-    return IsBattlePayItem(self.bag, self.slot)
+    return IsBattlePayItem and IsBattlePayItem(self.bag, self.slot)
+end
+
+function Item:GetRuneTexture()
+    if self:IsCached() then
+        return
+    end
+    if not self.meta:IsContainer() then
+        return
+    end
+
+    if C_Engraving.IsEngravingEnabled() and C_Engraving.IsInventorySlotEngravable(self.bag, self.slot) then
+        local info = C_Engraving.GetRuneForInventorySlot(self.bag, self.slot)
+        return info and info.iconTexture
+    end
 end

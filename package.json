@@ -1,6 +1,6 @@
 {
   "name": "tdbag2",
-  "version": "2.2.2",
+  "version": "2.2.6",
   "description": "Another bag addon",
   "main": "index.js",
   "scripts": {
@@ -29,7 +29,8 @@
       "zhCN": "Localization/zhCN.lua"
     },
     "builds": {
-      "lkc": "30400"
+      "lkc": "30401",
+      "classic": "11501"
     }
   }
 }
