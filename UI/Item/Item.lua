@@ -28,7 +28,7 @@ local UIParent = UIParent
 local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS
 local MAX_BLIZZARD_ITEMS = NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
 
-local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
+local DEFAULT_SLOT_COLOR = { r = 1, g = 1, b = 1 }
 
 ---@type ns
 local ns = select(2, ...)
@@ -176,5 +176,5 @@ function Item:IsNew()
 end
 
 function Item:IsPaid()
-    return IsBattlePayItem(self.bag, self.slot)
+    return IsBattlePayItem and IsBattlePayItem(self.bag, self.slot)
 end
