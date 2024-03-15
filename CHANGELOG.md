@@ -1,3 +1,18 @@
+## [2.2.6](https://github.com/DengSir/tdBag2/compare/v2.2.5...v2.2.6) (2024-03-15)
+
+
+### Bug Fixes
+
+* plus ([1b55286](https://github.com/DengSir/tdBag2/commit/1b552860cdbed5ca5f14c25f86a8f6ce954de183))
+* plus ([9d434ce](https://github.com/DengSir/tdBag2/commit/9d434ce9a26ed417809eff3131057a2f06ab69fc))
+
+
+### Features
+
+* 支持符文 ([8d5eb1b](https://github.com/DengSir/tdBag2/commit/8d5eb1be116b4d27c60f7ee07d11379ddacc6cc0))
+
+
+
 ## [2.2.5](https://github.com/DengSir/tdBag2/compare/v2.2.4...v2.2.5) (2024-03-14)
 
 
