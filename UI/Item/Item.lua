@@ -193,7 +193,7 @@ function Item:GetRuneTexture()
     if self:IsCached() then
         return
     end
-    if not self.meta:IsContainer() then
+    if not self.meta:IsBag() then
         return
     end
 
