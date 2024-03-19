@@ -1,3 +1,18 @@
+## [2.2.7](https://github.com/DengSir/tdBag2/compare/v2.2.6...v2.2.7) (2024-03-19)
+
+
+### Bug Fixes
+
+* quest item ([85dcf4f](https://github.com/DengSir/tdBag2/commit/85dcf4f792e8e3cc5464de2780c6200f7c354a21))
+* rune ([60af82c](https://github.com/DengSir/tdBag2/commit/60af82c112b74945a38b460aba7b4c6724c52784))
+
+
+### Features
+
+* 支持符文 ([6570796](https://github.com/DengSir/tdBag2/commit/6570796ee5335dec071664bb55083c5357225fb5))
+
+
+
 ## [2.2.6](https://github.com/DengSir/tdBag2/compare/v2.2.5...v2.2.6) (2024-03-15)
 
 
