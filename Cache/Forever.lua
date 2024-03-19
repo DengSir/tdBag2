@@ -14,6 +14,7 @@ local floor = math.floor
 local tDeleteItem = tDeleteItem
 
 ---- WOW
+local C_Container = C_Container
 local GetContainerItemInfo = C_Container and C_Container.GetContainerItemInfo or GetContainerItemInfo
 local GetContainerNumFreeSlots = C_Container and C_Container.GetContainerNumFreeSlots or GetContainerNumFreeSlots
 local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or GetContainerNumSlots
