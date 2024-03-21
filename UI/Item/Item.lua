@@ -203,7 +203,7 @@ function Item:GetRuneTexture()
     end
 
     -- blizzard bug
-    if not self.meta:IsContainer() or self.bag == -1 then
+    if not self.meta:IsContainer() or self.bag < 0 then
         return
     end
 
