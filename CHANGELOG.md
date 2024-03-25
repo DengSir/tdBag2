@@ -1,3 +1,12 @@
+## [2.2.10](https://github.com/DengSir/tdBag2/compare/v2.2.9...v2.2.10) (2024-03-25)
+
+
+### Features
+
+* 右键标题栏用Ace窗口打开设置 ([90a36c9](https://github.com/DengSir/tdBag2/commit/90a36c9f9fe6b672a39ebe915d4fdc8d2563c41a))
+
+
+
 ## [2.2.9](https://github.com/DengSir/tdBag2/compare/v2.2.8...v2.2.9) (2024-03-25)
 
 
