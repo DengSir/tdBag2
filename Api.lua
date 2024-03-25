@@ -483,7 +483,7 @@ familyColor(6, 'colorHerb', L['Herbalism Color'], {r = 0.5, g = 1, b = 0.5})
 familyColor(7, 'colorEnchant', L['Enchanting Color'], {r = 0.64, g = 0.83, b = 1})
 familyColor(9, 'colorKeyring', L['Keyring Color'], {r = 1, g = 0.67, b = 0.95})
 -- @end-build<2@
--- @non-build>2@
+-- @build>2@
 familyColor(4, 'colorSoul', L['Soul Color'], {r = 0.64, g = 0.39, b = 1})
 familyColor(8, 'colorLeather', L['Leatherworking Color'], {r = 0.98, g = 0.44, b = 0.44})
 familyColor(32, 'colorHerb', L['Herbalism Color'], {r = 0.5, g = 1, b = 0.5})
