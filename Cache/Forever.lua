@@ -165,8 +165,10 @@ function Forever:SetupEvents()
     self:RegisterEvent('MAIL_SHOW')
     self:RegisterEvent('MAIL_CLOSED')
     self:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
+    -- @build>2@
     self:RegisterEvent('GUILDBANKFRAME_CLOSED')
     self:RegisterEvent('GUILDBANKFRAME_OPENED')
+    -- @end-build>2@
 end
 
 function Forever:UpdateData()
@@ -200,6 +202,7 @@ function Forever:BANKFRAME_CLOSED()
     self:SendMessage('BANK_CLOSED')
 end
 
+-- @build>2@
 function Forever:GUILDBANKFRAME_OPENED()
     self.atGuildBank = true
     self.Cacher:RemoveCache(ns.REALM, ns.GetCurrentGuildOwner())
@@ -214,6 +217,7 @@ function Forever:GUILDBANKFRAME_CLOSED()
     end
     self:SendMessage('GUILDBANK_CLOSED')
 end
+-- @end-build>2@
 
 function Forever:MAIL_SHOW()
     self.atMail = true
@@ -279,7 +283,7 @@ function Forever:SaveBag(bag)
                 local info = GetContainerItemInfo(bag, slot)
                 count = info and info.stackCount or nil
             else
-                count  = select(2, GetContainerItemInfo(bag, slot))
+                count = select(2, GetContainerItemInfo(bag, slot))
             end
             items[slot] = self:ParseItem(link, count)
         end
