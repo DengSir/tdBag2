@@ -1,3 +1,13 @@
+## [2.2.9](https://github.com/DengSir/tdBag2/compare/v2.2.8...v2.2.9) (2024-03-25)
+
+
+### Bug Fixes
+
+* plus bags slot color ([9579aea](https://github.com/DengSir/tdBag2/commit/9579aea63d9a120bc84e2fe0ad2f332b6bc1e04f))
+* plus no guild bank ([58eb352](https://github.com/DengSir/tdBag2/commit/58eb3523702f5e67218e82b06453512020ff3eee))
+
+
+
 ## [2.2.8](https://github.com/DengSir/tdBag2/compare/v2.2.7...v2.2.8) (2024-03-21)
 
 
