@@ -8,8 +8,13 @@ local ipairs = ipairs
 local select = select
 local unpack = table.unpack or unpack
 
+---@type ns
+local ns = select(2, ...)
+
+local C = ns.C
+
 ---- WOW
-local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or GetContainerNumSlots
+local GetContainerNumSlots = C.Container.GetContainerNumSlots
 
 ---- UI
 local BankFrame = BankFrame
@@ -19,8 +24,6 @@ local BANK_CONTAINER = BANK_CONTAINER
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local NUM_BANKGENERIC_SLOTS = NUM_BANKGENERIC_SLOTS
 
----@type ns
-local ns = select(2, ...)
 local Addon = ns.Addon
 local BAG_ID = ns.BAG_ID
 

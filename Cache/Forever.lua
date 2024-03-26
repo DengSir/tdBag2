@@ -3,6 +3,11 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 12/31/2019, 1:07:26 PM
 --
+---@class ns
+local ns = select(2, ...)
+
+local C = ns.C
+
 ---- LUA
 local select, pairs, ipairs = select, pairs, ipairs
 local tinsert = table.insert
@@ -14,13 +19,12 @@ local floor = math.floor
 local tDeleteItem = tDeleteItem
 
 ---- WOW
-local C_Container = C_Container
-local GetContainerItemInfo = C_Container and C_Container.GetContainerItemInfo or GetContainerItemInfo
-local GetContainerNumFreeSlots = C_Container and C_Container.GetContainerNumFreeSlots or GetContainerNumFreeSlots
-local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or GetContainerNumSlots
-local GetInventoryItemCount = C_Container and C_Container.GetInventoryItemCount or GetInventoryItemCount
-local GetInventoryItemLink = C_Container and C_Container.GetInventoryItemLink or GetInventoryItemLink
-local GetContainerItemLink = C_Container and C_Container.GetContainerItemLink or GetContainerItemLink
+local GetContainerItemInfo = C.Container.GetContainerItemInfo
+local GetContainerNumFreeSlots = C.Container.GetContainerNumFreeSlots
+local GetContainerNumSlots = C.Container.GetContainerNumSlots
+local GetInventoryItemCount = C.Container.GetInventoryItemCount
+local GetInventoryItemLink = C.Container.GetInventoryItemLink
+local GetContainerItemLink = C.Container.GetContainerItemLink
 local GetItemIcon = GetItemIcon
 local GetItemInfo = GetItemInfo
 local GetMoney = GetMoney
@@ -37,9 +41,6 @@ local GetInboxItem = GetInboxItem
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local INVSLOT_LAST_EQUIPPED = INVSLOT_LAST_EQUIPPED
 local ATTACHMENTS_MAX_RECEIVE = ATTACHMENTS_MAX_RECEIVE
-
----@class ns
-local ns = select(2, ...)
 
 local L = ns.L
 
@@ -278,13 +279,8 @@ function Forever:SaveBag(bag)
 
         for slot = 1, size do
             local link = GetContainerItemLink(bag, slot)
-            local count
-            if C_Container then
-                local info = GetContainerItemInfo(bag, slot)
-                count = info and info.stackCount or nil
-            else
-                count = select(2, GetContainerItemInfo(bag, slot))
-            end
+            local info = GetContainerItemInfo(bag, slot)
+            local count = info and info.stackCount or nil
             items[slot] = self:ParseItem(link, count)
         end
     end

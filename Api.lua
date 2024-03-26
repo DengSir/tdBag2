@@ -13,9 +13,11 @@ local tonumber = tonumber
 local assert = assert
 local unpack = unpack
 
+local C = LibStub('C_Everywhere')
+
 ---- WOW
 local C_Timer = C_Timer
-local ContainerIDToInventoryID = C_Container and C_Container.ContainerIDToInventoryID or ContainerIDToInventoryID
+local ContainerIDToInventoryID = C.Container.ContainerIDToInventoryID
 local GetScreenHeight = GetScreenHeight
 local GetScreenWidth = GetScreenWidth
 local PlaySound = PlaySound
@@ -39,6 +41,8 @@ local GLOBAL_SEARCH_OWNER = '$search'
 
 ---@class ns
 local ns = select(2, ...)
+
+ns.C = C
 
 ns.VERSION = tonumber((GetAddOnMetadata('tdBag2', 'Version'):gsub('(%d+)%.?', function(x)
     return format('%02d', tonumber(x))
