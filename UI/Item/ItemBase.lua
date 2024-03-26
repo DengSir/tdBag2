@@ -382,16 +382,19 @@ function ItemBase:IsCached()
 end
 
 local IsQuestItem = ns.memorize(function(link)
-    return select(12, GetItemInfo(link)) == LE_ITEM_CLASS_QUESTITEM or Search:ForQuest(link) or false
+    return select(12, GetItemInfo(link)) == LE_ITEM_CLASS_QUESTITEM or Search:IsQuestItem(link) or false
 end)
 
 -- @build<3@
 function ItemBase:IsQuestItem()
-    return self.hasItem and IsQuestItem(self.info.link)
+    return self.hasItem and IsQuestItem(self.info.id)
 end
 
 function ItemBase:IsQuestStarter()
-    return self.hasItem and Search:TooltipPhrase(self.info.link, ITEM_STARTS_QUEST)
+    if self.hasItem then
+        local q, starter = Search:IsQuestItem(self.info.id)
+        return q and starter
+    end
 end
 
 -- @end-build<3@
@@ -407,7 +410,7 @@ function ItemBase:IsQuestItem()
             return true
         end
     end
-    return IsQuestItem(self.info.link)
+    return IsQuestItem(self.info.id)
 end
 
 function ItemBase:IsQuestStarter()
@@ -427,6 +430,9 @@ function ItemBase:IsMatched()
     if self.meta:IsGlobalSearch() then
         return true
     end
+    if not self.hasItem then
+        return true
+    end
     local search = Addon:GetSearch()
     if not search then
         return true
@@ -442,9 +448,9 @@ function ItemBase:IsJunk()
 end
 
 function ItemBase:IsInEquipSet()
-    return Search:InSet(self.info.link)
+    return Search:BelongsToSet(self.info.link)
 end
 
 function ItemBase:IsUnusable()
-    return Unfit:IsItemUnusable(self.info.id)
+    return Search:IsUnusable(self.info.id)
 end

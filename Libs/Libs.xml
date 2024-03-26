@@ -17,7 +17,8 @@
     <Include file="LibShowUIPanel-1.0\LibShowUIPanel-1.0.xml"/>
 
     <Script file="LibWindow-1.1\LibWindow-1.1.lua"/>
+    <Script file="C_Everywhere\C_Everywhere.lua"/>
     <Script file="Unfit-1.0\Unfit-1.0.lua"/>
     <Script file="CustomSearch-1.0\CustomSearch-1.0.lua"/>
-    <Script file="LibItemSearch-1.2\LibItemSearch-1.2.lua"/>
+    <Include file="ItemSearch-1.3\ItemSearch-1.3.xml"/>
 </Ui>
