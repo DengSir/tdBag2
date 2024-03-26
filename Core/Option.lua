@@ -386,7 +386,7 @@ function Addon:SetupOptionFrame()
 
     AceConfigRegistry:RegisterOptionsTable('tdBag2', options)
     AceConfigDialog:AddToBlizOptions('tdBag2', 'tdBag2')
-    AceConfigDialog:SetDefaultSize('tdBag2', 700, 550)
+    AceConfigDialog:SetDefaultSize('tdBag2', 700, 570)
 
     self:RefreshPluginOptions()
 end
@@ -398,6 +398,7 @@ function Addon:OpenFrameOption(bagId)
     end
     pcall(function ()
         AceConfigDialog.OpenFrames.tdBag2:EnableResize(false)
+        AceConfigDialog.OpenFrames.tdBag2.frame:SetFrameStrata('DIALOG')
     end)
 end
 
