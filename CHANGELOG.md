@@ -1,3 +1,14 @@
+## [2.2.11](https://github.com/DengSir/tdBag2/compare/v2.2.10...v2.2.11) (2024-03-27)
+
+
+### Features
+
+* 修复Ace设置界面层级 ([6d5ef78](https://github.com/DengSir/tdBag2/commit/6d5ef788347bcf6498ab8b9fb58fdad03133bf64))
+* update to ItemSearch-1.3 ([de07f00](https://github.com/DengSir/tdBag2/commit/de07f0034802da5e6e3a58775622f31433a81840))
+* use C_EveryWhere ([9aab388](https://github.com/DengSir/tdBag2/commit/9aab3887ad1aedce850b6665e118211efdbc373d))
+
+
+
 ## [2.2.10](https://github.com/DengSir/tdBag2/compare/v2.2.9...v2.2.10) (2024-03-25)
 
 
