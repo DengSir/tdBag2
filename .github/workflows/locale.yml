@@ -1,8 +1,5 @@
-name: publish
-on:
-  push:
-    tags:
-      - v*
+name: locale
+on: [push]
 
 jobs:
   build:
@@ -16,8 +13,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
+
       - name: Install wow-curse-tools
         run: npm install --location=global wow-curse-tools
 
-      - name: Publish
-      - run: wct publish --token ${{ secrets.CURSE_TOKEN }}
+      - name: Update locale files
+        run: wct locale export --token ${{ secrets.CURSE_TOKEN }}
+
+      - uses: GuillaumeFalourd/git-commit-push@v1.3
+        with:
+          commit_message: "chore: Update locale files"
+
