@@ -17,6 +17,9 @@ jobs:
       - name: Install wow-curse-tools
         run: npm install --location=global wow-curse-tools
 
+      - name: Import locale to curseforge
+        run: wct locale import --token ${{ secrets.CURSE_TOKEN }}
+
       - name: Update locale files
         run: wct locale export --token ${{ secrets.CURSE_TOKEN }}
 
