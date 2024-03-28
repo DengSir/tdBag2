@@ -16,8 +16,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - name: Install wow-curse-tools
+
+      - name: install wct
         run: npm install --location=global wow-curse-tools
 
-      - name: Publish
-      - run: wct publish --token ${{ secrets.CURSE_TOKEN }}
+      - name: publish
+        run: wct publish --token ${{ secrets.CURSE_TOKEN }}
