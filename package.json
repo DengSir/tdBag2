@@ -24,9 +24,16 @@
     "name": "tdBag2",
     "curse_id": 349175,
     "changelog": "CHANGELOG.md",
-    "localizations": {
-      "enUS": "Localization/enUS.lua",
-      "zhCN": "Localization/zhCN.lua"
+    "localization": {
+      "folder": "Localization",
+      "ignores": [
+        "Localization",
+        "Libs"
+      ],
+      "imports": {
+        "zhCN": "zhCN.lua",
+        "enUS": "enUS.lua"
+      }
     },
     "builds": {
       "lkc": "30403",
