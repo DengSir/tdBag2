@@ -143,7 +143,7 @@ L['Closing Trade Skills'] = '关闭专业技能时'
 L['Completed Trade'] = '完成交易时'
 L['Entering Combat'] = '进入战斗时'
 
-L['TOOLTIP_TOGGLE_BAG1'] = true
+-- [comment by wct] L['TOOLTIP_TOGGLE_BAG1'] = true
 -- @locale-fill@
 
 -- @end-import@
