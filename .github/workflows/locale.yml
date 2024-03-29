@@ -17,6 +17,9 @@ jobs:
       - name: install wct
         run: npm install --location=global wow-curse-tools
 
+      - name: scan locales
+        run: wct locale scan
+
       - name: upload locales
         run: wct locale import --token ${{ secrets.CURSE_TOKEN }}
 
