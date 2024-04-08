@@ -1,5 +1,8 @@
 name: locale
-on: [push]
+on:
+  push:
+    braches:
+      - master
 
 jobs:
   locale:
