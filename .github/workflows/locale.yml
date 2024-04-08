@@ -29,4 +29,5 @@ jobs:
       - uses: GuillaumeFalourd/git-commit-push@v1.3
         with:
           commit_message: "chore: Update locale files"
+          tags: false
 

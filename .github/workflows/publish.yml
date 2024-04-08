@@ -21,4 +21,13 @@ jobs:
         run: npm install --location=global wow-curse-tools
 
       - name: publish
-        run: wct publish --token ${{ secrets.CURSE_TOKEN }}
+        run: wct publish --release --token ${{ secrets.CURSE_TOKEN }}
+
+      - name: release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: changelog.txt
+          files: |
+            *.zip
+
+
