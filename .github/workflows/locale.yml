@@ -1,8 +1,10 @@
-name: locale
+name: "Locale addon 🌏"
 on:
   push:
-    braches:
-      - master
+    branches:
+      - "master"
+    tags-ignore:
+      - "v*"
 
 jobs:
   locale:

@@ -1,4 +1,4 @@
-name: publish
+name: "Publish addon 🚛"
 on:
   push:
     tags:
