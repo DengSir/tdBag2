@@ -1,3 +1,15 @@
+## [2.2.12](https://github.com/DengSir/tdBag2/compare/v2.2.11...v2.2.12) (2024-04-09)
+
+
+### Features
+
+* actions add scan locale ([f1ae206](https://github.com/DengSir/tdBag2/commit/f1ae206eeebb5f370b43ede6e25545e67deca40e))
+* add locale scan ([58a37be](https://github.com/DengSir/tdBag2/commit/58a37be126696caf63cb6d8a9072942fc156159c))
+* add locale scan ([2a93c2d](https://github.com/DengSir/tdBag2/commit/2a93c2d8582d4f82b1b3fc0c5307adf49213f897))
+* update locale action ([bdf5974](https://github.com/DengSir/tdBag2/commit/bdf59743224cfcf3570306384895fe061bb6b362))
+
+
+
 ## [2.2.11](https://github.com/DengSir/tdBag2/compare/v2.2.10...v2.2.11) (2024-03-27)
 
 
