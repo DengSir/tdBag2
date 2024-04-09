@@ -13,15 +13,9 @@ jobs:
         with:
           submodules: true
 
-      - uses: actions/setup-node@v4
+      - uses: DengSir/curse-publish-action@master
         with:
-          node-version: '20'
-
-      - name: install wct
-        run: npm install --location=global wow-curse-tools
-
-      - name: publish
-        run: wct publish --release --token ${{ secrets.CURSE_TOKEN }}
+          token: ${{ secrets.CURSE_TOKEN }}
 
       - name: release
         uses: softprops/action-gh-release@v2
@@ -29,5 +23,3 @@ jobs:
           body_path: changelog.txt
           files: |
             *.zip
-
-
