@@ -15,8 +15,6 @@ function AutoDisplay:OnInitialize()
     self.showKeys = {}
     self.hideKeys = {}
 
-    print(self.showKeys, self.hideKeys)
-
     self:RawHook('OpenBackpack', 'ShowBag', true)
     self:RawHook('CloseBackpack', 'HideBag', true)
     self:RawHook('ToggleBackpack', 'ToggleBag', true)
@@ -65,16 +63,12 @@ end
 
 function AutoDisplay:OptShow(key)
     if key and Addon.db.profile[key] then
-        print('show', key)
         self:ShowBag()
-    else
-        print(key)
     end
 end
 
 function AutoDisplay:OptHide(key)
     if key and Addon.db.profile[key] then
-        print('hide', key)
         self:HideBag()
     end
 end
@@ -86,8 +80,8 @@ function AutoDisplay:RegisterFrame(key, id)
     if LibStub('LibClass-2.0'):IsWidget(id) then
         -- local frame = CreateFrame('Frame', nil, id)
         -- frame.parent = id
-        self:HookScript(id, 'OnShow', 'FrameOnShow')
-        self:HookScript(id, 'OnHide', 'FrameOnHide')
+        self:HookScript(id, 'OnShow', 'ShowEvent')
+        self:HookScript(id, 'OnHide', 'HideEvent')
     end
 end
 
@@ -120,15 +114,6 @@ end
 
 function AutoDisplay:HideEvent(event)
     return self:OptHide(self.hideKeys[event])
-end
-
-function AutoDisplay:FrameOnShow(frame)
-    print(frame, frame.parent)
-    return self:OptShow(self.showKeys[frame])
-end
-
-function AutoDisplay:FrameOnHide(frame)
-    return self:OptHide(self.hideKeys[frame])
 end
 
 function AutoDisplay:OpenAllBags(frame)
