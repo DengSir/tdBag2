@@ -1,3 +1,12 @@
+## [2.2.14](https://github.com/DengSir/tdBag2/compare/v2.2.13...v2.2.14) (2024-04-12)
+
+
+### Bug Fixes
+
+* autodisplay and mail forver ([33a156f](https://github.com/DengSir/tdBag2/commit/33a156f6236189c0a094bf704d89650bc514e753))
+
+
+
 ## [2.2.13](https://github.com/DengSir/tdBag2/compare/v2.2.12...v2.2.13) (2024-04-12)
 
 
