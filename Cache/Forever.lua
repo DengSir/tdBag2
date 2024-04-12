@@ -164,12 +164,9 @@ function Forever:SetupEvents()
     self:RegisterEvent('BANKFRAME_OPENED')
     self:RegisterEvent('BANKFRAME_CLOSED')
     self:RegisterEvent('MAIL_SHOW')
-    self:RegisterEvent('MAIL_CLOSED')
+    -- self:RegisterEvent('PLAYER_INTERACTION_MANAGER_FRAME_SHOW')
+    self:RegisterEvent('PLAYER_INTERACTION_MANAGER_FRAME_HIDE')
     self:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
-    -- @build>2@
-    self:RegisterEvent('GUILDBANKFRAME_CLOSED')
-    self:RegisterEvent('GUILDBANKFRAME_OPENED')
-    -- @end-build>2@
 end
 
 function Forever:UpdateData()
@@ -225,12 +222,15 @@ function Forever:MAIL_SHOW()
     self:SendMessage('MAIL_OPENED')
 end
 
-function Forever:MAIL_CLOSED()
-    if self.atMail then
-        self:SaveMail()
-        self.atMail = nil
+function Forever:PLAYER_INTERACTION_MANAGER_FRAME_HIDE(_, id)
+    print(id)
+    if id == 17 then -- MAIL_CLOSED
+        if self.atMail then
+            self:SaveMail()
+            self.atMail = nil
+        end
+        self:SendMessage('MAIL_CLOSED')
     end
-    self:SendMessage('MAIL_CLOSED')
 end
 
 function Forever:BAG_UPDATE(_, bag)
@@ -305,6 +305,7 @@ function Forever:SaveMail()
     local now = time()
 
     local num, total = GetInboxNumItems()
+    print(num, total)
     for i = 1, num do
         local codAmount, daysLeft = select(6, GetInboxHeaderInfo(i))
         local timeout = floor(now + daysLeft * SECONDS_OF_DAY)

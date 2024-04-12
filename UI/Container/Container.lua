@@ -393,9 +393,3 @@ end
 function Container:NumSlots(bag)
     return Cache:GetBagInfo(self.meta.owner, bag).count or 0
 end
-
--- @debug@
-function Container:Threshold()
-    error('Not implemented')
-end
--- @end-debug@
