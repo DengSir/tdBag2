@@ -161,10 +161,7 @@ function Forever:SetupEvents()
     self:RegisterEvent('BAG_UPDATE')
     self:RegisterEvent('BAG_CLOSED')
     self:RegisterEvent('PLAYER_MONEY')
-    self:RegisterEvent('BANKFRAME_OPENED')
-    self:RegisterEvent('BANKFRAME_CLOSED')
-    self:RegisterEvent('MAIL_SHOW')
-    -- self:RegisterEvent('PLAYER_INTERACTION_MANAGER_FRAME_SHOW')
+    self:RegisterEvent('PLAYER_INTERACTION_MANAGER_FRAME_SHOW')
     self:RegisterEvent('PLAYER_INTERACTION_MANAGER_FRAME_HIDE')
     self:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
 end
@@ -183,53 +180,48 @@ end
 
 ---- Events
 
-function Forever:BANKFRAME_OPENED()
-    self.atBank = true
-    self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
-    self:SendMessage('BANK_OPENED')
-end
-
-function Forever:BANKFRAME_CLOSED()
-    if self.atBank then
-        for _, bag in ipairs(BANKS) do
-            self:SaveBag(bag)
-        end
+function Forever:PLAYER_INTERACTION_MANAGER_FRAME_SHOW(_, id)
+    if id == 17 then
+        self.atMail = true
+        self:SendMessage('MAIL_OPENED')
+    elseif id == 8 then
+        self.atBank = true
         self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
-        self.atBank = nil
-    end
-    self:SendMessage('BANK_CLOSED')
-end
-
--- @build>2@
-function Forever:GUILDBANKFRAME_OPENED()
-    self.atGuildBank = true
-    self.Cacher:RemoveCache(ns.REALM, ns.GetCurrentGuildOwner())
-    self:SendMessage('GUILDBANK_OPENED')
-end
-
-function Forever:GUILDBANKFRAME_CLOSED()
-    if self.atGuildBank then
-        self:SaveGuild()
+        self:SendMessage('BANK_OPENED')
+        -- @build>2@
+    elseif id == 10 then
+        self.atGuildBank = true
         self.Cacher:RemoveCache(ns.REALM, ns.GetCurrentGuildOwner())
-        self.atGuildBank = nil
+        self:SendMessage('GUILDBANK_OPENED')
+        -- @end-build>2@
     end
-    self:SendMessage('GUILDBANK_CLOSED')
-end
--- @end-build>2@
-
-function Forever:MAIL_SHOW()
-    self.atMail = true
-    self:SendMessage('MAIL_OPENED')
 end
 
 function Forever:PLAYER_INTERACTION_MANAGER_FRAME_HIDE(_, id)
-    print(id)
-    if id == 17 then -- MAIL_CLOSED
+    if id == 17 then
         if self.atMail then
             self:SaveMail()
             self.atMail = nil
         end
         self:SendMessage('MAIL_CLOSED')
+    elseif id == 8 then
+        if self.atBank then
+            for _, bag in ipairs(BANKS) do
+                self:SaveBag(bag)
+            end
+            self.Cacher:RemoveCache(ns.REALM, ns.PLAYER)
+            self.atBank = nil
+        end
+        self:SendMessage('BANK_CLOSED')
+        -- @build>2@
+    elseif id == 10 then
+        if self.atGuildBank then
+            self:SaveGuild()
+            self.Cacher:RemoveCache(ns.REALM, ns.GetCurrentGuildOwner())
+            self.atGuildBank = nil
+        end
+        self:SendMessage('GUILDBANK_CLOSED')
+        -- @end-build>2@
     end
 end
 
@@ -305,7 +297,6 @@ function Forever:SaveMail()
     local now = time()
 
     local num, total = GetInboxNumItems()
-    print(num, total)
     for i = 1, num do
         local codAmount, daysLeft = select(6, GetInboxHeaderInfo(i))
         local timeout = floor(now + daysLeft * SECONDS_OF_DAY)
