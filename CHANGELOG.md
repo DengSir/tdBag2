@@ -1,3 +1,12 @@
+## [2.2.13](https://github.com/DengSir/tdBag2/compare/v2.2.12...v2.2.13) (2024-04-12)
+
+
+### Bug Fixes
+
+* 没打开过人物面板，不显示符文的bug ([80c4171](https://github.com/DengSir/tdBag2/commit/80c417187ff1e46ea1c344b3eefd8079bfdb0b4e))
+
+
+
 ## [2.2.12](https://github.com/DengSir/tdBag2/compare/v2.2.11...v2.2.12) (2024-04-09)
 
 
