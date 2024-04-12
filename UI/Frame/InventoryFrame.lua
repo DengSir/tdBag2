@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/25/2019, 1:56:22 AM
-
+--
 local ipairs = ipairs
 
 ---@type ns
@@ -31,6 +31,12 @@ end
 
 function InventoryFrame:OnShow()
     ContainerFrame.OnShow(self)
+
+    -- @classic@
+    if C_Engraving and C_Engraving.IsEngravingEnabled() then
+        C_Engraving.RefreshRunesList()
+    end
+    -- @end-classic@
 
     self:HighlightMainMenu(true)
 end
