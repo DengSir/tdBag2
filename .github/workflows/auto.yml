@@ -17,12 +17,12 @@ jobs:
           submodules: true
 
       - name: Update locales
-        uses: DengSir/curse-locale-action@master
+        uses: curse-action/locale@master
         with:
           token: ${{ secrets.CURSE_TOKEN }}
 
       - name: Update libs
-        uses: DengSir/curse-update-action@master
+        uses: curse-action/update@master
         with:
           root: Libs
 

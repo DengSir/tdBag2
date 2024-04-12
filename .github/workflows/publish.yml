@@ -15,7 +15,7 @@ jobs:
           submodules: true
 
       - name: Publish to curseforge
-        uses: DengSir/curse-publish-action@master
+        uses: curse-action/publish@master
         with:
           token: ${{ secrets.CURSE_TOKEN }}
 
