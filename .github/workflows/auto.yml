@@ -29,4 +29,4 @@ jobs:
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          message: "chore: Update locale files"
+          message: "chore: Update locale/libs files"
