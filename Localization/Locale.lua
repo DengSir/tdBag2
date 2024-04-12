@@ -4,14 +4,12 @@
 -- @Date   : 4/11/2024, 3:43:22 PM
 --
 local ADDON = ...
-
 local function Apply(locale, apply)
     local L = LibStub('AceLocale-3.0'):NewLocale(ADDON, locale)
     if L then
         apply(L)
     end
 end
-
 Apply('deDE', function(L)
     -- @locale:language=deDE@
 L = L or {}
@@ -248,11 +246,9 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
---[[ L["Watch Frame"] = "Watch Frame"--]] 
-
+--[[ L["Watch Frame"] = "Watch Frame"--]]
 -- @end-locale@
 end)
-
 Apply('esES', function(L)
     -- @locale:language=esES@
 L = L or {}
@@ -489,11 +485,9 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
---[[ L["Watch Frame"] = "Watch Frame"--]] 
-
+--[[ L["Watch Frame"] = "Watch Frame"--]]
 -- @end-locale@
 end)
-
 Apply('frFR', function(L)
     -- @locale:language=frFR@
 L = L or {}
@@ -730,11 +724,9 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
---[[ L["Watch Frame"] = "Watch Frame"--]] 
-
+--[[ L["Watch Frame"] = "Watch Frame"--]]
 -- @end-locale@
 end)
-
 Apply('itIT', function(L)
     -- @locale:language=itIT@
 L = L or {}
@@ -971,11 +963,9 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
---[[ L["Watch Frame"] = "Watch Frame"--]] 
-
+--[[ L["Watch Frame"] = "Watch Frame"--]]
 -- @end-locale@
 end)
-
 Apply('koKR', function(L)
     -- @locale:language=koKR@
 L = L or {}
@@ -1103,10 +1093,8 @@ L["Visiting the Auction House"] = "경매장 방문 시"
 L["Visiting the Bank"] = "은행 방문 시"
 L["Visiting the Mail Box"] = "우편함 방문 시"
 L["Watch Frame"] = "집계 프레임"
-
 -- @end-locale@
 end)
-
 Apply('ptBR', function(L)
     -- @locale:language=ptBR@
 L = L or {}
@@ -1343,11 +1331,9 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
---[[ L["Watch Frame"] = "Watch Frame"--]] 
-
+--[[ L["Watch Frame"] = "Watch Frame"--]]
 -- @end-locale@
 end)
-
 Apply('ruRU', function(L)
     -- @locale:language=ruRU@
 L = L or {}
@@ -1514,11 +1500,9 @@ L["Visiting the Auction House"] = "Посещение аукциона"
 L["Visiting the Bank"] = "Посещение банка"
 L["Visiting the Mail Box"] = "Посещение почтового ящика"
 --[[Translation missing --]]
---[[ L["Watch Frame"] = "Watch Frame"--]] 
-
+--[[ L["Watch Frame"] = "Watch Frame"--]]
 -- @end-locale@
 end)
-
 Apply('zhTW', function(L)
     -- @locale:language=zhTW@
 L = L or {}
@@ -1646,6 +1630,5 @@ L["Visiting the Auction House"] = "打開拍賣行時"
 L["Visiting the Bank"] = "打開銀行時"
 L["Visiting the Mail Box"] = "打開郵箱時"
 L["Watch Frame"] = "物品監控"
-
 -- @end-locale@
 end)
