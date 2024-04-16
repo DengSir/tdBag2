@@ -23,8 +23,8 @@ jobs:
 
       - name: Update libs
         uses: curse-action/update@master
-        with:
-          root: Libs
+        env:
+          CURSEFORGE_API_KEY: ${{ secrets.CURSE_FORGE_TOKEN }}
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
