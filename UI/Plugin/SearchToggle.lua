@@ -3,20 +3,21 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 12/28/2019, 1:35:39 AM
 --
+local _G = _G
+local ipairs, select = _G.ipairs, _G.select
+local tinsert, tremove = _G.table.insert, _G.table.remove
+local format = _G.string.format
+local tContains = _G.tContains
+
 ---@type ns
 local ns = select(2, ...)
 local L = ns.L
 
-local GameTooltip = GameTooltip
+local GameTooltip = _G.GameTooltip
 
-local ipairs = ipairs
-local tinsert, tremove = table.insert, table.remove
-local format = string.format
-local tContains = tContains
-
-local ADD = ADD
-local DELETE = DELETE
-local SEARCH = SEARCH
+local ADD = _G.ADD
+local DELETE = _G.DELETE
+local SEARCH = _G.SEARCH
 
 ---@class UI.SearchToggle: UI.MenuButton
 local SearchToggle = ns.Addon:NewClass('UI.SearchToggle', ns.UI.MenuButton)
@@ -27,7 +28,7 @@ function SearchToggle:Constructor(_, meta)
     self:RegisterForClicks('LeftButtonUp', 'RightButtonUp')
     self:SetScript('OnClick', self.OnClick)
     self:SetScript('OnEnter', self.OnEnter)
-    self:SetScript('OnLeave', GameTooltip_Hide)
+    self:SetScript('OnLeave', _G.GameTooltip_Hide)
     self:SetScript('OnShow', self.OnShow)
 end
 

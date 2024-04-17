@@ -3,7 +3,11 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/25/2019, 1:56:22 AM
 --
-local ipairs = ipairs
+local _G = _G
+local select = _G.select
+local ipairs = _G.ipairs
+
+local C_Engraving = _G.C_Engraving
 
 ---@type ns
 local ns = select(2, ...)
@@ -13,11 +17,11 @@ local ContainerFrame = ns.UI.ContainerFrame
 local InventoryFrame = ns.Addon:NewClass('UI.InventoryFrame', ContainerFrame)
 
 local MAIN_MENU_BUTTONS = {
-    MainMenuBarBackpackButton, --
-    CharacterBag0Slot, --
-    CharacterBag1Slot, --
-    CharacterBag2Slot, --
-    CharacterBag3Slot, --
+    _G.MainMenuBarBackpackButton, --
+    _G.CharacterBag0Slot, --
+    _G.CharacterBag1Slot, --
+    _G.CharacterBag2Slot, --
+    _G.CharacterBag3Slot, --
 }
 
 local function SetChecked(self)

@@ -3,6 +3,12 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 1/13/2022, 1:45:58 PM
 --
+local _G = _G
+local select = _G.select
+local ipairs, assert = _G.ipairs, _G.assert
+
+local CreateFrame = _G.CreateFrame
+
 ---@type ns
 local ns = select(2, ...)
 

@@ -3,6 +3,11 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 4/24/2020, 4:21:46 PM
 --
+local _G = _G
+local select = _G.select
+
+local DressUpTexturePath = _G.DressUpTexturePath
+
 ---@type ns
 local ns = select(2, ...)
 

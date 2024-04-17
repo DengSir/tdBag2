@@ -3,44 +3,46 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 12/31/2019, 1:07:26 PM
 --
----@class ns
-local ns = select(2, ...)
-
+local _G = _G
 local C = LibStub('C_Everywhere')
 
 ---- LUA
-local select, pairs, ipairs = select, pairs, ipairs
-local tinsert = table.insert
-local sort = table.sort or sort
-local tonumber = tonumber
-local strsplit = strsplit
-local time = time
-local floor = math.floor
-local tDeleteItem = tDeleteItem
+local select, pairs, ipairs = _G.select, _G.pairs, _G.ipairs
+local tinsert, sort = _G.table.insert, _G.table.sort or _G.sort
+local tonumber, floor = _G.tonumber, _G.math.floor
+local strsplit, format = _G.strsplit, _G.string.format
+local time = _G.time
+local tDeleteItem = _G.tDeleteItem
 
 ---- WOW
 local GetContainerItemInfo = C.Container.GetContainerItemInfo
 local GetContainerNumFreeSlots = C.Container.GetContainerNumFreeSlots
 local GetContainerNumSlots = C.Container.GetContainerNumSlots
 local GetContainerItemLink = C.Container.GetContainerItemLink
-local GetInventoryItemCount = GetInventoryItemCount
-local GetInventoryItemLink = GetInventoryItemLink
-local GetItemIcon = GetItemIcon
-local GetItemInfo = GetItemInfo
-local GetMoney = GetMoney
-local UnitClassBase = UnitClassBase
-local UnitFactionGroup = UnitFactionGroup
-local UnitRace = UnitRace
-local UnitSex = UnitSex
-local GetInboxNumItems = GetInboxNumItems
-local GetInboxHeaderInfo = GetInboxHeaderInfo
-local GetInboxItemLink = GetInboxItemLink
-local GetInboxItem = GetInboxItem
+local GetInventoryItemCount = _G.GetInventoryItemCount
+local GetInventoryItemLink = _G.GetInventoryItemLink
+local GetItemIcon = _G.GetItemIcon
+local GetItemInfo = _G.GetItemInfo
+local GetMoney = _G.GetMoney
+local UnitClassBase = _G.UnitClassBase
+local UnitFactionGroup = _G.UnitFactionGroup
+local UnitRace = _G.UnitRace
+local UnitSex = _G.UnitSex
+local GetInboxNumItems = _G.GetInboxNumItems
+local GetInboxHeaderInfo = _G.GetInboxHeaderInfo
+local GetInboxItemLink = _G.GetInboxItemLink
+local GetInboxItem = _G.GetInboxItem
+local GetNumGuildBankTabs = _G.GetNumGuildBankTabs
+local GetGuildBankItemLink = _G.GetGuildBankItemLink
+local GetGuildBankItemInfo = _G.GetGuildBankItemInfo
 
 ---- G
-local NUM_BAG_SLOTS = NUM_BAG_SLOTS
-local INVSLOT_LAST_EQUIPPED = INVSLOT_LAST_EQUIPPED
-local ATTACHMENTS_MAX_RECEIVE = ATTACHMENTS_MAX_RECEIVE
+local NUM_BAG_SLOTS = _G.NUM_BAG_SLOTS
+local INVSLOT_LAST_EQUIPPED = _G.INVSLOT_LAST_EQUIPPED
+local ATTACHMENTS_MAX_RECEIVE = _G.ATTACHMENTS_MAX_RECEIVE
+
+---@class ns
+local ns = select(2, ...)
 
 local L = ns.L
 

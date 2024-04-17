@@ -4,10 +4,11 @@
 -- @Date   : 10/17/2019, 6:42:42 PM
 --
 ---- LUA
-local select = select
+local _G = _G
+local select = _G.select
 
 ---- WOW
-local CloseBankFrame = CloseBankFrame
+local CloseBankFrame = _G.CloseBankFrame
 
 ---@type ns
 local ns = select(2, ...)

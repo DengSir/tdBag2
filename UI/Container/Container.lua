@@ -4,25 +4,24 @@
 -- @Date   : 10/17/2019, 10:17:19 AM
 --
 ---- LUA
-local ipairs, pairs = ipairs, pairs
-local max = math.max
-local select = select
-local tinsert, tremove = table.insert, table.remove
-local wipe = table.wipe or wipe
-local ripairs = ipairs_reverse or ripairs
+local _G = _G
+local ipairs, pairs = _G.ipairs, _G.pairs
+local max = _G.math.max
+local select = _G.select
+local tinsert, tremove = _G.table.insert, _G.table.remove
+local wipe = _G.table.wipe or _G.wipe
+local ripairs = _G.ipairs_reverse or _G.ripairs
 
 ---- WOW
-local CreateFrame = CreateFrame
-local CopyTable = CopyTable
-local GetItemFamily = GetItemFamily
+local CreateFrame = _G.CreateFrame
+
+local KEYRING_CONTAINER = _G.KEYRING_CONTAINER
 
 ---@type ns
 local ns = select(2, ...)
 local Addon = ns.Addon
 local Cache = ns.Cache
 local TRADE_BAG_ORDER = ns.TRADE_BAG_ORDER
-
-local KEYRING_CONTAINER = KEYRING_CONTAINER
 
 ---@class UI.Container: EventsMixin, Object, Frame
 ---@field ContentParent Frame

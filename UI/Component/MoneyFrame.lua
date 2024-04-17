@@ -5,19 +5,21 @@
 --
 ---- LUA
 local _G = _G
-local select = select
-local ipairs = ipairs
+local select = _G.select
+local ipairs = _G.ipairs
 
 ---- WOW
-local GetMoneyString = GetMoneyString
-local MoneyFrame_Update = MoneyFrame_Update
-local MoneyInputFrame_OpenPopup = MoneyInputFrame_OpenPopup
+local CreateFrame = _G.CreateFrame
+local GetMoneyString = _G.GetMoneyString
+local MoneyFrame_Update = _G.MoneyFrame_Update
+local MoneyInputFrame_OpenPopup = _G.MoneyInputFrame_OpenPopup
+local MoneyFrame_UpdateMoney = _G.MoneyFrame_UpdateMoney
 
 ---- L
-local WORLD_QUEST_REWARD_FILTERS_GOLD = WORLD_QUEST_REWARD_FILTERS_GOLD
+local WORLD_QUEST_REWARD_FILTERS_GOLD = _G.WORLD_QUEST_REWARD_FILTERS_GOLD
 
 ---- UI
-local GameTooltip = GameTooltip
+local GameTooltip = _G.GameTooltip
 
 ---@type ns
 local ns = select(2, ...)

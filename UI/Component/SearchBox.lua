@@ -3,6 +3,9 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/22/2019, 4:02:14 PM
 --
+local _G = _G
+local select = _G.select
+
 ---@type ns
 local ns = select(2, ...)
 local Addon = ns.Addon

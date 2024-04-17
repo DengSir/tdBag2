@@ -4,10 +4,20 @@
 -- @Date   : 10/23/2019, 3:14:52 PM
 --
 ---- LUA
-local ipairs, pairs = ipairs, pairs
-local format = string.format
-local wipe = table.wipe or wipe
-local type = type
+local _G = _G
+local ipairs, pairs = _G.ipairs, _G.pairs
+local format = _G.string.format
+local wipe = _G.table.wipe or _G.wipe
+local type, pcall = _G.type, _G.pcall
+local select = _G.select
+
+local C = LibStub('C_Everywhere')
+
+local GetAddOnMetadata = C.AddOns.GetAddOnMetadata
+local Reload = C.UI.Reload
+
+local RELOADUI = _G.RELOADUI
+local GENERAL = _G.GENERAL
 
 ---@type ns
 local ns = select(2, ...)
@@ -254,14 +264,7 @@ function Addon:SetupOptionFrame()
                 end,
                 args = {
                     reloadtext = warning(L['Need to reload UI to make some settings take effect']),
-                    reload = {
-                        type = 'execute',
-                        name = RELOADUI,
-                        order = orderGen(),
-                        func = function()
-                            C_UI.Reload()
-                        end,
-                    },
+                    reload = {type = 'execute', name = RELOADUI, order = orderGen(), func = Reload},
                 },
             },
             globalTitle = treeTitle(L['Global Settings']),
@@ -396,7 +399,7 @@ function Addon:OpenFrameOption(bagId)
     if bagId then
         AceConfigDialog:SelectGroup('tdBag2', bagId)
     end
-    pcall(function ()
+    pcall(function()
         AceConfigDialog.OpenFrames.tdBag2:EnableResize(false)
         AceConfigDialog.OpenFrames.tdBag2.frame:SetFrameStrata('DIALOG')
     end)

@@ -2,14 +2,19 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 2/3/2020, 8:10:05 PM
+--
 ---- LUA
-local pairs, ipairs = pairs, ipairs
-local max = math.max
-local tinsert = table.insert
+local _G = _G
+local pairs, ipairs = _G.pairs, _G.ipairs
+local max = _G.math.max
+local tinsert = _G.table.insert
+local select = _G.select
 
 ---- WOW
-local CreateFrame = CreateFrame
-local ScrollFrame_OnScrollRangeChanged = ScrollFrame_OnScrollRangeChanged
+local CreateFrame = _G.CreateFrame
+local ScrollFrame_OnScrollRangeChanged = _G.ScrollFrame_OnScrollRangeChanged
+
+local UIParent = _G.UIParent
 
 ---@type ns
 local ns = select(2, ...)

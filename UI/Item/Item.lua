@@ -5,27 +5,25 @@
 --
 ---- LUA
 local _G = _G
-local select = select
-local floor = math.floor
-local format = string.format
+local select = _G.select
+local floor = _G.math.floor
+local format = _G.string.format
 
 ---- WOW
-local CreateFrame = CreateFrame
-local IsBattlePayItem = IsBattlePayItem or C_Container.IsBattlePayItem
+local CreateFrame = _G.CreateFrame
+local IsBattlePayItem = _G.IsBattlePayItem or _G.C_Container.IsBattlePayItem
 
-local IsNewItem = C_NewItems.IsNewItem
-local RemoveNewItem = C_NewItems.RemoveNewItem
-
-local ContainerFrame_UpdateCooldown = ContainerFrame_UpdateCooldown
-local CooldownFrame_Set = CooldownFrame_Set
+local IsNewItem = _G.C_NewItems.IsNewItem
+local RemoveNewItem = _G.C_NewItems.RemoveNewItem
+local C_Engraving = _G.C_Engraving
 
 ---- UI
-local StackSplitFrame = StackSplitFrame
-local UIParent = UIParent
+local StackSplitFrame = _G.StackSplitFrame
+local UIParent = _G.UIParent
 
 ---- G
-local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS
-local MAX_BLIZZARD_ITEMS = NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
+local MAX_CONTAINER_ITEMS = _G.MAX_CONTAINER_ITEMS
+local MAX_BLIZZARD_ITEMS = _G.NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
 
 local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
 
@@ -164,10 +162,10 @@ end
 
 function Item:UpdateCooldown()
     if self.hasItem and not self:IsCached() then
-        ContainerFrame_UpdateCooldown(self.bag, self)
+        _G.ContainerFrame_UpdateCooldown(self.bag, self)
     else
         self.Cooldown:Hide()
-        CooldownFrame_Set(self.Cooldown, 0, 0, 0)
+        _G.CooldownFrame_Set(self.Cooldown, 0, 0, 0)
     end
 end
 

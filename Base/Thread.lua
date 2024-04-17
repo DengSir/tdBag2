@@ -3,10 +3,14 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 7/15/2020, 4:41:36 PM
 --
+local _G = _G
+local select = _G.select
+local coroutine = _G.coroutine
+local debugprofilestop = _G.debugprofilestop
+
 ---@type ns
 local ns = select(2, ...)
 
-local coroutine = coroutine
 local profilestart, profilestop
 do
     local tick = 0
@@ -23,7 +27,7 @@ end
 ---@class Thread: Object
 local Thread = ns.Addon:NewClass('Thread')
 
-local KILLED = newproxy()
+local KILLED = _G.newproxy()
 
 function Thread:Start(func, ...)
     self.co = coroutine.create(func)

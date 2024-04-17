@@ -3,9 +3,13 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 12/3/2019, 2:52:21 PM
 --
-local pairs, ipairs = pairs, ipairs
+local _G = _G
+local ipairs = _G.ipairs
+local select = _G.select
 
-local GetItemCount = GetItemCount
+local C = LibStub('C_Everywhere')
+
+local GetItemCount = C.Item.GetItemCount
 
 ---@type ns
 local ns = select(2, ...)

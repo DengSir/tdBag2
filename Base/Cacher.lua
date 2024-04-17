@@ -3,9 +3,11 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 1/6/2020, 4:12:47 PM
 --
-local select = select
-local wipe = table.wipe or wipe
-local setmetatable = setmetatable
+local _G = _G
+local select = _G.select
+local wipe = _G.table.wipe or _G.wipe
+local setmetatable = _G.setmetatable
+local type = _G.type
 
 ---@type ns
 local ns = select(2, ...)

@@ -73,3 +73,5 @@ C.AddOns = C_AddOns
 C.Item = C_Item
 C.Container = C_Container
 C.TooltipInfo = C_TooltipInfo
+C.UI = C_UI
+C.CurrencyInfo = C_CurrencyInfo

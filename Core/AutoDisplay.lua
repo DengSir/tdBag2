@@ -2,8 +2,15 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/24/2019, 10:24:55 AM
+--
+local _G = _G
+local select = _G.select
+
+local LibClass = LibStub('LibClass-2.0')
+
 ---@type ns
 local ns = select(2, ...)
+
 local Addon = ns.Addon
 local BAG_ID = ns.BAG_ID
 
@@ -34,9 +41,9 @@ function AutoDisplay:OnInitialize()
     self:RegisterFrame('Bank', 8)
     self:RegisterFrame('Auction', 21)
 
-    self:RegisterFrame('Mail', MailFrame)
-    self:RegisterFrame('Merchant', MerchantFrame)
-    self:RegisterFrame('Character', CharacterFrame)
+    self:RegisterFrame('Mail', _G.MailFrame)
+    self:RegisterFrame('Merchant', _G.MerchantFrame)
+    self:RegisterFrame('Character', _G.CharacterFrame)
 
     self:RegisterDisplayEvent('Craft', 'TRADE_SKILL_SHOW', 'TRADE_SKILL_CLOSE')
     self:RegisterDisplayEvent('Craft', 'CRAFT_SHOW', 'CRAFT_CLOSE')
@@ -77,9 +84,7 @@ function AutoDisplay:RegisterFrame(key, id)
     self.showKeys[id] = 'display' .. key
     self.hideKeys[id] = 'close' .. key
 
-    if LibStub('LibClass-2.0'):IsWidget(id) then
-        -- local frame = CreateFrame('Frame', nil, id)
-        -- frame.parent = id
+    if LibClass:IsWidget(id) then
         self:HookScript(id, 'OnShow', 'ShowEvent')
         self:HookScript(id, 'OnHide', 'HideEvent')
     end

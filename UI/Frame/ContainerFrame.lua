@@ -3,18 +3,22 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/17/2019, 10:21:54 AM
 --
+local _G = _G
+local select = _G.select
+local error = _G.error
+
 ---- WOW
-local CreateFrame = CreateFrame
+local CreateFrame = _G.CreateFrame
 
 ---- UI
-local UIParent = UIParent
+local UIParent = _G.UIParent
 
 ---@type ns
 local ns = select(2, ...)
 local Addon = ns.Addon
 local SimpleFrame = ns.UI.SimpleFrame
 
----@class UI.ContainerFrame: UI.SimpleFrame, tdBag2FrameTemplate
+---@class UI.ContainerFrame: tdBag2FrameTemplate, UI.SimpleFrame
 local ContainerFrame = Addon:NewClass('UI.ContainerFrame', SimpleFrame)
 ContainerFrame.TEMPLATE = 'tdBag2FrameTemplate'
 

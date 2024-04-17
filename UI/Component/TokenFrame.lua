@@ -2,17 +2,24 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 11/29/2019, 11:10:36 AM
-local ipairs, select = ipairs, select
-local tinsert, tremove = table.insert, table.remove
+--
+local _G = _G
+local ipairs, select = _G.ipairs, _G.select
+local tinsert, tremove = _G.table.insert, _G.table.remove
+local format = _G.string.format
 
-local GetItemIcon = GetItemIcon
-local GetItemInfo = GetItemInfo
-local GetItemQualityColor = GetItemQualityColor
-local GetCursorInfo = GetCursorInfo
-local ClearCursor = ClearCursor
-local CloseDropDownMenus = CloseDropDownMenus
+local C = LibStub('C_Everywhere')
 
-local GameTooltip = GameTooltip
+local GetItemQualityColor = C.Item.GetItemQualityColor
+local GetItemIcon = C.Item.GetItemIconByID
+local GetItemInfo = C.Item.GetItemInfo
+local GetBackpackCurrencyInfo = C.CurrencyInfo.GetBackpackCurrencyInfo
+local GetCursorInfo = _G.GetCursorInfo
+local ClearCursor = _G.ClearCursor
+local CloseDropDownMenus = _G.CloseDropDownMenus
+
+local DELETE = _G.DELETE
+local MAX_WATCHED_TOKENS = _G.MAX_WATCHED_TOKENS
 
 ---@type ns
 local ns = select(2, ...)

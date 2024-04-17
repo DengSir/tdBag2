@@ -4,22 +4,20 @@
 -- @Date   : 10/18/2019, 10:26:06 AM
 --
 ---- LUA
-local select = select
-local tinsert = table.insert
-local unpack = table.unpack or unpack
-local ipairs = ipairs
+local select = _G.select
+local tinsert = _G.table.insert
+local unpack = _G.table.unpack or _G.unpack
+local ipairs = _G.ipairs
 
 ---- WOW
-local CreateFrame = CreateFrame
-local SetPortraitTexture = SetPortraitTexture
+local SetPortraitTexture = _G.SetPortraitTexture
 
 ---- UI
-local GameTooltip = GameTooltip
-local UIParent = UIParent
+local GameTooltip = _G.GameTooltip
 
 ---- G
-local CHARACTER = CHARACTER
-local DELETE = DELETE
+local CHARACTER = _G.CHARACTER
+local DELETE = _G.DELETE
 
 ---@type ns
 local ns = select(2, ...)

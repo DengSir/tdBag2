@@ -3,8 +3,13 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 2/9/2020, 2:15:15 AM
 --
-local ipairs = ipairs
-local tinsert = table.insert
+local ipairs = _G.ipairs
+local select = _G.select
+local tinsert = _G.table.insert
+
+local CreateFrame = _G.CreateFrame
+local Ambiguate = _G.Ambiguate
+local C_Timer = _G.C_Timer
 
 ---@type ns
 local ns = select(2, ...)

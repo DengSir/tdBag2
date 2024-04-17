@@ -3,24 +3,24 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 1/7/2020, 12:31:57 AM
 --
+local _G = _G
+local tinsert = _G.table.insert
+local select = _G.select
+local tDeleteItem = _G.tDeleteItem
+
+local PlaySound = _G.PlaySound
+local CreateFrame = _G.CreateFrame
+
+local UISpecialFrames = _G.UISpecialFrames
+
+local UIParent = _G.UIParent
+
 ---@type ns
 local ns = select(2, ...)
 
-local _G = _G
-
-local tinsert = table.insert
-local tDeleteItem = tDeleteItem
-
-local PlaySound = PlaySound
-local CreateFrame = CreateFrame
-
-local UISpecialFrames = UISpecialFrames
-
-local UIParent = UIParent
-
 local LibWindow = LibStub('LibWindow-1.1')
 
----@class UI.Frame: EventsMixin, Object, Frame, tdBag2BaseFrameTemplate
+---@class UI.Frame: tdBag2BaseFrameTemplate, Object, EventsMixin
 -- UI
 ---@field Container UI.Container
 -- members
@@ -63,7 +63,7 @@ function Frame:OnHide()
     end
 end
 
-Frame.OnSizeChanged = ns.Spawned(UpdateUIPanelPositions)
+Frame.OnSizeChanged = ns.Spawned(_G.UpdateUIPanelPositions)
 
 function Frame:UpdateBorder()
 end

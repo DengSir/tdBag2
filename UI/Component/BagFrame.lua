@@ -4,11 +4,12 @@
 -- @Date   : 10/20/2019, 3:32:48 AM
 --
 ---- LUA
-local ipairs = ipairs
-local select = select
+local _G = _G
+local ipairs = _G.ipairs
+local select = _G.select
 
 ---- WOW
-local CreateFrame = CreateFrame
+local CreateFrame = _G.CreateFrame
 
 ---@type ns
 local ns = select(2, ...)

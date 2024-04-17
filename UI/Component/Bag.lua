@@ -3,32 +3,35 @@
 -- @Link   : https:\dengsir.github.io
 -- @Date   : 10\17\2019, 3:23:57 PM
 --
+local _G = _G
+local select = _G.select
 ---- WOW
-local CursorCanGoInSlot = CursorCanGoInSlot
-local CursorHasItem = CursorHasItem
-local IsInventoryItemLocked = IsInventoryItemLocked
-local PickupBagFromSlot = PickupBagFromSlot
-local PlaySound = PlaySound
-local PutItemInBackpack = PutItemInBackpack
-local PutItemInBag = PutItemInBag
-local PutKeyInKeyRing = PutKeyInKeyRing
+local CursorCanGoInSlot = _G.CursorCanGoInSlot
+local CursorHasItem = _G.CursorHasItem
+local IsInventoryItemLocked = _G.IsInventoryItemLocked
+local PickupBagFromSlot = _G.PickupBagFromSlot
+local PlaySound = _G.PlaySound
+local PutItemInBackpack = _G.PutItemInBackpack
+local PutItemInBag = _G.PutItemInBag
+local PutKeyInKeyRing = _G.PutKeyInKeyRing
 
-local SetItemButtonDesaturated = SetItemButtonDesaturated
-local SetItemButtonTexture = SetItemButtonTexture
-local SetItemButtonTextureVertexColor = SetItemButtonTextureVertexColor
-local SetTooltipMoney = SetTooltipMoney
-local StaticPopup_Show = StaticPopup_Show
+local SetItemButtonDesaturated = _G.SetItemButtonDesaturated
+local SetItemButtonTexture = _G.SetItemButtonTexture
+local SetItemButtonTextureVertexColor = _G.SetItemButtonTextureVertexColor
+local SetTooltipMoney = _G.SetTooltipMoney
+local StaticPopup_Show = _G.StaticPopup_Show
 
 ---- UI
-local GameTooltip = GameTooltip
-local BankFrame = BankFrame
+local GameTooltip = _G.GameTooltip
+local BankFrame = _G.BankFrame
 
 ---- G
-local BACKPACK_TOOLTIP = BACKPACK_TOOLTIP
-local BANK = BANK
-local BANK_BAG = BANK_BAG
-local BANK_BAG_PURCHASE = BANK_BAG_PURCHASE
-local EQUIP_CONTAINER = EQUIP_CONTAINER
+local BACKPACK_TOOLTIP = _G.BACKPACK_TOOLTIP
+local BANK = _G.BANK
+local BANK_BAG = _G.BANK_BAG
+local BANK_BAG_PURCHASE = _G.BANK_BAG_PURCHASE
+local EQUIP_CONTAINER = _G.EQUIP_CONTAINER
+local KEYRING = _G.KEYRING
 
 ---@type ns
 local ns = select(2, ...)

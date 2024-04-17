@@ -5,38 +5,42 @@
 --
 ---- LUA
 local _G = _G
-local select = select
-local next = next
-local time = time
-local floor = math.floor
-local format = string.format
-local securecall = securecall
+local select = _G.select
+local next = _G.next
+local time = _G.time
+local floor = _G.math.floor
+local format = _G.string.format
+local securecall = _G.securecall
+
+local C = LibStub('C_Everywhere')
 
 ---- WOW
-local BankButtonIDToInvSlotID = BankButtonIDToInvSlotID
-local CreateFrame = CreateFrame
-local CursorUpdate = CursorUpdate
-local GetItemInfo = GetItemInfo
-local GetItemFamily = GetItemFamily
-local ResetCursor = ResetCursor
-local GetContainerItemQuestInfo = C_Container and C_Container.GetContainerItemQuestInfo or GetContainerItemQuestInfo
+local GetItemInfo = C.Item.GetItemInfo
+local GetItemFamily = C.Item.GetItemFamily
+local GetContainerItemQuestInfo = C.Container.GetContainerItemQuestInfo
+local BankButtonIDToInvSlotID = _G.BankButtonIDToInvSlotID
+local CreateFrame = _G.CreateFrame
+local CursorUpdate = _G.CursorUpdate
+local ResetCursor = _G.ResetCursor
+local C_Timer = _G.C_Timer
 
-local ContainerFrameItemButton_OnEnter = ContainerFrameItemButton_OnEnter
-local SetItemButtonCount = SetItemButtonCount
-local SetItemButtonDesaturated = SetItemButtonDesaturated
-local SetItemButtonTexture = SetItemButtonTexture
+local ContainerFrameItemButton_OnEnter = _G.ContainerFrameItemButton_OnEnter
+local SetItemButtonCount = _G.SetItemButtonCount
+local SetItemButtonDesaturated = _G.SetItemButtonDesaturated
+local SetItemButtonTexture = _G.SetItemButtonTexture
 
 ---- UI
-local StackSplitFrame = StackSplitFrame
-local GameTooltip = GameTooltip
-local UIParent = UIParent
+local StackSplitFrame = _G.StackSplitFrame
+local GameTooltip = _G.GameTooltip
+local UIParent = _G.UIParent
 
 ---- G
-local ITEM_STARTS_QUEST = ITEM_STARTS_QUEST
-local LE_ITEM_CLASS_QUESTITEM = LE_ITEM_CLASS_QUESTITEM or Enum.ItemClass.Questitem
-local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON or Enum.ItemQuality.Common or Enum.ItemQuality.Standard
-local TEXTURE_ITEM_QUEST_BANG = TEXTURE_ITEM_QUEST_BANG
-local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
+local ITEM_STARTS_QUEST = _G.ITEM_STARTS_QUEST
+local LE_ITEM_CLASS_QUESTITEM = _G.LE_ITEM_CLASS_QUESTITEM or Enum.ItemClass.Questitem
+local LE_ITEM_QUALITY_COMMON = _G.LE_ITEM_QUALITY_COMMON or Enum.ItemQuality.Common or Enum.ItemQuality.Standard
+local TEXTURE_ITEM_QUEST_BANG = _G.TEXTURE_ITEM_QUEST_BANG
+local ITEM_QUALITY_COLORS = _G.ITEM_QUALITY_COLORS
+local GRAY_FONT_COLOR = _G.GRAY_FONT_COLOR
 
 ---@type ns
 local ns = select(2, ...)
@@ -215,7 +219,7 @@ function ItemBase:CreateOverlay()
     local function OverlayOnClick(self, button)
         local parent = self:GetParent()
         local link = parent:IsCached() and parent.info.link
-        HandleModifiedItemClick(link)
+        _G.HandleModifiedItemClick(link)
     end
 
     Overlay.UpdateTooltip = OverlayOnEnter

@@ -3,6 +3,8 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 11/8/2019, 2:20:54 PM
 --
+local select, pairs = _G.select, _G.pairs
+
 ---@type ns
 local ns = select(2, ...)
 

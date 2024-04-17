@@ -2,10 +2,24 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 11/29/2019, 11:21:51 AM
-local GetItemIcon = GetItemIcon
-local GetItemCount = GetItemCount
+--
+local _G = _G
+local select, format = _G.select, _G.format
+local ipairs = _G.ipairs
 
-local GameTooltip = GameTooltip
+local C = LibStub('C_Everywhere')
+
+local GetItemIcon = C.Item.GetItemIconByID
+local GetItemQualityColor = C.Item.GetItemQualityColor
+local GetItemInfo = C.Item.GetItemInfo
+local GetCurrencyInfo = C.CurrencyInfo.GetCurrencyInfo
+local GetBackpackCurrencyInfo = C.CurrencyInfo.GetBackpackCurrencyInfo
+local IsShiftKeyDown = _G.IsShiftKeyDown
+local CreateTextureMarkup = _G.CreateTextureMarkup
+
+local GameTooltip = _G.GameTooltip
+
+local Constants = _G.Constants
 
 ---@type ns
 local ns = select(2, ...)
@@ -17,7 +31,7 @@ local Token = ns.Addon:NewClass('UI.Token', 'Frame.tdBag2TokenTemplate')
 
 function Token:Constructor()
     self:SetScript('OnEnter', self.OnEnter)
-    self:SetScript('OnLeave', GameTooltip_Hide)
+    self:SetScript('OnLeave', _G.GameTooltip_Hide)
     self:SetMouseClickEnabled(false)
 end
 

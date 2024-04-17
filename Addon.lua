@@ -4,23 +4,33 @@
 -- @Date   : 9/17/2019, 12:04:55 AM
 --
 ---- LUA
-local ipairs, pairs, nop, tinsert, sort = ipairs, pairs, nop, tinsert, sort
-local ripairs = ipairs_reverse or ripairs
+local _G = _G
+local select, format = _G.select, _G.string.format
+local ipairs, pairs, tinsert, sort = _G.ipairs, _G.pairs, _G.tinsert, _G.sort
+local ripairs = _G.ipairs_reverse or _G.ripairs
+local tInvert = _G.tInvert
+local tremove = _G.table.remove
+local assert = _G.assert
+
+local C = LibStub('C_Everywhere')
 
 ---- WOW
-local CreateFrame = CreateFrame
-
----- C
-local C = LibStub('C_Everywhere')
+local CreateFrame = _G.CreateFrame
+local UnitFullName = _G.UnitFullName
+local GetAutoCompleteRealms = _G.GetAutoCompleteRealms
+local GetRealmName = _G.GetRealmName
 local GetItemClassInfo = C.Item.GetItemClassInfo
 local GetNumAddOns = C.AddOns.GetNumAddOns
 local GetAddOnInfo = C.AddOns.GetAddOnInfo
 local GetAddOnMetadata = C.AddOns.GetAddOnMetadata
 local LoadAddOn = C.AddOns.LoadAddOn
+local IsAddOnLoaded = C.AddOns.IsAddOnLoaded
+
+local SEARCH = _G.SEARCH
 
 ---- UI
-local BankFrame = BankFrame
-local UIParent = UIParent
+local BankFrame = _G.BankFrame
+local UIParent = _G.UIParent
 
 ---@class ns
 -- modules
@@ -238,11 +248,11 @@ function Addon:SetupDefaultOptions()
         searches.first = false
 
         local types = { --
-            LE_ITEM_CLASS_WEAPON or Enum.ItemClass.Weapon, --
-            LE_ITEM_CLASS_ARMOR or Enum.ItemClass.Armor, --
-            LE_ITEM_CLASS_CONSUMABLE or Enum.ItemClass.Consumable, --
-            LE_ITEM_CLASS_TRADEGOODS or Enum.ItemClass.Tradegoods, --
-            LE_ITEM_CLASS_REAGENT or Enum.ItemClass.Reagent, --
+            _G.LE_ITEM_CLASS_WEAPON or Enum.ItemClass.Weapon, --
+            _G.LE_ITEM_CLASS_ARMOR or Enum.ItemClass.Armor, --
+            _G.LE_ITEM_CLASS_CONSUMABLE or Enum.ItemClass.Consumable, --
+            _G.LE_ITEM_CLASS_TRADEGOODS or Enum.ItemClass.Tradegoods, --
+            _G.LE_ITEM_CLASS_REAGENT or Enum.ItemClass.Reagent, --
         }
 
         for _, item in ipairs(types) do

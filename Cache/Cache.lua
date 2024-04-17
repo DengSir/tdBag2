@@ -3,8 +3,12 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 1/1/2020, 12:22:38 AM
 --
+local _G = _G
+local select = _G.select
+
 ---@class ns
 local ns = select(2, ...)
+
 local Forever = ns.Forever
 local Current = ns.Current
 local GlobalSearch = ns.GlobalSearch
