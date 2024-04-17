@@ -1,10 +1,14 @@
-name: "Auto update 🌏"
+name: Auto update 🌏
 on:
   push:
     branches:
       - "master"
     tags-ignore:
       - "v*"
+    paths:
+      - "**.lua"
+      - "**.xml"
+      - "**.toc"
 
 jobs:
   auto:
