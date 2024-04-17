@@ -9,11 +9,14 @@ local ripairs = ipairs_reverse or ripairs
 
 ---- WOW
 local CreateFrame = CreateFrame
-local GetItemClassInfo = GetItemClassInfo
-local GetNumAddOns = GetNumAddOns
-local GetAddOnInfo = GetAddOnInfo
-local GetAddOnMetadata = GetAddOnMetadata
-local LoadAddOn = LoadAddOn
+
+---- C
+local C = LibStub('C_Everywhere')
+local GetItemClassInfo = C.Item.GetItemClassInfo
+local GetNumAddOns = C.AddOns.GetNumAddOns
+local GetAddOnInfo = C.AddOns.GetAddOnInfo
+local GetAddOnMetadata = C.AddOns.GetAddOnMetadata
+local LoadAddOn = C.AddOns.LoadAddOn
 
 ---- UI
 local BankFrame = BankFrame
@@ -68,7 +71,7 @@ ns.UI = {}
 ns.Search = LibStub('ItemSearch-1.3')
 ns.Unfit = LibStub('Unfit-1.0')
 
----@class Addon: AceAddon-3.0, LibClass-2.0, AceHook-3.0, AceEvent-3.0
+---@class Addon: AceAddon, LibClass-2.0, AceHook-3.0, AceEvent-3.0
 local Addon = LibStub('AceAddon-3.0'):NewAddon('tdBag2', 'LibClass-2.0', 'AceHook-3.0', 'AceEvent-3.0')
 ns.Addon = Addon
 _G.tdBag2 = Addon

@@ -66,3 +66,10 @@ local MetaMixin = {}
 ---@field quality integer
 ---@field readable boolean
 ---@field timeout integer
+
+---@class C_Everywhere
+C = {}
+C.AddOns = C_AddOns
+C.Item = C_Item
+C.Container = C_Container
+C.TooltipInfo = C_TooltipInfo

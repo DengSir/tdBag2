@@ -8,10 +8,7 @@ local ipairs = ipairs
 local select = select
 local unpack = table.unpack or unpack
 
----@type ns
-local ns = select(2, ...)
-
-local C = ns.C
+local C = LibStub('C_Everywhere')
 
 ---- WOW
 local GetContainerNumSlots = C.Container.GetContainerNumSlots
@@ -24,12 +21,15 @@ local BANK_CONTAINER = BANK_CONTAINER
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local NUM_BANKGENERIC_SLOTS = NUM_BANKGENERIC_SLOTS
 
+---@type ns
+local ns = select(2, ...)
+
 local Addon = ns.Addon
 local BAG_ID = ns.BAG_ID
 
 local METHODS = {'RegisterEvent', 'UnregisterEvent', 'UnregisterAllEvents', 'RegisterFrameEvent'}
 
----@class Events: AceAddon-3.0, AceEvent-3.0
+---@class Events: AceModule, AceEvent-3.0, AceHook-3.0
 local Events = ns.Addon:NewModule('Events', 'AceEvent-3.0', 'AceHook-3.0')
 Events.handler = {}
 Events.events = LibStub('CallbackHandler-1.0'):New(Events.handler, unpack(METHODS, 1, 3))

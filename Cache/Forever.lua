@@ -6,7 +6,7 @@
 ---@class ns
 local ns = select(2, ...)
 
-local C = ns.C
+local C = LibStub('C_Everywhere')
 
 ---- LUA
 local select, pairs, ipairs = select, pairs, ipairs
@@ -22,9 +22,9 @@ local tDeleteItem = tDeleteItem
 local GetContainerItemInfo = C.Container.GetContainerItemInfo
 local GetContainerNumFreeSlots = C.Container.GetContainerNumFreeSlots
 local GetContainerNumSlots = C.Container.GetContainerNumSlots
-local GetInventoryItemCount = C.Container.GetInventoryItemCount
-local GetInventoryItemLink = C.Container.GetInventoryItemLink
 local GetContainerItemLink = C.Container.GetContainerItemLink
+local GetInventoryItemCount = GetInventoryItemCount
+local GetInventoryItemLink = GetInventoryItemLink
 local GetItemIcon = GetItemIcon
 local GetItemInfo = GetItemInfo
 local GetMoney = GetMoney
@@ -54,7 +54,7 @@ local KEYRING_FAMILY = ns.KEYRING_FAMILY
 
 local NO_RESULT = {cached = true}
 
----@class Forever: AceAddon-3.0, AceEvent-3.0
+---@class Forever: AceModule, AceEvent-3.0
 local Forever = ns.Addon:NewModule('Forever', 'AceEvent-3.0')
 
 function Forever:OnInitialize()
