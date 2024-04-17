@@ -4,7 +4,7 @@ if not L then
     return
 end
 
--- @import@
+-- @import:language=zhCN@
 
 L.TITLE_BAG = '%s的背包'
 L.TITLE_BANK = '%s的银行'
@@ -143,7 +143,6 @@ L['Closing Trade Skills'] = '关闭专业技能时'
 L['Completed Trade'] = '完成交易时'
 L['Entering Combat'] = '进入战斗时'
 
--- [comment by wct] L['TOOLTIP_TOGGLE_BAG1'] = true
 -- @locale-fill@
 
 -- @end-import@
