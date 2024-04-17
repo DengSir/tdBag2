@@ -9,6 +9,7 @@ on:
       - "**.lua"
       - "**.xml"
       - "**.toc"
+      - .github/workflows/auto.yml
 
 jobs:
   auto:
