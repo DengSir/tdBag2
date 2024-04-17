@@ -1,11 +1,7 @@
-#@debug@
-## Interface: 11306
-## Version: 1.0.0
-#@end-debug@
-#@project-interface@
-#@project-version@
+## Interface: @project-interface@
 ## Title: tdBag2
 ## Author: Dencer
+## Version: @project-version@
 ## OptionalDeps: tdPack2
 ## SavedVariables: TDDB_BAG2
 

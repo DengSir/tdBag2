@@ -61,9 +61,9 @@ ns.ITEM_SPACING = 2
 
 ns.SECONDS_OF_DAY = 24 * 60 * 60
 
--- @build<2@
+-- @build^1@
 ns.KEYRING_FAMILY = 9
--- @end-build<2@
+-- @end-build^1@
 -- @build>2@
 ns.KEYRING_FAMILY = 256
 -- @end-build>2@
@@ -71,7 +71,7 @@ ns.KEYRING_FAMILY = 256
 ns.LEFT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:228:283|t]]
 ns.RIGHT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:330:385|t]]
 
--- @build<2@
+-- @build^1@
 ns.RACE_ICON_TCOORDS = {
     ['HUMAN_MALE'] = {0, 0.25, 0, 0.25},
     ['DWARF_MALE'] = {0.25, 0.5, 0, 0.25},
@@ -93,7 +93,7 @@ ns.RACE_ICON_TCOORDS = {
     ['TROLL_FEMALE'] = {0.5, 0.75, 0.75, 1.0},
     ['ORC_FEMALE'] = {0.75, 1.0, 0.75, 1.0},
 }
--- @end-build<2@
+-- @end-build^1@
 -- @build>2@
 ns.RACE_ICON_TCOORDS = {
     ['HUMAN_MALE'] = {0, 0.125, 0, 0.25},
@@ -481,12 +481,12 @@ end
 
 familyColor(nil, 'colorNormal', L['Normal Color'], {r = 1, g = 1, b = 1})
 familyColor({1, 2}, 'colorQuiver', L['Quiver Color'], {r = 1, g = 0.87, b = 0.68})
--- @build<2@
+-- @build^1@
 familyColor({3, 4}, 'colorSoul', L['Soul Color'], {r = 0.64, g = 0.39, b = 1})
 familyColor(6, 'colorHerb', L['Herbalism Color'], {r = 0.5, g = 1, b = 0.5})
 familyColor(7, 'colorEnchant', L['Enchanting Color'], {r = 0.64, g = 0.83, b = 1})
 familyColor(9, 'colorKeyring', L['Keyring Color'], {r = 1, g = 0.67, b = 0.95})
--- @end-build<2@
+-- @end-build^1@
 -- @build>2@
 familyColor(4, 'colorSoul', L['Soul Color'], {r = 0.64, g = 0.39, b = 1})
 familyColor(8, 'colorLeather', L['Leatherworking Color'], {r = 0.98, g = 0.44, b = 0.44})

@@ -93,14 +93,14 @@ function Item:Update()
     self:UpdateFocus()
     self:UpdateBorder()
     self:UpdateSlotColor()
-    -- @build<2@
+    -- @build^1@
     self:UpdateRune()
-    -- @end-build<2@
+    -- @end-build^1@
     self:UpdateCooldown()
     self:UpdatePlugin()
 end
 
--- @build<2@
+-- @build^1@
 function Item:UpdateRune()
     local texture = self:GetRuneTexture()
     if texture then
@@ -110,7 +110,7 @@ function Item:UpdateRune()
         self.subicon:Hide()
     end
 end
--- @end-build<2@
+-- @end-build^1@
 
 function Item:UpdateBorder()
     local sets = self.meta.sets
@@ -193,7 +193,7 @@ function Item:IsPaid()
     return IsBattlePayItem and IsBattlePayItem(self.bag, self.slot)
 end
 
--- @build<2@
+-- @build^1@
 function Item:GetRuneTexture()
     if not C_Engraving then
         return
@@ -212,4 +212,4 @@ function Item:GetRuneTexture()
         return info and info.iconTexture
     end
 end
--- @end-build<2@
+-- @end-build^1@
