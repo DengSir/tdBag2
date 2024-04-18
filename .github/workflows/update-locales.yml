@@ -1,4 +1,4 @@
-name: Auto update libs 🧀
+name: Auto update locales 🌏
 on:
   push:
     branches:
@@ -6,11 +6,11 @@ on:
     tags-ignore:
       - "v*"
     paths:
-      - Libs/Libs.xml
-      - .github/workflows/auto-update-libs.yml
+      - "**.lua"
+      - .github/workflows/update-locales.yml
 
 jobs:
-  auto-update-libs:
+  update-locales:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,12 +19,12 @@ jobs:
         with:
           submodules: true
 
-      - name: Update libs
-        uses: curse-action/update@master
+      - name: Update locales
+        uses: curse-action/locale@master
         with:
-          curse-forge-token: ${{ secrets.CURSE_FORGE_TOKEN }}
+          curse-wow-token: ${{ secrets.CURSE_TOKEN }}
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          message: "chore: Update locale/libs files"
+          message: "chore: Update locale files"
