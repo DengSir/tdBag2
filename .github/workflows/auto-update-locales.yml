@@ -10,7 +10,7 @@ on:
       - .github/workflows/auto-update-locales.yml
 
 jobs:
-  auto:
+  auto-update-locales:
     runs-on: ubuntu-latest
 
     steps:

@@ -10,7 +10,7 @@ on:
       - .github/workflows/auto-update-libs.yml
 
 jobs:
-  auto:
+  auto-update-libs:
     runs-on: ubuntu-latest
 
     steps:
