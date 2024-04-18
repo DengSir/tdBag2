@@ -26,7 +26,6 @@ jobs:
         if:
         env:
           CURSEFORGE_API_KEY: ${{ secrets.CURSE_FORGE_TOKEN }}
-          GITHUB_CONTEXT: ${{ toJson(github) }}
 
       - name: Update locales
         uses: curse-action/locale@master
