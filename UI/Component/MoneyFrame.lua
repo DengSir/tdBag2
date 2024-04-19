@@ -82,8 +82,8 @@ function MoneyFrame:OnEnter()
     GameTooltip:AddLine(' ')
 
     local total = 0
-    for _, name in ipairs(Cache:GetOwners()) do
-        local owner = Cache:GetOwnerInfo(name)
+    for _, o in ipairs(Cache:GetOwners()) do
+        local owner = Cache:GetOwnerInfo(o)
         if owner.money then
             local name = ns.GetOwnerColoredName(owner)
             local coins = GetMoneyString(owner.money, true)

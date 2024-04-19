@@ -83,7 +83,7 @@ end
 
 function Frame:UpdateManaged()
     local managed = self.meta.profile.managed
-    local changed = not self:GetAttribute('UIPanelLayout-enabled') ~= not managed
+    local changed = (not self:GetAttribute('UIPanelLayout-enabled')) ~= (not managed)
 
     if not changed then
         return

@@ -19,8 +19,6 @@ local UIParent = _G.UIParent
 ---@type ns
 local ns = select(2, ...)
 
-local L = ns.L
-
 local Container = ns.UI.Container
 
 ---@class UI.TitleContainer: UI.Container

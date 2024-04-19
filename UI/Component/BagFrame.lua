@@ -34,7 +34,7 @@ end
 function BagFrame:Update()
     local spacing = self.SPACING
     local button, prevButton
-    local width, height = 0, 0
+    local width = 0
 
     for i, bag in ipairs(self.meta.bags) do
         local template = ns.IsKeyring(bag) and self.KEYRING_TEMPLATE or self.BAG_TEMPLATE

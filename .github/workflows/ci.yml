@@ -2,7 +2,7 @@ name: CI 🧃
 on: [push]
 
 jobs:
-  publish:
+  ci:
     runs-on: ubuntu-latest
 
     steps:

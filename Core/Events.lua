@@ -140,7 +140,7 @@ function Events:ITEM_LOCK_CHANGED(_, bag, slot)
             self:Fire('ITEM_LOCK_CHANGED', bag, slot)
         end
     else
-        local bag = ns.SlotToBag(bag)
+        bag = ns.SlotToBag(bag)
         if bag then
             self:Fire('BAG_LOCK_CHANGED', bag)
         end

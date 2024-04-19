@@ -9,7 +9,6 @@ local tinsert = _G.table.insert
 local format = _G.string.format
 
 ---- WOW
-local PlaySound = _G.PlaySound
 local IsAltKeyDown = _G.IsAltKeyDown
 local IsControlKeyDown = _G.IsControlKeyDown
 

@@ -120,16 +120,8 @@ function Addon:SetupOptionFrame()
         return opts
     end
 
-    local function group(name, args)
-        return {type = 'group', name = name, order = orderGen(), args = args}
-    end
-
     local function inline(name, args)
         return {type = 'group', name = name, inline = true, order = orderGen(), args = args}
-    end
-
-    local function tab(name, args)
-        return {type = 'group', name = name, childGroups = 'tab', order = orderGen(), args = args}
     end
 
     local function treeTitle(name)
@@ -317,13 +309,13 @@ function Addon:SetupOptionFrame()
                         return not self.db.profile.colorSlots
                     end,
                     get = function(item)
-                        local color = self.db.profile[item[#item]]
-                        return color.r, color.g, color.b
+                        local c = self.db.profile[item[#item]]
+                        return c.r, c.g, c.b
                     end,
                     set = function(item, ...)
                         local key = item[#item]
-                        local color = self.db.profile[key]
-                        color.r, color.g, color.b = ...
+                        local c = self.db.profile[key]
+                        c.r, c.g, c.b = ...
                         fireGlobalKey(key)
                     end,
                     args = (function()

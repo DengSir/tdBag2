@@ -27,7 +27,7 @@ local Cache = ns.Cache
 
 ---@class UI.OwnerSelector: EventsMixin, UI.MenuButton
 ---@field texture? Texture
-local OwnerSelector = ns.Addon:NewClass('UI.OwnerSelector', ns.UI.MenuButton)
+local OwnerSelector = Addon:NewClass('UI.OwnerSelector', ns.UI.MenuButton)
 
 function OwnerSelector:Constructor(_, meta)
     ---@type FrameMeta

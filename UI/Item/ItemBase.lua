@@ -30,12 +30,10 @@ local SetItemButtonDesaturated = _G.SetItemButtonDesaturated
 local SetItemButtonTexture = _G.SetItemButtonTexture
 
 ---- UI
-local StackSplitFrame = _G.StackSplitFrame
 local GameTooltip = _G.GameTooltip
 local UIParent = _G.UIParent
 
 ---- G
-local ITEM_STARTS_QUEST = _G.ITEM_STARTS_QUEST
 local LE_ITEM_CLASS_QUESTITEM = _G.LE_ITEM_CLASS_QUESTITEM or Enum.ItemClass.Questitem
 local LE_ITEM_QUALITY_COMMON = _G.LE_ITEM_QUALITY_COMMON or Enum.ItemQuality.Common or Enum.ItemQuality.Standard
 local TEXTURE_ITEM_QUEST_BANG = _G.TEXTURE_ITEM_QUEST_BANG
@@ -47,7 +45,6 @@ local ns = select(2, ...)
 local Addon = ns.Addon
 local Cache = ns.Cache
 local Search = ns.Search
-local Unfit = ns.Unfit
 local LibJunk = LibStub('LibJunk-1.0')
 
 local EXPIRED = GRAY_FONT_COLOR:WrapTextInColorCode(ns.L['Expired'])
@@ -348,7 +345,7 @@ function ItemBase:OnUpdatePlugin()
     if not self:IsVisible() then
         return
     end
-    for i, opts in Addon:IterateItemPlugins() do
+    for _, opts in Addon:IterateItemPlugins() do
         securecall(opts.update, self)
     end
 end

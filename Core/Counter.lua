@@ -51,7 +51,7 @@ function Counter:GetBagItemCount(owner, bag, itemId)
 
     local count = 0
     for slot = 1, info.count do
-        local info = Cache:GetItemInfo(owner, bag, slot)
+        info = Cache:GetItemInfo(owner, bag, slot)
         if info.id == itemId then
             count = count + (info.count or 1)
         end

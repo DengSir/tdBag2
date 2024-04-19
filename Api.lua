@@ -696,9 +696,9 @@ function ns.Hook(...)
 
     local orig = tbl[key]
     tbl[key] = function(...)
-        local n, r = pack(orig(...))
+        local l, r = pack(orig(...))
         func(...)
-        return unpack(r, 1, n)
+        return unpack(r, 1, l)
     end
 end
 

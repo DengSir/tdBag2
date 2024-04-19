@@ -252,7 +252,7 @@ function Forever:ParseItem(link, count, timeout)
             link = link:match('|H%l+:([%d:-]+)')
         end
 
-        local count = count and count > 1 and count or nil
+        count = count and count > 1 and count or nil
         if count or timeout then
             link = link .. ';' .. (count or '')
         end
@@ -298,7 +298,7 @@ function Forever:SaveMail()
     local cods = {}
     local now = time()
 
-    local num, total = GetInboxNumItems()
+    local num --[[, total]] = GetInboxNumItems()
     for i = 1, num do
         local codAmount, daysLeft = select(6, GetInboxHeaderInfo(i))
         local timeout = floor(now + daysLeft * SECONDS_OF_DAY)
@@ -435,9 +435,9 @@ function Forever:GetItemInfo(realm, name, bag, slot)
         data.icon = GetItemIcon(data.id)
         data.timeout = tonumber(timeout)
 
-        local name, link, quality = GetItemInfo(data.link)
-        if name then
-            data.link = link
+        local itemName, itemLink, quality = GetItemInfo(data.link)
+        if itemName then
+            data.link = itemLink
             data.quality = quality
         else
             data.noCache = true
