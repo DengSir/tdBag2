@@ -12,7 +12,7 @@ jobs:
           submodules: true
 
       - name: Build all
-        uses: curse-action/build
+        uses: curse-action/build@master
 
       - name: Luacheck
         uses: lunarmodules/luacheck@v1
