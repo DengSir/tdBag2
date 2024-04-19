@@ -7,7 +7,9 @@ local _G = _G
 local select = _G.select
 local ipairs = _G.ipairs
 
+-- @build^1@
 local C_Engraving = _G.C_Engraving
+-- @end-build^1@
 
 ---@type ns
 local ns = select(2, ...)

@@ -15,7 +15,9 @@ local IsBattlePayItem = _G.IsBattlePayItem or _G.C_Container.IsBattlePayItem
 
 local IsNewItem = _G.C_NewItems.IsNewItem
 local RemoveNewItem = _G.C_NewItems.RemoveNewItem
+-- @build^1@
 local C_Engraving = _G.C_Engraving
+-- @end-build^1@
 
 ---- UI
 local StackSplitFrame = _G.StackSplitFrame
