@@ -1,7 +1,7 @@
 std = 'lua51'
 
 exclude_files = { --
-    'Libs', 'Localization', '.index.lua', '.emmy',
+    '**/Libs', '**/Localization', '.index.lua', '.emmy',
 }
 
 ignore = {
