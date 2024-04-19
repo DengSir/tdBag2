@@ -23,7 +23,7 @@ local CloseDropDownMenus = _G.CloseDropDownMenus
 local DELETE = _G.DELETE
 -- @build>3@
 local MAX_WATCHED_TOKENS = _G.MAX_WATCHED_TOKENS
--- @end-build>3
+-- @end-build>3@
 
 ---@type ns
 local ns = select(2, ...)
