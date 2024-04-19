@@ -9,17 +9,21 @@ local ipairs = _G.ipairs
 
 local C = LibStub('C_Everywhere')
 
+local IsShiftKeyDown = _G.IsShiftKeyDown
 local GetItemIcon = C.Item.GetItemIconByID
 local GetItemQualityColor = C.Item.GetItemQualityColor
 local GetItemInfo = C.Item.GetItemInfo
+-- @build>3@
 local GetCurrencyInfo = C.CurrencyInfo.GetCurrencyInfo
 local GetBackpackCurrencyInfo = C.CurrencyInfo.GetBackpackCurrencyInfo
-local IsShiftKeyDown = _G.IsShiftKeyDown
 local CreateTextureMarkup = _G.CreateTextureMarkup
+-- @end-build>3@
 
 local GameTooltip = _G.GameTooltip
 
+-- @build>3@
 local Constants = _G.Constants
+-- @end-build>3@
 
 ---@type ns
 local ns = select(2, ...)

@@ -17,12 +17,14 @@ local C = LibStub('C_Everywhere')
 ---- WOW
 local GetItemInfo = C.Item.GetItemInfo
 local GetItemFamily = C.Item.GetItemFamily
-local GetContainerItemQuestInfo = C.Container.GetContainerItemQuestInfo
 local BankButtonIDToInvSlotID = _G.BankButtonIDToInvSlotID
 local CreateFrame = _G.CreateFrame
 local CursorUpdate = _G.CursorUpdate
 local ResetCursor = _G.ResetCursor
 local C_Timer = _G.C_Timer
+-- @build>3@
+local GetContainerItemQuestInfo = C.Container.GetContainerItemQuestInfo
+-- @end-build>3@
 
 local ContainerFrameItemButton_OnEnter = _G.ContainerFrameItemButton_OnEnter
 local SetItemButtonCount = _G.SetItemButtonCount

@@ -13,13 +13,17 @@ local C = LibStub('C_Everywhere')
 local GetItemQualityColor = C.Item.GetItemQualityColor
 local GetItemIcon = C.Item.GetItemIconByID
 local GetItemInfo = C.Item.GetItemInfo
+-- @build>3@
 local GetBackpackCurrencyInfo = C.CurrencyInfo.GetBackpackCurrencyInfo
+-- @end-build>3@
 local GetCursorInfo = _G.GetCursorInfo
 local ClearCursor = _G.ClearCursor
 local CloseDropDownMenus = _G.CloseDropDownMenus
 
 local DELETE = _G.DELETE
+-- @build>3@
 local MAX_WATCHED_TOKENS = _G.MAX_WATCHED_TOKENS
+-- @end-build>3
 
 ---@type ns
 local ns = select(2, ...)

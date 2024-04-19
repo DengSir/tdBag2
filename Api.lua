@@ -34,7 +34,9 @@ local GetRealmName = _G.GetRealmName
 local GameTooltip = _G.GameTooltip
 
 ---- G
+-- @build>2@
 local MAX_GUILDBANK_TABS = _G.MAX_GUILDBANK_TABS
+-- @end-build>2@
 local RAID_CLASS_COLORS = _G.RAID_CLASS_COLORS
 local BACKPACK_CONTAINER = _G.BACKPACK_CONTAINER
 local BANK_CONTAINER = _G.BANK_CONTAINER
