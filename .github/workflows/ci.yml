@@ -11,6 +11,9 @@ jobs:
         with:
           submodules: true
 
+      - name: Build all
+        uses: curse-action/build
+
       - name: Luacheck
         uses: lunarmodules/luacheck@v1
         with:
