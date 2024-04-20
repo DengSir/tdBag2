@@ -5,11 +5,11 @@
     "github@DengSir/LibJunk-1.0@master": "3e8678dd954d045fea72a9be08be46e0e33345f6",
     "github@DengSir/LibShowUIPanel-1.0@master": "d5687bb68c8783a84ff6bab80ba14b9859f4a65d",
     "github@DengSir/C_Everywhere@master": "bdaa6f780d65513a2cead832628f61d183fd5733",
-    "curse@LibWindow-1.1": "e08ce631117237ef130ab11f64089254"
+    "curse@LibWindow-1.1": "e08ce631117237ef130ab11f64089254",
+    "github@DengSir/tdOptions@master": "077cf959a464aa80a83368c75a28b539b0e67409"
   },
   "curseIds": {
     "curse@Ace3": 13376,
     "curse@LibWindow-1.1": 16386
-  },
-  "timestamp": 1713362974974
+  }
 }

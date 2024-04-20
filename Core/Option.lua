@@ -8,7 +8,7 @@ local _G = _G
 local ipairs, pairs = _G.ipairs, _G.pairs
 local format = _G.string.format
 local wipe = _G.table.wipe or _G.wipe
-local type, pcall = _G.type, _G.pcall
+local type = _G.type
 local select = _G.select
 
 local C = LibStub('C_Everywhere')
@@ -26,8 +26,8 @@ local ns = select(2, ...)
 local Addon = ns.Addon
 local L = ns.L
 
+local tdOptions = LibStub('tdOptions')
 local AceConfigRegistry = LibStub('AceConfigRegistry-3.0')
-local AceConfigDialog = LibStub('AceConfigDialog-3.0')
 
 local BAG_ARGS = { --
     [ns.BAG_ID.BAG] = {},
@@ -63,10 +63,6 @@ function Addon:SetupOptionFrame()
 
     local function header(name)
         return {type = 'header', order = orderGen(), name = name}
-    end
-
-    local function line()
-        return header('')
     end
 
     local function desc(name)
@@ -222,29 +218,6 @@ function Addon:SetupOptionFrame()
             fireGlobalKey(key)
         end,
         args = {
-            profile = {
-                type = 'toggle',
-                name = L['Character Specific Settings'],
-                width = 'double',
-                order = orderGen(),
-                set = function(_, checked)
-                    self.db:SetProfile(checked and playerProfileKey or 'Default')
-                end,
-                get = function()
-                    return self.db:GetCurrentProfile() == playerProfileKey
-                end,
-            },
-            reset = {
-                type = 'execute',
-                name = L['Restore default Settings'],
-                order = orderGen(),
-                confirm = true,
-                confirmText = L['Are you sure you want to restore the current Settings?'],
-                func = function()
-                    self.db:ResetProfile()
-                end,
-            },
-            header1 = line(),
             reload = {
                 type = 'group',
                 name = RELOADUI,
@@ -376,25 +349,41 @@ function Addon:SetupOptionFrame()
                     scale = range(L['Item Scale'], 0.5, 2),
                 }),
             }),
+            profileTitle = treeTitle(L['Profile']),
+            profile = treeItem(L['Profile'], {
+                profile = {
+                    type = 'toggle',
+                    name = L['Character Specific Settings'],
+                    width = 'double',
+                    order = orderGen(),
+                    set = function(_, checked)
+                        self.db:SetProfile(checked and playerProfileKey or 'Default')
+                    end,
+                    get = function()
+                        return self.db:GetCurrentProfile() == playerProfileKey
+                    end,
+                },
+                reset = {
+                    type = 'execute',
+                    name = L['Restore default Settings'],
+                    order = orderGen(),
+                    confirm = true,
+                    confirmText = L['Are you sure you want to restore the current Settings?'],
+                    func = function()
+                        self.db:ResetProfile()
+                    end,
+                },
+            }),
         },
     }
 
-    AceConfigRegistry:RegisterOptionsTable('tdBag2', options)
-    AceConfigDialog:AddToBlizOptions('tdBag2', 'tdBag2')
-    AceConfigDialog:SetDefaultSize('tdBag2', 700, 570)
+    tdOptions:Register('tdBag2', options)
 
     self:RefreshPluginOptions()
 end
 
 function Addon:OpenFrameOption(bagId)
-    AceConfigDialog:Open('tdBag2')
-    if bagId then
-        AceConfigDialog:SelectGroup('tdBag2', bagId)
-    end
-    pcall(function()
-        AceConfigDialog.OpenFrames.tdBag2:EnableResize(false)
-        AceConfigDialog.OpenFrames.tdBag2.frame:SetFrameStrata('DIALOG')
-    end)
+    tdOptions:Open('tdBag2', bagId)
 end
 
 function Addon:RefreshPluginOptions()
