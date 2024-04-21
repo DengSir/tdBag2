@@ -262,6 +262,7 @@ L['Closing the Character Info'] = true
 L['Closing Trade Skills'] = true
 L['Completed Trade'] = true
 L['Entering Combat'] = true
+L.Profile = true
 -- @locale-fill@
 -- @end-import@
 -- @end-debug@
