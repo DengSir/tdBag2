@@ -3,26 +3,55 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 4/15/2024, 11:37:25 PM
 --
-local MAJOR, MINOR = 'tdOptions', 1
-local Lib = LibStub:NewLibrary(MAJOR, MINOR)
+local MAJOR, MINOR = 'tdOptions', 2
+---@class tdOptions
+local Lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not Lib then
     return
 end
 
 Lib.panels = Lib.panels or {}
-
-table.sort(Lib.panels)
+Lib.addons = Lib.addons or {}
 
 local AceGUI = LibStub('AceGUI-3.0')
 local AceConfigRegistry = LibStub('AceConfigRegistry-3.0')
 local AceConfigDialog = LibStub('AceConfigDialog-3.0')
 
+local tinsert = table.insert
+local wipe = table.wipe or _G.wipe
+local format = string.format
+
+local C_AddOns = _G.C_AddOns
+
+local STANDARD_TEXT_FONT = _G.STANDARD_TEXT_FONT
+
 function Lib:Register(name, opts)
+    AceConfigRegistry:RegisterOptionsTable(name, opts)
+    AceConfigDialog:AddToBlizOptions(name, name)
+    self:UpdateAddon(name)
+end
+
+function Lib:UpdateAddon(name)
+    table.insert(self.addons, name)
+    table.insert(self.panels, self:GeneratePanel(name))
+end
+
+function Lib:Update()
+    self.TreeGroup:RefreshTree()
+end
+
+function Lib:GeneratePanel(name, item)
+    item = item or {}
+    item.value = name
+    item.text = '  ' .. C_AddOns.GetAddOnMetadata(name, 'Title')
+    return item
+end
+
+function Lib:Open(name, ...)
     if not self.Frame then
         local Frame = AceGUI:Create('Frame')
-        Frame:Hide()
-        Frame:SetTitle('tdOptions')
+        Frame:SetTitle('td\'s AddOns Options')
         Frame:SetLayout('Fill')
         Frame:SetWidth(830)
         Frame:SetHeight(588)
@@ -31,51 +60,24 @@ function Lib:Register(name, opts)
             AceConfigDialog:Close(MAJOR)
             self.InlineGroup:ReleaseChildren()
         end)
+        Frame.frame:SetFrameStrata('DIALOG')
+        Frame.frame:SetClampedToScreen(true)
+
+        _G.tdOptionsFrame = Frame
+        tinsert(_G.UISpecialFrames, 'tdOptionsFrame')
 
         local TreeGroup = AceGUI:Create('TreeGroup')
+        TreeGroup:SetParent(Frame)
         TreeGroup:SetLayout('Fill')
         TreeGroup:EnableButtonTooltips(false)
         TreeGroup:SetTreeWidth(false)
         TreeGroup:SetTree(self.panels)
-        -- TreeGroup.treeframe:SetBackdrop()
-        -- TreeGroup.border:SetBackdrop()
-        -- TreeGroup.content:ClearAllPoints()
-        -- TreeGroup.content:SetPoint('TOPLEFT', TreeGroup.border, 'TOPLEFT', 6, 0)
-        -- TreeGroup.content:SetPoint('BOTTOMRIGHT', TreeGroup.border, 'BOTTOMRIGHT')
-        -- print(TreeGroup.border)
         TreeGroup:SetCallback('OnGroupSelected', function(_, _, group)
             self.Label:SetText(C_AddOns.GetAddOnMetadata(group, 'Title'))
             self.Label:SetImage(C_AddOns.GetAddOnMetadata(group, 'IconTexture'))
-            self.Version:SetText(C_AddOns.GetAddOnMetadata(group, 'Version'))
-            -- self.Frame:SetStatusText(C_AddOns.GetAddOnMetadata(group, 'Notes'))
+            self.Version:SetText(format('Version: %s', C_AddOns.GetAddOnMetadata(group, 'Version')))
             AceConfigDialog:Open(group, self.InlineGroup)
         end)
-        -- TreeGroup.border:SetBackdropColor(0, 0, 0, 0)
-        -- TreeGroup.treeframe:SetBackdropColor(0, 0, 0, 0)
-
-        local LockHighlight = function(button)
-            button.Texture:SetAtlas('Options_List_Active')
-            getmetatable(button).__index.LockHighlight(button)
-        end
-
-        local function UnlockHighlight(button)
-            button.Texture:SetAtlas('Options_List_Hover')
-            getmetatable(button).__index.UnlockHighlight(button)
-        end
-
-        local orig_TreeGroup_CreateButton = TreeGroup.CreateButton
-        TreeGroup.CreateButton = function(self)
-            local button = orig_TreeGroup_CreateButton(self)
-            button:SetHeight(28)
-            button.highlight:SetTexture()
-            button.highlight:Hide()
-            button.Texture = button:CreateTexture(nil, 'HIGHLIGHT')
-            button.Texture:SetAllPoints(true)
-            -- button.icon:SetSize(28, 28)
-            button.LockHighlight = LockHighlight
-            button.UnlockHighlight = UnlockHighlight
-            return button
-        end
 
         Frame:AddChild(TreeGroup)
 
@@ -118,14 +120,33 @@ function Lib:Register(name, opts)
         self.InlineGroup = InlineGroup
     end
 
-    AceConfigRegistry:RegisterOptionsTable(name, opts)
-    AceConfigDialog:AddToBlizOptions(name, name)
-
-    table.insert(self.panels, {value = name, text = C_AddOns.GetAddOnMetadata(name, 'Title')})
-end
-
-function Lib:Open(name, ...)
     AceConfigDialog:SelectGroup(name, ...)
     self.Frame:Show()
+    self:Update()
     self.TreeGroup:SelectByValue(name)
+end
+
+if oldminor < 2 then
+    if Lib.TreeGroup then
+        if next(Lib.TreeGroup.buttons) then
+            for _, button in ipairs(Lib.TreeGroup.buttons) do
+                button:Hide()
+                button:SetParent(_G.UIParent)
+            end
+            wipe(Lib.TreeGroup.buttons)
+        end
+        if Lib.orig_TreeGroup_CreateButton then
+            Lib.TreeGroup.CreateButton = Lib.orig_TreeGroup_CreateButton
+            Lib.orig_TreeGroup_CreateButton = nil
+        end
+    end
+
+    Lib.Frame.frame:SetClampedToScreen(false)
+    Lib.Frame:Release()
+    Lib.Frame = nil
+
+    for _, v in ipairs(Lib.panels) do
+        tinsert(Lib.addons, v.value)
+        Lib:GeneratePanel(v.value, v)
+    end
 end
