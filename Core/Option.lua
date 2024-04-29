@@ -391,7 +391,7 @@ function Addon:OpenFrameOption(bagId)
 end
 
 function Addon:RefreshPluginOptions()
-    for bagId, args in pairs(BAG_ARGS) do
+    for _, args in pairs(BAG_ARGS) do
         wipe(args)
 
         for i, plugin in Addon:IteratePluginButtons() do

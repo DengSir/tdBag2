@@ -54,7 +54,7 @@ function Token:SetItem(owner, itemId, watchAll)
 end
 
 -- @build>3@
-function Token:SetCurrency(owner, currencyId, icon, count)
+function Token:SetCurrency(_, currencyId, icon, count)
     self:Clear()
     self.currencyId = currencyId
     self.Icon:SetTexture(icon)

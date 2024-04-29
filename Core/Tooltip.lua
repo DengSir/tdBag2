@@ -139,7 +139,7 @@ function Tooltip:SetCraftItem(tip, index, slot)
     end
 end
 
-function Tooltip:OnTooltipItem(tip, itemId)
+function Tooltip:OnTooltipItem(tip)
     local _, item = tip:GetItem()
     if not item then
         return

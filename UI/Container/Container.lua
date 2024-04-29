@@ -190,8 +190,8 @@ function Container:UpdateBagOrder()
 end
 
 function Container:FreeAll()
-    for bag, buttons in pairs(self.itemButtons) do
-        for slot, itemButton in pairs(buttons) do
+    for _, buttons in pairs(self.itemButtons) do
+        for _, itemButton in pairs(buttons) do
             itemButton:Free()
         end
         wipe(buttons)
@@ -202,8 +202,8 @@ function Container:ForAll(method, force)
     if not force and self:IsPendingLayout() then
         return
     end
-    for bag, buttons in pairs(self.itemButtons) do
-        for slot, itemButton in pairs(buttons) do
+    for _, buttons in pairs(self.itemButtons) do
+        for _, itemButton in pairs(buttons) do
             if itemButton:IsShown() then
                 method(itemButton)
             end
@@ -236,8 +236,8 @@ function Container:ForItem(itemId, method)
     if self:IsPendingLayout() then
         return
     end
-    for bag, buttons in pairs(self.itemButtons) do
-        for slot, itemButton in pairs(buttons) do
+    for _, buttons in pairs(self.itemButtons) do
+        for _, itemButton in pairs(buttons) do
             if itemButton:IsShown() and itemButton.info.id == itemId then
                 method(itemButton)
             end

@@ -209,7 +209,7 @@ function ItemBase:CreateOverlay()
         end
     end
 
-    local function OverlayOnClick(self, button)
+    local function OverlayOnClick(self)
         local parent = self:GetParent()
         local link = parent:IsCached() and parent.info.link
         _G.HandleModifiedItemClick(link)

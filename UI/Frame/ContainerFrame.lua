@@ -22,7 +22,7 @@ local SimpleFrame = ns.UI.SimpleFrame
 local ContainerFrame = Addon:NewClass('UI.ContainerFrame', SimpleFrame)
 ContainerFrame.TEMPLATE = 'tdBag2FrameTemplate'
 
-function ContainerFrame:Constructor(_, bagId)
+function ContainerFrame:Constructor()
     ns.UI.MoneyFrame:Bind(self.MoneyFrame, self.meta)
     ns.UI.TokenFrame:Bind(self.TokenFrame, self.meta)
     ns.UI.BagFrame:Bind(self.BagFrame, self.meta)
