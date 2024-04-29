@@ -9,11 +9,6 @@ local select = _G.select
 local C = LibStub('C_Everywhere')
 
 ---- WOW
-local GetContainerItemInfo = C.Container.GetContainerItemInfo
-local GetContainerNumFreeSlots = C.Container.GetContainerNumFreeSlots
-local GetContainerNumSlots = C.Container.GetContainerNumSlots
-local GetContainerItemID = C.Container.GetContainerItemID
-local GetContainerItemLink = C.Container.GetContainerItemLink
 local GetBankSlotCost = _G.GetBankSlotCost
 local GetInventoryItemID = _G.GetInventoryItemID
 local GetInventoryItemLink = _G.GetInventoryItemLink
@@ -59,8 +54,8 @@ function Current:GetBagInfo(bag)
     local data = {}
 
     if ns.IsContainerBag(bag) then
-        data.free, data.family = GetContainerNumFreeSlots(bag)
-        data.count = GetContainerNumSlots(bag)
+        data.free, data.family = C.Container.GetContainerNumFreeSlots(bag)
+        data.count = C.Container.GetContainerNumSlots(bag)
 
         if ns.IsCustomBag(bag) then
             data.slot = ns.BagToSlot(bag)
@@ -92,9 +87,9 @@ function Current:GetItemInfo(bag, slot)
     ---@type tdBag2ItemInfo
     local data = {}
     if ns.IsContainerBag(bag) then
-        data.id = GetContainerItemID(bag, slot)
-        data.link = GetContainerItemLink(bag, slot)
-        local info = GetContainerItemInfo(bag, slot)
+        data.id = C.Container.GetContainerItemID(bag, slot)
+        data.link = C.Container.GetContainerItemLink(bag, slot)
+        local info = C.Container.GetContainerItemInfo(bag, slot)
         if info then
             data.icon = info.iconFileID
             data.count = info.stackCount

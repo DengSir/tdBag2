@@ -10,9 +10,6 @@ local unpack = _G.table.unpack or _G.unpack
 
 local C = LibStub('C_Everywhere')
 
----- WOW
-local GetContainerNumSlots = C.Container.GetContainerNumSlots
-
 ---- UI
 local BankFrame = _G.BankFrame
 
@@ -90,7 +87,7 @@ end
 
 function Events:UpdateBagSize(bag)
     local old = self.bagSizes[bag]
-    local new = GetContainerNumSlots(bag) or 0
+    local new = C.Container.GetContainerNumSlots(bag) or 0
 
     if old ~= new then
         self.bagSizes[bag] = new

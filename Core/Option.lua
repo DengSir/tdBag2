@@ -13,9 +13,6 @@ local select = _G.select
 
 local C = LibStub('C_Everywhere')
 
-local GetAddOnMetadata = C.AddOns.GetAddOnMetadata
-local Reload = C.UI.Reload
-
 local RELOADUI = _G.RELOADUI
 local GENERAL = _G.GENERAL
 
@@ -208,7 +205,7 @@ function Addon:SetupOptionFrame()
 
     local options = {
         type = 'group',
-        name = format('tdBag2 - |cff00ff00%s|r', GetAddOnMetadata('tdBag2', 'Version')),
+        name = format('tdBag2 - |cff00ff00%s|r', C.AddOns.GetAddOnMetadata('tdBag2', 'Version')),
         get = function(item)
             return self.db.profile[item[#item]]
         end,
@@ -229,7 +226,14 @@ function Addon:SetupOptionFrame()
                 end,
                 args = {
                     reloadtext = warning(L['Need to reload UI to make some settings take effect']),
-                    reload = {type = 'execute', name = RELOADUI, order = orderGen(), func = Reload},
+                    reload = {
+                        type = 'execute',
+                        name = RELOADUI,
+                        order = orderGen(),
+                        func = function()
+                            C.UI.Reload()
+                        end,
+                    },
                 },
             },
             globalTitle = treeTitle(L['Global Settings']),

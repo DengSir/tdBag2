@@ -15,16 +15,10 @@ local securecall = _G.securecall
 local C = LibStub('C_Everywhere')
 
 ---- WOW
-local GetItemInfo = C.Item.GetItemInfo
-local GetItemFamily = C.Item.GetItemFamily
 local BankButtonIDToInvSlotID = _G.BankButtonIDToInvSlotID
 local CreateFrame = _G.CreateFrame
 local CursorUpdate = _G.CursorUpdate
 local ResetCursor = _G.ResetCursor
-local C_Timer = _G.C_Timer
--- @build>3@
-local GetContainerItemQuestInfo = C.Container.GetContainerItemQuestInfo
--- @end-build>3@
 
 local ContainerFrameItemButton_OnEnter = _G.ContainerFrameItemButton_OnEnter
 local SetItemButtonCount = _G.SetItemButtonCount
@@ -338,7 +332,7 @@ function ItemBase:UpdatePlugin()
         return
     end
 
-    C_Timer.After(0.01, function()
+    C.Timer.After(0.01, function()
         return self:OnUpdatePlugin()
     end)
 end
@@ -360,7 +354,7 @@ function ItemBase:GetBagFamily()
         return KEYRING_FAMILY
     end
     local info = Cache:GetBagInfo(self.meta.owner, self.bag)
-    return info.link and GetItemFamily(info.link) or 0
+    return info.link and C.Item.GetItemFamily(info.link) or 0
 end
 
 function ItemBase:GetBorderColor()
@@ -385,7 +379,7 @@ function ItemBase:IsCached()
 end
 
 local IsQuestItem = ns.memorize(function(link)
-    return select(12, GetItemInfo(link)) == LE_ITEM_CLASS_QUESTITEM or Search:IsQuestItem(link) or false
+    return select(12, C.Item.GetItemInfo(link)) == LE_ITEM_CLASS_QUESTITEM or Search:IsQuestItem(link) or false
 end)
 
 -- @build<3@
@@ -408,8 +402,8 @@ function ItemBase:IsQuestItem()
     end
 
     if not self:IsCached() and self.meta:IsContainer() then
-        local _, questId = GetContainerItemQuestInfo(self.bag, self.slot)
-        if questId then
+        local info = C.Container.GetContainerItemQuestInfo(self.bag, self.slot)
+        if info and info.questID then
             return true
         end
     end
@@ -423,8 +417,11 @@ function ItemBase:IsQuestStarter()
     if self:IsCached() or not self.meta:IsContainer() then
         return
     end
-    local _, questId, isActive = GetContainerItemQuestInfo(self.bag, self.slot)
-    return questId and not isActive
+    local info = C.Container.GetContainerItemQuestInfo(self.bag, self.slot)
+    if not info then
+        return
+    end
+    return info.questID and not info.isActive
 end
 
 -- @end-build>3@

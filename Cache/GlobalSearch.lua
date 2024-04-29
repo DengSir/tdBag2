@@ -9,10 +9,11 @@ local tinsert = _G.table.insert
 
 local CreateFrame = _G.CreateFrame
 local Ambiguate = _G.Ambiguate
-local C_Timer = _G.C_Timer
 
 ---@type ns
 local ns = select(2, ...)
+
+local C = LibStub('C_Everywhere')
 
 local L = ns.L
 local Search = ns.Search
@@ -77,7 +78,7 @@ function GlobalSearch:Search(text)
             self.timer = nil
         end
 
-        self.timer = C_Timer.NewTimer(0.1, function()
+        self.timer = C.Timer.NewTimer(0.1, function()
             self:CancelSearch()
             self.thread = ns.Thread:New()
             self.thread:Start(self.DoSearch, self)

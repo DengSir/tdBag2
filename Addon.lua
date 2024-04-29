@@ -19,12 +19,6 @@ local CreateFrame = _G.CreateFrame
 local UnitFullName = _G.UnitFullName
 local GetAutoCompleteRealms = _G.GetAutoCompleteRealms
 local GetRealmName = _G.GetRealmName
-local GetItemClassInfo = C.Item.GetItemClassInfo
-local GetNumAddOns = C.AddOns.GetNumAddOns
-local GetAddOnInfo = C.AddOns.GetAddOnInfo
-local GetAddOnMetadata = C.AddOns.GetAddOnMetadata
-local LoadAddOn = C.AddOns.LoadAddOn
-local IsAddOnLoaded = C.AddOns.IsAddOnLoaded
 
 local SEARCH = _G.SEARCH
 
@@ -45,6 +39,7 @@ local UIParent = _G.UIParent
 ---@field Cacher Cacher
 ---@field FrameMeta FrameMeta
 local ns = select(2, ...)
+
 local L = ns.L
 local BAG_ID = ns.BAG_ID
 
@@ -152,10 +147,10 @@ function Addon:OnProfileChanged()
 end
 
 function Addon:ScanPluginAddons()
-    for i = 1, GetNumAddOns() do
-        local name, _, _, _, reason = GetAddOnInfo(i)
+    for i = 1, C.AddOns.GetNumAddOns() do
+        local name, _, _, _, reason = C.AddOns.GetAddOnInfo(i)
         if reason == 'DEMAND_LOADED' then
-            local styleName = GetAddOnMetadata(i, 'X-tdBag2-Style')
+            local styleName = C.AddOns.GetAddOnMetadata(i, 'X-tdBag2-Style')
             if styleName then
                 self.demandStyles[styleName] = name
             end
@@ -168,7 +163,7 @@ function Addon:SetupCurrentStyle()
     for _, styleName in ipairs {self.db.profile.style, ns.DEFAULT_STYLE} do
         local addon = self.demandStyles[styleName]
         if addon then
-            LoadAddOn(addon)
+            C.AddOns.LoadAddOn(addon)
         end
 
         style = self.styles[styleName]
@@ -256,7 +251,7 @@ function Addon:SetupDefaultOptions()
         }
 
         for _, item in ipairs(types) do
-            tinsert(searches, (GetItemClassInfo(item)))
+            tinsert(searches, (C.Item.GetItemClassInfo(item)))
         end
     end
 end
@@ -315,7 +310,7 @@ function Addon:SetupBankHider()
 end
 
 function Addon:SetupPluginButtons()
-    if IsAddOnLoaded('tdPack2') then
+    if C.AddOns.IsAddOnLoaded('tdPack2') then
         ---@type any
         local tdPack2 = LibStub('AceAddon-3.0'):GetAddon('tdPack2', true)
         if tdPack2 then

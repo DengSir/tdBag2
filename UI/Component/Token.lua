@@ -10,12 +10,7 @@ local ipairs = _G.ipairs
 local C = LibStub('C_Everywhere')
 
 local IsShiftKeyDown = _G.IsShiftKeyDown
-local GetItemIcon = C.Item.GetItemIconByID
-local GetItemQualityColor = C.Item.GetItemQualityColor
-local GetItemInfo = C.Item.GetItemInfo
 -- @build>3@
-local GetCurrencyInfo = C.CurrencyInfo.GetCurrencyInfo
-local GetBackpackCurrencyInfo = C.CurrencyInfo.GetBackpackCurrencyInfo
 local CreateTextureMarkup = _G.CreateTextureMarkup
 -- @end-build>3@
 
@@ -47,7 +42,7 @@ end
 function Token:SetItem(owner, itemId, watchAll)
     self:Clear()
     self.itemId = itemId
-    self.Icon:SetTexture(GetItemIcon(itemId))
+    self.Icon:SetTexture(C.Item.GetItemIcon(itemId))
     self.Icon:SetTexCoord(0, 1, 0, 1)
     if watchAll then
         self.Count:SetText(Counter:GetOwnerItemTotal(owner, itemId))
@@ -110,23 +105,23 @@ function Token:TooltipAll()
     -- @build>3@
     if parent.meta:IsSelf() then
         for i = 1, parent.currencyCount do
-            local name, count, icon, currencyId = GetBackpackCurrencyInfo(i)
-            if name then
+            local info = C.CurrencyInfo.GetBackpackCurrencyInfo(i)
+            if info then
                 local iconStr
-                if currencyId == Constants.CurrencyConsts.CLASSIC_HONOR_CURRENCY_ID then
-                    iconStr = CreateTextureMarkup(icon, 64, 64, 14, 14, 0.03125, 0.59375, 0.03125, 0.59375)
+                if info.currencyTypesID == Constants.CurrencyConsts.CLASSIC_HONOR_CURRENCY_ID then
+                    iconStr = CreateTextureMarkup(info.iconFileID, 64, 64, 14, 14, 0.03125, 0.59375, 0.03125, 0.59375)
                 else
-                    iconStr = format('|T%s:14|t ', icon)
+                    iconStr = format('|T%s:14|t ', info.iconFileID)
                 end
-                local title = iconStr .. name
+                local title = iconStr .. info.name
                 local r, g, b = 1, 1, 1
-                local quality = select(8, GetCurrencyInfo(currencyId))
+                local currencyInfo = C.CurrencyInfo.GetCurrencyInfo(info.currencyTypesID)
 
-                if quality then
-                    r, g, b = GetItemQualityColor(quality)
+                if currencyInfo and currencyInfo.quality then
+                    r, g, b = C.Item.GetItemQualityColor(currencyInfo.quality)
                 end
 
-                GameTooltip:AddDoubleLine(title, count, r, g, b, 1, 0.82, 0)
+                GameTooltip:AddDoubleLine(title, info.quantity, r, g, b, 1, 0.82, 0)
             end
         end
     end
@@ -134,14 +129,14 @@ function Token:TooltipAll()
 
     local owner = parent.meta.owner
     for _, watch in ipairs(watchs) do
-        local name, _, quality = GetItemInfo(watch.itemId)
-        local icon = GetItemIcon(watch.itemId)
+        local name, _, quality = C.Item.GetItemInfo(watch.itemId)
+        local icon = C.Item.GetItemIcon(watch.itemId)
         local title = format('|T%s:14|t ', icon) .. (name or ('item:' .. watch.itemId))
         local _, count = ns.Tooltip:GetCounts(Counter:GetOwnerItemCount(owner, watch.itemId))
         local r, g, b = 1, 1, 1
 
         if quality then
-            r, g, b = GetItemQualityColor(quality)
+            r, g, b = C.Item.GetItemQualityColor(quality)
         end
 
         GameTooltip:AddDoubleLine(title, count, r, g, b, 1, 0.82, 0)

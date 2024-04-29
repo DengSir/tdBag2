@@ -19,9 +19,6 @@ local nop = _G.nop
 local C = LibStub('C_Everywhere')
 
 ---- WOW
-local C_Timer = _G.C_Timer
-local ContainerIDToInventoryID = C.Container.ContainerIDToInventoryID
-local GetAddOnMetadata = C.AddOns.GetAddOnMetadata
 local GetScreenHeight = _G.GetScreenHeight
 local GetScreenWidth = _G.GetScreenWidth
 local PlaySound = _G.PlaySound
@@ -52,7 +49,7 @@ local GLOBAL_SEARCH_OWNER = '$search'
 ---@class ns
 local ns = select(2, ...)
 
-ns.VERSION = tonumber((GetAddOnMetadata('tdBag2', 'Version'):gsub('(%d+)%.?', function(x)
+ns.VERSION = tonumber((C.AddOns.GetAddOnMetadata('tdBag2', 'Version'):gsub('(%d+)%.?', function(x)
     return format('%02d', tonumber(x))
 end))) or 0
 
@@ -204,7 +201,7 @@ local BAG_IDS = {}
 local INV_IDS = {}
 do
     local function touch(bag, bagId)
-        local slot = ContainerIDToInventoryID(bag)
+        local slot = C.AddOns.ContainerIDToInventoryID(bag)
         INV_IDS[slot] = bag
         BAG_IDS[bag] = slot
 
@@ -641,7 +638,7 @@ end
 
 function ns.Spawned(method)
     return function(a1, a2, a3, a4, a5, a6, a7, a8, a9)
-        return C_Timer.After(0, function()
+        return C.Timer.After(0, function()
             return method(a1, a2, a3, a4, a5, a6, a7, a8, a9)
         end)
     end

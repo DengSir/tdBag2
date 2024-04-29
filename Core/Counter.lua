@@ -9,8 +9,6 @@ local select = _G.select
 
 local C = LibStub('C_Everywhere')
 
-local GetItemCount = C.Item.GetItemCount
-
 ---@type ns
 local ns = select(2, ...)
 local Cache = ns.Cache
@@ -81,8 +79,8 @@ function Counter:GetOwnerItemCount(owner, itemId)
         end
         -- @end-build>2@
     else
-        local owned = GetItemCount(itemId, true)
-        local carrying = GetItemCount(itemId)
+        local owned = C.Item.GetItemCount(itemId, true)
+        local carrying = C.Item.GetItemCount(itemId)
 
         bags = carrying - equip - equipInBag
         banks = owned - carrying - equipInBank

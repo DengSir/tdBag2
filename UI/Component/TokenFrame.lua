@@ -10,12 +10,6 @@ local format = _G.string.format
 
 local C = LibStub('C_Everywhere')
 
-local GetItemQualityColor = C.Item.GetItemQualityColor
-local GetItemIcon = C.Item.GetItemIconByID
-local GetItemInfo = C.Item.GetItemInfo
--- @build>3@
-local GetBackpackCurrencyInfo = C.CurrencyInfo.GetBackpackCurrencyInfo
--- @end-build>3@
 local GetCursorInfo = _G.GetCursorInfo
 local ClearCursor = _G.ClearCursor
 local CloseDropDownMenus = _G.CloseDropDownMenus
@@ -116,12 +110,12 @@ function TokenFrame:Update()
     -- @build>3@
     if self.meta:IsSelf() then
         for i = 1, MAX_WATCHED_TOKENS do
-            local name, count, icon, currencyId = GetBackpackCurrencyInfo(i)
-            if name then
+            local info = C.CurrencyInfo.GetBackpackCurrencyInfo(i)
+            if info then
                 index = index + 1
 
                 local button = self:GetButton(index)
-                button:SetCurrency(self.meta.owner, currencyId, icon, count)
+                button:SetCurrency(self.meta.owner, info.currencyTypesID, info.iconFileID, info.quantity)
                 button:Show()
 
                 width = width + button:GetWidth()
@@ -158,13 +152,13 @@ end
 function TokenFrame:CreateMenu()
     local menu = {}
     for i, watch in ipairs(self.meta.character.watches) do
-        local name, _, quality = GetItemInfo(watch.itemId)
-        local icon = GetItemIcon(watch.itemId)
+        local name, _, quality = C.Item.GetItemInfo(watch.itemId)
+        local icon = C.Item.GetItemIcon(watch.itemId)
 
         menu[i] = {
             text = format('|T%s:14|t', icon) .. (name or ('item:' .. watch.itemId)),
             notCheckable = true,
-            colorCode = quality and '|c' .. select(4, GetItemQualityColor(quality)) or nil,
+            colorCode = quality and '|c' .. select(4, C.Item.GetItemQualityColor(quality)) or nil,
             keepShownOnClick = true,
             hasArrow = true,
             menuList = {

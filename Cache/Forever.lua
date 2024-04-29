@@ -15,10 +15,6 @@ local time = _G.time
 local tDeleteItem = _G.tDeleteItem
 
 ---- WOW
-local GetContainerItemInfo = C.Container.GetContainerItemInfo
-local GetContainerNumFreeSlots = C.Container.GetContainerNumFreeSlots
-local GetContainerNumSlots = C.Container.GetContainerNumSlots
-local GetContainerItemLink = C.Container.GetContainerItemLink
 local GetInventoryItemCount = _G.GetInventoryItemCount
 local GetInventoryItemLink = _G.GetInventoryItemLink
 local GetItemIcon = _G.GetItemIcon
@@ -264,16 +260,16 @@ function Forever:ParseItem(link, count, timeout)
 end
 
 function Forever:SaveBag(bag)
-    local size = GetContainerNumSlots(bag)
+    local size = C.Container.GetContainerNumSlots(bag)
     local items
     if size > 0 then
         items = {}
         items.size = size
-        items.family = not ns.IsBaseBag(bag) and select(2, GetContainerNumFreeSlots(bag)) or nil
+        items.family = not ns.IsBaseBag(bag) and select(2, C.Container.GetContainerNumFreeSlots(bag)) or nil
 
         for slot = 1, size do
-            local link = GetContainerItemLink(bag, slot)
-            local info = GetContainerItemInfo(bag, slot)
+            local link = C.Container.GetContainerItemLink(bag, slot)
+            local info = C.Container.GetContainerItemInfo(bag, slot)
             local count = info and info.stackCount or nil
             items[slot] = self:ParseItem(link, count)
         end
@@ -385,7 +381,7 @@ function Forever:GetBagInfo(realm, name, bag)
             data.family = KEYRING_FAMILY
             data.owned = true
         elseif ns.IsBaseBag(bag) then
-            data.count = GetContainerNumSlots(bag)
+            data.count = C.Container.GetContainerNumSlots(bag)
             data.owned = true
             data.family = 0
         end
