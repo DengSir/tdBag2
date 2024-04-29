@@ -8,7 +8,8 @@
     "locale": "wct locale scan && wct locale import && wct locale export",
     "auto": "npm run update && npm run locale",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "version": "npm run auto && npm run changelog"
+    "version": "npm run auto && npm run changelog",
+    "submodule": "git submodule foreach git checkout master && git submodule foreach git pull"
   },
   "repository": {
     "type": "git",
