@@ -9,12 +9,11 @@ local select = _G.select
 local floor = _G.math.floor
 local format = _G.string.format
 
+local C = LibStub('C_Everywhere')
+
 ---- WOW
 local CreateFrame = _G.CreateFrame
-local IsBattlePayItem = _G.IsBattlePayItem or _G.C_Container.IsBattlePayItem
 
-local IsNewItem = _G.C_NewItems.IsNewItem
-local RemoveNewItem = _G.C_NewItems.RemoveNewItem
 -- @build^1@
 local C_Engraving = _G.C_Engraving
 -- @end-build^1@
@@ -81,7 +80,7 @@ function Item:OnHide()
     end
 
     if self:IsNew() then
-        RemoveNewItem(self.bag, self.slot)
+        C.NewItems.RemoveNewItem(self.bag, self.slot)
     end
 end
 
@@ -186,11 +185,16 @@ function Item:UpdateSearch()
 end
 
 function Item:IsNew()
-    return self.bag and ns.IsContainerBag(self.bag) and not self:IsCached() and IsNewItem(self.bag, self.slot)
+    return self.bag and ns.IsContainerBag(self.bag) and not self:IsCached() and
+               C.NewItems.IsNewItem(self.bag, self.slot)
 end
 
-function Item:IsPaid()
-    return IsBattlePayItem and IsBattlePayItem(self.bag, self.slot)
+if C.Container.IsBattlePayItem then
+    function Item:IsPaid()
+        return C.Container.IsBattlePayItem(self.bag, self.slot)
+    end
+else
+    Item.IsPaid = nop
 end
 
 -- @build^1@
