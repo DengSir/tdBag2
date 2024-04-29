@@ -17,8 +17,6 @@ local tDeleteItem = _G.tDeleteItem
 ---- WOW
 local GetInventoryItemCount = _G.GetInventoryItemCount
 local GetInventoryItemLink = _G.GetInventoryItemLink
-local GetItemIcon = _G.GetItemIcon
-local GetItemInfo = _G.GetItemInfo
 local GetMoney = _G.GetMoney
 local UnitClassBase = _G.UnitClassBase
 local UnitFactionGroup = _G.UnitFactionGroup
@@ -428,10 +426,10 @@ function Forever:GetItemInfo(realm, name, bag, slot)
         data.link = 'item:' .. link
         data.count = tonumber(count)
         data.id = tonumber(link:match('^(%d+)'))
-        data.icon = GetItemIcon(data.id)
+        data.icon = C.Item.GetItemIconByID(data.id)
         data.timeout = tonumber(timeout)
 
-        local itemName, itemLink, quality = GetItemInfo(data.link)
+        local itemName, itemLink, quality = C.Item.GetItemInfo(data.link)
         if itemName then
             data.link = itemLink
             data.quality = quality

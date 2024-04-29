@@ -42,7 +42,7 @@ end
 function Token:SetItem(owner, itemId, watchAll)
     self:Clear()
     self.itemId = itemId
-    self.Icon:SetTexture(C.Item.GetItemIcon(itemId))
+    self.Icon:SetTexture(C.Item.GetItemIconByID(itemId))
     self.Icon:SetTexCoord(0, 1, 0, 1)
     if watchAll then
         self.Count:SetText(Counter:GetOwnerItemTotal(owner, itemId))
@@ -130,7 +130,7 @@ function Token:TooltipAll()
     local owner = parent.meta.owner
     for _, watch in ipairs(watchs) do
         local name, _, quality = C.Item.GetItemInfo(watch.itemId)
-        local icon = C.Item.GetItemIcon(watch.itemId)
+        local icon = C.Item.GetItemIconByID(watch.itemId)
         local title = format('|T%s:14|t ', icon) .. (name or ('item:' .. watch.itemId))
         local _, count = ns.Tooltip:GetCounts(Counter:GetOwnerItemCount(owner, watch.itemId))
         local r, g, b = 1, 1, 1

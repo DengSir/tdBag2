@@ -153,7 +153,7 @@ function TokenFrame:CreateMenu()
     local menu = {}
     for i, watch in ipairs(self.meta.character.watches) do
         local name, _, quality = C.Item.GetItemInfo(watch.itemId)
-        local icon = C.Item.GetItemIcon(watch.itemId)
+        local icon = C.Item.GetItemIconByID(watch.itemId)
 
         menu[i] = {
             text = format('|T%s:14|t', icon) .. (name or ('item:' .. watch.itemId)),

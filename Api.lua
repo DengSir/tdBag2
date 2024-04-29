@@ -201,7 +201,7 @@ local BAG_IDS = {}
 local INV_IDS = {}
 do
     local function touch(bag, bagId)
-        local slot = C.AddOns.ContainerIDToInventoryID(bag)
+        local slot = C.Container.ContainerIDToInventoryID(bag)
         INV_IDS[slot] = bag
         BAG_IDS[bag] = slot
 
