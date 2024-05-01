@@ -382,20 +382,6 @@ local IsQuestItem = ns.memorize(function(link)
     return select(12, C.Item.GetItemInfo(link)) == LE_ITEM_CLASS_QUESTITEM or Search:IsQuestItem(link) or false
 end)
 
--- @build<3@
-function ItemBase:IsQuestItem()
-    return self.hasItem and IsQuestItem(self.info.id)
-end
-
-function ItemBase:IsQuestStarter()
-    if self.hasItem then
-        local q, starter = Search:IsQuestItem(self.info.id)
-        return q and starter
-    end
-end
-
--- @end-build<3@
--- @build>3@
 function ItemBase:IsQuestItem()
     if not self.hasItem then
         return
@@ -423,8 +409,6 @@ function ItemBase:IsQuestStarter()
     end
     return info.questID and not info.isActive
 end
-
--- @end-build>3@
 
 function ItemBase:IsMatched()
     if self.meta:IsGlobalSearch() then

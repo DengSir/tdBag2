@@ -54,10 +54,7 @@ function Container:OnShow()
         self:RegisterEvent('BAG_UPDATE_COOLDOWN')
         self:RegisterEvent('BAG_NEW_ITEMS_UPDATED', 'UpdateAllBorders')
         self:RegisterEvent('BAG_CLOSED', 'UpdateBagOrder')
-
-        -- @build>3@
         self:RegisterEvent('QUEST_LOG_UPDATE', 'UpdateAllBorders')
-        -- @end-build>3@
 
         if self.meta:IsBank() then
             self:RegisterEvent('BANK_CLOSED', 'OnShow')
