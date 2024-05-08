@@ -5,7 +5,7 @@
 --
 ---- LUA
 local ipairs = ipairs
-local unpack = table.unpack or unpack
+local unpack = unpack
 
 local C = LibStub('C_Everywhere')
 

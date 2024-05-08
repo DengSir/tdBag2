@@ -30,8 +30,8 @@ local GameTooltip = GameTooltip
 local UIParent = UIParent
 
 ---- G
-local LE_ITEM_CLASS_QUESTITEM = LE_ITEM_CLASS_QUESTITEM or Enum.ItemClass.Questitem
-local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON or Enum.ItemQuality.Common or Enum.ItemQuality.Standard
+local LE_ITEM_CLASS_QUESTITEM = Enum.ItemClass.Questitem
+local LE_ITEM_QUALITY_COMMON = Enum.ItemQuality.Common
 local TEXTURE_ITEM_QUEST_BANG = TEXTURE_ITEM_QUEST_BANG
 local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
 local GRAY_FONT_COLOR = GRAY_FONT_COLOR

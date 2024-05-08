@@ -1,3 +1,13 @@
+read_globals = (function()
+    local e = {}
+    local f = loadfile('default.luacheckrc', 't', e)
+    if not f then return end
+    if setfenv then setfenv(f, e) end
+    f()
+    return e.read_globals
+end)()
+
+
 std = 'lua51'
 
 exclude_files = { --
@@ -29,4 +39,14 @@ ignore = {
     '43.', -- Shadowing an upvalue, an upvalue argument, an upvalue loop variable.
 }
 
-globals = {'LibStub', 'Enum', 'L', 'nop'}
+globals = {
+    'C_Engraving',
+    'GetCraftItemLink',
+    'GetCraftReagentItemLink',
+    'CursorCanGoInSlot',
+    'PutKeyInKeyRing',
+    'HasKey',
+    'MAX_WATCHED_TOKENS',
+    'MAX_CONTAINER_ITEMS',
+    'ContainerFrame_UpdateCooldown',
+}

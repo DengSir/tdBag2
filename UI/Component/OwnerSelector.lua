@@ -5,7 +5,7 @@
 --
 ---- LUA
 local tinsert = table.insert
-local unpack = table.unpack or unpack
+local unpack = unpack
 local ipairs = ipairs
 
 ---- WOW

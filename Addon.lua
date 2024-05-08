@@ -6,7 +6,7 @@
 ---- LUA
 local format = string.format
 local ipairs, pairs, tinsert, sort = ipairs, pairs, tinsert, sort
-local ripairs = ipairs_reverse or ripairs
+local ripairs = ipairs_reverse
 local tInvert = tInvert
 local tremove = table.remove
 local assert = assert
@@ -78,7 +78,7 @@ ns.Unfit = LibStub('Unfit-1.0')
 ---@class Addon: AceAddon, LibClass-2.0, AceHook-3.0, AceEvent-3.0
 local Addon = LibStub('AceAddon-3.0'):NewAddon('tdBag2', 'LibClass-2.0', 'AceHook-3.0', 'AceEvent-3.0')
 ns.Addon = Addon
-tdBag2 = Addon
+_G.tdBag2 = Addon
 
 Addon.BAG_ID = BAG_ID
 
@@ -242,11 +242,11 @@ function Addon:SetupDefaultOptions()
         searches.first = false
 
         local types = { --
-            LE_ITEM_CLASS_WEAPON or Enum.ItemClass.Weapon, --
-            LE_ITEM_CLASS_ARMOR or Enum.ItemClass.Armor, --
-            LE_ITEM_CLASS_CONSUMABLE or Enum.ItemClass.Consumable, --
-            LE_ITEM_CLASS_TRADEGOODS or Enum.ItemClass.Tradegoods, --
-            LE_ITEM_CLASS_REAGENT or Enum.ItemClass.Reagent, --
+            Enum.ItemClass.Weapon, --
+            Enum.ItemClass.Armor, --
+            Enum.ItemClass.Consumable, --
+            Enum.ItemClass.Tradegoods, --
+            Enum.ItemClass.Reagent, --
         }
 
         for _, item in ipairs(types) do

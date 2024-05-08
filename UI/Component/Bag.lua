@@ -2,6 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https:\dengsir.github.io
 -- @Date   : 10\17\2019, 3:23:57 PM
+--luacheck: ignore 122
 --
 ---- WOW
 local CursorCanGoInSlot = CursorCanGoInSlot

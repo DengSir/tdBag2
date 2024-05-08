@@ -17,11 +17,11 @@ local ContainerFrame = ns.UI.ContainerFrame
 local InventoryFrame = ns.Addon:NewClass('UI.InventoryFrame', ContainerFrame)
 
 local MAIN_MENU_BUTTONS = {
-    MainMenuBarBackpackButton, --
-    CharacterBag0Slot, --
-    CharacterBag1Slot, --
-    CharacterBag2Slot, --
-    CharacterBag3Slot, --
+    _G.MainMenuBarBackpackButton, --
+    _G.CharacterBag0Slot, --
+    _G.CharacterBag1Slot, --
+    _G.CharacterBag2Slot, --
+    _G.CharacterBag3Slot, --
 }
 
 local function SetChecked(self)

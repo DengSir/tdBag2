@@ -8,12 +8,12 @@ local ipairs, pairs = ipairs, pairs
 local max = math.max
 local tinsert = table.insert
 local wipe = table.wipe or wipe
-local ripairs = ipairs_reverse or ripairs
+local ripairs = ipairs_reverse
 
 ---- WOW
 local CreateFrame = CreateFrame
 
-local KEYRING_CONTAINER = KEYRING_CONTAINER
+local KEYRING_CONTAINER = Enum.BagIndex.Keyring
 
 ---@type ns
 local ns = select(2, ...)

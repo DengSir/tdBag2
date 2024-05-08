@@ -14,6 +14,13 @@ jobs:
       - name: Build all
         uses: curse-action/build@master
 
+      - name: Download luacheckrc globals
+        uses: robinraju/release-downloader@v1.10
+        with:
+          repository: LiangYuxuan/wow-addon-luacheckrc
+          latest: true
+          fileName: default.luacheckrc
+
       - name: Luacheck
         uses: lunarmodules/luacheck@v1
         with:

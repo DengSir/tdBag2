@@ -35,11 +35,11 @@ local GameTooltip = GameTooltip
 local MAX_GUILDBANK_TABS = MAX_GUILDBANK_TABS
 -- @end-build>2@
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
-local BACKPACK_CONTAINER = BACKPACK_CONTAINER
-local BANK_CONTAINER = BANK_CONTAINER
-local KEYRING_CONTAINER = KEYRING_CONTAINER
-local NUM_BAG_SLOTS = NUM_BAG_SLOTS
-local NUM_BANKBAGSLOTS = NUM_BANKBAGSLOTS
+local BACKPACK_CONTAINER = Enum.BagIndex.Backpack
+local BANK_CONTAINER = Enum.BagIndex.Bank
+local KEYRING_CONTAINER = Enum.BagIndex.Keyring
+local NUM_BAG_SLOTS = Constants.InventoryConstants.NumBagSlots
+local NUM_BANKBAGSLOTS = Constants.InventoryConstants.NumBankBagSlots
 local EQUIP_CONTAINER = 'equip'
 local MAIL_CONTAINER = 'mail'
 local COD_CONTAINER = 'cod'
