@@ -3,13 +3,10 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/18/2019, 10:14:01 AM
 --
-local _G = _G
-local select = _G.select
+local format = string.format
 
-local format = _G.string.format
-
-local IsAltKeyDown = _G.IsAltKeyDown
-local Ambiguate = _G.Ambiguate
+local IsAltKeyDown = IsAltKeyDown
+local Ambiguate = Ambiguate
 
 ---@type ns
 local ns = select(2, ...)

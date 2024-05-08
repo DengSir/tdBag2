@@ -9,9 +9,9 @@ end
 
 local AceEvent = LibStub('AceEvent-3.0')
 
-EventsMixin.RegisterEvent = AceEvent.RegisterEvent
-EventsMixin.UnregisterEvent = AceEvent.UnregisterEvent
-EventsMixin.UnregisterAllEvents = AceEvent.UnregisterAllEvents
+EventsMixin.RegisterEvent = AceEvent.RegisterMessage
+EventsMixin.UnregisterEvent = AceEvent.UnregisterMessage
+EventsMixin.UnregisterAllEvents = AceEvent.UnregisterAllMessages
 
 ---@class MetaMixin
 ---@field meta FrameMeta

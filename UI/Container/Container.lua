@@ -4,18 +4,16 @@
 -- @Date   : 10/17/2019, 10:17:19 AM
 --
 ---- LUA
-local _G = _G
-local ipairs, pairs = _G.ipairs, _G.pairs
-local max = _G.math.max
-local select = _G.select
-local tinsert = _G.table.insert
-local wipe = _G.table.wipe or _G.wipe
-local ripairs = _G.ipairs_reverse or _G.ripairs
+local ipairs, pairs = ipairs, pairs
+local max = math.max
+local tinsert = table.insert
+local wipe = table.wipe or wipe
+local ripairs = ipairs_reverse or ripairs
 
 ---- WOW
-local CreateFrame = _G.CreateFrame
+local CreateFrame = CreateFrame
 
-local KEYRING_CONTAINER = _G.KEYRING_CONTAINER
+local KEYRING_CONTAINER = KEYRING_CONTAINER
 
 ---@type ns
 local ns = select(2, ...)

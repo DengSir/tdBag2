@@ -3,12 +3,9 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 1/14/2022, 4:35:35 PM
 --
-local _G = _G
-local select = _G.select
+local CreateFrame = CreateFrame
 
-local CreateFrame = _G.CreateFrame
-
-local GameTooltip = _G.GameTooltip
+local GameTooltip = GameTooltip
 
 ---@type ns
 local ns = select(2, ...)
@@ -26,7 +23,7 @@ function EquipBagToggle:Constructor(_, meta, bagId)
 
     self:SetScript('OnClick', self.OnClick)
     self:SetScript('OnEnter', self.OnEnter)
-    self:SetScript('OnLeave', _G.GameTooltip_Hide)
+    self:SetScript('OnLeave', GameTooltip_Hide)
 end
 
 function EquipBagToggle:Create(parent, meta, bagId)

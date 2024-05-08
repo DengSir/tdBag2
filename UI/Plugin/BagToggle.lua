@@ -4,19 +4,18 @@
 -- @Date   : 10/20/2019, 2:30:12 AM
 --
 ---- LUA
-local select = _G.select
-local tinsert = _G.table.insert
-local format = _G.string.format
+local tinsert = table.insert
+local format = string.format
 
 ---- WOW
-local IsAltKeyDown = _G.IsAltKeyDown
-local IsControlKeyDown = _G.IsControlKeyDown
+local IsAltKeyDown = IsAltKeyDown
+local IsControlKeyDown = IsControlKeyDown
 
 ---- UI
-local GameTooltip = _G.GameTooltip
+local GameTooltip = GameTooltip
 
 ---- G
-local BAGSLOTTEXT = _G.BAGSLOTTEXT
+local BAGSLOTTEXT = BAGSLOTTEXT
 
 ---@type ns
 local ns = select(2, ...)

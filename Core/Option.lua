@@ -4,17 +4,15 @@
 -- @Date   : 10/23/2019, 3:14:52 PM
 --
 ---- LUA
-local _G = _G
-local ipairs, pairs = _G.ipairs, _G.pairs
-local format = _G.string.format
-local wipe = _G.table.wipe or _G.wipe
-local type = _G.type
-local select = _G.select
+local ipairs, pairs = ipairs, pairs
+local format = string.format
+local wipe = table.wipe or wipe
+local type = type
 
 local C = LibStub('C_Everywhere')
 
-local RELOADUI = _G.RELOADUI
-local GENERAL = _G.GENERAL
+local RELOADUI = RELOADUI
+local GENERAL = GENERAL
 
 ---@type ns
 local ns = select(2, ...)

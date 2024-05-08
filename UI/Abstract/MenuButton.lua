@@ -4,20 +4,19 @@
 -- @Date   : 11/29/2019, 2:59:16 PM
 --
 ---- LUA
-local pairs = _G.pairs
-local error = _G.error
-local select = _G.select
+local pairs = pairs
+local error = error
 
 ---- WOW
-local CreateFrame = _G.CreateFrame
-local PlaySound = _G.PlaySound
-local CloseDropDownMenus = _G.CloseDropDownMenus
-local ToggleDropDownMenu = _G.ToggleDropDownMenu
-local EasyMenu_Initialize = _G.EasyMenu_Initialize
+local CreateFrame = CreateFrame
+local PlaySound = PlaySound
+local CloseDropDownMenus = CloseDropDownMenus
+local ToggleDropDownMenu = ToggleDropDownMenu
+local EasyMenu_Initialize = EasyMenu_Initialize
 
 ---- UI
-local DropDownList1 = _G.DropDownList1
-local UIParent = _G.UIParent
+local DropDownList1 = DropDownList1
+local UIParent = UIParent
 
 ---@type ns
 local ns = select(2, ...)
@@ -83,7 +82,7 @@ function MenuButton:CloseMenu()
 end
 
 function MenuButton:IsMenuOpened()
-    return self.DropMenu and self.LastDropdown == self and _G.UIDROPDOWNMENU_OPEN_MENU == self.DropMenu and
+    return self.DropMenu and self.LastDropdown == self and UIDROPDOWNMENU_OPEN_MENU == self.DropMenu and
                DropDownList1:IsShown()
 end
 

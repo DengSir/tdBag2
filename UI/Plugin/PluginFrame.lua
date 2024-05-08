@@ -3,13 +3,11 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 1/4/2020, 1:18:14 AM
 --
-local _G = _G
-local ipairs = _G.ipairs
-local wipe = _G.table.wipe or _G.wipe
-local tinsert = _G.table.insert
-local select = _G.select
+local ipairs = ipairs
+local wipe = table.wipe or wipe
+local tinsert = table.insert
 
-local CreateFrame = _G.CreateFrame
+local CreateFrame = CreateFrame
 
 ---@type ns
 local ns = select(2, ...)

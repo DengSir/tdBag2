@@ -3,15 +3,13 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 10/17/2019, 10:21:54 AM
 --
-local _G = _G
-local select = _G.select
-local error = _G.error
+local error = error
 
 ---- WOW
-local CreateFrame = _G.CreateFrame
+local CreateFrame = CreateFrame
 
 ---- UI
-local UIParent = _G.UIParent
+local UIParent = UIParent
 
 ---@type ns
 local ns = select(2, ...)

@@ -5,26 +5,25 @@
 --
 ---- LUA
 local _G = _G
-local select = _G.select
-local floor = _G.math.floor
-local format = _G.string.format
+local floor = math.floor
+local format = string.format
 
 local C = LibStub('C_Everywhere')
 
 ---- WOW
-local CreateFrame = _G.CreateFrame
+local CreateFrame = CreateFrame
 
 -- @build^1@
-local C_Engraving = _G.C_Engraving
+local C_Engraving = C_Engraving
 -- @end-build^1@
 
 ---- UI
-local StackSplitFrame = _G.StackSplitFrame
-local UIParent = _G.UIParent
+local StackSplitFrame = StackSplitFrame
+local UIParent = UIParent
 
 ---- G
-local MAX_CONTAINER_ITEMS = _G.MAX_CONTAINER_ITEMS
-local MAX_BLIZZARD_ITEMS = _G.NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
+local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS
+local MAX_BLIZZARD_ITEMS = NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
 
 local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
 
@@ -163,10 +162,10 @@ end
 
 function Item:UpdateCooldown()
     if self.hasItem and not self:IsCached() then
-        _G.ContainerFrame_UpdateCooldown(self.bag, self)
+        ContainerFrame_UpdateCooldown(self.bag, self)
     else
         self.Cooldown:Hide()
-        _G.CooldownFrame_Set(self.Cooldown, 0, 0, 0)
+        CooldownFrame_Set(self.Cooldown, 0, 0, 0)
     end
 end
 

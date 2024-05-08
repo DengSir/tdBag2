@@ -3,9 +3,7 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 12/3/2019, 2:52:21 PM
 --
-local _G = _G
-local ipairs = _G.ipairs
-local select = _G.select
+local ipairs = ipairs
 
 local C = LibStub('C_Everywhere')
 
@@ -19,7 +17,7 @@ local BANKS = ns.GetBags(ns.BAG_ID.BANK)
 local GUILDBANKS = ns.GetBags(ns.BAG_ID.GUILDBANK)
 -- @end-build>2@
 
----@class Counter: AceAddon-3.0, AceEvent-3.0
+---@class Counter: AceModule, AceEvent-3.0
 local Counter = ns.Addon:NewModule('Counter', 'AceEvent-3.0')
 
 function Counter:OnInitialize()

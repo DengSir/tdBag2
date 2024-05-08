@@ -4,29 +4,29 @@
 -- @Date   : 1/2/2020, 9:55:26 PM
 --
 ---- LUA
-local select = _G.select
+local select = select
 
 local C = LibStub('C_Everywhere')
 
 ---- WOW
-local GetBankSlotCost = _G.GetBankSlotCost
-local GetInventoryItemID = _G.GetInventoryItemID
-local GetInventoryItemLink = _G.GetInventoryItemLink
-local GetInventoryItemQuality = _G.GetInventoryItemQuality
-local GetInventoryItemTexture = _G.GetInventoryItemTexture
-local GetCursorMoney = _G.GetCursorMoney
-local GetMoney = _G.GetMoney
-local GetNumBankSlots = _G.GetNumBankSlots
-local GetPlayerTradeMoney = _G.GetPlayerTradeMoney
-local HasKey = _G.HasKey
-local UnitClassBase = _G.UnitClassBase
-local UnitFactionGroup = _G.UnitFactionGroup
-local UnitRace = _G.UnitRace
-local UnitSex = _G.UnitSex
+local GetBankSlotCost = GetBankSlotCost
+local GetInventoryItemID = GetInventoryItemID
+local GetInventoryItemLink = GetInventoryItemLink
+local GetInventoryItemQuality = GetInventoryItemQuality
+local GetInventoryItemTexture = GetInventoryItemTexture
+local GetCursorMoney = GetCursorMoney
+local GetMoney = GetMoney
+local GetNumBankSlots = GetNumBankSlots
+local GetPlayerTradeMoney = GetPlayerTradeMoney
+local HasKey = HasKey
+local UnitClassBase = UnitClassBase
+local UnitFactionGroup = UnitFactionGroup
+local UnitRace = UnitRace
+local UnitSex = UnitSex
 
 ---- G
-local INVSLOT_LAST_EQUIPPED = _G.INVSLOT_LAST_EQUIPPED
-local NUM_BAG_SLOTS = _G.NUM_BAG_SLOTS
+local INVSLOT_LAST_EQUIPPED = INVSLOT_LAST_EQUIPPED
+local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 
 ---@class ns
 local ns = select(2, ...)

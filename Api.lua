@@ -5,41 +5,41 @@
 --
 ---- LUA
 local _G = _G
-local type, next = _G.type, _G.next
-local pairs, ipairs = _G.pairs, _G.ipairs
-local select = _G.select
-local format = _G.string.format
-local tinsert = _G.table.insert
-local tonumber = _G.tonumber
-local assert = _G.assert
-local unpack = _G.unpack
-local nop = _G.nop
+local type, next = type, next
+local pairs, ipairs = pairs, ipairs
+local select = select
+local format = string.format
+local tinsert = table.insert
+local tonumber = tonumber
+local assert = assert
+local unpack = unpack
+local nop = nop
 
 ---- C
 local C = LibStub('C_Everywhere')
 
 ---- WOW
-local GetScreenHeight = _G.GetScreenHeight
-local GetScreenWidth = _G.GetScreenWidth
-local PlaySound = _G.PlaySound
-local Ambiguate = _G.Ambiguate
-local GetInventorySlotInfo = _G.GetInventorySlotInfo
-local GetGuildInfo = _G.GetGuildInfo
-local GetRealmName = _G.GetRealmName
+local GetScreenHeight = GetScreenHeight
+local GetScreenWidth = GetScreenWidth
+local PlaySound = PlaySound
+local Ambiguate = Ambiguate
+local GetInventorySlotInfo = GetInventorySlotInfo
+local GetGuildInfo = GetGuildInfo
+local GetRealmName = GetRealmName
 
 ---- UI
-local GameTooltip = _G.GameTooltip
+local GameTooltip = GameTooltip
 
 ---- G
 -- @build>2@
-local MAX_GUILDBANK_TABS = _G.MAX_GUILDBANK_TABS
+local MAX_GUILDBANK_TABS = MAX_GUILDBANK_TABS
 -- @end-build>2@
-local RAID_CLASS_COLORS = _G.RAID_CLASS_COLORS
-local BACKPACK_CONTAINER = _G.BACKPACK_CONTAINER
-local BANK_CONTAINER = _G.BANK_CONTAINER
-local KEYRING_CONTAINER = _G.KEYRING_CONTAINER
-local NUM_BAG_SLOTS = _G.NUM_BAG_SLOTS
-local NUM_BANKBAGSLOTS = _G.NUM_BANKBAGSLOTS
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
+local BACKPACK_CONTAINER = BACKPACK_CONTAINER
+local BANK_CONTAINER = BANK_CONTAINER
+local KEYRING_CONTAINER = KEYRING_CONTAINER
+local NUM_BAG_SLOTS = NUM_BAG_SLOTS
+local NUM_BANKBAGSLOTS = NUM_BANKBAGSLOTS
 local EQUIP_CONTAINER = 'equip'
 local MAIL_CONTAINER = 'mail'
 local COD_CONTAINER = 'cod'
@@ -357,7 +357,7 @@ ns.CHARACTER_PROFILE = { --
     hiddenBags = {[KEYRING_CONTAINER] = true},
 }
 
----@class Database
+---@class Database: AceDB.Schema
 ns.PROFILE = {
     global = { --
         forever = {},

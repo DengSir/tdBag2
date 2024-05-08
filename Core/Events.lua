@@ -4,19 +4,18 @@
 -- @Date   : 10/18/2019, 12:58:19 PM
 --
 ---- LUA
-local ipairs = _G.ipairs
-local select = _G.select
-local unpack = _G.table.unpack or _G.unpack
+local ipairs = ipairs
+local unpack = table.unpack or unpack
 
 local C = LibStub('C_Everywhere')
 
 ---- UI
-local BankFrame = _G.BankFrame
+local BankFrame = BankFrame
 
 ---- G
-local BANK_CONTAINER = _G.BANK_CONTAINER
-local NUM_BAG_SLOTS = _G.NUM_BAG_SLOTS
-local NUM_BANKGENERIC_SLOTS = _G.NUM_BANKGENERIC_SLOTS
+local BANK_CONTAINER = BANK_CONTAINER
+local NUM_BAG_SLOTS = NUM_BAG_SLOTS
+local NUM_BANKGENERIC_SLOTS = NUM_BANKGENERIC_SLOTS
 
 ---@type ns
 local ns = select(2, ...)

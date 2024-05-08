@@ -3,21 +3,20 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 11/29/2019, 11:21:51 AM
 --
-local _G = _G
-local select, format = _G.select, _G.format
-local ipairs = _G.ipairs
+local format = format
+local ipairs = ipairs
 
 local C = LibStub('C_Everywhere')
 
-local IsShiftKeyDown = _G.IsShiftKeyDown
+local IsShiftKeyDown = IsShiftKeyDown
 -- @build>3@
-local CreateTextureMarkup = _G.CreateTextureMarkup
+local CreateTextureMarkup = CreateTextureMarkup
 -- @end-build>3@
 
-local GameTooltip = _G.GameTooltip
+local GameTooltip = GameTooltip
 
 -- @build>3@
-local Constants = _G.Constants
+local Constants = Constants
 -- @end-build>3@
 
 ---@type ns
@@ -30,7 +29,7 @@ local Token = ns.Addon:NewClass('UI.Token', 'Frame.tdBag2TokenTemplate')
 
 function Token:Constructor()
     self:SetScript('OnEnter', self.OnEnter)
-    self:SetScript('OnLeave', _G.GameTooltip_Hide)
+    self:SetScript('OnLeave', GameTooltip_Hide)
     self:SetMouseClickEnabled(false)
 end
 

@@ -3,14 +3,12 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 1/10/2022, 8:29:17 PM
 --
-local _G = _G
-local select = _G.select
-local pairs = _G.pairs
+local pairs = pairs
 
 ---@type ns
 local ns = select(2, ...)
 
-local INVSLOT_LAST_EQUIPPED = _G.INVSLOT_LAST_EQUIPPED
+local INVSLOT_LAST_EQUIPPED = INVSLOT_LAST_EQUIPPED
 
 local SIZE = ns.ITEM_SIZE + 4
 

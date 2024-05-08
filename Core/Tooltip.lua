@@ -4,26 +4,26 @@
 -- @Date   : 10/24/2019, 1:03:40 PM
 --
 ---- LUA
-local ipairs, select = _G.ipairs, _G.select
-local tinsert, tconcat = _G.table.insert, _G.table.concat
-local format = _G.string.format
-local tonumber = _G.tonumber
-local pairs, type = _G.pairs, _G.type
+local ipairs = ipairs
+local tinsert, tconcat = table.insert, table.concat
+local format = string.format
+local tonumber = tonumber
+local pairs, type = pairs, type
 
 ---- G
-local HEARTHSTONE_ITEM_ID = _G.HEARTHSTONE_ITEM_ID
-local RAID_CLASS_COLORS = _G.RAID_CLASS_COLORS
-local NORMAL_FONT_COLOR = _G.NORMAL_FONT_COLOR
+local HEARTHSTONE_ITEM_ID = HEARTHSTONE_ITEM_ID
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
+local NORMAL_FONT_COLOR = NORMAL_FONT_COLOR
 
 ---- WOW
 
-local GetCraftItemLink = _G.GetCraftItemLink
-local GetCraftReagentItemLink = _G.GetCraftReagentItemLink
-local Ambiguate = _G.Ambiguate
+local GetCraftItemLink = GetCraftItemLink
+local GetCraftReagentItemLink = GetCraftReagentItemLink
+local Ambiguate = Ambiguate
 
 ---- UI
-local GameTooltip = _G.GameTooltip
-local ItemRefTooltip = _G.ItemRefTooltip
+local GameTooltip = GameTooltip
+local ItemRefTooltip = ItemRefTooltip
 
 ---@type ns
 local ns = select(2, ...)
@@ -31,7 +31,7 @@ local L = ns.L
 local Cache = ns.Cache
 local Counter = ns.Counter
 
----@class Tooltip: AceAddon-3.0, AceEvent-3.0, AceHook-3.0
+---@class Tooltip: AceModule, AceEvent-3.0, AceHook-3.0
 local Tooltip = ns.Addon:NewModule('Tooltip', 'AceHook-3.0', 'AceEvent-3.0')
 Tooltip.APIS = {
     'SetMerchantItem',

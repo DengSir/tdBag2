@@ -4,16 +4,15 @@
 -- @Date   : 1/7/2020, 12:31:57 AM
 --
 local _G = _G
-local tinsert = _G.table.insert
-local select = _G.select
-local tDeleteItem = _G.tDeleteItem
+local tinsert = table.insert
+local tDeleteItem = tDeleteItem
 
-local PlaySound = _G.PlaySound
-local CreateFrame = _G.CreateFrame
+local PlaySound = PlaySound
+local CreateFrame = CreateFrame
 
-local UISpecialFrames = _G.UISpecialFrames
+local UISpecialFrames = UISpecialFrames
 
-local UIParent = _G.UIParent
+local UIParent = UIParent
 
 ---@type ns
 local ns = select(2, ...)
@@ -63,7 +62,7 @@ function Frame:OnHide()
     end
 end
 
-Frame.OnSizeChanged = ns.Spawned(_G.UpdateUIPanelPositions)
+Frame.OnSizeChanged = ns.Spawned(UpdateUIPanelPositions)
 
 function Frame:UpdateBorder()
 end

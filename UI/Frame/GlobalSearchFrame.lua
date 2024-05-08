@@ -3,9 +3,7 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 2/9/2020, 1:14:38 AM
 --
-local _G = _G
-local select = _G.select
-local setmetatable = _G.setmetatable
+local setmetatable = setmetatable
 
 ---@type ns
 local ns = select(2, ...)

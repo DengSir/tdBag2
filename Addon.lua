@@ -4,27 +4,26 @@
 -- @Date   : 9/17/2019, 12:04:55 AM
 --
 ---- LUA
-local _G = _G
-local select, format = _G.select, _G.string.format
-local ipairs, pairs, tinsert, sort = _G.ipairs, _G.pairs, _G.tinsert, _G.sort
-local ripairs = _G.ipairs_reverse or _G.ripairs
-local tInvert = _G.tInvert
-local tremove = _G.table.remove
-local assert = _G.assert
+local format = string.format
+local ipairs, pairs, tinsert, sort = ipairs, pairs, tinsert, sort
+local ripairs = ipairs_reverse or ripairs
+local tInvert = tInvert
+local tremove = table.remove
+local assert = assert
 
 local C = LibStub('C_Everywhere')
 
 ---- WOW
-local CreateFrame = _G.CreateFrame
-local UnitFullName = _G.UnitFullName
-local GetAutoCompleteRealms = _G.GetAutoCompleteRealms
-local GetRealmName = _G.GetRealmName
+local CreateFrame = CreateFrame
+local UnitFullName = UnitFullName
+local GetAutoCompleteRealms = GetAutoCompleteRealms
+local GetRealmName = GetRealmName
 
-local SEARCH = _G.SEARCH
+local SEARCH = SEARCH
 
 ---- UI
-local BankFrame = _G.BankFrame
-local UIParent = _G.UIParent
+local BankFrame = BankFrame
+local UIParent = UIParent
 
 ---@class ns
 -- modules
@@ -36,7 +35,7 @@ local UIParent = _G.UIParent
 ---@field Cache Cache
 -- classes
 ---@field Thread Thread
----@field Cacher Cacher
+---@field Cacher Addon.Cacher
 ---@field FrameMeta FrameMeta
 local ns = select(2, ...)
 
@@ -45,11 +44,11 @@ local BAG_ID = ns.BAG_ID
 
 local safeipairs = ns.safeipairs
 
-_G.BINDING_HEADER_TDBAG2 = 'tdBag2'
-_G.BINDING_NAME_TDBAG2_TOGGLE_BAG = L.TOOLTIP_TOGGLE_BAG
-_G.BINDING_NAME_TDBAG2_TOGGLE_BANK = L.TOOLTIP_TOGGLE_BANK
-_G.BINDING_NAME_TDBAG2_TOGGLE_MAIL = L.TOOLTIP_TOGGLE_MAIL
-_G.BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
+BINDING_HEADER_TDBAG2 = 'tdBag2'
+BINDING_NAME_TDBAG2_TOGGLE_BAG = L.TOOLTIP_TOGGLE_BAG
+BINDING_NAME_TDBAG2_TOGGLE_BANK = L.TOOLTIP_TOGGLE_BANK
+BINDING_NAME_TDBAG2_TOGGLE_MAIL = L.TOOLTIP_TOGGLE_MAIL
+BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 
 ---@class UI
 ---@field Container UI.Container
@@ -79,7 +78,7 @@ ns.Unfit = LibStub('Unfit-1.0')
 ---@class Addon: AceAddon, LibClass-2.0, AceHook-3.0, AceEvent-3.0
 local Addon = LibStub('AceAddon-3.0'):NewAddon('tdBag2', 'LibClass-2.0', 'AceHook-3.0', 'AceEvent-3.0')
 ns.Addon = Addon
-_G.tdBag2 = Addon
+tdBag2 = Addon
 
 Addon.BAG_ID = BAG_ID
 
@@ -199,7 +198,7 @@ function Addon:SetupCurrentStyle()
 end
 
 function Addon:SetupDatabase()
-    ---@class Db: Database, AceDB-3.0
+    ---@class Db: Database, AceDBObject-3.0
     self.db = LibStub('AceDB-3.0'):New('TDDB_BAG2', ns.PROFILE, true)
 
     local function OnProfileChanged()
@@ -243,11 +242,11 @@ function Addon:SetupDefaultOptions()
         searches.first = false
 
         local types = { --
-            _G.LE_ITEM_CLASS_WEAPON or Enum.ItemClass.Weapon, --
-            _G.LE_ITEM_CLASS_ARMOR or Enum.ItemClass.Armor, --
-            _G.LE_ITEM_CLASS_CONSUMABLE or Enum.ItemClass.Consumable, --
-            _G.LE_ITEM_CLASS_TRADEGOODS or Enum.ItemClass.Tradegoods, --
-            _G.LE_ITEM_CLASS_REAGENT or Enum.ItemClass.Reagent, --
+            LE_ITEM_CLASS_WEAPON or Enum.ItemClass.Weapon, --
+            LE_ITEM_CLASS_ARMOR or Enum.ItemClass.Armor, --
+            LE_ITEM_CLASS_CONSUMABLE or Enum.ItemClass.Consumable, --
+            LE_ITEM_CLASS_TRADEGOODS or Enum.ItemClass.Tradegoods, --
+            LE_ITEM_CLASS_REAGENT or Enum.ItemClass.Reagent, --
         }
 
         for _, item in ipairs(types) do

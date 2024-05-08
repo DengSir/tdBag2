@@ -3,20 +3,20 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 11/29/2019, 11:10:36 AM
 --
-local _G = _G
-local ipairs, select = _G.ipairs, _G.select
-local tinsert, tremove = _G.table.insert, _G.table.remove
-local format = _G.string.format
+local ipairs = ipairs
+local tinsert, tremove = table.insert, table.remove
+local format = string.format
+local select = select
 
 local C = LibStub('C_Everywhere')
 
-local GetCursorInfo = _G.GetCursorInfo
-local ClearCursor = _G.ClearCursor
-local CloseDropDownMenus = _G.CloseDropDownMenus
+local GetCursorInfo = GetCursorInfo
+local ClearCursor = ClearCursor
+local CloseDropDownMenus = CloseDropDownMenus
 
-local DELETE = _G.DELETE
+local DELETE = DELETE
 -- @build>3@
-local MAX_WATCHED_TOKENS = _G.MAX_WATCHED_TOKENS
+local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS
 -- @end-build>3@
 
 ---@type ns
