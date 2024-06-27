@@ -464,6 +464,7 @@ ns.PROFILE = {
 
         -- @debug@
         colorNormal = {},
+        tokens = 1,
         -- @end-debug@
     },
 }

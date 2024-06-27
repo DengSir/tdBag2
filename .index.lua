@@ -20,10 +20,10 @@ local MetaMixin = {}
 ---@class tdBag2ButtonPluginOptions
 ---@field type 'Button'
 ---@field icon number|string
----@field order number
+---@field order? number
 ---@field init function
 ---@field key string
----@field text  string
+---@field text? string
 
 ---@class tdBag2ItemPluginOptions
 ---@field type 'Item'
