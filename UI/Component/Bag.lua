@@ -181,11 +181,11 @@ end
 
 function Bag:UpdateCursor()
     if self:IsCustomBag() then
-        if not self.info.cached and CursorCanGoInSlot(self.info.slot) then
-            self:LockHighlight()
-        else
-            self:UnlockHighlight()
-        end
+        -- if not self.info.cached and CursorCanGoInSlot(self.info.slot) then
+        --     self:LockHighlight()
+        -- else
+        --     self:UnlockHighlight()
+        -- end
     end
 end
 
@@ -215,6 +215,10 @@ function Bag:UpdateTooltip()
         GameTooltip:SetInventoryItem('player', self.info.slot)
     elseif self:IsBankBag() then
         GameTooltip:SetText(BANK_BAG, 1, 1, 1)
+    elseif self:IsReagentBag() then
+        GameTooltip:SetText(EQUIP_CONTAINER_REAGENT, 1, 1, 1)
+    elseif self:IsReagentBank() then
+        GameTooltip:SetText(REAGENT_BANK, 1, 1, 1)
     else
         GameTooltip:SetText(EQUIP_CONTAINER, 1, 1, 1)
     end
@@ -279,6 +283,14 @@ end
 
 function Bag:IsCustomBag()
     return self:IsBackpackBag() or self:IsBankBag()
+end
+
+function Bag:IsReagentBag()
+    return ns.IsReagentBag(self.bag)
+end
+
+function Bag:IsReagentBank()
+    return ns.IsReagentBank(self.bag)
 end
 
 function Bag:IsHidden()

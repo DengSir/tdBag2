@@ -26,7 +26,7 @@ local UnitSex = UnitSex
 
 ---- G
 local INVSLOT_LAST_EQUIPPED = INVSLOT_LAST_EQUIPPED
-local NUM_BAG_SLOTS = NUM_BAG_SLOTS
+local NUM_BAG_SLOTS = NUM_TOTAL_EQUIPPED_BAG_SLOTS or Constants.InventoryConstants.NumBagSlots
 
 ---@class ns
 local ns = select(2, ...)

@@ -38,7 +38,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local BACKPACK_CONTAINER = Enum.BagIndex.Backpack
 local BANK_CONTAINER = Enum.BagIndex.Bank
 local KEYRING_CONTAINER = Enum.BagIndex.Keyring
-local NUM_BAG_SLOTS = Constants.InventoryConstants.NumBagSlots
+local NUM_BAG_SLOTS = NUM_TOTAL_EQUIPPED_BAG_SLOTS or Constants.InventoryConstants.NumBagSlots
 local NUM_BANKBAGSLOTS = Constants.InventoryConstants.NumBankBagSlots
 local EQUIP_CONTAINER = 'equip'
 local MAIL_CONTAINER = 'mail'
@@ -72,6 +72,13 @@ ns.KEYRING_FAMILY = 9
 -- @build>2@
 ns.KEYRING_FAMILY = 256
 -- @end-build>2@
+
+-- @retail@
+ns.ITEM_BUTTON_CLASS = 'ItemButton'
+-- @end-retail@
+-- @non-retail@
+ns.ITEM_BUTTON_CLASS = 'Button'
+-- @end-non-retail@
 
 ns.LEFT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:228:283|t]]
 ns.RIGHT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:330:385|t]]
@@ -211,11 +218,18 @@ do
     for i = 1, NUM_BAG_SLOTS do
         touch(i, BAG_ID.BAG)
     end
+
     for i = 1, NUM_BANKBAGSLOTS do
         touch(i + NUM_BAG_SLOTS, BAG_ID.BANK)
     end
 
-    tinsert(BAGS[BAG_ID.BAG], KEYRING_CONTAINER)
+    if HasKey then
+        tinsert(BAGS[BAG_ID.BAG], KEYRING_CONTAINER)
+    end
+
+    if Constants.InventoryConstants.NumReagentBagSlots then
+        tinsert(BAGS[BAG_ID.BANK], Enum.BagIndex.Reagentbank)
+    end
 
     for bagId, v in pairs(BAGS) do
         for _, bag in pairs(v) do
@@ -265,9 +279,16 @@ do
         TRINKET0SLOT = right(6),
         TRINKET1SLOT = right(7),
 
+        -- @non-retail@
         MAINHANDSLOT = bottom(-1),
         SECONDARYHANDSLOT = bottom(0),
         RANGEDSLOT = bottom(1),
+        -- @end-non-retail@
+
+        -- @retail@
+        MAINHANDSLOT = bottom(-0.5),
+        SECONDARYHANDSLOT = bottom(0.5),
+        -- @end-retail@
     }
 
     for key, pos in pairs(INV_DATA) do
@@ -558,6 +579,14 @@ end
 
 function ns.IsCustomBag(bag)
     return ns.IsContainerBag(bag) and bag > BACKPACK_CONTAINER
+end
+
+function ns.IsReagentBank(bag)
+    return bag == Enum.BagIndex.Reagentbank
+end
+
+function ns.IsReagentBag(bag)
+    return bag == Enum.BagIndex.ReagentBag
 end
 
 function ns.IsContainerBag(bag)

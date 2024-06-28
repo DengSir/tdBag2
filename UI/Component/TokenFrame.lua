@@ -16,7 +16,7 @@ local CloseDropDownMenus = CloseDropDownMenus
 
 local DELETE = DELETE
 -- @build>3@
-local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS
+local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS or 3
 -- @end-build>3@
 
 ---@type ns

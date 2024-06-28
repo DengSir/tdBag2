@@ -47,10 +47,10 @@ local EXPIRED = GRAY_FONT_COLOR:WrapTextInColorCode(ns.L['Expired'])
 local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
 local KEYRING_FAMILY = ns.KEYRING_FAMILY
 
----@class UI.ItemBase: EventsMixin, Object, ItemButtonTemplate
+---@class UI.ItemBase: EventsMixin, Object, ItemButton
 ---@field meta FrameMeta
 ---@field EMPTY_SLOT_TEXTURE string
-local ItemBase = ns.Addon:NewClass('UI.ItemBase', 'Button')
+local ItemBase = ns.Addon:NewClass('UI.ItemBase', ns.ITEM_BUTTON_CLASS)
 ItemBase.pool = {}
 ItemBase.GenerateName = ns.NameGenerator('tdBag2ItemBase')
 
@@ -114,7 +114,8 @@ function ItemBase:Alloc()
 end
 
 function ItemBase:Create()
-    return self:Bind(CreateFrame('Button', self:GenerateName(), UIParent, 'ItemButtonTemplate'))
+    return self:Bind(CreateFrame(ns.ITEM_BUTTON_CLASS, self:GenerateName(), UIParent,
+                                 ns.ITEM_BUTTON_CLASS ~= 'ItemButton' and 'ItemButtonTemplate' or nil))
 end
 
 function ItemBase:Free()

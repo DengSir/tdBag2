@@ -22,7 +22,7 @@ local StackSplitFrame = StackSplitFrame
 local UIParent = UIParent
 
 ---- G
-local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS
+local MAX_CONTAINER_ITEMS = MAX_CONTAINER_ITEMS or 36
 local MAX_BLIZZARD_ITEMS = NUM_CONTAINER_FRAMES * MAX_CONTAINER_ITEMS
 
 local DEFAULT_SLOT_COLOR = {r = 1, g = 1, b = 1}
@@ -70,7 +70,7 @@ function Item:Create()
             return Item:Bind(item)
         end
     end
-    return Item:Bind(CreateFrame('Button', Item:GenerateName(), UIParent, 'ContainerFrameItemButtonTemplate'))
+    return Item:Bind(CreateFrame(ns.ITEM_BUTTON_CLASS, Item:GenerateName(), UIParent, 'ContainerFrameItemButtonTemplate'))
 end
 
 function Item:OnHide()

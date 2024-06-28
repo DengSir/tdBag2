@@ -16,6 +16,12 @@ local ContainerFrame = ns.UI.ContainerFrame
 ---@class UI.InventoryFrame: UI.ContainerFrame
 local InventoryFrame = ns.Addon:NewClass('UI.InventoryFrame', ContainerFrame)
 
+-- @retail@
+if true then
+    return
+end
+-- @end-retail@
+
 local MAIN_MENU_BUTTONS = {
     _G.MainMenuBarBackpackButton, --
     _G.CharacterBag0Slot, --

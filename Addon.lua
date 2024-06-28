@@ -345,6 +345,19 @@ function Addon:SetupPluginButtons()
             return ns.UI.SearchToggle:Bind(button, frame.meta)
         end,
     })
+
+    --@retail@
+    self:RegisterPlugin{
+        type = 'Button',
+        key = 'Sort',
+        text = BAG_CLEANUP_BAGS,
+        icon = [[Interface\Icons\INV_Pet_Broom]],
+        order = 10002,
+        init = function(button, frame)
+            return ns.UI.SortButton:Bind(button, frame.meta)
+        end,
+    }
+    --@end-retail@
 end
 
 function Addon:GetFrameProfile(bagId)

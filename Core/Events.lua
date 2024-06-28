@@ -14,7 +14,7 @@ local BankFrame = BankFrame
 
 ---- G
 local BANK_CONTAINER = BANK_CONTAINER
-local NUM_BAG_SLOTS = NUM_BAG_SLOTS
+local NUM_BAG_SLOTS = NUM_TOTAL_EQUIPPED_BAG_SLOTS or Constants.InventoryConstants.NumBagSlots
 local NUM_BANKGENERIC_SLOTS = NUM_BANKGENERIC_SLOTS
 
 ---@type ns
@@ -58,9 +58,14 @@ function Events:OnEnable()
     self:RegisterEvent('BAG_UPDATE_DELAYED', 'Fire')
     self:RegisterEvent('CURSOR_CHANGED', 'Fire')
     self:RegisterEvent('QUEST_LOG_UPDATE', 'Fire')
+    -- @non-retail@
     -- @build>3@
     self:SecureHook('BackpackTokenFrame_Update')
     -- @end-build>3@
+    -- @end-non-retail@
+    -- @retail@
+    EventRegistry:RegisterCallback('TokenFrame.OnTokenWatchChanged', self.BackpackTokenFrame_Update, self)
+    -- @end-retail@
     self:RegisterEvent('GET_ITEM_INFO_RECEIVED', 'Fire')
     self:RegisterEvent('PLAYER_MONEY', 'Fire')
     self:RegisterEvent('PLAYER_TRADE_MONEY', 'Fire')

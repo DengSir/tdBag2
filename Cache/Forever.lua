@@ -30,7 +30,8 @@ local GetGuildBankItemLink = GetGuildBankItemLink
 local GetGuildBankItemInfo = GetGuildBankItemInfo
 
 ---- G
-local NUM_BAG_SLOTS = NUM_BAG_SLOTS
+local NUM_BAG_SLOTS = NUM_TOTAL_EQUIPPED_BAG_SLOTS or Constants.InventoryConstants.NumBagSlots
+local INVSLOT_TABARD = INVSLOT_TABARD
 local INVSLOT_LAST_EQUIPPED = INVSLOT_LAST_EQUIPPED
 local ATTACHMENTS_MAX_RECEIVE = ATTACHMENTS_MAX_RECEIVE
 
@@ -275,7 +276,9 @@ function Forever:SaveBag(bag)
 
     if not ns.IsBaseBag(bag) then
         local slot = ns.BagToSlot(bag)
-        self:SaveEquip(slot)
+        if slot then
+            self:SaveEquip(slot)
+        end
     end
 end
 
@@ -423,7 +426,7 @@ function Forever:GetItemInfo(realm, name, bag, slot)
 
         data.cached = true
         data.link = 'item:' .. link
-        data.count = tonumber(count)
+        data.count = bag == ns.EQUIP_CONTAINER and slot ~= INVSLOT_TABARD and 1 or tonumber(count)
         data.id = tonumber(link:match('^(%d+)'))
         data.icon = C.Item.GetItemIconByID(data.id)
         data.timeout = tonumber(timeout)

@@ -5,7 +5,7 @@
             <KeyValue key="fixedWidth" value="24" type="number"/>
             <KeyValue key="fixedHeight" value="78" type="number"/>
         </KeyValues>
-        <Layers>
+        <Layers build="non-retail">
             <Layer level="BORDER" textureSubLevel="1">
                 <MaskTexture parentKey="CircleMask" file="Interface\CharacterFrame\TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
                     <Anchors>
@@ -19,17 +19,17 @@
             </Layer>
         </Layers>
         <Frames>
-            <Button parentKey="TitleFrame" registerForClicks="LeftButtonUp,RightButtonUp">
+            <Button parentKey="TitleFrame" registerForClicks="LeftButtonUp,RightButtonUp" frameLevel="510">
                 <Size x="1" y="18" />
                 <Anchors>
                     <Anchor point="TOPLEFT" x="60" y="-2" />
                     <Anchor point="TOPRIGHT" x="-24" y="-2" />
                 </Anchors>
-                <ButtonText parentKey="Text"/>
-                <NormalFont style="GameFontNormalCenter"/>
-                <HighlightFont style="GameFontHighlightCenter"/>
+                <!-- <ButtonText parentKey="Text"/> -->
+                <NormalFont style="GameFontNormal"/>
+                <HighlightFont style="GameFontHighlight"/>
             </Button>
-            <Button parentKey="OwnerSelector" registerForClicks="LeftButtonUp,RightButtonUp">
+            <Button parentKey="OwnerSelector" registerForClicks="LeftButtonUp,RightButtonUp" frameLevel="520">
                 <Size x="68" y="68"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" x="-10" y="12" />
@@ -42,7 +42,9 @@
                 </HighlightTexture>
                 <Scripts>
                     <OnLoad>
-                        self.portrait = self:GetParent().portrait
+                        local parent = self:GetParent()
+                        local portrait = parent.portrait or (parent.PortraitContainer and parent.PortraitContainer.portrait)
+                        self.portrait = portrait
                     </OnLoad>
                 </Scripts>
             </Button>
@@ -52,6 +54,12 @@
                     <Anchor point="BOTTOMRIGHT" x="-6" y="4" />
                 </Anchors>
             </Frame>
+            <!-- <Frame parentKey="Inset" useParentLevel="true" build="retail">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-60" />
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="4" />
+                </Anchors>
+            </Frame> -->
             <Frame parentKey="Container">
                 <Size x="1" y="1"/>
                 <Anchors>
@@ -66,6 +74,11 @@
                 </Anchors>
             </EditBox>
         </Frames>
+        <Scripts>
+            <OnLoad>
+                self.TitleContainer:Hide()
+            </OnLoad>
+        </Scripts>
     </Frame>
 
     <Frame name="tdBag2FrameTemplate" inherits="tdBag2BaseFrameTemplate" virtual="true">
@@ -73,7 +86,7 @@
             <KeyValue key="fixedWidth" value="24" type="number"/>
             <KeyValue key="fixedHeight" value="100" type="number"/>
         </KeyValues>
-        <Layers>
+        <Layers build="non-retail">
             <Layer level="BORDER" textureSubLevel="1">
                 <Texture parentKey="BtnCornerLeft" inherits="UI-Frame-BtnCornerLeft">
                     <Anchors>
@@ -180,7 +193,7 @@
             </Button>
         </Frames>
         <Scripts>
-            <OnLoad>
+            <OnLoad inherit="append">
                 self.Inset:SetPoint('BOTTOMRIGHT', -6, 26)
             </OnLoad>
         </Scripts>

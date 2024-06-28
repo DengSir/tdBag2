@@ -120,7 +120,9 @@ function Tooltip:HookTip(tip)
 
     if tip.shoppingTooltips then
         for _, shoppingTip in ipairs(tip.shoppingTooltips) do
-            self:SecureHook(shoppingTip, 'SetCompareItem', 'OnCompareItem')
+            if shoppingTip.SetCompareItem then
+                self:SecureHook(shoppingTip, 'SetCompareItem', 'OnCompareItem')
+            end
             self:HookTip(shoppingTip)
         end
     end

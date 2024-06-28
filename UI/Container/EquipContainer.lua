@@ -26,27 +26,29 @@ function EquipContainer:Constructor()
     local bag = self.meta.bags[1]
 
     for slot = 1, INVSLOT_LAST_EQUIPPED do
-        local itemButton = self:GetItemButton(bag, slot)
         local anchors = ns.INV_ANCHORS[slot]
-        local pos = self.LAYOUT_OFFSETS[anchors.anchor]
-        local point, x, y
+        if anchors then
+            local itemButton = self:GetItemButton(bag, slot)
+            local pos = self.LAYOUT_OFFSETS[anchors.anchor]
+            local point, x, y
 
-        if anchors.anchor == 'LEFT' then
-            point = 'TOPLEFT'
-            x = pos.x
-            y = pos.y - SIZE * anchors.index
-        elseif anchors.anchor == 'RIGHT' then
-            point = 'TOPRIGHT'
-            x = pos.x
-            y = pos.y - SIZE * anchors.index
-        elseif anchors.anchor == 'BOTTOM' then
-            point = 'BOTTOM'
-            x = pos.x + SIZE * anchors.index
-            y = pos.y
+            if anchors.anchor == 'LEFT' then
+                point = 'TOPLEFT'
+                x = pos.x
+                y = pos.y - SIZE * anchors.index
+            elseif anchors.anchor == 'RIGHT' then
+                point = 'TOPRIGHT'
+                x = pos.x
+                y = pos.y - SIZE * anchors.index
+            elseif anchors.anchor == 'BOTTOM' then
+                point = 'BOTTOM'
+                x = pos.x + SIZE * anchors.index
+                y = pos.y
+            end
+
+            itemButton:ClearAllPoints()
+            itemButton:SetPoint(point, self, point, x, y)
         end
-
-        itemButton:ClearAllPoints()
-        itemButton:SetPoint(point, self, point, x, y)
     end
 end
 

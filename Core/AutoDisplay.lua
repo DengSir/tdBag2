@@ -43,7 +43,9 @@ function AutoDisplay:OnInitialize()
     self:RegisterFrame('Character', CharacterFrame)
 
     self:RegisterDisplayEvent('Craft', 'TRADE_SKILL_SHOW', 'TRADE_SKILL_CLOSE')
+    -- @non-retail@
     self:RegisterDisplayEvent('Craft', 'CRAFT_SHOW', 'CRAFT_CLOSE')
+    -- @end-non-retail@
 
     self:RegisterEvent('PLAYER_INTERACTION_MANAGER_FRAME_SHOW')
     self:RegisterEvent('PLAYER_INTERACTION_MANAGER_FRAME_HIDE')

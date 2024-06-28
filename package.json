@@ -30,7 +30,9 @@
     "changelog": "CHANGELOG.md",
     "builds": {
       "Vanilla": "11502",
-      "Wrath": "30403"
+      "Wrath": "30403",
+      "Cata": "40400",
+      "Mainline": "100207"
     },
     "scan-locale-ignores": [
       "Localization/**",
