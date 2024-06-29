@@ -1,6 +1,5 @@
 ## Interface: @project-interface@
 ## Title: tdBag2
-## Notes: HELLO_WORLD_TDBAG2
 ## IconTexture: Interface\Buttons\Button-Backpack-Up
 ## Author: Dencer
 ## Version: @project-version@
