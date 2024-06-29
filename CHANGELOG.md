@@ -1,3 +1,19 @@
+## [2.2.16](https://github.com/DengSir/tdBag2/compare/v2.2.15...v2.2.16) (2024-06-29)
+
+
+### Bug Fixes
+
+* fix for wlk ([d7f9f5a](https://github.com/DengSir/tdBag2/commit/d7f9f5a235fdd084401d47114c56fb619f2306de))
+
+
+### Features
+
+* 1.x.x supported quest starter ([c61432e](https://github.com/DengSir/tdBag2/commit/c61432e49ebf3a836d2fcb459c17201376ab890d))
+* add Locales ([1f13c78](https://github.com/DengSir/tdBag2/commit/1f13c7881eb7fd3c121d2bc2a6ee9f7911e231f6))
+* open option panel to tdOptions ([9bf47ea](https://github.com/DengSir/tdBag2/commit/9bf47ea4f5479bb4996b8d522980f99988b7079f))
+
+
+
 ## [2.2.15](https://github.com/DengSir/tdBag2/compare/v2.2.14...v2.2.15) (2024-04-12)
 
 
