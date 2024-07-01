@@ -75,6 +75,7 @@ L["Normal Color"] = true
 L["Opening the Character Info"] = true
 L["Opening Trade Skills"] = true
 L["Plugin Buttons"] = true
+L["Profile"] = true
 L["Quiver Color"] = true
 L["Restore default Settings"] = true
 L["Reverse Bag Order"] = true

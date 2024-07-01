@@ -155,6 +155,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
+--[[ L["Profile"] = "Profile"--]] 
+--[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
 --[[Translation missing --]]
 --[[ L["Restore default Settings"] = "Restore default Settings"--]] 
@@ -394,6 +396,8 @@ L = L or {}
 --[[ L["Opening Trade Skills"] = "Opening Trade Skills"--]] 
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
+--[[Translation missing --]]
+--[[ L["Profile"] = "Profile"--]] 
 --[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
 --[[Translation missing --]]
@@ -635,6 +639,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
+--[[ L["Profile"] = "Profile"--]] 
+--[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
 --[[Translation missing --]]
 --[[ L["Restore default Settings"] = "Restore default Settings"--]] 
@@ -875,6 +881,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
+--[[ L["Profile"] = "Profile"--]] 
+--[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
 --[[Translation missing --]]
 --[[ L["Restore default Settings"] = "Restore default Settings"--]] 
@@ -1048,6 +1056,8 @@ L["Normal Color"] = "보통 색상"
 L["Opening the Character Info"] = "캐릭터 정보 열 때"
 L["Opening Trade Skills"] = "전문 기술 열 때"
 L["Plugin Buttons"] = "플러그인 버튼"
+--[[Translation missing --]]
+--[[ L["Profile"] = "Profile"--]] 
 L["Quiver Color"] = "화살통/탄환주머니 칸 색상"
 L["Restore default Settings"] = "기본 설정 복원"
 L["Reverse Bag Order"] = "가방 순서 반대로"
@@ -1245,6 +1255,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
+--[[ L["Profile"] = "Profile"--]] 
+--[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
 --[[Translation missing --]]
 --[[ L["Restore default Settings"] = "Restore default Settings"--]] 
@@ -1440,6 +1452,8 @@ L["Normal Color"] = "Нормальный цвет"
 L["Opening the Character Info"] = "Открытие информации о персонаже"
 L["Opening Trade Skills"] = "Открытие торговых навыков"
 L["Plugin Buttons"] = "Кнопки плагина"
+--[[Translation missing --]]
+--[[ L["Profile"] = "Profile"--]] 
 L["Quiver Color"] = "Цвет колчана"
 --[[Translation missing --]]
 --[[ L["Restore default Settings"] = "Restore default Settings"--]] 
@@ -1588,6 +1602,8 @@ L["Normal Color"] = "普通容器顏色"
 L["Opening the Character Info"] = "打開角色面板時"
 L["Opening Trade Skills"] = "打開專業技能時"
 L["Plugin Buttons"] = "擴展按鈕"
+--[[Translation missing --]]
+--[[ L["Profile"] = "Profile"--]] 
 L["Quiver Color"] = "箭袋顏色"
 L["Restore default Settings"] = "恢復默認設置"
 L["Reverse Bag Order"] = "反向背包排列"
