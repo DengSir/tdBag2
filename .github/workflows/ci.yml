@@ -1,5 +1,8 @@
 name: CI 🧃
-on: [push]
+on:
+  push:
+    tags-ignore:
+      - "v*"
 
 jobs:
   ci:
