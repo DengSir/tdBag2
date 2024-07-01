@@ -49,4 +49,5 @@ globals = {
     'MAX_WATCHED_TOKENS',
     'MAX_CONTAINER_ITEMS',
     'ContainerFrame_UpdateCooldown',
+    'LE_ITEM_QUALITY_COMMON',
 }

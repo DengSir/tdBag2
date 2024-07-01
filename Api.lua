@@ -285,11 +285,11 @@ do
         RANGEDSLOT = bottom(1),
         -- @end-non-retail@
 
-        -- @retail@
-        MAINHANDSLOT = bottom(-0.5),
-        SECONDARYHANDSLOT = bottom(0.5),
-        -- @end-retail@
     }
+    -- @retail@
+    INV_DATA.MAINHANDSLOT = bottom(-0.5)
+    INV_DATA.SECONDARYHANDSLOT = bottom(0.5)
+    -- @end-retail@
 
     for key, pos in pairs(INV_DATA) do
         local slot, icon = GetInventorySlotInfo(key)
@@ -374,6 +374,7 @@ ns.OPTION_EVENTS = { --
 }
 
 ns.CHARACTER_PROFILE = { --
+    ---@type ProfileWatchItem[]
     watches = {first = true},
     hiddenBags = {[KEYRING_CONTAINER] = true},
 }

@@ -1,16 +1,14 @@
-name: Auto update libs 🧀
+name: Update 🧀
 on:
   push:
     branches:
       - master
     tags-ignore:
       - "v*"
-    paths:
-      - Libs/Libs.xml
-      - .github/workflows/update-libs.yml
 
 jobs:
-  update-libs:
+  update:
+    name: Update
     runs-on: ubuntu-latest
 
     steps:
@@ -24,7 +22,12 @@ jobs:
         with:
           curse-forge-token: ${{ secrets.CURSE_FORGE_TOKEN }}
 
+      - name: Update locales
+        uses: curse-action/locale@master
+        with:
+          curse-wow-token: ${{ secrets.CURSE_TOKEN }}
+
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          message: "chore: Update libs files"
+          message: "chore: Update libs/locale/data files"

@@ -47,7 +47,7 @@ local EXPIRED = GRAY_FONT_COLOR:WrapTextInColorCode(ns.L['Expired'])
 local MINUTE, HOUR, DAY = 60, 3600, ns.SECONDS_OF_DAY
 local KEYRING_FAMILY = ns.KEYRING_FAMILY
 
----@class UI.ItemBase: EventsMixin, Object, ItemButton
+---@class UI.ItemBase: EventsMixin, Object, Button
 ---@field meta FrameMeta
 ---@field EMPTY_SLOT_TEXTURE string
 local ItemBase = ns.Addon:NewClass('UI.ItemBase', ns.ITEM_BUTTON_CLASS)

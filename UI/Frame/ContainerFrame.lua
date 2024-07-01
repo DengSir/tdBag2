@@ -16,7 +16,7 @@ local ns = select(2, ...)
 local Addon = ns.Addon
 local SimpleFrame = ns.UI.SimpleFrame
 
----@class UI.ContainerFrame: tdBag2FrameTemplate, UI.SimpleFrame
+---@class UI.ContainerFrame: EventsMixin, tdBag2FrameTemplate, UI.SimpleFrame
 local ContainerFrame = Addon:NewClass('UI.ContainerFrame', SimpleFrame)
 ContainerFrame.TEMPLATE = 'tdBag2FrameTemplate'
 

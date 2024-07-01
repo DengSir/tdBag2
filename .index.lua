@@ -3,7 +3,7 @@
 local EventsMixin = {}
 
 ---@param event string
----@param callback string | function
+---@param callback? string | function
 function EventsMixin:RegisterFrameEvent(event, callback)
 end
 
@@ -42,27 +42,32 @@ local MetaMixin = {}
 ---@field class string
 ---@field faction string
 ---@field race string
----@field gender integer
+---@field gender? integer
 ---@field money integer
 ---@field guild boolean
 
 ---@class tdBag2BagInfo: tdBag2CacheInfo
 ---@field free integer
----@field family integer
+---@field family? integer
 ---@field count integer
 ---@field slot integer
----@field link string
----@field icon string | integer
+---@field link? string
+---@field icon? string | integer
 ---@field owned boolean
 ---@field cost integer
 ---@field title string
+---@field id integer
 
 ---@class tdBag2ItemInfo: tdBag2CacheInfo
 ---@field id integer
----@field link string
----@field icon string | integer
+---@field link? string
+---@field icon? string | integer
 ---@field count integer
 ---@field locked boolean
 ---@field quality integer
 ---@field readable boolean
 ---@field timeout integer
+
+---@class ProfileWatchItem
+---@field itemId integer
+---@field watchAll boolean

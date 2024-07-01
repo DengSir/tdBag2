@@ -181,11 +181,11 @@ end
 
 function Bag:UpdateCursor()
     if self:IsCustomBag() then
-        -- if not self.info.cached and CursorCanGoInSlot(self.info.slot) then
-        --     self:LockHighlight()
-        -- else
-        --     self:UnlockHighlight()
-        -- end
+        if not self.info.cached and CursorCanGoInSlot(self.info.slot) then
+            self:LockHighlight()
+        else
+            self:UnlockHighlight()
+        end
     end
 end
 
