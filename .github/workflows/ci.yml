@@ -1,6 +1,8 @@
 name: CI 🧃
 on:
   push:
+    branches:
+      - "*"
     tags-ignore:
       - "v*"
 
@@ -28,4 +30,4 @@ jobs:
       - name: Luacheck
         uses: lunarmodules/luacheck@v1
         with:
-          args: '.'
+          args: "."
