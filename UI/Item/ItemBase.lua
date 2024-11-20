@@ -433,7 +433,7 @@ function ItemBase:IsJunk()
 end
 
 function ItemBase:IsInEquipSet()
-    return Search:BelongsToSet(self.info.link)
+    return Search:BelongsToSet(self.info.id)
 end
 
 function ItemBase:IsUnusable()
