@@ -59,7 +59,6 @@ function OwnerSelector:UNIT_PORTRAIT_UPDATE(_, unit)
 end
 
 function OwnerSelector:OnClick(button)
-    print(self, button)
     if button == 'RightButton' then
         self:CloseMenu()
         self.meta:SetOwner(nil)

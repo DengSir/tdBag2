@@ -66,7 +66,6 @@ function MenuButton:OnMenuOpen()
 end
 
 function MenuButton:OnMenuClose()
-    print(debugstack())
     if self.EnterBlocker then
         self.EnterBlocker:Hide()
     end
