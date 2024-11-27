@@ -38,7 +38,7 @@ function MenuButton:ToggleMenu()
     if self:IsMenuOpen() then
         self:CloseMenu()
     else
-        self:InitializeMenu()
+        self:InitMenu()
         self:OpenMenu()
     end
 end
@@ -71,13 +71,32 @@ function MenuButton:OnMenuClose()
     end
 end
 
-local function checked(v)
+local function optTrue()
+    return true
+end
+local nop = nop
+
+local function GenerateGetter(v)
     if type(v) == 'function' then
         return v()
+    elseif v then
+        return optTrue
     else
-        return function()
-            return v
-        end
+        return nop
+    end
+end
+
+local function GenerateSetter(info)
+    if not info.func then
+        return nop
+    end
+
+    if not info.arg1 and not info.arg2 then
+        return info.func
+    end
+
+    return function()
+        return info.func(info.arg1, info.arg2)
     end
 end
 
@@ -91,22 +110,26 @@ local function Generate(root, menuList)
         elseif v.notCheckable then
             node = root:CreateButton(v.text, v.func)
         elseif v.isNotRadio then
-            node = root:CreateCheckbox(v.text, checked(v.checked), v.func, v.value)
+            node = root:CreateCheckbox(v.text, GenerateGetter(v.checked), GenerateSetter(v))
         else
-            node = root:CreateRadio(v.text, checked(v.checked), v.func, v.value)
+            node = root:CreateRadio(v.text, GenerateGetter(v.checked), GenerateSetter(v))
         end
 
         if v.hasArrow then
             Generate(node, v.menuList)
         end
+
+        if v.tooltipTitle or v.tooltipText then
+            node:SetTitleAndTextTooltip(v.tooltipTitle, v.tooltipText)
+        end
     end
 end
 
-function MenuButton:InitializeMenu()
-    if self.menuInited then
+function MenuButton:InitMenu()
+    if self.menuGenerator then
         return
     end
-    self.menuInited = true
+
     self:SetupMenu(function(_, root)
         return Generate(root, self:CreateMenu())
     end)

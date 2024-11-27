@@ -92,7 +92,9 @@ function ContainerFrame:PlaceSearchBox()
     error('Not implemented')
 end
 
-ContainerFrame.PLUGIN_BUTTON_UPDATE = ns.Spawned(ContainerFrame.PlaceSearchBox)
+ContainerFrame.PLUGIN_BUTTON_UPDATE = ns.Spawned(function(self)
+    return self:PlaceSearchBox()
+end)
 
 function ContainerFrame:IsSearchBoxSpaceEnough()
     return true
