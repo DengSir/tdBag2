@@ -43,13 +43,13 @@ function OwnerSelector:OnShow()
     self:RegisterFrameEvent('OWNER_CHANGED', 'OnShow')
     self:RegisterFrameEvent('ICON_CHARACTER_TOGGLED', 'UpdateIcon')
     self:RegisterEvent('OWNER_REMOVED', 'UpdateEnable')
-    self:RegisterEvent('UPDATE_ALL', 'Update')
+    self:RegisterEvent('UPDATE_ALL', 'Refresh')
 
     if self.meta.profile.iconCharacter and self.meta:IsSelf() then
         self:RegisterEvent('UNIT_PORTRAIT_UPDATE')
     end
 
-    self:Update()
+    self:Refresh()
 end
 
 function OwnerSelector:UNIT_PORTRAIT_UPDATE(_, unit)
@@ -59,6 +59,7 @@ function OwnerSelector:UNIT_PORTRAIT_UPDATE(_, unit)
 end
 
 function OwnerSelector:OnClick(button)
+    print(self, button)
     if button == 'RightButton' then
         self:CloseMenu()
         self.meta:SetOwner(nil)
@@ -80,7 +81,7 @@ function OwnerSelector:OnLeave()
     GameTooltip:Hide()
 end
 
-function OwnerSelector:Update()
+function OwnerSelector:Refresh()
     self:UpdateEnable()
     self:UpdateIcon()
 end
@@ -149,7 +150,8 @@ function OwnerSelector:CreateOwnerMenu(name)
             },
         },
         func = function()
-            return self.meta:SetOwner(name)
+            self.meta:SetOwner(name)
+            self:CloseMenu()
         end,
     }
 end

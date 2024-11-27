@@ -741,6 +741,7 @@ function ns.safeipairs(t)
     if t then
         return ipairs(t)
     else
+        ---@diagnostic disable-next-line: missing-return-value
         return nop
     end
 end

@@ -433,6 +433,19 @@ function ItemBase:IsJunk()
 end
 
 function ItemBase:IsInEquipSet()
+    if Search.BelongsToSet == nop then
+        local id = self.info.id
+        if C.Item.IsEquippableItem(id) then
+            for _, setID in pairs(C.EquipmentSet.GetEquipmentSetIDs()) do
+                local items = C.EquipmentSet.GetItemIDs(setID)
+                for _, v in pairs(items) do
+                    if v == id then
+                        return true
+                    end
+                end
+            end
+        end
+    end
     return Search:BelongsToSet(self.info.id)
 end
 
