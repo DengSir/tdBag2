@@ -36,23 +36,23 @@ function TokenFrame:Constructor(_, meta)
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnClick', self.OnClick)
     self:SetScript('OnReceiveDrag', self.OnReceiveDrag)
-    self:SetScript('OnSizeChanged', self.Update)
-    self:Update()
+    self:SetScript('OnSizeChanged', self.Refresh)
+    self:Refresh()
 end
 
 function TokenFrame:OnShow()
     if not self.meta:IsCached() then
-        self:RegisterEvent('BAG_UPDATE_DELAYED', 'Update')
+        self:RegisterEvent('BAG_UPDATE_DELAYED', 'Refresh')
     else
         self:UnregisterAllEvents()
     end
-    self:RegisterEvent('WATCHED_TOKEN_CHANGED', 'Update')
-    self:RegisterEvent('UPDATE_ALL', 'Update')
+    self:RegisterEvent('WATCHED_TOKEN_CHANGED', 'Refresh')
+    self:RegisterEvent('UPDATE_ALL', 'Refresh')
     -- @build>3@
-    self:RegisterEvent('WATCHED_CURRENCY_CHANGED', 'Update')
+    self:RegisterEvent('WATCHED_CURRENCY_CHANGED', 'Refresh')
     -- @end-build>3@
-    self:RegisterFrameEvent('OWNER_CHANGED', 'Update')
-    self:Update()
+    self:RegisterFrameEvent('OWNER_CHANGED', 'Refresh')
+    self:Refresh()
 end
 
 function TokenFrame:OnClick(clicked)
@@ -103,7 +103,7 @@ function TokenFrame:GetButton(i)
     return self.buttons[i]
 end
 
-function TokenFrame:Update()
+function TokenFrame:Refresh()
     local index = 0
     local width = self.PADDING * 2
 
