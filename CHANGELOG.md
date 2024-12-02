@@ -1,3 +1,17 @@
+# [2.3.0](https://github.com/DengSir/tdBag2/compare/v2.2.16...v2.3.0) (2024-12-02)
+
+
+### Bug Fixes
+
+* not show equipset border ([8b4826a](https://github.com/DengSir/tdBag2/commit/8b4826a3e332f2fa9557d04becf7ed4ea9b8650f))
+
+
+### Features
+
+* support Vanilla ([e8b052c](https://github.com/DengSir/tdBag2/commit/e8b052cb7cf81ef974135dd8aca0c9e6b547c43c))
+
+
+
 ## [2.2.16](https://github.com/DengSir/tdBag2/compare/v2.2.15...v2.2.16) (2024-06-29)
 
 
