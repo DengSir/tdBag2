@@ -1,6 +1,6 @@
 [![Publish 🚛](https://github.com/DengSir/tdBag2/actions/workflows/publish.yml/badge.svg)](https://github.com/DengSir/tdBag2/actions/workflows/publish.yml)
-[![GitHub package.json version](https://img.shields.io/github/package-json/v/DengSir/tdBag2)](https://github.com/DengSir/tdBag2/releases)
-[![CurseForge Downloads](https://img.shields.io/curseforge/dt/349175)](https://www.curseforge.com/wow/addons/tdbag2)
+[![GitHub Release](https://img.shields.io/github/v/release/DengSir/tdBag2?label=Release)](https://github.com/DengSir/tdBag2/releases)
+[![CurseForge Downloads](https://img.shields.io/curseforge/dt/349175?label=Curse%20downloads)](https://www.curseforge.com/wow/addons/tdbag2)
 
 tdBag2 is a another bag addon that combines all individual bags into one big bag.
 
