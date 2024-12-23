@@ -1,4 +1,3 @@
-[![CI 🧃](https://github.com/DengSir/tdBag2/actions/workflows/ci.yml/badge.svg)](https://github.com/DengSir/tdBag2/actions/workflows/ci.yml)
 [![Publish 🚛](https://github.com/DengSir/tdBag2/actions/workflows/publish.yml/badge.svg)](https://github.com/DengSir/tdBag2/actions/workflows/publish.yml)
 
 tdBag2 is a another bag addon that combines all individual bags into one big bag.
@@ -23,4 +22,4 @@ Take a look at my other addon: [tdPack2](https://www.curseforge.com/wow/addons/t
 [Oil Times](https://www.curseforge.com/wow/addons/tdbag2-oiltimes "Oil Times") - Show the remaining times of oils
 
 # Preview
-![Preview](https://media.forgecdn.net/attachments/266/723/popo20191024151426.jpg "Preview")
+![Preview](https://dengsir.github.io/images/tdBag2_1.jpg "Preview")
