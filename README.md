@@ -1,4 +1,4 @@
-[![Publish 🚛](https://github.com/DengSir/tdBag2/actions/workflows/publish.yml/badge.svg)](https://github.com/DengSir/tdBag2/actions/workflows/publish.yml)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/DengSir/tdBag2/publish.yml?label=Publish)](https://github.com/DengSir/tdBag2/actions/workflows/publish.yml)
 [![GitHub Release](https://img.shields.io/github/v/release/DengSir/tdBag2?label=Release)](https://github.com/DengSir/tdBag2/releases)
 [![CurseForge Downloads](https://img.shields.io/curseforge/dt/349175?label=Curse%20downloads)](https://www.curseforge.com/wow/addons/tdbag2)
 
