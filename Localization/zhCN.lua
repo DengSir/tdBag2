@@ -144,6 +144,8 @@ L['Completed Trade'] = '完成交易时'
 L['Entering Combat'] = '进入战斗时'
 
 L.Profile = '配置文件'
+L['Current account character'] = true
+L['Other account character'] = true
 -- @locale-fill@
 
 -- @end-import@

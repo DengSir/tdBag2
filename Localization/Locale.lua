@@ -55,6 +55,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Container Colors"] = "Container Colors"--]] 
 --[[Translation missing --]]
+--[[ L["Current account character"] = "Current account character"--]] 
+--[[Translation missing --]]
 --[[ L["Default"] = "Default"--]] 
 --[[Translation missing --]]
 --[[ L["DESC_COLORS"] = "Color preference Settings."--]] 
@@ -152,6 +154,8 @@ L = L or {}
 --[[ L["Opening the Character Info"] = "Opening the Character Info"--]] 
 --[[Translation missing --]]
 --[[ L["Opening Trade Skills"] = "Opening Trade Skills"--]] 
+--[[Translation missing --]]
+--[[ L["Other account character"] = "Other account character"--]] 
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
@@ -297,6 +301,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Container Colors"] = "Container Colors"--]] 
 --[[Translation missing --]]
+--[[ L["Current account character"] = "Current account character"--]] 
+--[[Translation missing --]]
 --[[ L["Default"] = "Default"--]] 
 --[[Translation missing --]]
 --[[ L["DESC_COLORS"] = "Color preference Settings."--]] 
@@ -394,6 +400,8 @@ L = L or {}
 --[[ L["Opening the Character Info"] = "Opening the Character Info"--]] 
 --[[Translation missing --]]
 --[[ L["Opening Trade Skills"] = "Opening Trade Skills"--]] 
+--[[Translation missing --]]
+--[[ L["Other account character"] = "Other account character"--]] 
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
@@ -539,6 +547,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Container Colors"] = "Container Colors"--]] 
 --[[Translation missing --]]
+--[[ L["Current account character"] = "Current account character"--]] 
+--[[Translation missing --]]
 --[[ L["Default"] = "Default"--]] 
 --[[Translation missing --]]
 --[[ L["DESC_COLORS"] = "Color preference Settings."--]] 
@@ -636,6 +646,8 @@ L = L or {}
 --[[ L["Opening the Character Info"] = "Opening the Character Info"--]] 
 --[[Translation missing --]]
 --[[ L["Opening Trade Skills"] = "Opening Trade Skills"--]] 
+--[[Translation missing --]]
+--[[ L["Other account character"] = "Other account character"--]] 
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
@@ -781,6 +793,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Container Colors"] = "Container Colors"--]] 
 --[[Translation missing --]]
+--[[ L["Current account character"] = "Current account character"--]] 
+--[[Translation missing --]]
 --[[ L["Default"] = "Default"--]] 
 --[[Translation missing --]]
 --[[ L["DESC_COLORS"] = "Color preference Settings."--]] 
@@ -878,6 +892,8 @@ L = L or {}
 --[[ L["Opening the Character Info"] = "Opening the Character Info"--]] 
 --[[Translation missing --]]
 --[[ L["Opening Trade Skills"] = "Opening Trade Skills"--]] 
+--[[Translation missing --]]
+--[[ L["Other account character"] = "Other account character"--]] 
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
@@ -1001,6 +1017,8 @@ L["Color Settings"] = "색상 설정"
 L["Columns"] = "열"
 L["Completed Trade"] = "거래 완료 시"
 L["Container Colors"] = "소지품 색상"
+--[[Translation missing --]]
+--[[ L["Current account character"] = "Current account character"--]] 
 L["Default"] = "기본"
 L["DESC_COLORS"] = "색상 기본 설정입니다."
 L["DESC_DISPLAY"] = "자동 표시 및 닫기입니다."
@@ -1055,6 +1073,8 @@ L["No record"] = "기록 없음"
 L["Normal Color"] = "보통 색상"
 L["Opening the Character Info"] = "캐릭터 정보 열 때"
 L["Opening Trade Skills"] = "전문 기술 열 때"
+--[[Translation missing --]]
+--[[ L["Other account character"] = "Other account character"--]] 
 L["Plugin Buttons"] = "플러그인 버튼"
 --[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
@@ -1155,6 +1175,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Container Colors"] = "Container Colors"--]] 
 --[[Translation missing --]]
+--[[ L["Current account character"] = "Current account character"--]] 
+--[[Translation missing --]]
 --[[ L["Default"] = "Default"--]] 
 --[[Translation missing --]]
 --[[ L["DESC_COLORS"] = "Color preference Settings."--]] 
@@ -1252,6 +1274,8 @@ L = L or {}
 --[[ L["Opening the Character Info"] = "Opening the Character Info"--]] 
 --[[Translation missing --]]
 --[[ L["Opening Trade Skills"] = "Opening Trade Skills"--]] 
+--[[Translation missing --]]
+--[[ L["Other account character"] = "Other account character"--]] 
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
@@ -1381,6 +1405,8 @@ L["Color Settings"] = "Параметры цветов"
 L["Columns"] = "Столбцы"
 L["Completed Trade"] = "Выполненная торговля"
 L["Container Colors"] = "Цвета контейнера"
+--[[Translation missing --]]
+--[[ L["Current account character"] = "Current account character"--]] 
 L["Default"] = "По умолчанию"
 L["DESC_COLORS"] = "Настройки предпочтений цвета"
 L["DESC_DISPLAY"] = "Автоматическое отображение и закрытие"
@@ -1451,6 +1477,8 @@ L["Lock Frames"] = "Закрепить рамку"
 L["Normal Color"] = "Нормальный цвет"
 L["Opening the Character Info"] = "Открытие информации о персонаже"
 L["Opening Trade Skills"] = "Открытие торговых навыков"
+--[[Translation missing --]]
+--[[ L["Other account character"] = "Other account character"--]] 
 L["Plugin Buttons"] = "Кнопки плагина"
 --[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
@@ -1547,6 +1575,8 @@ L["Color Settings"] = "顏色設置"
 L["Columns"] = "列數"
 L["Completed Trade"] = "完成交易時"
 L["Container Colors"] = "容器顏色"
+--[[Translation missing --]]
+--[[ L["Current account character"] = "Current account character"--]] 
 L["Default"] = "默認"
 L["DESC_COLORS"] = "顏色偏好設置"
 L["DESC_DISPLAY"] = "自動顯示和關閉"
@@ -1601,6 +1631,8 @@ L["No record"] = "沒有記錄"
 L["Normal Color"] = "普通容器顏色"
 L["Opening the Character Info"] = "打開角色面板時"
 L["Opening Trade Skills"] = "打開專業技能時"
+--[[Translation missing --]]
+--[[ L["Other account character"] = "Other account character"--]] 
 L["Plugin Buttons"] = "擴展按鈕"
 --[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 

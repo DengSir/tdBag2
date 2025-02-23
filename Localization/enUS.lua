@@ -25,6 +25,7 @@ L["Color Settings"] = true
 L["Columns"] = true
 L["Completed Trade"] = true
 L["Container Colors"] = true
+L["Current account character"] = true
 L["Default"] = true
 L["DESC_COLORS"] = "Color preference Settings."
 L["DESC_DISPLAY"] = "Auto Display and Close."
@@ -74,6 +75,7 @@ L["No record"] = true
 L["Normal Color"] = true
 L["Opening the Character Info"] = true
 L["Opening Trade Skills"] = true
+L["Other account character"] = true
 L["Plugin Buttons"] = true
 L["Profile"] = true
 L["Quiver Color"] = true
@@ -264,6 +266,8 @@ L['Closing Trade Skills'] = true
 L['Completed Trade'] = true
 L['Entering Combat'] = true
 L.Profile = true
+L['Current account character'] = true
+L['Other account character'] = true
 -- @locale-fill@
 -- @end-import@
 -- @end-debug@
