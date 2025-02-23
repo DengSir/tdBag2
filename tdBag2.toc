@@ -3,7 +3,7 @@
 ## IconTexture: Interface\Buttons\Button-Backpack-Up
 ## Author: Dencer
 ## Version: @project-version@
-## OptionalDeps: tdPack2
+## OptionalDeps: tdPack2, tdSync
 ## SavedVariables: TDDB_BAG2
 
 Load.xml

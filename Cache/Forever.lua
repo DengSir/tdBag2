@@ -87,7 +87,6 @@ function Forever:SetupAnyAccount()
         end)
         if ok and realmDb then
             for owner, data in pairs(realmDb) do
-                print(owner, data)
                 if owner ~= ns.PLAYER then
                     if ns.IsGuildOwner(owner) then
                         if data.timestamp and (not guilds[owner] or data.timestamp > guilds[owner].timestamp) then
@@ -168,23 +167,27 @@ end
 function Forever:RefreshOwners()
     local owners = {}
     local guilds = {}
+    local touched = {}
 
     for k in pairs(self.realm) do
-        if k ~= ns.PLAYER then
+        if k ~= ns.PLAYER and not touched[k] then
             if not ns.IsGuildOwner(k) then
                 tinsert(owners, k)
             else
                 tinsert(guilds, k)
             end
+            touched[k] = true
         end
     end
+
     for k in pairs(self.other) do
-        if k ~= ns.PLAYER then
+        if k ~= ns.PLAYER and not touched[k] then
             if not ns.IsGuildOwner(k) then
                 tinsert(owners, k)
             else
                 tinsert(guilds, k)
             end
+            touched[k] = true
         end
     end
 
@@ -395,24 +398,17 @@ function Forever:SaveGuild()
     guild.timestamp = time()
 end
 
-function Forever:FindData(...)
-    return self:FindDataFromLocal(...) or self:FindDataFromOther(...)
-end
-
-function Forever:FindDataFromLocal(...)
-    local db = self.db
-    for i = 1, select('#', ...) do
-        local key = select(i, ...)
-        db = db[key]
-        if not db then
-            return
-        end
+function Forever:FindData(realm, name, ...)
+    local db
+    if realm == ns.REALM then
+        db = self.realm[name] or self.other[name]
+    else
+        db = self.db[realm] and self.db[realm][name]
     end
-    return db
-end
+    if not db then
+        return
+    end
 
-function Forever:FindDataFromOther(_, ...)
-    local db = self.other
     for i = 1, select('#', ...) do
         local key = select(i, ...)
         db = db[key]
