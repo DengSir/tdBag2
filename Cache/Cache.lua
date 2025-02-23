@@ -86,3 +86,7 @@ end
 function Cache:DeleteOwnerInfo(owner)
     return Forever:DeleteOwnerInfo(ns.GetOwnerAddress(owner))
 end
+
+function Cache:IsOtherOwner(owner)
+    return Forever:IsOtherOwner(owner)
+end

@@ -117,10 +117,20 @@ end
 
 function OwnerSelector:CreateMenu()
     local menuList = {}
+    local otherTouched = false
+
     for _, owner in ipairs(Cache:GetOwners()) do
         if not ns.IsGuildOwner(owner) then
+            if not otherTouched and Cache:IsOtherOwner(owner) then
+                otherTouched = true
+                tinsert(menuList, {text = L['Other account character'], isTitle = true, notCheckable = true})
+            end
             tinsert(menuList, self:CreateOwnerMenu(owner))
         end
+    end
+
+    if otherTouched then
+        tinsert(menuList, 1, {text = L['Current account character'], isTitle = true, notCheckable = true})
     end
     return menuList
 end
@@ -131,7 +141,7 @@ function OwnerSelector:CreateOwnerMenu(name)
         name = nil
     end
     local isCurrent = name == self.meta.owner
-    local hasArrow = not isSelf and not isCurrent
+    local hasArrow = not isSelf and not isCurrent and not Cache:IsOtherOwner(name)
     local info = Cache:GetOwnerInfo(name)
 
     return {

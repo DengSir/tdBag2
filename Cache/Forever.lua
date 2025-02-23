@@ -65,9 +65,47 @@ end
 function Forever:OnEnable()
     self:UpgradeCache()
     self:SetupCache()
+    self:SetupAnyAccount()
+    self:RefreshOwners()
     self:SetupEvents()
     self:UpdateData()
     self:SendMessage('FOREVER_LOADED')
+end
+
+function Forever:SetupAnyAccount()
+    self.other = {}
+
+    if not _G.TDDB_BAG2_ANYACCOUNT then
+        return
+    end
+
+    local guilds = {}
+
+    for _, v in pairs(_G.TDDB_BAG2_ANYACCOUNT) do
+        local ok, realmDb = pcall(function()
+            return v.global.forever[ns.REALM]
+        end)
+        if ok and realmDb then
+            for owner, data in pairs(realmDb) do
+                print(owner, data)
+                if owner ~= ns.PLAYER then
+                    if ns.IsGuildOwner(owner) then
+                        if data.timestamp and (not guilds[owner] or data.timestamp > guilds[owner].timestamp) then
+                            guilds[owner] = data
+                        end
+                    elseif not self.realm[owner] then
+                        self.other[owner] = data
+                    end
+                end
+            end
+        end
+    end
+
+    for k, v in pairs(guilds) do
+        self.other[k] = v
+    end
+
+    _G.TDDB_BAG2_ANYACCOUNT = nil
 end
 
 function Forever:UpgradeCache()
@@ -111,8 +149,20 @@ function Forever:SetupCache()
     self.player.class = UnitClassBase('player')
     self.player.race = select(2, UnitRace('player'))
     self.player.gender = UnitSex('player')
+end
 
-    self:RefreshOwners()
+local function compare(a, b)
+    return Forever:CompareOwner(a, b)
+end
+
+function Forever:CompareOwner(a, b)
+    if self.realm[a] and self.realm[b] then
+        return self.realm[a].money > self.realm[b].money
+    end
+    if self.other[a] and self.other[b] then
+        return self.other[a].money > self.other[b].money
+    end
+    return self.realm[a]
 end
 
 function Forever:RefreshOwners()
@@ -128,9 +178,17 @@ function Forever:RefreshOwners()
             end
         end
     end
-    sort(owners, function(a, b)
-        return (self.realm[a].money or 0) > (self.realm[b].money or 0)
-    end)
+    for k in pairs(self.other) do
+        if k ~= ns.PLAYER then
+            if not ns.IsGuildOwner(k) then
+                tinsert(owners, k)
+            else
+                tinsert(guilds, k)
+            end
+        end
+    end
+
+    sort(owners, compare)
     tinsert(owners, 1, ns.PLAYER)
 
     for _, k in ipairs(guilds) do
@@ -334,10 +392,27 @@ function Forever:SaveGuild()
 
         guild[i + 50] = items
     end
+    guild.timestamp = time()
 end
 
 function Forever:FindData(...)
+    return self:FindDataFromLocal(...) or self:FindDataFromOther(...)
+end
+
+function Forever:FindDataFromLocal(...)
     local db = self.db
+    for i = 1, select('#', ...) do
+        local key = select(i, ...)
+        db = db[key]
+        if not db then
+            return
+        end
+    end
+    return db
+end
+
+function Forever:FindDataFromOther(_, ...)
+    local db = self.other
     for i = 1, select('#', ...) do
         local key = select(i, ...)
         db = db[key]
@@ -461,4 +536,8 @@ function Forever:DeleteOwnerInfo(realm, name)
             ns.Events:Fire('OWNER_REMOVED')
         end
     end
+end
+
+function Forever:IsOtherOwner(owner)
+    return not self.realm[owner]
 end
