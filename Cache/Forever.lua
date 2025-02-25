@@ -191,6 +191,8 @@ function Forever:RefreshOwners()
         end
     end
 
+    self.characterOwnerCount = #owners
+
     sort(owners, compare)
     tinsert(owners, 1, ns.PLAYER)
 
@@ -519,7 +521,7 @@ function Forever:GetOwners()
 end
 
 function Forever:HasMultiOwners()
-    return #self.owners > 1
+    return self.characterOwnerCount and self.characterOwnerCount > 0
 end
 
 function Forever:DeleteOwnerInfo(realm, name)
