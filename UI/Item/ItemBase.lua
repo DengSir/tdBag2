@@ -269,12 +269,18 @@ function ItemBase:UpdateBorder()
     local sets = self.meta.sets
     local r, g, b = self:GetBorderColor()
 
-    if r then
-        self.IconBorder:SetVertexColor(r, g, b, sets.glowAlpha)
-    end
-    self.IconBorder:SetShown(r)
+    self:ApplyBorderColor(r, r, g, b, sets.glowAlpha)
     self.QuestBorder:SetShown(sets.iconQuestStarter and self:IsQuestStarter())
     self.JunkIcon:SetShown(sets.iconJunk and self:IsJunk())
+end
+
+function ItemBase:ApplyBorderColor(shown, r, g, b, a)
+    if shown then
+        self.IconBorder:SetVertexColor(r, g, b, a)
+        self.IconBorder:Show()
+    else
+        self.IconBorder:Hide()
+    end
 end
 
 function ItemBase:UpdateFocus()
