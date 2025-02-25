@@ -157,7 +157,7 @@ end
 
 function Bag:UpdateIcon()
     if self:IsKeyring() then
-        -- self:SetIcon([[Interface\ContainerFrame\Keyring-Bag-Icon]])
+        self:SetIcon([[Interface\ContainerFrame\Keyring-Bag-Icon]])
     elseif self:IsBaseBag() then
         self:SetIcon(self.meta.icon)
     else
