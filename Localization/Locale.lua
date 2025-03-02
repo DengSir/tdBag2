@@ -169,6 +169,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Reverse Slot Order"] = "Reverse Slot Order"--]] 
 --[[Translation missing --]]
+--[[ L["See other account character?"] = "See other account character?"--]] 
+--[[Translation missing --]]
 --[[ L["Show Character Portrait"] = "Show Character Portrait"--]] 
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
@@ -414,6 +416,8 @@ L = L or {}
 --[[ L["Reverse Bag Order"] = "Reverse Bag Order"--]] 
 --[[Translation missing --]]
 --[[ L["Reverse Slot Order"] = "Reverse Slot Order"--]] 
+--[[Translation missing --]]
+--[[ L["See other account character?"] = "See other account character?"--]] 
 --[[Translation missing --]]
 --[[ L["Show Character Portrait"] = "Show Character Portrait"--]] 
 --[[Translation missing --]]
@@ -661,6 +665,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Reverse Slot Order"] = "Reverse Slot Order"--]] 
 --[[Translation missing --]]
+--[[ L["See other account character?"] = "See other account character?"--]] 
+--[[Translation missing --]]
 --[[ L["Show Character Portrait"] = "Show Character Portrait"--]] 
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
@@ -907,6 +913,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Reverse Slot Order"] = "Reverse Slot Order"--]] 
 --[[Translation missing --]]
+--[[ L["See other account character?"] = "See other account character?"--]] 
+--[[Translation missing --]]
 --[[ L["Show Character Portrait"] = "Show Character Portrait"--]] 
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
@@ -1082,6 +1090,8 @@ L["Quiver Color"] = "화살통/탄환주머니 칸 색상"
 L["Restore default Settings"] = "기본 설정 복원"
 L["Reverse Bag Order"] = "가방 순서 반대로"
 L["Reverse Slot Order"] = "칸 순서 반대로"
+--[[Translation missing --]]
+--[[ L["See other account character?"] = "See other account character?"--]] 
 L["Show Character Portrait"] = "캐릭터 초상화 보기"
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
@@ -1289,6 +1299,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Reverse Slot Order"] = "Reverse Slot Order"--]] 
 --[[Translation missing --]]
+--[[ L["See other account character?"] = "See other account character?"--]] 
+--[[Translation missing --]]
 --[[ L["Show Character Portrait"] = "Show Character Portrait"--]] 
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
@@ -1488,6 +1500,8 @@ L["Quiver Color"] = "Цвет колчана"
 L["Reverse Bag Order"] = "Обратный порядок сумки"
 L["Reverse Slot Order"] = "Обратный порядок слота"
 --[[Translation missing --]]
+--[[ L["See other account character?"] = "See other account character?"--]] 
+--[[Translation missing --]]
 --[[ L["Show Character Portrait"] = "Show Character Portrait"--]] 
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
@@ -1640,6 +1654,8 @@ L["Quiver Color"] = "箭袋顏色"
 L["Restore default Settings"] = "恢復默認設置"
 L["Reverse Bag Order"] = "反向背包排列"
 L["Reverse Slot Order"] = "反向物品排列"
+--[[Translation missing --]]
+--[[ L["See other account character?"] = "See other account character?"--]] 
 L["Show Character Portrait"] = "顯示角色頭像"
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 

@@ -82,6 +82,7 @@ L["Quiver Color"] = true
 L["Restore default Settings"] = true
 L["Reverse Bag Order"] = true
 L["Reverse Slot Order"] = true
+L["See other account character?"] = true
 L["Show Character Portrait"] = true
 L["Show Guild Bank Count in Tooltip"] = true
 L["Show Item Count in Tooltip"] = true
@@ -268,6 +269,7 @@ L['Entering Combat'] = true
 L.Profile = true
 L['Current account character'] = true
 L['Other account character'] = true
+L['See other account character?'] = true
 -- @locale-fill@
 -- @end-import@
 -- @end-debug@
