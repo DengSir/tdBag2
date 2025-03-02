@@ -146,7 +146,7 @@ L['Entering Combat'] = '进入战斗时'
 L.Profile = '配置文件'
 L['Current account character'] = '当前账号角色'
 L['Other account character'] = '其它账号角色'
-L['See other account character?'] = true
+L['See other account character?'] = '查看其他账号角色的背包？'
 -- @locale-fill@
 
 -- @end-import@
