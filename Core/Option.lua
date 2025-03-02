@@ -376,6 +376,10 @@ function Addon:SetupOptionFrame()
                     end,
                 },
             }),
+            otherTitle = treeTitle(L['Other']),
+            support = treeItem(L['Support'], {
+                desc = desc(L.DESC_SUPPORT),
+            }),
         },
     }
 
@@ -386,6 +390,10 @@ end
 
 function Addon:OpenFrameOption(bagId)
     tdOptions:Open('tdBag2', bagId)
+end
+
+function Addon:OpenOption(...)
+    tdOptions:Open('tdBag2', ...)
 end
 
 function Addon:RefreshPluginOptions()

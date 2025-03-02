@@ -138,7 +138,14 @@ function OwnerSelector:CreateMenu()
     end
 
     if not hasOther then
-        tinsert(menuList, {text = L['See other account character?'], notCheckable = true})
+        tinsert(menuList, self.SEPARATOR)
+        tinsert(menuList, {
+            text = [[|TInterface\Common\help-i:24:24:0:0:64:64:10:54:10:54|t]] .. L['See other account character?'],
+            notCheckable = true,
+            func = function()
+                Addon:OpenOption('support')
+            end,
+        })
     end
 
     return menuList
