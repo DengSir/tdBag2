@@ -67,6 +67,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["DESC_GENERAL"] = "General preference Settings."--]] 
 --[[Translation missing --]]
+--[[ L["DESC_SUPPORT"] = "DESC_SUPPORT"--]] 
+--[[Translation missing --]]
 --[[ L["Empty Slot Brightness"] = "Empty Slot Brightness"--]] 
 --[[Translation missing --]]
 --[[ L["Enchanting Color"] = "Enchanting Color"--]] 
@@ -155,6 +157,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Opening Trade Skills"] = "Opening Trade Skills"--]] 
 --[[Translation missing --]]
+--[[ L["Other"] = "Other"--]] 
+--[[Translation missing --]]
 --[[ L["Other account character"] = "Other account character"--]] 
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
@@ -186,6 +190,8 @@ L = L or {}
 --[[ L["Slot Colors"] = "Slot Colors"--]] 
 --[[Translation missing --]]
 --[[ L["Soul Color"] = "Soul Color"--]] 
+--[[Translation missing --]]
+--[[ L["Support"] = "Support"--]] 
 --[[Translation missing --]]
 --[[ L["Time Remaining"] = "Time Remaining"--]] 
 --[[Translation missing --]]
@@ -315,6 +321,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["DESC_GENERAL"] = "General preference Settings."--]] 
 --[[Translation missing --]]
+--[[ L["DESC_SUPPORT"] = "DESC_SUPPORT"--]] 
+--[[Translation missing --]]
 --[[ L["Empty Slot Brightness"] = "Empty Slot Brightness"--]] 
 --[[Translation missing --]]
 --[[ L["Enchanting Color"] = "Enchanting Color"--]] 
@@ -403,6 +411,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Opening Trade Skills"] = "Opening Trade Skills"--]] 
 --[[Translation missing --]]
+--[[ L["Other"] = "Other"--]] 
+--[[Translation missing --]]
 --[[ L["Other account character"] = "Other account character"--]] 
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
@@ -434,6 +444,8 @@ L = L or {}
 --[[ L["Slot Colors"] = "Slot Colors"--]] 
 --[[Translation missing --]]
 --[[ L["Soul Color"] = "Soul Color"--]] 
+--[[Translation missing --]]
+--[[ L["Support"] = "Support"--]] 
 --[[Translation missing --]]
 --[[ L["Time Remaining"] = "Time Remaining"--]] 
 --[[Translation missing --]]
@@ -563,6 +575,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["DESC_GENERAL"] = "General preference Settings."--]] 
 --[[Translation missing --]]
+--[[ L["DESC_SUPPORT"] = "DESC_SUPPORT"--]] 
+--[[Translation missing --]]
 --[[ L["Empty Slot Brightness"] = "Empty Slot Brightness"--]] 
 --[[Translation missing --]]
 --[[ L["Enchanting Color"] = "Enchanting Color"--]] 
@@ -651,6 +665,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Opening Trade Skills"] = "Opening Trade Skills"--]] 
 --[[Translation missing --]]
+--[[ L["Other"] = "Other"--]] 
+--[[Translation missing --]]
 --[[ L["Other account character"] = "Other account character"--]] 
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
@@ -682,6 +698,8 @@ L = L or {}
 --[[ L["Slot Colors"] = "Slot Colors"--]] 
 --[[Translation missing --]]
 --[[ L["Soul Color"] = "Soul Color"--]] 
+--[[Translation missing --]]
+--[[ L["Support"] = "Support"--]] 
 --[[Translation missing --]]
 --[[ L["Time Remaining"] = "Time Remaining"--]] 
 --[[Translation missing --]]
@@ -811,6 +829,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["DESC_GENERAL"] = "General preference Settings."--]] 
 --[[Translation missing --]]
+--[[ L["DESC_SUPPORT"] = "DESC_SUPPORT"--]] 
+--[[Translation missing --]]
 --[[ L["Empty Slot Brightness"] = "Empty Slot Brightness"--]] 
 --[[Translation missing --]]
 --[[ L["Enchanting Color"] = "Enchanting Color"--]] 
@@ -899,6 +919,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Opening Trade Skills"] = "Opening Trade Skills"--]] 
 --[[Translation missing --]]
+--[[ L["Other"] = "Other"--]] 
+--[[Translation missing --]]
 --[[ L["Other account character"] = "Other account character"--]] 
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
@@ -930,6 +952,8 @@ L = L or {}
 --[[ L["Slot Colors"] = "Slot Colors"--]] 
 --[[Translation missing --]]
 --[[ L["Soul Color"] = "Soul Color"--]] 
+--[[Translation missing --]]
+--[[ L["Support"] = "Support"--]] 
 --[[Translation missing --]]
 --[[ L["Time Remaining"] = "Time Remaining"--]] 
 --[[Translation missing --]]
@@ -1032,6 +1056,8 @@ L["DESC_COLORS"] = "색상 기본 설정입니다."
 L["DESC_DISPLAY"] = "자동 표시 및 닫기입니다."
 L["DESC_FRAMES"] = "가방 기본 설정입니다."
 L["DESC_GENERAL"] = "일반 환경 설정입니다."
+--[[Translation missing --]]
+--[[ L["DESC_SUPPORT"] = "DESC_SUPPORT"--]] 
 L["Empty Slot Brightness"] = "빈 칸 밝기"
 L["Enchanting Color"] = "마법부여 색상"
 --[[Translation missing --]]
@@ -1082,6 +1108,8 @@ L["Normal Color"] = "보통 색상"
 L["Opening the Character Info"] = "캐릭터 정보 열 때"
 L["Opening Trade Skills"] = "전문 기술 열 때"
 --[[Translation missing --]]
+--[[ L["Other"] = "Other"--]] 
+--[[Translation missing --]]
 --[[ L["Other account character"] = "Other account character"--]] 
 L["Plugin Buttons"] = "플러그인 버튼"
 --[[Translation missing --]]
@@ -1101,6 +1129,8 @@ L["Show Offline Text in Bag's Title"] = "다른 캐릭터 가방 제목에 접�
 L["Show Quest Starter Icon"] = "퀘스트 시작템 아이콘 보기"
 L["Slot Colors"] = "칸 색상"
 L["Soul Color"] = "영혼 칸 색상"
+--[[Translation missing --]]
+--[[ L["Support"] = "Support"--]] 
 L["Time Remaining"] = "남은 시간"
 L["TITLE_BAG"] = "%s의 소지품"
 L["TITLE_BANK"] = "%s의 은행"
@@ -1197,6 +1227,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["DESC_GENERAL"] = "General preference Settings."--]] 
 --[[Translation missing --]]
+--[[ L["DESC_SUPPORT"] = "DESC_SUPPORT"--]] 
+--[[Translation missing --]]
 --[[ L["Empty Slot Brightness"] = "Empty Slot Brightness"--]] 
 --[[Translation missing --]]
 --[[ L["Enchanting Color"] = "Enchanting Color"--]] 
@@ -1285,6 +1317,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Opening Trade Skills"] = "Opening Trade Skills"--]] 
 --[[Translation missing --]]
+--[[ L["Other"] = "Other"--]] 
+--[[Translation missing --]]
 --[[ L["Other account character"] = "Other account character"--]] 
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
@@ -1316,6 +1350,8 @@ L = L or {}
 --[[ L["Slot Colors"] = "Slot Colors"--]] 
 --[[Translation missing --]]
 --[[ L["Soul Color"] = "Soul Color"--]] 
+--[[Translation missing --]]
+--[[ L["Support"] = "Support"--]] 
 --[[Translation missing --]]
 --[[ L["Time Remaining"] = "Time Remaining"--]] 
 --[[Translation missing --]]
@@ -1424,6 +1460,8 @@ L["DESC_COLORS"] = "Настройки предпочтений цвета"
 L["DESC_DISPLAY"] = "Автоматическое отображение и закрытие"
 L["DESC_FRAMES"] = "Настройки предпочтений сумки"
 L["DESC_GENERAL"] = "Общие настройки предпочтений"
+--[[Translation missing --]]
+--[[ L["DESC_SUPPORT"] = "DESC_SUPPORT"--]] 
 L["Empty Slot Brightness"] = "Яркость пустого слота"
 L["Enchanting Color"] = "Цвет чар"
 --[[Translation missing --]]
@@ -1490,6 +1528,8 @@ L["Normal Color"] = "Нормальный цвет"
 L["Opening the Character Info"] = "Открытие информации о персонаже"
 L["Opening Trade Skills"] = "Открытие торговых навыков"
 --[[Translation missing --]]
+--[[ L["Other"] = "Other"--]] 
+--[[Translation missing --]]
 --[[ L["Other account character"] = "Other account character"--]] 
 L["Plugin Buttons"] = "Кнопки плагина"
 --[[Translation missing --]]
@@ -1511,6 +1551,8 @@ L["Show Offline Text in Bag's Title"] = "Показать автономный �
 L["Show Quest Starter Icon"] = "Скрыть иконку квестового предмета"
 L["Slot Colors"] = "Цвета слотов"
 L["Soul Color"] = "Цвет души"
+--[[Translation missing --]]
+--[[ L["Support"] = "Support"--]] 
 --[[Translation missing --]]
 --[[ L["Time Remaining"] = "Time Remaining"--]] 
 L["TITLE_BAG"] = "%s's инвентарь"
@@ -1596,6 +1638,8 @@ L["DESC_COLORS"] = "顏色偏好設置"
 L["DESC_DISPLAY"] = "自動顯示和關閉"
 L["DESC_FRAMES"] = "%s偏好設置"
 L["DESC_GENERAL"] = "通用偏好設置"
+--[[Translation missing --]]
+--[[ L["DESC_SUPPORT"] = "DESC_SUPPORT"--]] 
 L["Empty Slot Brightness"] = "空格亮度"
 L["Enchanting Color"] = "附魔材料袋顏色"
 --[[Translation missing --]]
@@ -1646,6 +1690,8 @@ L["Normal Color"] = "普通容器顏色"
 L["Opening the Character Info"] = "打開角色面板時"
 L["Opening Trade Skills"] = "打開專業技能時"
 --[[Translation missing --]]
+--[[ L["Other"] = "Other"--]] 
+--[[Translation missing --]]
 --[[ L["Other account character"] = "Other account character"--]] 
 L["Plugin Buttons"] = "擴展按鈕"
 --[[Translation missing --]]
@@ -1665,6 +1711,8 @@ L["Show Offline Text in Bag's Title"] = "在背包標題上顯示離線"
 L["Show Quest Starter Icon"] = "顯示任務給予物圖標"
 L["Slot Colors"] = "槽位顏色"
 L["Soul Color"] = "靈魂袋顏色"
+--[[Translation missing --]]
+--[[ L["Support"] = "Support"--]] 
 L["Time Remaining"] = "剩餘時間"
 L["TITLE_BAG"] = "%s的背包"
 L["TITLE_BANK"] = "%s的銀行"

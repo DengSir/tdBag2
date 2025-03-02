@@ -147,6 +147,9 @@ L.Profile = '配置文件'
 L['Current account character'] = '当前账号角色'
 L['Other account character'] = '其它账号角色'
 L['See other account character?'] = '查看其他账号角色的背包？'
+L.DESC_SUPPORT = true
+L.Other = true
+L.Support = true
 -- @locale-fill@
 
 -- @end-import@
