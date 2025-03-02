@@ -79,6 +79,14 @@ function Cache:GetOwners()
     return Forever:GetOwners()
 end
 
+function Cache:GetLocalOwners()
+    return Forever:GetLocalOwners()
+end
+
+function Cache:GetOtherOwners()
+    return Forever:GetOtherOwners()
+end
+
 function Cache:HasMultiOwners()
     return Forever:HasMultiOwners()
 end

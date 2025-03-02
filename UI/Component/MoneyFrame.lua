@@ -80,8 +80,31 @@ function MoneyFrame:OnEnter()
     GameTooltip:SetText(WORLD_QUEST_REWARD_FILTERS_GOLD)
     GameTooltip:AddLine(' ')
 
+    local localOwners = Cache:GetLocalOwners()
+    local otherOwners = Cache:GetOtherOwners()
+    local hasOther = #otherOwners > 0
     local total = 0
-    for _, o in ipairs(Cache:GetOwners()) do
+
+    if hasOther then
+        GameTooltip:AddLine(L['Current account character'])
+    end
+
+    total = self:ApplyOwners(localOwners, total)
+
+    if hasOther then
+        GameTooltip:AddLine(' ')
+        GameTooltip:AddLine(L['Other account character'])
+    end
+
+    total = self:ApplyOwners(otherOwners, total)
+
+    GameTooltip:AddLine(' ')
+    GameTooltip:AddDoubleLine(L['Total'], GetMoneyString(total, true), 0.66, 0.66, 0.66, 1, 1, 1)
+    GameTooltip:Show()
+end
+
+function MoneyFrame:ApplyOwners(owners, total)
+    for _, o in ipairs(owners) do
         local owner = Cache:GetOwnerInfo(o)
         if owner.money then
             local name = ns.GetOwnerColoredName(owner)
@@ -92,9 +115,7 @@ function MoneyFrame:OnEnter()
             total = total + owner.money
         end
     end
-    GameTooltip:AddLine(' ')
-    GameTooltip:AddDoubleLine(L['Total'], GetMoneyString(total, true), 0.66, 0.66, 0.66, 1, 1, 1)
-    GameTooltip:Show()
+    return total
 end
 
 function MoneyFrame:OnClick()

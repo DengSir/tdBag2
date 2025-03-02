@@ -117,21 +117,30 @@ end
 
 function OwnerSelector:CreateMenu()
     local menuList = {}
-    local otherTouched = false
+    local localOwners = Cache:GetLocalOwners()
+    local otherOwners = Cache:GetOtherOwners()
+    local hasOther = #otherOwners > 0
 
-    for _, owner in ipairs(Cache:GetOwners()) do
-        if not ns.IsGuildOwner(owner) then
-            if not otherTouched and Cache:IsOtherOwner(owner) then
-                otherTouched = true
-                tinsert(menuList, {text = L['Other account character'], isTitle = true, notCheckable = true})
-            end
+    if hasOther then
+        tinsert(menuList, {text = L['Current account character'], isTitle = true, notCheckable = true})
+    end
+
+    for _, owner in ipairs(localOwners) do
+        tinsert(menuList, self:CreateOwnerMenu(owner))
+    end
+
+    if hasOther then
+        tinsert(menuList, {text = L['Other account character'], isTitle = true, notCheckable = true})
+
+        for _, owner in ipairs(otherOwners) do
             tinsert(menuList, self:CreateOwnerMenu(owner))
         end
     end
 
-    if otherTouched then
-        tinsert(menuList, 1, {text = L['Current account character'], isTitle = true, notCheckable = true})
+    if not hasOther then
+        tinsert(menuList, {text = L['See other account character?'], notCheckable = true})
     end
+
     return menuList
 end
 

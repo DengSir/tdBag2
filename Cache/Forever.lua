@@ -165,14 +165,16 @@ function Forever:CompareOwner(a, b)
 end
 
 function Forever:RefreshOwners()
-    local owners = {}
+    local localOwners = {}
+    local otherOwners = {}
+    local allOwners = {}
     local guilds = {}
     local touched = {}
 
     for k in pairs(self.realm) do
         if k ~= ns.PLAYER and not touched[k] then
             if not ns.IsGuildOwner(k) then
-                tinsert(owners, k)
+                tinsert(localOwners, k)
             else
                 tinsert(guilds, k)
             end
@@ -183,7 +185,7 @@ function Forever:RefreshOwners()
     for k in pairs(self.other) do
         if k ~= ns.PLAYER and not touched[k] then
             if not ns.IsGuildOwner(k) then
-                tinsert(owners, k)
+                tinsert(otherOwners, k)
             else
                 tinsert(guilds, k)
             end
@@ -191,16 +193,25 @@ function Forever:RefreshOwners()
         end
     end
 
-    self.characterOwnerCount = #owners
+    sort(localOwners, compare)
+    sort(otherOwners, compare)
+    tinsert(localOwners, 1, ns.PLAYER)
 
-    sort(owners, compare)
-    tinsert(owners, 1, ns.PLAYER)
-
-    for _, k in ipairs(guilds) do
-        tinsert(owners, k)
+    for _, v in ipairs(localOwners) do
+        tinsert(allOwners, v)
     end
 
-    self.owners = owners
+    for _, v in ipairs(otherOwners) do
+        tinsert(allOwners, v)
+    end
+
+    for _, v in ipairs(guilds) do
+        tinsert(allOwners, v)
+    end
+
+    self.localOwners = localOwners
+    self.otherOwners = otherOwners
+    self.allOwners = allOwners
 end
 
 function Forever:GetGuildCache()
@@ -517,11 +528,19 @@ function Forever:GetItemInfo(realm, name, bag, slot)
 end
 
 function Forever:GetOwners()
-    return self.owners
+    return self.allOwners
+end
+
+function Forever:GetLocalOwners()
+    return self.localOwners
+end
+
+function Forever:GetOtherOwners()
+    return self.otherOwners
 end
 
 function Forever:HasMultiOwners()
-    return self.characterOwnerCount and self.characterOwnerCount > 0
+    return #self.otherOwners > 0 or #self.localOwners > 0
 end
 
 function Forever:DeleteOwnerInfo(realm, name)
@@ -530,7 +549,7 @@ function Forever:DeleteOwnerInfo(realm, name)
         realmData[name] = nil
 
         if realmData == self.realm then
-            tDeleteItem(self.owners, name)
+            tDeleteItem(self.localOwners, name)
             ns.Events:Fire('OWNER_REMOVED')
         end
     end

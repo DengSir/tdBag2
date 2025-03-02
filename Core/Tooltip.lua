@@ -172,7 +172,11 @@ function Tooltip:AddOwners(tip, item)
             local info = self:GetOwnerItemInfo(owner, item)
             if info and info.total then
                 local r, g, b = info.color.r, info.color.g, info.color.b
-                tip:AddDoubleLine(info.name, info.text, r, g, b, r, g, b)
+                local name = info.name
+                if Cache:IsOtherOwner(owner) then
+                    name = name .. '*'
+                end
+                tip:AddDoubleLine(name, info.text, r, g, b, r, g, b)
 
                 total = total + info.total
                 owners = owners + 1
