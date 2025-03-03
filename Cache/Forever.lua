@@ -12,6 +12,7 @@ local tonumber, floor = tonumber, math.floor
 local strsplit, format = strsplit, string.format
 local time = time
 local tDeleteItem = tDeleteItem
+local tAppendAll = tAppendAll
 
 ---- WOW
 local GetInventoryItemCount = GetInventoryItemCount
@@ -148,6 +149,10 @@ function Forever:SetupCache()
     self.player.class = UnitClassBase('player')
     self.player.race = select(2, UnitRace('player'))
     self.player.gender = UnitSex('player')
+
+    self.allOwners = {}
+    self.localOwners = {}
+    self.otherOwners = {}
 end
 
 local function compare(a, b)
@@ -164,54 +169,35 @@ function Forever:CompareOwner(a, b)
     return self.realm[a]
 end
 
+local function applyOwners(db, owners, guilds, touched)
+    for k in pairs(db) do
+        if k ~= ns.PLAYER and not touched[k] then
+            if ns.IsGuildOwner(k) then
+                tinsert(guilds, k)
+            else
+                tinsert(owners, k)
+            end
+            touched[k] = true
+        end
+    end
+    sort(owners, compare)
+end
+
 function Forever:RefreshOwners()
-    local localOwners = {}
-    local otherOwners = {}
-    local allOwners = {}
+    local localOwners = wipe(self.localOwners)
+    local otherOwners = wipe(self.otherOwners)
+    local allOwners = wipe(self.allOwners)
     local guilds = {}
     local touched = {}
 
-    for k in pairs(self.realm) do
-        if k ~= ns.PLAYER and not touched[k] then
-            if not ns.IsGuildOwner(k) then
-                tinsert(localOwners, k)
-            else
-                tinsert(guilds, k)
-            end
-            touched[k] = true
-        end
-    end
+    applyOwners(self.realm, localOwners, guilds, touched)
+    applyOwners(self.other, otherOwners, guilds, touched)
 
-    for k in pairs(self.other) do
-        if k ~= ns.PLAYER and not touched[k] then
-            if not ns.IsGuildOwner(k) then
-                tinsert(otherOwners, k)
-            else
-                tinsert(guilds, k)
-            end
-            touched[k] = true
-        end
-    end
-
-    sort(localOwners, compare)
-    sort(otherOwners, compare)
     tinsert(localOwners, 1, ns.PLAYER)
 
-    for _, v in ipairs(localOwners) do
-        tinsert(allOwners, v)
-    end
-
-    for _, v in ipairs(otherOwners) do
-        tinsert(allOwners, v)
-    end
-
-    for _, v in ipairs(guilds) do
-        tinsert(allOwners, v)
-    end
-
-    self.localOwners = localOwners
-    self.otherOwners = otherOwners
-    self.allOwners = allOwners
+    tAppendAll(allOwners, localOwners)
+    tAppendAll(allOwners, otherOwners)
+    tAppendAll(allOwners, guilds)
 end
 
 function Forever:GetGuildCache()
