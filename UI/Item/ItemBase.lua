@@ -52,6 +52,7 @@ local KEYRING_FAMILY = ns.KEYRING_FAMILY
 ---@field EMPTY_SLOT_TEXTURE string
 local ItemBase = ns.Addon:NewClass('UI.ItemBase', ns.ITEM_BUTTON_CLASS)
 ItemBase.pool = {}
+ItemBase.pluginPendings = {}
 ItemBase.GenerateName = ns.NameGenerator('tdBag2ItemBase')
 
 function ItemBase:Constructor()
@@ -124,6 +125,7 @@ function ItemBase:Free()
     self:SetID(0)
     self:Hide()
     self.pool[self] = true
+    self.pluginPendings[self] = nil
 end
 
 function ItemBase:SetBagSlot(parent, meta, bag, slot)
@@ -334,14 +336,34 @@ function ItemBase:UpdateRemain()
     self.Timeout:Show()
 end
 
+local PendingUpdatePlugin
+do
+    local timer
+    local pendings = ItemBase.pluginPendings
+
+    local function OnTimer()
+        timer = nil
+
+        for obj in pairs(pendings) do
+            obj:OnUpdatePlugin()
+        end
+        wipe(pendings)
+    end
+
+    function PendingUpdatePlugin(obj)
+        if not timer then
+            timer = true
+            C.Timer.After(0.01, OnTimer)
+        end
+        pendings[obj] = true
+    end
+end
+
 function ItemBase:UpdatePlugin()
     if not Addon:HasAnyItemPlugin() then
         return
     end
-
-    C.Timer.After(0.01, function()
-        return self:OnUpdatePlugin()
-    end)
+    return PendingUpdatePlugin(self)
 end
 
 function ItemBase:OnUpdatePlugin()
