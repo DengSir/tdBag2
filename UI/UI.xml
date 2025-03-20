@@ -2,8 +2,7 @@
 ..\FrameXML\UI.xsd">
     <Include file="Style\Style.xml" />
 
-    <Script file="Abstract\MenuButton.lua" build="wlk" />
-    <Script file="Abstract\MenuButton-Vanilla.lua" build="classic" />
+    <Script file="Abstract\MenuButton.lua" />
 
     <Script file="Component\Bag.lua" />
     <Script file="Component\BagFrame.lua" />

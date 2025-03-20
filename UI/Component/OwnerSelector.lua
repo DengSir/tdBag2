@@ -143,7 +143,7 @@ function OwnerSelector:CreateMenu()
             text = [[|TInterface\Common\help-i:24:24:0:0:64:64:10:54:10:54|t]] .. L['See other account character?'],
             notCheckable = true,
             func = function()
-                Addon:OpenOption('support')
+                LibStub('tdOptions'):Open('tdSupport')
             end,
         })
     end

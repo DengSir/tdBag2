@@ -376,10 +376,6 @@ function Addon:SetupOptionFrame()
                     end,
                 },
             }),
-            otherTitle = treeTitle(L['Other']),
-            support = treeItem(L['Support'], { --
-                desc = desc(L.DESC_SUPPORT),
-            }),
         },
     }
 

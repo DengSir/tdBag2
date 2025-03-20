@@ -86,11 +86,22 @@ function MenuButton:IsMenuOpened()
                DropDownList1:IsShown()
 end
 
+local function Initialize(_, level, menuList)
+    for i, v in ipairs(menuList) do
+        if v.isSeparator then
+            UIDropDownMenu_AddSeparator(level)
+        elseif v.text then
+            v.index = i;
+            UIDropDownMenu_AddButton(v, level);
+        end
+    end
+end
+
 function MenuButton:GetDropMenu()
     if not self.DropMenu then
         local frame = CreateFrame('Frame', self:GenerateName(), UIParent, 'UIDropDownMenuTemplate')
         frame.displayMode = 'MENU'
-        frame.initialize = EasyMenu_Initialize
+        frame.initialize = Initialize
         frame.onHide = function(id)
             if id <= 2 then
                 self:OnMenuClosed()
