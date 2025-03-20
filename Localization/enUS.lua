@@ -31,7 +31,6 @@ L["DESC_COLORS"] = "Color preference Settings."
 L["DESC_DISPLAY"] = "Auto Display and Close."
 L["DESC_FRAMES"] = "%s preference Settings."
 L["DESC_GENERAL"] = "General preference Settings."
-L["DESC_SUPPORT"] = true
 L["Empty Slot Brightness"] = true
 L["Enchanting Color"] = true
 L["Engineering Color"] = true
@@ -76,7 +75,6 @@ L["No record"] = true
 L["Normal Color"] = true
 L["Opening the Character Info"] = true
 L["Opening Trade Skills"] = true
-L["Other"] = true
 L["Other account character"] = true
 L["Plugin Buttons"] = true
 L["Profile"] = true
@@ -93,7 +91,6 @@ L["Show Offline Text in Bag's Title"] = true
 L["Show Quest Starter Icon"] = true
 L["Slot Colors"] = true
 L["Soul Color"] = true
-L["Support"] = true
 L["Time Remaining"] = true
 L["TITLE_BAG"] = "%s's Inventory"
 L["TITLE_BANK"] = "%s's Bank"
@@ -273,9 +270,12 @@ L.Profile = true
 L['Current account character'] = true
 L['Other account character'] = true
 L['See other account character?'] = true
-L.DESC_SUPPORT = true
-L.Other = true
-L.Support = true
+--[====[ never used ]====]
+--[====[ L.DESC_SUPPORT = true ]====]
+--[====[ never used ]====]
+--[====[ L.Other = true ]====]
+--[====[ never used ]====]
+--[====[ L.Support = true ]====]
 -- @locale-fill@
 -- @end-import@
 -- @end-debug@

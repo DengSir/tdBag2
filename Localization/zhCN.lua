@@ -147,9 +147,12 @@ L.Profile = '配置文件'
 L['Current account character'] = '当前账号角色'
 L['Other account character'] = '其它账号角色'
 L['See other account character?'] = '查看其他账号角色的背包？'
-L.DESC_SUPPORT = [[支持开发者。]]
-L.Other = '其它'
-L.Support = '支持'
+--[====[ never used ]====]
+--[====[ L.DESC_SUPPORT = [[支持开发者。]] ]====]
+--[====[ never used ]====]
+--[====[ L.Other = '其它' ]====]
+--[====[ never used ]====]
+--[====[ L.Support = '支持' ]====]
 -- @locale-fill@
 
 -- @end-import@
