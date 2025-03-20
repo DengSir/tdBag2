@@ -1,3 +1,23 @@
+## [2.3.1](https://github.com/DengSir/tdBag2/compare/v2.3.0...v2.3.1) (2025-03-20)
+
+
+### Bug Fixes
+
+* owner count ([7415022](https://github.com/DengSir/tdBag2/commit/7415022d63c587836714895659dbbb4a3c4a3ae4))
+
+
+### Features
+
+* 对钥匙链设置图标 ([075ae8b](https://github.com/DengSir/tdBag2/commit/075ae8b89490100e7b7f4788350b3983fae37886))
+* 支持多子账号数据 ([ae05f3e](https://github.com/DengSir/tdBag2/commit/ae05f3ee3bb62f9e183a86ecd5a0c1bf57a65d95))
+* 支持多子账号数据 ([febade1](https://github.com/DengSir/tdBag2/commit/febade18f2267e009d3ee7c02fef6dd09287eef9))
+* add support options ([d3bb7af](https://github.com/DengSir/tdBag2/commit/d3bb7afd63dd67b582fbab241e77b64e8492f781))
+* any account ([439fc22](https://github.com/DengSir/tdBag2/commit/439fc223e901b8082dbee965ad1a0d9c880edb7f))
+* powerful for skins ([6d42666](https://github.com/DengSir/tdBag2/commit/6d42666e199277cc61333fbdaef71cccf75de189))
+* support 3.4.4 ([0c14c80](https://github.com/DengSir/tdBag2/commit/0c14c8022acbc687e1ae756ec850550b935d25a2))
+
+
+
 # [2.3.0](https://github.com/DengSir/tdBag2/compare/v2.2.16...v2.3.0) (2024-12-02)
 
 
