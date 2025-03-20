@@ -15,10 +15,16 @@ jobs:
         with:
           submodules: true
 
+      - name: Package
+        uses: curse-action/package@master
+
       - name: Publish to curseforge
         uses: curse-action/publish@master
         with:
           curse-wow-token: ${{ secrets.CURSE_TOKEN }}
+
+      - name: Generate changelog
+        uses: curse-action/changelog@master
 
       - name: Release to github
         uses: softprops/action-gh-release@v2
