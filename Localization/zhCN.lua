@@ -147,14 +147,8 @@ L.Profile = '配置文件'
 L['Current account character'] = '当前账号角色'
 L['Other account character'] = '其它账号角色'
 L['See other account character?'] = '查看其他账号角色的背包？'
---[====[ never used ]====]
---[====[ L.DESC_SUPPORT = [[支持开发者。]] ]====]
---[====[ never used ]====]
---[====[ L.Other = '其它' ]====]
---[====[ never used ]====]
---[====[ L.Support = '支持' ]====]
-L['(Only default border style)'] = true
-L['Border Style'] = true
+L['(Only default border style)'] = '（仅限默认边框样式）'
+L['Border Style'] = '边框样式'
 -- @locale-fill@
 
 -- @end-import@
