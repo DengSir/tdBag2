@@ -23,6 +23,11 @@ jobs:
         with:
           curse-wow-token: ${{ secrets.CURSE_TOKEN }}
 
+      - name: Publish to nga
+        uses: curse-action/nga@master
+        with:
+          nga-cookie: ${{ secrets.NGA_COOKIE }}
+
       - name: Generate changelog
         uses: curse-action/changelog@master
 
