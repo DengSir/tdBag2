@@ -13,6 +13,8 @@ T('deDE', function(L)
 -- @locale:language=deDE@
 L = L or {}
 --[[Translation missing --]]
+--[[ L["(Only default border style)"] = "(Only default border style)"--]] 
+--[[Translation missing --]]
 --[[ L["|cffff2020(Offline)|r"] = "|cffff2020(Offline)|r"--]] 
 --[[Translation missing --]]
 --[[ L["Always show"] = "Always show"--]] 
@@ -34,6 +36,8 @@ L = L or {}
 --[[ L["Bank"] = "Bank"--]] 
 --[[Translation missing --]]
 --[[ L["Blizzard Panel"] = "Blizzard Panel"--]] 
+--[[Translation missing --]]
+--[[ L["Border Style"] = "Border Style"--]] 
 --[[Translation missing --]]
 --[[ L["Bottom"] = "Bottom"--]] 
 --[[Translation missing --]]
@@ -261,6 +265,8 @@ T('esES', function(L)
 -- @locale:language=esES@
 L = L or {}
 --[[Translation missing --]]
+--[[ L["(Only default border style)"] = "(Only default border style)"--]] 
+--[[Translation missing --]]
 --[[ L["|cffff2020(Offline)|r"] = "|cffff2020(Offline)|r"--]] 
 --[[Translation missing --]]
 --[[ L["Always show"] = "Always show"--]] 
@@ -282,6 +288,8 @@ L = L or {}
 --[[ L["Bank"] = "Bank"--]] 
 --[[Translation missing --]]
 --[[ L["Blizzard Panel"] = "Blizzard Panel"--]] 
+--[[Translation missing --]]
+--[[ L["Border Style"] = "Border Style"--]] 
 --[[Translation missing --]]
 --[[ L["Bottom"] = "Bottom"--]] 
 --[[Translation missing --]]
@@ -509,6 +517,8 @@ T('frFR', function(L)
 -- @locale:language=frFR@
 L = L or {}
 --[[Translation missing --]]
+--[[ L["(Only default border style)"] = "(Only default border style)"--]] 
+--[[Translation missing --]]
 --[[ L["|cffff2020(Offline)|r"] = "|cffff2020(Offline)|r"--]] 
 --[[Translation missing --]]
 --[[ L["Always show"] = "Always show"--]] 
@@ -530,6 +540,8 @@ L = L or {}
 --[[ L["Bank"] = "Bank"--]] 
 --[[Translation missing --]]
 --[[ L["Blizzard Panel"] = "Blizzard Panel"--]] 
+--[[Translation missing --]]
+--[[ L["Border Style"] = "Border Style"--]] 
 --[[Translation missing --]]
 --[[ L["Bottom"] = "Bottom"--]] 
 --[[Translation missing --]]
@@ -757,6 +769,8 @@ T('itIT', function(L)
 -- @locale:language=itIT@
 L = L or {}
 --[[Translation missing --]]
+--[[ L["(Only default border style)"] = "(Only default border style)"--]] 
+--[[Translation missing --]]
 --[[ L["|cffff2020(Offline)|r"] = "|cffff2020(Offline)|r"--]] 
 --[[Translation missing --]]
 --[[ L["Always show"] = "Always show"--]] 
@@ -778,6 +792,8 @@ L = L or {}
 --[[ L["Bank"] = "Bank"--]] 
 --[[Translation missing --]]
 --[[ L["Blizzard Panel"] = "Blizzard Panel"--]] 
+--[[Translation missing --]]
+--[[ L["Border Style"] = "Border Style"--]] 
 --[[Translation missing --]]
 --[[ L["Bottom"] = "Bottom"--]] 
 --[[Translation missing --]]
@@ -1004,6 +1020,8 @@ end)
 T('koKR', function(L)
 -- @locale:language=koKR@
 L = L or {}
+--[[Translation missing --]]
+--[[ L["(Only default border style)"] = "(Only default border style)"--]] 
 L["|cffff2020(Offline)|r"] = "|cffff2020(접속종료)|r"
 L["Always show"] = "항상 표시"
 L["Appearance"] = "모양"
@@ -1015,6 +1033,8 @@ L["Bag Style"] = "가방 스타일"
 L["Bag Toggle"] = "가방 전환"
 L["Bank"] = "은행"
 L["Blizzard Panel"] = "블리자드 창 위치"
+--[[Translation missing --]]
+--[[ L["Border Style"] = "Border Style"--]] 
 L["Bottom"] = "하단"
 L["Character Specific Settings"] = "캐릭터 개별 설정"
 L["Closing the Character Info"] = "캐릭터 정보 닫을 때"
@@ -1143,6 +1163,8 @@ T('ptBR', function(L)
 -- @locale:language=ptBR@
 L = L or {}
 --[[Translation missing --]]
+--[[ L["(Only default border style)"] = "(Only default border style)"--]] 
+--[[Translation missing --]]
 --[[ L["|cffff2020(Offline)|r"] = "|cffff2020(Offline)|r"--]] 
 --[[Translation missing --]]
 --[[ L["Always show"] = "Always show"--]] 
@@ -1164,6 +1186,8 @@ L = L or {}
 --[[ L["Bank"] = "Bank"--]] 
 --[[Translation missing --]]
 --[[ L["Blizzard Panel"] = "Blizzard Panel"--]] 
+--[[Translation missing --]]
+--[[ L["Border Style"] = "Border Style"--]] 
 --[[Translation missing --]]
 --[[ L["Bottom"] = "Bottom"--]] 
 --[[Translation missing --]]
@@ -1390,6 +1414,8 @@ end)
 T('ruRU', function(L)
 -- @locale:language=ruRU@
 L = L or {}
+--[[Translation missing --]]
+--[[ L["(Only default border style)"] = "(Only default border style)"--]] 
 L["|cffff2020(Offline)|r"] = "|cffff2020(Не в сети)|r"
 --[[Translation missing --]]
 --[[ L["Always show"] = "Always show"--]] 
@@ -1405,6 +1431,8 @@ L["Auto Display"] = "Автоматический дисплей"
 L["Bag Toggle"] = "Переключатель сумки"
 L["Bank"] = "Банк"
 L["Blizzard Panel"] = "Blizzard панель"
+--[[Translation missing --]]
+--[[ L["Border Style"] = "Border Style"--]] 
 L["Bottom"] = "Дно"
 --[[Translation missing --]]
 --[[ L["Character Specific Settings"] = "Character Specific Settings"--]] 
@@ -1568,6 +1596,8 @@ end)
 T('zhTW', function(L)
 -- @locale:language=zhTW@
 L = L or {}
+--[[Translation missing --]]
+--[[ L["(Only default border style)"] = "(Only default border style)"--]] 
 L["|cffff2020(Offline)|r"] = "|cffff2020(離線)|r"
 L["Always show"] = "始終顯示"
 L["Appearance"] = "外觀"
@@ -1579,6 +1609,8 @@ L["Bag Style"] = "背包風格"
 L["Bag Toggle"] = "背包按鈕"
 L["Bank"] = "銀行"
 L["Blizzard Panel"] = "暴雪標準面板"
+--[[Translation missing --]]
+--[[ L["Border Style"] = "Border Style"--]] 
 L["Bottom"] = "底部"
 L["Character Specific Settings"] = "角色獨立設置"
 L["Closing the Character Info"] = "關閉角色面板時"

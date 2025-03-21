@@ -153,6 +153,8 @@ L['See other account character?'] = '查看其他账号角色的背包？'
 --[====[ L.Other = '其它' ]====]
 --[====[ never used ]====]
 --[====[ L.Support = '支持' ]====]
+L['(Only default border style)'] = true
+L['Border Style'] = true
 -- @locale-fill@
 
 -- @end-import@

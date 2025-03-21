@@ -4,6 +4,7 @@ if not L then
 end
 -- @locale:language=enUS@
 L = L or {}
+L["(Only default border style)"] = true
 L["|cffff2020(Offline)|r"] = true
 L["Always show"] = true
 L["Appearance"] = true
@@ -15,6 +16,7 @@ L["Bag Style"] = true
 L["Bag Toggle"] = true
 L["Bank"] = true
 L["Blizzard Panel"] = true
+L["Border Style"] = true
 L["Bottom"] = true
 L["Character Specific Settings"] = true
 L["Closing the Character Info"] = true
@@ -276,6 +278,8 @@ L['See other account character?'] = true
 --[====[ L.Other = true ]====]
 --[====[ never used ]====]
 --[====[ L.Support = true ]====]
+L['(Only default border style)'] = true
+L['Border Style'] = true
 -- @locale-fill@
 -- @end-import@
 -- @end-debug@
