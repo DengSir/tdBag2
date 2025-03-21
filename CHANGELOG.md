@@ -1,3 +1,12 @@
+## [2.3.2](https://github.com/DengSir/tdBag2/compare/v2.3.1...v2.3.2) (2025-03-21)
+
+
+### Features
+
+* 添加边框风格设置 ([471b9d2](https://github.com/DengSir/tdBag2/commit/471b9d24e4ac97a6ac656f444e85b12e1022cfdc))
+
+
+
 ## [2.3.1](https://github.com/DengSir/tdBag2/compare/v2.3.0...v2.3.1) (2025-03-20)
 
 
