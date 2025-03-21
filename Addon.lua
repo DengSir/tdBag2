@@ -195,6 +195,8 @@ function Addon:SetupCurrentStyle()
             end
         end
     end
+
+    self.borderStyle = self.db.profile.borderStyle
 end
 
 function Addon:SetupDatabase()
@@ -346,7 +348,7 @@ function Addon:SetupPluginButtons()
         end,
     })
 
-    --@retail@
+    -- @retail@
     self:RegisterPlugin{
         type = 'Button',
         key = 'Sort',
@@ -357,7 +359,7 @@ function Addon:SetupPluginButtons()
             return ns.UI.SortButton:Bind(button, frame.meta)
         end,
     }
-    --@end-retail@
+    -- @end-retail@
 end
 
 function Addon:GetFrameProfile(bagId)

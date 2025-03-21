@@ -475,6 +475,7 @@ ns.PROFILE = {
         tipCount = true,
         tipCountGuild = true,
         remainLimit = 0,
+        borderStyle = 'Default',
 
         colorSlots = true,
 

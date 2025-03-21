@@ -220,7 +220,7 @@ function Addon:SetupOptionFrame()
                 order = orderGen(),
                 hidden = function()
                     return not (self.styleName ~= self.db.profile.style and self.db.profile.style ~=
-                               self.styleInProfileLosed)
+                               self.styleInProfileLosed) and (self.borderStyle == self.db.profile.borderStyle)
                 end,
                 args = {
                     reloadtext = warning(L['Need to reload UI to make some settings take effect']),
@@ -264,13 +264,18 @@ function Addon:SetupOptionFrame()
             }),
             colors = treeItem(L['Color Settings'], {
                 desc = desc(L.DESC_COLORS),
+                borderHeader = header(L['Border Style']),
+                borderStyle = drop(L['Border Style'], { --
+                    {name = DEFAULT, value = 'Default'}, --
+                    {name = 'Blizzard', value = 'Blizzard'},
+                }),
                 glowHeader = header(L['Highlight Border']),
                 glowQuality = toggle(L['Highlight Items by Quality']),
                 glowQuest = toggle(L['Highlight Quest Items']),
                 glowUnusable = toggle(L['Highlight Unusable Items']),
                 glowEquipSet = toggle(L['Highlight Equipment Set Items']),
                 glowNew = toggle(L['Highlight New Items']),
-                glowAlpha = fullRange(L['Highlight Brightness'], 0, 1),
+                glowAlpha = fullRange(L['Highlight Brightness'] .. L['(Only default border style)'], 0, 1),
                 separator1 = separator(),
                 colorHeader = header(L['Slot Colors']),
                 colorSlots = fullToggle(L['Color Empty Slots by Bag Type']),

@@ -71,11 +71,15 @@ function ItemBase:Constructor()
     self.QuestBorder:SetAlpha(0.9)
     self.QuestBorder:SetDrawLayer('ARTWORK', 2)
 
-    self.IconBorder:SetTexture([[Interface\Buttons\UI-ActionButton-Border]])
-    self.IconBorder:SetBlendMode('ADD')
-    self.IconBorder:ClearAllPoints()
-    self.IconBorder:SetPoint('CENTER')
-    self.IconBorder:SetSize(67, 67)
+    if ns.Addon.borderStyle == 'Default' then
+        self.IconBorder:SetTexture([[Interface\Buttons\UI-ActionButton-Border]])
+        self.IconBorder:SetBlendMode('ADD')
+        self.IconBorder:ClearAllPoints()
+        self.IconBorder:SetPoint('CENTER')
+        self.IconBorder:SetSize(67, 67)
+    else
+        self.ignoreBorderGlow = true
+    end
 
     self.nt = self:GetNormalTexture()
 
@@ -278,7 +282,7 @@ end
 
 function ItemBase:ApplyBorderColor(shown, r, g, b, a)
     if shown then
-        self.IconBorder:SetVertexColor(r, g, b, a)
+        self.IconBorder:SetVertexColor(r, g, b, self.ignoreBorderGlow and 1 or a)
         self.IconBorder:Show()
     else
         self.IconBorder:Hide()
