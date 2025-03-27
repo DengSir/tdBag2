@@ -280,6 +280,12 @@ L['See other account character?'] = true
 --[====[ L.Support = true ]====]
 L['(Only default border style)'] = true
 L['Border Style'] = true
+L['Item info'] = true
+L['Plugin Settings'] = true
+L['Show BoE'] = true
+L['Show Expire Time'] = true
+L['Show Item Level'] = true
+L['Item level color by quality'] = true
 -- @locale-fill@
 -- @end-import@
 -- @end-debug@

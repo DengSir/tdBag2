@@ -17,19 +17,21 @@ EventsMixin.UnregisterAllEvents = AceEvent.UnregisterAllMessages
 ---@field meta FrameMeta
 local MetaMixin = {}
 
----@class tdBag2ButtonPluginOptions
+---@class tdBag2BasePluginOptions
+---@field key string
+---@field init? function
+---@field update? function
+---@field text? string
+---@field profile? table
+---@field options? table
+
+---@class tdBag2ButtonPluginOptions: tdBag2BasePluginOptions
 ---@field type 'Button'
 ---@field icon number|string
 ---@field order? number
----@field init function
----@field key string
----@field text? string
 
 ---@class tdBag2ItemPluginOptions
 ---@field type 'Item'
----@field init function
----@field update function
----@field text string
 
 ---@alias tdBag2PluginOptions tdBag2ButtonPluginOptions|tdBag2ItemPluginOptions
 

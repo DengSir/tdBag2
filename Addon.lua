@@ -550,6 +550,8 @@ function Addon:RegisterPlugin(opts)
         assert(false)
     end
 
+    self:SetupPluginOptions(opts)
+
     if self.RefreshPluginOptions then
         self:RefreshPluginOptions()
     end

@@ -28,100 +28,117 @@ local BAG_ARGS = { --
     [ns.BAG_ID.BAG] = {},
     [ns.BAG_ID.BANK] = {},
 }
+local PLUGIN_OPTIONS = {}
+local OPTIONS
+
+local order = 0
+local function orderGen()
+    order = order + 1
+    return order
+end
+
+local function toggle(name)
+    return {type = 'toggle', name = name, order = orderGen()}
+end
+
+local function fullToggle(name)
+    return {type = 'toggle', name = name, width = 'full', order = orderGen()}
+end
+
+local function color(name)
+    return {type = 'color', name = name, order = orderGen()}
+end
+
+local function range(name, min, max, step)
+    return {type = 'range', order = orderGen(), name = name, min = min, max = max, step = step}
+end
+
+local function fullRange(name, min, max, step)
+    return {type = 'range', width = 'full', order = orderGen(), name = name, min = min, max = max, step = step}
+end
+
+local function header(name)
+    return {type = 'header', order = orderGen(), name = name}
+end
+
+local function desc(name)
+    return {
+        type = 'description',
+        order = orderGen(),
+        name = name,
+        fontSize = 'medium',
+        image = [[Interface\Common\help-i]],
+        imageWidth = 32,
+        imageHeight = 32,
+        imageCoords = {.2, .8, .2, .8},
+    }
+end
+
+local function warning(name)
+    return {
+        type = 'description',
+        order = orderGen(),
+        name = '|cffff0000' .. name .. '|r',
+        fontSize = 'medium',
+        image = [[Interface\DialogFrame\UI-Dialog-Icon-AlertNew]],
+        imageWidth = 32,
+        imageHeight = 32,
+        -- imageCoords = {.2, .8, .2, .8},
+    }
+end
+
+local function separator()
+    return {type = 'description', order = orderGen(), name = '\n', fontSize = 'medium'}
+end
+
+local function drop(name, values)
+    local opts = { --
+        type = 'select',
+        name = name,
+        order = orderGen(),
+    }
+
+    if type(values) == 'function' then
+        opts.values = values
+    else
+        opts.values = {}
+        opts.sorting = {}
+
+        for i, v in ipairs(values) do
+            opts.values[v.value] = v.name
+            opts.sorting[i] = v.value
+        end
+    end
+    return opts
+end
+
+local function inline(name, args)
+    return {type = 'group', name = name, inline = true, order = orderGen(), args = args}
+end
+
+local function treeTitle(name)
+    return {type = 'group', name = '|cffffd100' .. name .. '|r', order = orderGen(), args = {}, disabled = true}
+end
+
+local function treeItem(name, args)
+    return {type = 'group', name = '  |cffffffff' .. name .. '|r', order = orderGen(), args = args}
+end
+
+local function fireGlobalKey(key)
+    local event = ns.OPTION_EVENTS[key]
+    local t = type(event)
+    if t == 'string' then
+        ns.Events:Fire(event)
+    elseif t == 'function' then
+        event()
+    end
+end
+
+local function daysValue(days)
+    return {name = L['Less than %s days']:format(days), value = days}
+end
 
 function Addon:SetupOptionFrame()
-    local order = 0
-    local function orderGen()
-        order = order + 1
-        return order
-    end
-
-    local function toggle(name)
-        return {type = 'toggle', name = name, order = orderGen()}
-    end
-
-    local function fullToggle(name)
-        return {type = 'toggle', name = name, width = 'full', order = orderGen()}
-    end
-
-    local function color(name)
-        return {type = 'color', name = name, order = orderGen()}
-    end
-
-    local function range(name, min, max, step)
-        return {type = 'range', order = orderGen(), name = name, min = min, max = max, step = step}
-    end
-
-    local function fullRange(name, min, max, step)
-        return {type = 'range', width = 'full', order = orderGen(), name = name, min = min, max = max, step = step}
-    end
-
-    local function header(name)
-        return {type = 'header', order = orderGen(), name = name}
-    end
-
-    local function desc(name)
-        return {
-            type = 'description',
-            order = orderGen(),
-            name = name,
-            fontSize = 'medium',
-            image = [[Interface\Common\help-i]],
-            imageWidth = 32,
-            imageHeight = 32,
-            imageCoords = {.2, .8, .2, .8},
-        }
-    end
-
-    local function warning(name)
-        return {
-            type = 'description',
-            order = orderGen(),
-            name = '|cffff0000' .. name .. '|r',
-            fontSize = 'medium',
-            image = [[Interface\DialogFrame\UI-Dialog-Icon-AlertNew]],
-            imageWidth = 32,
-            imageHeight = 32,
-            -- imageCoords = {.2, .8, .2, .8},
-        }
-    end
-
-    local function separator()
-        return {type = 'description', order = orderGen(), name = '\n', fontSize = 'medium'}
-    end
-
-    local function drop(name, values)
-        local opts = { --
-            type = 'select',
-            name = name,
-            order = orderGen(),
-        }
-
-        if type(values) == 'function' then
-            opts.values = values
-        else
-            opts.values = {}
-            opts.sorting = {}
-
-            for i, v in ipairs(values) do
-                opts.values[v.value] = v.name
-                opts.sorting[i] = v.value
-            end
-        end
-        return opts
-    end
-
-    local function inline(name, args)
-        return {type = 'group', name = name, inline = true, order = orderGen(), args = args}
-    end
-
-    local function treeTitle(name)
-        return {type = 'group', name = '|cffffd100' .. name .. '|r', order = orderGen(), args = {}, disabled = true}
-    end
-
-    local function treeItem(name, args)
-        return {type = 'group', name = '  |cffffffff' .. name .. '|r', order = orderGen(), args = args}
-    end
 
     local function baseFrame(bagId, name, args)
         return {
@@ -183,20 +200,6 @@ function Addon:SetupOptionFrame()
                 args = BAG_ARGS[bagId],
             },
         })
-    end
-
-    local function fireGlobalKey(key)
-        local event = ns.OPTION_EVENTS[key]
-        local t = type(event)
-        if t == 'string' then
-            ns.Events:Fire(event)
-        elseif t == 'function' then
-            event()
-        end
-    end
-
-    local function daysValue(days)
-        return {name = L['Less than %s days']:format(days), value = days}
     end
 
     local playerProfileKey = ns.GetCharacterProfileKey(ns.PLAYER, ns.REALM)
@@ -384,6 +387,8 @@ function Addon:SetupOptionFrame()
         },
     }
 
+    OPTIONS = options
+
     tdOptions:Register('tdBag2', options)
 
     self:RefreshPluginOptions()
@@ -403,5 +408,31 @@ function Addon:RefreshPluginOptions()
             args[plugin.key] = {type = 'toggle', name = plugin.text, order = i}
         end
     end
+
+    if OPTIONS and #PLUGIN_OPTIONS > 0 then
+        local args = OPTIONS.args
+        args.plugins = treeTitle(L['Plugin Settings'])
+
+        for _, v in ipairs(PLUGIN_OPTIONS) do
+            local key = format('plugin-%s', v.name)
+            v.options.order = orderGen()
+            v.options.name = '  |cffffffff' .. v.name .. '|r'
+            args[key] = v.options
+        end
+    end
+
     AceConfigRegistry:NotifyChange('tdBag2')
+end
+
+---@param opts tdBag2PluginOptions
+function Addon:SetupPluginOptions(opts)
+    local key = opts.key or opts.name
+    local text = opts.text or opts.name
+
+    if opts.profile then
+        ns.PROFILE.profile[key] = opts.profile
+    end
+    if opts.options then
+        tinsert(PLUGIN_OPTIONS, {name = text, options = opts.options})
+    end
 end

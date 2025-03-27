@@ -41,6 +41,9 @@
     ],
     "nga_id": {
       "Wrath": 43594279
+    },
+    "addons": {
+      "tdBag2_ItemInfo": "Plugins/ItemInfo"
     }
   }
 }

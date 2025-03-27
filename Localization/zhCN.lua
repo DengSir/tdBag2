@@ -149,6 +149,12 @@ L['Other account character'] = '其它账号角色'
 L['See other account character?'] = '查看其他账号角色的背包？'
 L['(Only default border style)'] = '（仅限默认边框样式）'
 L['Border Style'] = '边框样式'
+L['Item info'] = '物品信息'
+L['Plugin Settings'] = '插件设置'
+L['Show BoE'] = '显示装备绑定'
+L['Show Expire Time'] = '显示过期时间'
+L['Show Item Level'] = '显示物品等级'
+L['Item level color by quality'] = '根据物品品质显示物品等级颜色'
 -- @locale-fill@
 
 -- @end-import@
