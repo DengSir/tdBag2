@@ -119,6 +119,10 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Inventory"] = "Inventory"--]] 
 --[[Translation missing --]]
+--[[ L["Item info"] = "Item info"--]] 
+--[[Translation missing --]]
+--[[ L["Item level color by quality"] = "Item level color by quality"--]] 
+--[[Translation missing --]]
 --[[ L["Item Scale"] = "Item Scale"--]] 
 --[[Translation missing --]]
 --[[ L["Keyring Color"] = "Keyring Color"--]] 
@@ -163,6 +167,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
+--[[ L["Plugin Settings"] = "Plugin Settings"--]] 
+--[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
 --[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
@@ -175,11 +181,17 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["See other account character?"] = "See other account character?"--]] 
 --[[Translation missing --]]
+--[[ L["Show BoE"] = "Show BoE"--]] 
+--[[Translation missing --]]
 --[[ L["Show Character Portrait"] = "Show Character Portrait"--]] 
+--[[Translation missing --]]
+--[[ L["Show Expire Time"] = "Show Expire Time"--]] 
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
 --[[Translation missing --]]
 --[[ L["Show Item Count in Tooltip"] = "Show Item Count in Tooltip"--]] 
+--[[Translation missing --]]
+--[[ L["Show Item Level"] = "Show Item Level"--]] 
 --[[Translation missing --]]
 --[[ L["Show Junk Icon"] = "Show Junk Icon"--]] 
 --[[Translation missing --]]
@@ -371,6 +383,10 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Inventory"] = "Inventory"--]] 
 --[[Translation missing --]]
+--[[ L["Item info"] = "Item info"--]] 
+--[[Translation missing --]]
+--[[ L["Item level color by quality"] = "Item level color by quality"--]] 
+--[[Translation missing --]]
 --[[ L["Item Scale"] = "Item Scale"--]] 
 --[[Translation missing --]]
 --[[ L["Keyring Color"] = "Keyring Color"--]] 
@@ -415,6 +431,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
+--[[ L["Plugin Settings"] = "Plugin Settings"--]] 
+--[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
 --[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
@@ -427,11 +445,17 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["See other account character?"] = "See other account character?"--]] 
 --[[Translation missing --]]
+--[[ L["Show BoE"] = "Show BoE"--]] 
+--[[Translation missing --]]
 --[[ L["Show Character Portrait"] = "Show Character Portrait"--]] 
+--[[Translation missing --]]
+--[[ L["Show Expire Time"] = "Show Expire Time"--]] 
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
 --[[Translation missing --]]
 --[[ L["Show Item Count in Tooltip"] = "Show Item Count in Tooltip"--]] 
+--[[Translation missing --]]
+--[[ L["Show Item Level"] = "Show Item Level"--]] 
 --[[Translation missing --]]
 --[[ L["Show Junk Icon"] = "Show Junk Icon"--]] 
 --[[Translation missing --]]
@@ -623,6 +647,10 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Inventory"] = "Inventory"--]] 
 --[[Translation missing --]]
+--[[ L["Item info"] = "Item info"--]] 
+--[[Translation missing --]]
+--[[ L["Item level color by quality"] = "Item level color by quality"--]] 
+--[[Translation missing --]]
 --[[ L["Item Scale"] = "Item Scale"--]] 
 --[[Translation missing --]]
 --[[ L["Keyring Color"] = "Keyring Color"--]] 
@@ -667,6 +695,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
+--[[ L["Plugin Settings"] = "Plugin Settings"--]] 
+--[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
 --[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
@@ -679,11 +709,17 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["See other account character?"] = "See other account character?"--]] 
 --[[Translation missing --]]
+--[[ L["Show BoE"] = "Show BoE"--]] 
+--[[Translation missing --]]
 --[[ L["Show Character Portrait"] = "Show Character Portrait"--]] 
+--[[Translation missing --]]
+--[[ L["Show Expire Time"] = "Show Expire Time"--]] 
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
 --[[Translation missing --]]
 --[[ L["Show Item Count in Tooltip"] = "Show Item Count in Tooltip"--]] 
+--[[Translation missing --]]
+--[[ L["Show Item Level"] = "Show Item Level"--]] 
 --[[Translation missing --]]
 --[[ L["Show Junk Icon"] = "Show Junk Icon"--]] 
 --[[Translation missing --]]
@@ -875,6 +911,10 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Inventory"] = "Inventory"--]] 
 --[[Translation missing --]]
+--[[ L["Item info"] = "Item info"--]] 
+--[[Translation missing --]]
+--[[ L["Item level color by quality"] = "Item level color by quality"--]] 
+--[[Translation missing --]]
 --[[ L["Item Scale"] = "Item Scale"--]] 
 --[[Translation missing --]]
 --[[ L["Keyring Color"] = "Keyring Color"--]] 
@@ -919,6 +959,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
+--[[ L["Plugin Settings"] = "Plugin Settings"--]] 
+--[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
 --[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
@@ -931,11 +973,17 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["See other account character?"] = "See other account character?"--]] 
 --[[Translation missing --]]
+--[[ L["Show BoE"] = "Show BoE"--]] 
+--[[Translation missing --]]
 --[[ L["Show Character Portrait"] = "Show Character Portrait"--]] 
+--[[Translation missing --]]
+--[[ L["Show Expire Time"] = "Show Expire Time"--]] 
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
 --[[Translation missing --]]
 --[[ L["Show Item Count in Tooltip"] = "Show Item Count in Tooltip"--]] 
+--[[Translation missing --]]
+--[[ L["Show Item Level"] = "Show Item Level"--]] 
 --[[Translation missing --]]
 --[[ L["Show Junk Icon"] = "Show Junk Icon"--]] 
 --[[Translation missing --]]
@@ -1079,6 +1127,10 @@ L["Highlight Unusable Items"] = "사용할 수 없는 아이템 강조"
 L["HOTKEY_ALT_RIGHT"] = "알트-우클릭"
 L["HOTKEY_CTRL_RIGHT"] = "컨트롤-우클릭"
 L["Inventory"] = "가방"
+--[[Translation missing --]]
+--[[ L["Item info"] = "Item info"--]] 
+--[[Translation missing --]]
+--[[ L["Item level color by quality"] = "Item level color by quality"--]] 
 L["Item Scale"] = "아이템 크기"
 L["Keyring Color"] = "열쇠고리 색상"
 --[[Translation missing --]]
@@ -1105,6 +1157,8 @@ L["Opening Trade Skills"] = "전문 기술 열 때"
 --[[ L["Other account character"] = "Other account character"--]] 
 L["Plugin Buttons"] = "플러그인 버튼"
 --[[Translation missing --]]
+--[[ L["Plugin Settings"] = "Plugin Settings"--]] 
+--[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
 L["Quiver Color"] = "화살통/탄환주머니 칸 색상"
 L["Restore default Settings"] = "기본 설정 복원"
@@ -1112,10 +1166,16 @@ L["Reverse Bag Order"] = "가방 순서 반대로"
 L["Reverse Slot Order"] = "칸 순서 반대로"
 --[[Translation missing --]]
 --[[ L["See other account character?"] = "See other account character?"--]] 
+--[[Translation missing --]]
+--[[ L["Show BoE"] = "Show BoE"--]] 
 L["Show Character Portrait"] = "캐릭터 초상화 보기"
+--[[Translation missing --]]
+--[[ L["Show Expire Time"] = "Show Expire Time"--]] 
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
 L["Show Item Count in Tooltip"] = "툴팁에 아이템 갯수 보기"
+--[[Translation missing --]]
+--[[ L["Show Item Level"] = "Show Item Level"--]] 
 L["Show Junk Icon"] = "잡템 아이콘 보기"
 L["Show Offline Text in Bag's Title"] = "다른 캐릭터 가방 제목에 접속종료 문자 보기"
 L["Show Quest Starter Icon"] = "퀘스트 시작템 아이콘 보기"
@@ -1269,6 +1329,10 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Inventory"] = "Inventory"--]] 
 --[[Translation missing --]]
+--[[ L["Item info"] = "Item info"--]] 
+--[[Translation missing --]]
+--[[ L["Item level color by quality"] = "Item level color by quality"--]] 
+--[[Translation missing --]]
 --[[ L["Item Scale"] = "Item Scale"--]] 
 --[[Translation missing --]]
 --[[ L["Keyring Color"] = "Keyring Color"--]] 
@@ -1313,6 +1377,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Plugin Buttons"] = "Plugin Buttons"--]] 
 --[[Translation missing --]]
+--[[ L["Plugin Settings"] = "Plugin Settings"--]] 
+--[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
 --[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
@@ -1325,11 +1391,17 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["See other account character?"] = "See other account character?"--]] 
 --[[Translation missing --]]
+--[[ L["Show BoE"] = "Show BoE"--]] 
+--[[Translation missing --]]
 --[[ L["Show Character Portrait"] = "Show Character Portrait"--]] 
+--[[Translation missing --]]
+--[[ L["Show Expire Time"] = "Show Expire Time"--]] 
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
 --[[Translation missing --]]
 --[[ L["Show Item Count in Tooltip"] = "Show Item Count in Tooltip"--]] 
+--[[Translation missing --]]
+--[[ L["Show Item Level"] = "Show Item Level"--]] 
 --[[Translation missing --]]
 --[[ L["Show Junk Icon"] = "Show Junk Icon"--]] 
 --[[Translation missing --]]
@@ -1486,6 +1558,10 @@ L["Highlight Unusable Items"] = "Выделить неиспользуемые �
 --[[Translation missing --]]
 --[[ L["HOTKEY_CTRL_RIGHT"] = "Ctrl-RightClick"--]] 
 L["Inventory"] = "Инвентарь"
+--[[Translation missing --]]
+--[[ L["Item info"] = "Item info"--]] 
+--[[Translation missing --]]
+--[[ L["Item level color by quality"] = "Item level color by quality"--]] 
 L["Item Scale"] = "Шкала предметов"
 --[[Translation missing --]]
 --[[ L["Keyring Color"] = "Keyring Color"--]] 
@@ -1521,6 +1597,8 @@ L["Opening Trade Skills"] = "Открытие торговых навыков"
 --[[ L["Other account character"] = "Other account character"--]] 
 L["Plugin Buttons"] = "Кнопки плагина"
 --[[Translation missing --]]
+--[[ L["Plugin Settings"] = "Plugin Settings"--]] 
+--[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
 L["Quiver Color"] = "Цвет колчана"
 --[[Translation missing --]]
@@ -1530,10 +1608,16 @@ L["Reverse Slot Order"] = "Обратный порядок слота"
 --[[Translation missing --]]
 --[[ L["See other account character?"] = "See other account character?"--]] 
 --[[Translation missing --]]
+--[[ L["Show BoE"] = "Show BoE"--]] 
+--[[Translation missing --]]
 --[[ L["Show Character Portrait"] = "Show Character Portrait"--]] 
+--[[Translation missing --]]
+--[[ L["Show Expire Time"] = "Show Expire Time"--]] 
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
 L["Show Item Count in Tooltip"] = "Показать количество элементов в подсказке"
+--[[Translation missing --]]
+--[[ L["Show Item Level"] = "Show Item Level"--]] 
 L["Show Junk Icon"] = "Показать значок над хламом"
 L["Show Offline Text in Bag's Title"] = "Показать автономный текст в заголовке сумки"
 L["Show Quest Starter Icon"] = "Скрыть иконку квестового предмета"
@@ -1655,6 +1739,10 @@ L["Highlight Unusable Items"] = "對不可用物品著色"
 L["HOTKEY_ALT_RIGHT"] = "Alt-右鍵"
 L["HOTKEY_CTRL_RIGHT"] = "Ctrl-右鍵"
 L["Inventory"] = "背包"
+--[[Translation missing --]]
+--[[ L["Item info"] = "Item info"--]] 
+--[[Translation missing --]]
+--[[ L["Item level color by quality"] = "Item level color by quality"--]] 
 L["Item Scale"] = "物品縮放"
 L["Keyring Color"] = "鑰匙鏈顏色"
 --[[Translation missing --]]
@@ -1681,6 +1769,8 @@ L["Opening Trade Skills"] = "打開專業技能時"
 --[[ L["Other account character"] = "Other account character"--]] 
 L["Plugin Buttons"] = "擴展按鈕"
 --[[Translation missing --]]
+--[[ L["Plugin Settings"] = "Plugin Settings"--]] 
+--[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
 L["Quiver Color"] = "箭袋顏色"
 L["Restore default Settings"] = "恢復默認設置"
@@ -1688,10 +1778,16 @@ L["Reverse Bag Order"] = "反向背包排列"
 L["Reverse Slot Order"] = "反向物品排列"
 --[[Translation missing --]]
 --[[ L["See other account character?"] = "See other account character?"--]] 
+--[[Translation missing --]]
+--[[ L["Show BoE"] = "Show BoE"--]] 
 L["Show Character Portrait"] = "顯示角色頭像"
+--[[Translation missing --]]
+--[[ L["Show Expire Time"] = "Show Expire Time"--]] 
 --[[Translation missing --]]
 --[[ L["Show Guild Bank Count in Tooltip"] = "Show Guild Bank Count in Tooltip"--]] 
 L["Show Item Count in Tooltip"] = "鼠標提示物品統計"
+--[[Translation missing --]]
+--[[ L["Show Item Level"] = "Show Item Level"--]] 
 L["Show Junk Icon"] = "顯示垃圾圖標"
 L["Show Offline Text in Bag's Title"] = "在背包標題上顯示離線"
 L["Show Quest Starter Icon"] = "顯示任務給予物圖標"
