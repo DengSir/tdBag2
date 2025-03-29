@@ -22,9 +22,10 @@ local strmatch = strmatch
 
 local C = LibStub('C_Everywhere')
 
-local IsEquippableItem = IsEquippableItem
-local GetItemInfo = GetItemInfo
-local GetItemInfoInstant = GetItemInfoInstant
+local IsEquippableItem = C_Item.IsEquippableItem
+local GetItemInfo = C_Item.GetItemInfo
+local GetItemInfoInstant = C_Item.GetItemInfoInstant
+local GetItemQualityColor = C_Item.GetItemQualityColor
 
 local BIND_TRADE_TIME_REMAINING_P = BIND_TRADE_TIME_REMAINING:gsub('%%s', '(.+)')
 local HOURS_P = FORMATED_HOURS:gsub('%%d', '(%%d+)')
@@ -32,24 +33,30 @@ local MINUTES_P = COMMUNITIES_INVITE_MANAGER_EXPIRES:gsub('%%d', '(%%d+)')
 
 local EPIC = Enum.ItemQuality.Epic
 local MISC = Enum.ItemClass.Miscellaneous
-local LE_ITEM_BIND_ON_EQUIP = LE_ITEM_BIND_ON_EQUIP
+local LE_ITEM_BIND_ON_EQUIP = LE_ITEM_BIND_ON_EQUIP or Enum.ItemBind.OnEquip
 
 local ITEM_LEVEL_IGNORES = { --
     INVTYPE_BAG = true,
     INVTYPE_AMMO = true,
 }
 
-local profile = setmetatable({}, {
-    __index = function(_, k)
-        return Addon.db.profile[PLUGIN][k]
-    end,
+local profile = Addon:RegisterProfile(PLUGIN, {
+    showExpireTime = true,
+    showBOE = true,
+    showItemLevelColor = true,
+    showItemLevel = true,
 })
 
 local function Constructor(button)
-    local text = button:CreateFontString(nil, 'OVERLAY', 'NumberFontNormalYellow')
-    text:SetPoint('TOPLEFT', 3, -3)
+    local Expire = button.Timeout or _G[button:GetName() .. 'Stock']
+    if Expire then
+        button.Expire = Expire
+    else
+        local text = button:CreateFontString(nil, 'OVERLAY', 'NumberFontNormalYellow')
+        text:SetPoint('TOPLEFT', 3, -3)
 
-    button.Expire = text
+        button.Expire = text
+    end
 end
 
 local function CanShowItemLevel(item)
@@ -148,7 +155,7 @@ local function UpdateItemInfo(item)
 
     if profile.showBOE then
         local bindType = select(14, C.Item.GetItemInfo(item.info.id))
-        if bindType == Enum.ItemBind.OnEquip then
+        if bindType == LE_ITEM_BIND_ON_EQUIP then
             local info = C.Container.GetContainerItemInfo(item.bag, item.slot)
             if info and not info.isBound then
                 item.Expire:SetText('BoE')
@@ -176,28 +183,28 @@ local function UpdateAll(item)
     UpdateItemInfo(item)
 end
 
+local options = {
+    type = 'group',
+    name = 'ItemLevel',
+    get = function(item)
+        return profile[item[#item]]
+    end,
+    set = function(item, value)
+        profile[item[#item]] = value
+    end,
+    args = {
+        showExpireTime = {type = 'toggle', width = 'full', name = L['Show Expire Time'], order = 1},
+        showBOE = {type = 'toggle', width = 'full', name = L['Show BoE'], order = 2},
+        showItemLevel = {type = 'toggle', width = 'full', name = L['Show Item Level'], order = 3},
+        showItemLevelColor = {type = 'toggle', width = 'full', name = L['Item level color by quality'], order = 4},
+    },
+}
+
 Addon:RegisterPlugin{
     key = PLUGIN,
     text = L['Item info'],
     type = 'Item',
+    options = options,
     init = Constructor,
     update = UpdateAll,
-    profile = {showExpireTime = true, showBOE = true, showItemLevelColor = true, showItemLevel = true},
-    options = {
-        type = 'group',
-        name = 'ItemLevel',
-        get = function(item)
-            return profile[item[#item]]
-        end,
-        set = function(item, value)
-            profile[item[#item]] = value
-            Addon:UpdateAll()
-        end,
-        args = {
-            showExpireTime = {type = 'toggle', width = 'full', name = L['Show Expire Time'], order = 1},
-            showBOE = {type = 'toggle', width = 'full', name = L['Show BoE'], order = 2},
-            showItemLevel = {type = 'toggle', width = 'full', name = L['Show Item Level'], order = 3},
-            showItemLevelColor = {type = 'toggle', width = 'full', name = L['Item level color by quality'], order = 4},
-        },
-    },
 }

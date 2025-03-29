@@ -387,6 +387,7 @@ ns.PROFILE = {
     },
     ---@class Profile
     profile = {
+        plugins = {},
         frames = {
             [BAG_ID.BAG] = { --
                 window = {point = 'BOTTOMRIGHT', x = -50, y = 100},

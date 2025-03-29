@@ -44,7 +44,7 @@ local BAG_ID = ns.BAG_ID
 
 local safeipairs = ns.safeipairs
 
-BINDING_HEADER_TDBAG2 = 'tdBag2'
+BINDING_CATEGORY_TDBAG2 = GetAddOnMetadata('tdBag2', 'Title')
 BINDING_NAME_TDBAG2_TOGGLE_BAG = L.TOOLTIP_TOGGLE_BAG
 BINDING_NAME_TDBAG2_TOGGLE_BANK = L.TOOLTIP_TOGGLE_BANK
 BINDING_NAME_TDBAG2_TOGGLE_MAIL = L.TOOLTIP_TOGGLE_MAIL
@@ -523,6 +523,14 @@ function Addon:IterateItemPlugins()
     return safeipairs(self.plugins.Item)
 end
 
+function Addon:IterateItemSyncPlugins()
+
+end
+
+function Addon:IterateItemAsyncPlugins()
+
+end
+
 function Addon:HasAnyItemPlugin()
     return not not self.plugins.Item
 end
@@ -555,4 +563,22 @@ function Addon:RegisterPlugin(opts)
     if self.RefreshPluginOptions then
         self:RefreshPluginOptions()
     end
+end
+
+---@generic T
+---@param key string
+---@param default T
+---@return T
+function Addon:RegisterProfile(key, default)
+    ns.PROFILE.profile.plugins[key] = CopyTable(default)
+
+    return setmetatable({}, {
+        __index = function(_, k)
+            return self.db.profile.plugins[key][k]
+        end,
+        __newindex = function(_, k, v)
+            self.db.profile.plugins[key][k] = v
+            self:UpdateAll()
+        end,
+    })
 end

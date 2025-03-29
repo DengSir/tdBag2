@@ -430,7 +430,7 @@ function Addon:SetupPluginOptions(opts)
     local text = opts.text or opts.name
 
     if opts.profile then
-        ns.PROFILE.profile[key] = opts.profile
+        ns.PROFILE.profile.plugins[key] = opts.profile
     end
     if opts.options then
         tinsert(PLUGIN_OPTIONS, {name = text, options = opts.options})
