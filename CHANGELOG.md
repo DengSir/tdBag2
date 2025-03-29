@@ -1,3 +1,13 @@
+## [2.3.3](https://github.com/DengSir/tdBag2/compare/v2.3.2...v2.3.3) (2025-03-29)
+
+
+### Features
+
+* 添加物品等级/BoE/过期时间 ([cb6131c](https://github.com/DengSir/tdBag2/commit/cb6131cb3e9fb9cc862357e6f642c0df24b8717b))
+* add tdBag2_ItemInfo ([54b69f8](https://github.com/DengSir/tdBag2/commit/54b69f8b59cfb82280c75c3c57b1b3f0d33a9476))
+
+
+
 ## [2.3.2](https://github.com/DengSir/tdBag2/compare/v2.3.1...v2.3.2) (2025-03-21)
 
 
