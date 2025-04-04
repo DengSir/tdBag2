@@ -121,7 +121,7 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Item info"] = "Item info"--]] 
 --[[Translation missing --]]
---[[ L["Item level color by quality"] = "Item level color by quality"--]] 
+--[[ L["Item level color"] = "Item level color"--]] 
 --[[Translation missing --]]
 --[[ L["Item Scale"] = "Item Scale"--]] 
 --[[Translation missing --]]
@@ -140,6 +140,8 @@ L = L or {}
 --[[ L["Less than %s days"] = "Less than %s days"--]] 
 --[[Translation missing --]]
 --[[ L["Less than one day"] = "Less than one day"--]] 
+--[[Translation missing --]]
+--[[ L["Light"] = "Light"--]] 
 --[[Translation missing --]]
 --[[ L["Lock Frames"] = "Lock Frames"--]] 
 --[[Translation missing --]]
@@ -170,6 +172,8 @@ L = L or {}
 --[[ L["Plugin Settings"] = "Plugin Settings"--]] 
 --[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
+--[[Translation missing --]]
+--[[ L["Quality by blizzard"] = "Quality by blizzard"--]] 
 --[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
 --[[Translation missing --]]
@@ -269,7 +273,9 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
---[[ L["Watch Frame"] = "Watch Frame"--]]
+--[[ L["Watch Frame"] = "Watch Frame"--]] 
+--[[Translation missing --]]
+--[[ L["White"] = "White"--]]
 -- @end-locale@
 end)
 
@@ -385,7 +391,7 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Item info"] = "Item info"--]] 
 --[[Translation missing --]]
---[[ L["Item level color by quality"] = "Item level color by quality"--]] 
+--[[ L["Item level color"] = "Item level color"--]] 
 --[[Translation missing --]]
 --[[ L["Item Scale"] = "Item Scale"--]] 
 --[[Translation missing --]]
@@ -404,6 +410,8 @@ L = L or {}
 --[[ L["Less than %s days"] = "Less than %s days"--]] 
 --[[Translation missing --]]
 --[[ L["Less than one day"] = "Less than one day"--]] 
+--[[Translation missing --]]
+--[[ L["Light"] = "Light"--]] 
 --[[Translation missing --]]
 --[[ L["Lock Frames"] = "Lock Frames"--]] 
 --[[Translation missing --]]
@@ -434,6 +442,8 @@ L = L or {}
 --[[ L["Plugin Settings"] = "Plugin Settings"--]] 
 --[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
+--[[Translation missing --]]
+--[[ L["Quality by blizzard"] = "Quality by blizzard"--]] 
 --[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
 --[[Translation missing --]]
@@ -533,7 +543,9 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
---[[ L["Watch Frame"] = "Watch Frame"--]]
+--[[ L["Watch Frame"] = "Watch Frame"--]] 
+--[[Translation missing --]]
+--[[ L["White"] = "White"--]]
 -- @end-locale@
 end)
 
@@ -649,7 +661,7 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Item info"] = "Item info"--]] 
 --[[Translation missing --]]
---[[ L["Item level color by quality"] = "Item level color by quality"--]] 
+--[[ L["Item level color"] = "Item level color"--]] 
 --[[Translation missing --]]
 --[[ L["Item Scale"] = "Item Scale"--]] 
 --[[Translation missing --]]
@@ -668,6 +680,8 @@ L = L or {}
 --[[ L["Less than %s days"] = "Less than %s days"--]] 
 --[[Translation missing --]]
 --[[ L["Less than one day"] = "Less than one day"--]] 
+--[[Translation missing --]]
+--[[ L["Light"] = "Light"--]] 
 --[[Translation missing --]]
 --[[ L["Lock Frames"] = "Lock Frames"--]] 
 --[[Translation missing --]]
@@ -698,6 +712,8 @@ L = L or {}
 --[[ L["Plugin Settings"] = "Plugin Settings"--]] 
 --[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
+--[[Translation missing --]]
+--[[ L["Quality by blizzard"] = "Quality by blizzard"--]] 
 --[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
 --[[Translation missing --]]
@@ -797,7 +813,9 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
---[[ L["Watch Frame"] = "Watch Frame"--]]
+--[[ L["Watch Frame"] = "Watch Frame"--]] 
+--[[Translation missing --]]
+--[[ L["White"] = "White"--]]
 -- @end-locale@
 end)
 
@@ -913,7 +931,7 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Item info"] = "Item info"--]] 
 --[[Translation missing --]]
---[[ L["Item level color by quality"] = "Item level color by quality"--]] 
+--[[ L["Item level color"] = "Item level color"--]] 
 --[[Translation missing --]]
 --[[ L["Item Scale"] = "Item Scale"--]] 
 --[[Translation missing --]]
@@ -932,6 +950,8 @@ L = L or {}
 --[[ L["Less than %s days"] = "Less than %s days"--]] 
 --[[Translation missing --]]
 --[[ L["Less than one day"] = "Less than one day"--]] 
+--[[Translation missing --]]
+--[[ L["Light"] = "Light"--]] 
 --[[Translation missing --]]
 --[[ L["Lock Frames"] = "Lock Frames"--]] 
 --[[Translation missing --]]
@@ -962,6 +982,8 @@ L = L or {}
 --[[ L["Plugin Settings"] = "Plugin Settings"--]] 
 --[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
+--[[Translation missing --]]
+--[[ L["Quality by blizzard"] = "Quality by blizzard"--]] 
 --[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
 --[[Translation missing --]]
@@ -1061,7 +1083,9 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
---[[ L["Watch Frame"] = "Watch Frame"--]]
+--[[ L["Watch Frame"] = "Watch Frame"--]] 
+--[[Translation missing --]]
+--[[ L["White"] = "White"--]]
 -- @end-locale@
 end)
 
@@ -1130,7 +1154,7 @@ L["Inventory"] = "가방"
 --[[Translation missing --]]
 --[[ L["Item info"] = "Item info"--]] 
 --[[Translation missing --]]
---[[ L["Item level color by quality"] = "Item level color by quality"--]] 
+--[[ L["Item level color"] = "Item level color"--]] 
 L["Item Scale"] = "아이템 크기"
 L["Keyring Color"] = "열쇠고리 색상"
 --[[Translation missing --]]
@@ -1141,6 +1165,8 @@ L["Leaving the Bank"] = "은행 떠날 때"
 L["Leaving the Mail Box"] = "우편함 떠날 때"
 L["Less than %s days"] = "%s일 미만"
 L["Less than one day"] = "1일 미만"
+--[[Translation missing --]]
+--[[ L["Light"] = "Light"--]] 
 L["Lock Frames"] = "프레임 고정"
 L["Mail"] = "우편"
 --[[Translation missing --]]
@@ -1160,6 +1186,8 @@ L["Plugin Buttons"] = "플러그인 버튼"
 --[[ L["Plugin Settings"] = "Plugin Settings"--]] 
 --[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
+--[[Translation missing --]]
+--[[ L["Quality by blizzard"] = "Quality by blizzard"--]] 
 L["Quiver Color"] = "화살통/탄환주머니 칸 색상"
 L["Restore default Settings"] = "기본 설정 복원"
 L["Reverse Bag Order"] = "가방 순서 반대로"
@@ -1216,6 +1244,8 @@ L["Visiting the Auction House"] = "경매장 방문 시"
 L["Visiting the Bank"] = "은행 방문 시"
 L["Visiting the Mail Box"] = "우편함 방문 시"
 L["Watch Frame"] = "집계 프레임"
+--[[Translation missing --]]
+--[[ L["White"] = "White"--]]
 -- @end-locale@
 end)
 
@@ -1331,7 +1361,7 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Item info"] = "Item info"--]] 
 --[[Translation missing --]]
---[[ L["Item level color by quality"] = "Item level color by quality"--]] 
+--[[ L["Item level color"] = "Item level color"--]] 
 --[[Translation missing --]]
 --[[ L["Item Scale"] = "Item Scale"--]] 
 --[[Translation missing --]]
@@ -1350,6 +1380,8 @@ L = L or {}
 --[[ L["Less than %s days"] = "Less than %s days"--]] 
 --[[Translation missing --]]
 --[[ L["Less than one day"] = "Less than one day"--]] 
+--[[Translation missing --]]
+--[[ L["Light"] = "Light"--]] 
 --[[Translation missing --]]
 --[[ L["Lock Frames"] = "Lock Frames"--]] 
 --[[Translation missing --]]
@@ -1380,6 +1412,8 @@ L = L or {}
 --[[ L["Plugin Settings"] = "Plugin Settings"--]] 
 --[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
+--[[Translation missing --]]
+--[[ L["Quality by blizzard"] = "Quality by blizzard"--]] 
 --[[Translation missing --]]
 --[[ L["Quiver Color"] = "Quiver Color"--]] 
 --[[Translation missing --]]
@@ -1479,7 +1513,9 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
---[[ L["Watch Frame"] = "Watch Frame"--]]
+--[[ L["Watch Frame"] = "Watch Frame"--]] 
+--[[Translation missing --]]
+--[[ L["White"] = "White"--]]
 -- @end-locale@
 end)
 
@@ -1561,7 +1597,7 @@ L["Inventory"] = "Инвентарь"
 --[[Translation missing --]]
 --[[ L["Item info"] = "Item info"--]] 
 --[[Translation missing --]]
---[[ L["Item level color by quality"] = "Item level color by quality"--]] 
+--[[ L["Item level color"] = "Item level color"--]] 
 L["Item Scale"] = "Шкала предметов"
 --[[Translation missing --]]
 --[[ L["Keyring Color"] = "Keyring Color"--]] 
@@ -1575,6 +1611,8 @@ L["Leaving the Mail Box"] = "Оставленно на почте"
 --[[ L["Less than %s days"] = "Less than %s days"--]] 
 --[[Translation missing --]]
 --[[ L["Less than one day"] = "Less than one day"--]] 
+--[[Translation missing --]]
+--[[ L["Light"] = "Light"--]] 
 L["Lock Frames"] = "Закрепить рамку"
 --[[Translation missing --]]
 --[[ L["Mail"] = "Mail"--]] 
@@ -1600,6 +1638,8 @@ L["Plugin Buttons"] = "Кнопки плагина"
 --[[ L["Plugin Settings"] = "Plugin Settings"--]] 
 --[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
+--[[Translation missing --]]
+--[[ L["Quality by blizzard"] = "Quality by blizzard"--]] 
 L["Quiver Color"] = "Цвет колчана"
 --[[Translation missing --]]
 --[[ L["Restore default Settings"] = "Restore default Settings"--]] 
@@ -1673,7 +1713,9 @@ L["Visiting the Auction House"] = "Посещение аукциона"
 L["Visiting the Bank"] = "Посещение банка"
 L["Visiting the Mail Box"] = "Посещение почтового ящика"
 --[[Translation missing --]]
---[[ L["Watch Frame"] = "Watch Frame"--]]
+--[[ L["Watch Frame"] = "Watch Frame"--]] 
+--[[Translation missing --]]
+--[[ L["White"] = "White"--]]
 -- @end-locale@
 end)
 
@@ -1742,7 +1784,7 @@ L["Inventory"] = "背包"
 --[[Translation missing --]]
 --[[ L["Item info"] = "Item info"--]] 
 --[[Translation missing --]]
---[[ L["Item level color by quality"] = "Item level color by quality"--]] 
+--[[ L["Item level color"] = "Item level color"--]] 
 L["Item Scale"] = "物品縮放"
 L["Keyring Color"] = "鑰匙鏈顏色"
 --[[Translation missing --]]
@@ -1753,6 +1795,8 @@ L["Leaving the Bank"] = "關閉銀行時"
 L["Leaving the Mail Box"] = "關閉郵箱時"
 L["Less than %s days"] = "低於%s天"
 L["Less than one day"] = "低於1天"
+--[[Translation missing --]]
+--[[ L["Light"] = "Light"--]] 
 L["Lock Frames"] = "鎖定位置"
 L["Mail"] = "郵箱"
 --[[Translation missing --]]
@@ -1772,6 +1816,8 @@ L["Plugin Buttons"] = "擴展按鈕"
 --[[ L["Plugin Settings"] = "Plugin Settings"--]] 
 --[[Translation missing --]]
 --[[ L["Profile"] = "Profile"--]] 
+--[[Translation missing --]]
+--[[ L["Quality by blizzard"] = "Quality by blizzard"--]] 
 L["Quiver Color"] = "箭袋顏色"
 L["Restore default Settings"] = "恢復默認設置"
 L["Reverse Bag Order"] = "反向背包排列"
@@ -1828,5 +1874,7 @@ L["Visiting the Auction House"] = "打開拍賣行時"
 L["Visiting the Bank"] = "打開銀行時"
 L["Visiting the Mail Box"] = "打開郵箱時"
 L["Watch Frame"] = "物品監控"
+--[[Translation missing --]]
+--[[ L["White"] = "White"--]]
 -- @end-locale@
 end)

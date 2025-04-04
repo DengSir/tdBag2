@@ -58,8 +58,7 @@ L["HOTKEY_ALT_RIGHT"] = "Alt-RightClick"
 L["HOTKEY_CTRL_RIGHT"] = "Ctrl-RightClick"
 L["Inventory"] = true
 L["Item info"] = true
---[====[ never used ]====]
---[====[ L["Item level color by quality"] = true ]====]
+L["Item level color"] = true
 L["Item Scale"] = true
 L["Keyring Color"] = true
 L["Leatherworking Color"] = true
@@ -69,6 +68,7 @@ L["Leaving the Bank"] = true
 L["Leaving the Mail Box"] = true
 L["Less than %s days"] = true
 L["Less than one day"] = true
+L["Light"] = true
 L["Lock Frames"] = true
 L["Mail"] = true
 L["Mining Color"] = true
@@ -84,6 +84,7 @@ L["Other account character"] = true
 L["Plugin Buttons"] = true
 L["Plugin Settings"] = true
 L["Profile"] = true
+L["Quality by blizzard"] = true
 L["Quiver Color"] = true
 L["Restore default Settings"] = true
 L["Reverse Bag Order"] = true
@@ -134,6 +135,7 @@ L["Visiting the Auction House"] = true
 L["Visiting the Bank"] = true
 L["Visiting the Mail Box"] = true
 L["Watch Frame"] = true
+L["White"] = true
 -- @end-locale@
 
 -- @debug@
