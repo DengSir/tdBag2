@@ -1,3 +1,12 @@
+## [2.3.4](https://github.com/DengSir/tdBag2/compare/v2.3.3...v2.3.4) (2025-04-04)
+
+
+### Features
+
+* 物品等级添加一个更亮的颜色 ([e7a4cb0](https://github.com/DengSir/tdBag2/commit/e7a4cb007beb943e5f63d708e507a7b9e5fce1ed))
+
+
+
 ## [2.3.3](https://github.com/DengSir/tdBag2/compare/v2.3.2...v2.3.3) (2025-03-29)
 
 
