@@ -49,15 +49,15 @@ local profile = Addon:RegisterProfile(PLUGIN, {
 })
 
 local CUSTOM_ITEM_QUALITY_COLORS = {}
-CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Poor] = {r = 0.716, g = 0.716, b = 0.716}
-CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Common or Enum.ItemQuality.Standard] = {r = 1.0, g = 1.0, b = 1.0}
-CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Uncommon or Enum.ItemQuality.Good] = {r = 0.294, g = 1.0, b = 0.2}
-CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Rare] = {r = 0.067, g = 0.54, b = 1.0}
-CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Epic] = {r = 0.723, g = 0.392, b = 0.949}
-CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Legendary] = {r = 1, g = 0.602, b = 0.2}
-CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Artifact] = {r = 0.935, g = 0.867, b = 0.669}
-CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Heirloom] = {r = 0.2, g = 0.84, b = 1.0}
-CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.WoWToken] = {r = 0.2, g = 0.84, b = 1.0}
+CUSTOM_ITEM_QUALITY_COLORS[0] = {r = 0.72, g = 0.72, b = 0.72}
+CUSTOM_ITEM_QUALITY_COLORS[1] = {r = 1.0, g = 1.0, b = 1.0}
+CUSTOM_ITEM_QUALITY_COLORS[2] = {r = 0.3, g = 1.0, b = 0.38}
+CUSTOM_ITEM_QUALITY_COLORS[3] = {r = 0.4, g = 0.71, b = 1.0}
+CUSTOM_ITEM_QUALITY_COLORS[4] = {r = 0.97, g = 0.63, b = 0.83}
+CUSTOM_ITEM_QUALITY_COLORS[5] = {r = 1, g = 0.602, b = 0.2}
+CUSTOM_ITEM_QUALITY_COLORS[6] = {r = 0.94, g = 0.87, b = 0.67}
+CUSTOM_ITEM_QUALITY_COLORS[7] = {r = 0.2, g = 0.84, b = 1.0}
+CUSTOM_ITEM_QUALITY_COLORS[8] = {r = 0.2, g = 0.84, b = 1.0}
 
 local function Constructor(button)
     local Expire = button.Timeout or _G[button:GetName() .. 'Stock']
