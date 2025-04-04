@@ -1,3 +1,17 @@
+## [2.3.5](https://github.com/DengSir/tdBag2/compare/v2.3.4...v2.3.5) (2025-04-04)
+
+
+### Bug Fixes
+
+* error in 60 ([888f8d7](https://github.com/DengSir/tdBag2/commit/888f8d71d4a798f005f93ecbb7c22351339ec2c1))
+
+
+### Features
+
+* 继续调亮物品等级 ([69a965e](https://github.com/DengSir/tdBag2/commit/69a965e364faacfb5019a0846c47fa7daffe2b30))
+
+
+
 ## [2.3.4](https://github.com/DengSir/tdBag2/compare/v2.3.3...v2.3.4) (2025-04-04)
 
 
