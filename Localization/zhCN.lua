@@ -154,7 +154,10 @@ L['Plugin Settings'] = '插件'
 L['Show BoE'] = '显示装绑物品'
 L['Show Expire Time'] = '显示过期时间'
 L['Show Item Level'] = '显示物品等级'
-L['Item level color by quality'] = '根据物品品质显示物品等级颜色'
+L['Item level color'] = '物品等级颜色'
+L.Light = '亮色'
+L['Quality by blizzard'] = '暴雪品质颜色'
+L.White = '白色'
 -- @locale-fill@
 
 -- @end-import@

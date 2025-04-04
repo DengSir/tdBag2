@@ -45,7 +45,19 @@ local profile = Addon:RegisterProfile(PLUGIN, {
     showBOE = true,
     showItemLevelColor = true,
     showItemLevel = true,
+    itemLevelColor = 'Light',
 })
+
+local CUSTOM_ITEM_QUALITY_COLORS = {}
+CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Poor] = {r = 0.716, g = 0.716, b = 0.716}
+CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Common] = {r = 1.0, g = 1.0, b = 1.0}
+CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Uncommon] = {r = 0.294, g = 1.0, b = 0.2}
+CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Rare] = {r = 0.067, g = 0.54, b = 1.0}
+CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Epic] = {r = 0.723, g = 0.392, b = 0.949}
+CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Legendary] = {r = 1, g = 0.602, b = 0.2}
+CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Artifact] = {r = 0.935, g = 0.867, b = 0.669}
+CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.Heirloom] = {r = 0.2, g = 0.84, b = 1.0}
+CUSTOM_ITEM_QUALITY_COLORS[Enum.ItemQuality.WoWToken] = {r = 0.2, g = 0.84, b = 1.0}
 
 local function Constructor(button)
     local Expire = button.Timeout or _G[button:GetName() .. 'Stock']
@@ -125,11 +137,14 @@ local function UpdateItemLevel(item)
     item.Count:Show()
     item.Count:SetText(itemLevel)
 
-    if profile.showItemLevelColor then
+    if profile.itemLevelColor == 'White' then
+        item.Count:SetTextColor(1, 1, 1)
+    elseif profile.itemLevelColor == 'Blizzard' then
         local r, g, b = GetItemQualityColor(quality)
         item.Count:SetTextColor(r, g, b)
-    else
-        item.Count:SetTextColor(1, 1, 1)
+    elseif profile.itemLevelColor == 'Light' then
+        local color = CUSTOM_ITEM_QUALITY_COLORS[quality]
+        item.Count:SetTextColor(color.r, color.g, color.b)
     end
 end
 
@@ -196,7 +211,13 @@ local options = {
         showExpireTime = {type = 'toggle', width = 'full', name = L['Show Expire Time'], order = 1},
         showBOE = {type = 'toggle', width = 'full', name = L['Show BoE'], order = 2},
         showItemLevel = {type = 'toggle', width = 'full', name = L['Show Item Level'], order = 3},
-        showItemLevelColor = {type = 'toggle', width = 'full', name = L['Item level color by quality'], order = 4},
+        itemLevelColor = {
+            type = 'select',
+            name = L['Item level color'],
+            order = 4,
+            values = {White = L['White'], Blizzard = L['Quality by blizzard'], Light = L['Light']},
+            sorting = {'White', 'Blizzard', 'Light'},
+        },
     },
 }
 

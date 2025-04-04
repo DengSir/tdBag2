@@ -58,7 +58,8 @@ L["HOTKEY_ALT_RIGHT"] = "Alt-RightClick"
 L["HOTKEY_CTRL_RIGHT"] = "Ctrl-RightClick"
 L["Inventory"] = true
 L["Item info"] = true
-L["Item level color by quality"] = true
+--[====[ never used ]====]
+--[====[ L["Item level color by quality"] = true ]====]
 L["Item Scale"] = true
 L["Keyring Color"] = true
 L["Leatherworking Color"] = true
@@ -278,12 +279,6 @@ L.Profile = true
 L['Current account character'] = true
 L['Other account character'] = true
 L['See other account character?'] = true
---[====[ never used ]====]
---[====[ L.DESC_SUPPORT = true ]====]
---[====[ never used ]====]
---[====[ L.Other = true ]====]
---[====[ never used ]====]
---[====[ L.Support = true ]====]
 L['(Only default border style)'] = true
 L['Border Style'] = true
 L['Item info'] = true
@@ -291,7 +286,10 @@ L['Plugin Settings'] = true
 L['Show BoE'] = true
 L['Show Expire Time'] = true
 L['Show Item Level'] = true
-L['Item level color by quality'] = true
+L['Item level color'] = true
+L.Light = true
+L['Quality by blizzard'] = true
+L.White = true
 -- @locale-fill@
 -- @end-import@
 -- @end-debug@

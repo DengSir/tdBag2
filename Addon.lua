@@ -72,7 +72,7 @@ BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 ---@field SearchBox UI.SearchBox
 ---@field EquipBagToggle UI.EquipBagToggle
 ns.UI = {}
-ns.Search = LibStub('ItemSearch-1.3')
+ns.Search = LibStub('ItemSearchModify-1.3')
 ns.Unfit = LibStub('Unfit-1.0')
 
 ---@class Addon: AceAddon, LibClass-2.0, AceHook-3.0, AceEvent-3.0
