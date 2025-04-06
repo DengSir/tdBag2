@@ -1,3 +1,12 @@
+## [2.3.6](https://github.com/DengSir/tdBag2/compare/v2.3.5...v2.3.6) (2025-04-06)
+
+
+### Bug Fixes
+
+* 修复没有公会时，关闭公会银行界面报错的问题 ([9198c6d](https://github.com/DengSir/tdBag2/commit/9198c6d64706fe2cd37237c4ca26542ec01dfc09))
+
+
+
 ## [2.3.5](https://github.com/DengSir/tdBag2/compare/v2.3.4...v2.3.5) (2025-04-04)
 
 
