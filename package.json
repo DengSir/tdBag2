@@ -1,6 +1,6 @@
 {
   "name": "tdbag2",
-  "version": "2.3.6",
+  "version": "2.3.7",
   "description": "Another bag addon",
   "main": "index.js",
   "scripts": {

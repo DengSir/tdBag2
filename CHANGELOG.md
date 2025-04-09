@@ -1,3 +1,12 @@
+## [2.3.7](https://github.com/DengSir/tdBag2/compare/v2.3.6...v2.3.7) (2025-04-09)
+
+
+### Features
+
+* 战袍，衬衣不显示装等 ([20a7107](https://github.com/DengSir/tdBag2/commit/20a71074a81c52918a2f3b4179b30e72cecd5d52))
+
+
+
 ## [2.3.6](https://github.com/DengSir/tdBag2/compare/v2.3.5...v2.3.6) (2025-04-06)
 
 
