@@ -58,14 +58,13 @@ function Events:OnEnable()
     self:RegisterEvent('BAG_UPDATE_DELAYED', 'Fire')
     self:RegisterEvent('CURSOR_CHANGED', 'Fire')
     self:RegisterEvent('QUEST_LOG_UPDATE', 'Fire')
-    -- @non-retail@
-    -- @build>3@
-    self:SecureHook('BackpackTokenFrame_Update')
-    -- @end-build>3@
-    -- @end-non-retail@
-    -- @retail@
-    EventRegistry:RegisterCallback('TokenFrame.OnTokenWatchChanged', self.BackpackTokenFrame_Update, self)
-    -- @end-retail@
+
+    if ns.BUILD > 4 then
+        EventRegistry:RegisterCallback('TokenFrame.OnTokenWatchChanged', self.BackpackTokenFrame_Update, self)
+    elseif ns.BUILD >= 3 then
+        self:SecureHook('BackpackTokenFrame_Update')
+    end
+
     self:RegisterEvent('GET_ITEM_INFO_RECEIVED', 'Fire')
     self:RegisterEvent('PLAYER_MONEY', 'Fire')
     self:RegisterEvent('PLAYER_TRADE_MONEY', 'Fire')

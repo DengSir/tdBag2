@@ -44,6 +44,7 @@
     },
     "addons": {
       "tdBag2_ItemInfo": "Plugins/ItemInfo"
-    }
+    },
+    "single": true
   }
 }
