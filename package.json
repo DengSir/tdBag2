@@ -29,7 +29,7 @@
     "curse_id": 349175,
     "changelog": "CHANGELOG.md",
     "builds": {
-      "Vanilla": "11506",
+      "Vanilla": "11507",
       "Wrath": "30404"
     },
     "scan-locale-ignores": [
