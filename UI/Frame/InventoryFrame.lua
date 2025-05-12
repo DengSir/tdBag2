@@ -14,7 +14,7 @@ local ContainerFrame = ns.UI.ContainerFrame
 ---@class UI.InventoryFrame: UI.ContainerFrame
 local InventoryFrame = ns.Addon:NewClass('UI.InventoryFrame', ContainerFrame)
 
-if ns.BUILD > 4 then
+if not ns.BUILD_MAINLINE then
     return
 end
 
@@ -38,7 +38,7 @@ end
 function InventoryFrame:OnShow()
     ContainerFrame.OnShow(self)
 
-    if ns.BUILD == 1 and C_Engraving and C_Engraving.IsEngravingEnabled() then
+    if ns.FEATURE_RUNE and C_Engraving and C_Engraving.IsEngravingEnabled() then
         C_Engraving.RefreshRunesList()
     end
 

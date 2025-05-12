@@ -47,7 +47,15 @@ local GLOBAL_SEARCH_OWNER = '$search'
 ---@class ns
 local ns = select(2, ...)
 
-ns.BUILD = tonumber(GetBuildInfo():match('^(%d+)%.'))
+local BUILD = tonumber(GetBuildInfo():match('^(%d+)%.')) or 0
+
+ns.BUILD_VANILLA = BUILD == 1
+ns.BUILD_MAINLINE = BUILD >= 11
+
+ns.FEATURE_GUILDBANK = BUILD >= 2
+ns.FEATURE_CURRENCY = BUILD >= 3
+ns.FEATURE_RUNE = BUILD == 1
+ns.FEATURE_RANGED_WEAPON = BUILD < 5
 
 ns.VERSION = tonumber((C.AddOns.GetAddOnMetadata('tdBag2', 'Version'):gsub('(%d+)%.?', function(x)
     return format('%02d', tonumber(x))
@@ -66,14 +74,14 @@ ns.ITEM_SPACING = 2
 
 ns.SECONDS_OF_DAY = 24 * 60 * 60
 
-ns.KEYRING_FAMILY = ns.BUILD == 1 and 9 or 256
+ns.KEYRING_FAMILY = ns.BUILD_VANILLA and 9 or 256
 
-ns.ITEM_BUTTON_CLASS = ns.BUILD > 4 and 'ItemButton' or 'Button'
+ns.ITEM_BUTTON_CLASS = ns.BUILD_MAINLINE and 'ItemButton' or 'Button'
 
 ns.LEFT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:228:283|t]]
 ns.RIGHT_MOUSE_BUTTON = [[|TInterface\TutorialFrame\UI-Tutorial-Frame:12:12:0:0:512:512:10:65:330:385|t]]
 
-ns.RACE_ICON_TCOORDS = ns.BUILD == 1 and {
+ns.RACE_ICON_TCOORDS = ns.BUILD_VANILLA and {
     ['HUMAN_MALE'] = {0, 0.25, 0, 0.25},
     ['DWARF_MALE'] = {0.25, 0.5, 0, 0.25},
     ['GNOME_MALE'] = {0.5, 0.75, 0, 0.25},
@@ -171,7 +179,7 @@ local BAGS = { --
     [BAG_ID.SEARCH] = {},
 }
 
-if ns.BUILD >= 2 then
+if ns.FEATURE_GUILDBANK then
     BAG_ID.GUILDBANK = 'guild'
     BAG_TOOLTIPS[BAG_ID.GUILDBANK] = L['Guild bank']
     BAGS[BAG_ID.GUILDBANK] = {}
@@ -219,7 +227,7 @@ do
         end
     end
 
-    if ns.BUILD >= 2 then
+    if ns.FEATURE_GUILDBANK then
         for i = 1, MAX_GUILDBANK_TABS do
             tinsert(BAGS[BAG_ID.GUILDBANK], 50 + i)
         end
@@ -266,7 +274,7 @@ do
 
     }
 
-    if ns.BUILD >= 5 then
+    if not ns.FEATURE_RANGED_WEAPON then
         INV_DATA.MAINHANDSLOT = bottom(-0.5)
         INV_DATA.SECONDARYHANDSLOT = bottom(0.5)
     else
@@ -496,7 +504,7 @@ end
 familyColor(nil, 'colorNormal', L['Normal Color'], {r = 1, g = 1, b = 1})
 familyColor({1, 2}, 'colorQuiver', L['Quiver Color'], {r = 1, g = 0.87, b = 0.68})
 
-if ns.BUILD == 1 then
+if ns.BUILD_VANILLA then
     familyColor({3, 4}, 'colorSoul', L['Soul Color'], {r = 0.64, g = 0.39, b = 1})
     familyColor(6, 'colorHerb', L['Herbalism Color'], {r = 0.5, g = 1, b = 0.5})
     familyColor(7, 'colorEnchant', L['Enchanting Color'], {r = 0.64, g = 0.83, b = 1})

@@ -13,7 +13,7 @@ local Cache = ns.Cache
 
 local BAGS = ns.GetBags(ns.BAG_ID.BAG)
 local BANKS = ns.GetBags(ns.BAG_ID.BANK)
-local GUILDBANKS = ns.BUILD >= 2 and ns.GetBags(ns.BAG_ID.GUILDBANK)
+local GUILDBANKS = ns.FEATURE_GUILDBANK and ns.GetBags(ns.BAG_ID.GUILDBANK)
 
 ---@class Counter: AceModule, AceEvent-3.0
 local Counter = ns.Addon:NewModule('Counter', 'AceEvent-3.0')
@@ -27,7 +27,7 @@ function Counter:OnInitialize()
 end
 
 function Counter:OnEnable()
-    if ns.BUILD >= 2 then
+    if ns.FEATURE_GUILDBANK then
         self:RegisterMessage('GUILDBANK_OPENED', 'OnGuildBankUpdate')
         self:RegisterMessage('GUILDBANK_CLOSED', 'OnGuildBankUpdate')
     end
@@ -69,7 +69,7 @@ function Counter:GetOwnerItemCount(owner, itemId)
         for _, bag in ipairs(BANKS) do
             banks = banks + self:GetBagItemCount(owner, bag, itemId)
         end
-        if ns.BUILD >= 2 then
+        if GUILDBANKS then
             for _, bag in ipairs(GUILDBANKS) do
                 guilds = guilds + self:GetBagItemCount(owner, bag, itemId)
             end

@@ -95,7 +95,7 @@ function Item:Update()
 end
 
 function Item:UpdateRune()
-    if ns.BUILD ~= 1 then
+    if not ns.FEATURE_RUNE then
         return
     end
     local texture = self:GetRuneTexture()

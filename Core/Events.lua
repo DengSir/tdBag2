@@ -59,10 +59,12 @@ function Events:OnEnable()
     self:RegisterEvent('CURSOR_CHANGED', 'Fire')
     self:RegisterEvent('QUEST_LOG_UPDATE', 'Fire')
 
-    if ns.BUILD > 4 then
-        EventRegistry:RegisterCallback('TokenFrame.OnTokenWatchChanged', self.BackpackTokenFrame_Update, self)
-    elseif ns.BUILD >= 3 then
-        self:SecureHook('BackpackTokenFrame_Update')
+    if ns.FEATURE_CURRENCY then
+        if ns.BUILD_MAINLINE then
+            EventRegistry:RegisterCallback('TokenFrame.OnTokenWatchChanged', self.BackpackTokenFrame_Update, self)
+        else
+            self:SecureHook('BackpackTokenFrame_Update')
+        end
     end
 
     self:RegisterEvent('GET_ITEM_INFO_RECEIVED', 'Fire')

@@ -46,7 +46,7 @@ function TokenFrame:OnShow()
     end
     self:RegisterEvent('WATCHED_TOKEN_CHANGED', 'Refresh')
     self:RegisterEvent('UPDATE_ALL', 'Refresh')
-    if ns.BUILD >= 3 then
+    if ns.FEATURE_CURRENCY then
         self:RegisterEvent('WATCHED_CURRENCY_CHANGED', 'Refresh')
     end
     self:RegisterFrameEvent('OWNER_CHANGED', 'Refresh')
@@ -105,7 +105,7 @@ function TokenFrame:Refresh()
     local index = 0
     local width = self.PADDING * 2
 
-    if ns.BUILD >= 3 and self.meta:IsSelf() then
+    if ns.FEATURE_CURRENCY and self.meta:IsSelf() then
         for i = 1, MAX_WATCHED_TOKENS do
             local info = C.CurrencyInfo.GetBackpackCurrencyInfo(i)
             if info then

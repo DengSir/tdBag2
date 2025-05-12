@@ -81,7 +81,7 @@ end
 
 function Tooltip:OnEnable()
     self:Update()
-    if ns.BUILD >= 2 then
+    if ns.FEATURE_GUILDBANK then
         self:RegisterMessage('GUILDBANK_OPENED', 'OnGuildBankUpdate')
         self:RegisterMessage('GUILDBANK_CLOSED', 'OnGuildBankUpdate')
     end

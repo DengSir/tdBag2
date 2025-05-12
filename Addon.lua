@@ -278,7 +278,7 @@ function Addon:SetupCharacterOptions(owner)
             end
         end
 
-        if ns.BUILD < 3 then
+        if not ns.FEATURE_CURRENCY then
             for _, itemId in ipairs(ns.TOKENS) do
                 tinsert(watches, {itemId = itemId})
             end

@@ -68,7 +68,7 @@ function Token:TooltipItem()
 
     if self.itemId then
         GameTooltip:SetHyperlink('item:' .. self.itemId)
-    elseif ns.BUILD >= 3 and self.currencyId then
+    elseif ns.FEATURE_CURRENCY and self.currencyId then
         GameTooltip:SetHyperlink('currency:' .. self.currencyId)
     end
 
@@ -93,7 +93,7 @@ function Token:TooltipAll()
     GameTooltip:SetText(L['Watch Frame'])
     GameTooltip:AddLine(' ')
 
-    if ns.BUILD >= 3 and parent.meta:IsSelf() then
+    if ns.FEATURE_CURRENCY and parent.meta:IsSelf() then
         for i = 1, parent.currencyCount do
             local info = C.CurrencyInfo.GetBackpackCurrencyInfo(i)
             if info then
