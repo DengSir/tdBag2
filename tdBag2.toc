@@ -64,5 +64,4 @@ UI\Frame\EquipFrame.lua
 
 UI\Plugin\BagToggle.lua
 UI\Plugin\SearchToggle.lua
-#UI\Plugin\SortButton.lua [AllowLoadGameType mainline]
 UI\Plugin\PluginFrame.lua

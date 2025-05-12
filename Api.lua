@@ -67,7 +67,6 @@ ns.ITEM_SPACING = 2
 ns.SECONDS_OF_DAY = 24 * 60 * 60
 
 ns.KEYRING_FAMILY = ns.BUILD == 1 and 9 or 256
-ns.KEYRING_FAMILY = 256
 
 ns.ITEM_BUTTON_CLASS = ns.BUILD > 4 and 'ItemButton' or 'Button'
 
@@ -267,7 +266,7 @@ do
 
     }
 
-    if ns.BUILD > 4 then
+    if ns.BUILD >= 5 then
         INV_DATA.MAINHANDSLOT = bottom(-0.5)
         INV_DATA.SECONDARYHANDSLOT = bottom(0.5)
     else
