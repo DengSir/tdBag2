@@ -118,6 +118,10 @@ Events.BAG_CLOSED = ns.Spawned(Events.BAG_CLOSED)
 function Events:PLAYERBANKSLOTS_CHANGED(_, slot)
     if slot <= NUM_BANKGENERIC_SLOTS then
         self:BAG_UPDATE(nil, BANK_CONTAINER)
+
+        C_Timer.After(1, function()
+            self:BAG_UPDATE(nil, BANK_CONTAINER)
+        end)
     end
 end
 
