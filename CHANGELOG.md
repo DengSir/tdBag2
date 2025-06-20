@@ -1,3 +1,18 @@
+## [2.3.8](https://github.com/DengSir/tdBag2/compare/v2.3.7...v2.3.8) (2025-06-20)
+
+
+### Bug Fixes
+
+* 修复暴雪的bug：银行可能不更新的问题 ([973e309](https://github.com/DengSir/tdBag2/commit/973e309d83cb7639da37693fe691498aa3d04079))
+
+
+### Features
+
+* 单包模式 ([d2b1bb7](https://github.com/DengSir/tdBag2/commit/d2b1bb7d8b9594458de52df55b26e12be2d07427))
+* 单包模式 ([7aa06cd](https://github.com/DengSir/tdBag2/commit/7aa06cdfc17067965a3e9a36e3291cd8e412849b))
+
+
+
 ## [2.3.7](https://github.com/DengSir/tdBag2/compare/v2.3.6...v2.3.7) (2025-04-09)
 
 
