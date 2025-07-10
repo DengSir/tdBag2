@@ -1,3 +1,7 @@
+## [2.3.9](https://github.com/DengSir/tdBag2/compare/v2.3.8...v2.3.9) (2025-07-10)
+
+
+
 ## [2.3.8](https://github.com/DengSir/tdBag2/compare/v2.3.7...v2.3.8) (2025-06-20)
 
 
