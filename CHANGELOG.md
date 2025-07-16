@@ -1,3 +1,12 @@
+## [2.3.10](https://github.com/DengSir/tdBag2/compare/v2.3.9...v2.3.10) (2025-07-16)
+
+
+### Bug Fixes
+
+* 战斗中打不开设置为标准面板的窗口 ([09cf72a](https://github.com/DengSir/tdBag2/commit/09cf72accdce641e6584ef447d6356cb1b37245f))
+
+
+
 ## [2.3.9](https://github.com/DengSir/tdBag2/compare/v2.3.8...v2.3.9) (2025-07-10)
 
 
