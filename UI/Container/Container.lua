@@ -375,7 +375,7 @@ function Container:OnLayout()
                 end
 
                 itemButton:ClearAllPoints()
-                itemButton:SetPoint('TOPLEFT', self, 'TOPLEFT', x * size, -y * size - breakHeight)
+                itemButton:SetPoint('TOPLEFT', self, 'TOPLEFT', x * size, -y * size - breakHeight * scale)
                 itemButton:SetScale(scale)
                 itemButton:Show()
 
@@ -389,7 +389,7 @@ function Container:OnLayout()
     end
 
     local width = max(1, column * size * scale)
-    local height = max(1, y * size * scale + breakHeight)
+    local height = max(1, y * size * scale + breakHeight * scale)
     self:SetSize(width, height)
 end
 
