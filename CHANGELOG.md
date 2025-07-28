@@ -1,3 +1,18 @@
+## [2.3.11](https://github.com/DengSir/tdBag2/compare/v2.3.10...v2.3.11) (2025-07-28)
+
+
+### Bug Fixes
+
+* 修复暴雪ui模板的绿块 ([9fc72a8](https://github.com/DengSir/tdBag2/commit/9fc72a84e8c7681c772b6235073150518ecb1500))
+
+
+### Features
+
+* 背包打散功能 ([7c45f1e](https://github.com/DengSir/tdBag2/commit/7c45f1eb2bc6ec61f008af04ab6de952610173b8))
+* 打散间隔根据物品缩放 ([ce0a6df](https://github.com/DengSir/tdBag2/commit/ce0a6dfb4d1c08ff77d6b4b567ed806cfd84c6ce))
+
+
+
 ## [2.3.10](https://github.com/DengSir/tdBag2/compare/v2.3.9...v2.3.10) (2025-07-16)
 
 
