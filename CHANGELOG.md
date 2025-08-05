@@ -1,3 +1,12 @@
+## [2.3.12](https://github.com/DengSir/tdBag2/compare/v2.3.11...v2.3.12) (2025-08-05)
+
+
+### Bug Fixes
+
+* 动作条上的玩具鼠标提示异常的问题 ([7b641e1](https://github.com/DengSir/tdBag2/commit/7b641e147b13b9e7356cce2693b65fb3366cb95d))
+
+
+
 ## [2.3.11](https://github.com/DengSir/tdBag2/compare/v2.3.10...v2.3.11) (2025-07-28)
 
 
