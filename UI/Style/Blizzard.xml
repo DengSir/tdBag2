@@ -91,7 +91,7 @@
             <KeyValue key="fixedWidth" value="24" type="number"/>
             <KeyValue key="fixedHeight" value="78" type="number"/>
         </KeyValues>
-        <Layers build="non-retail">
+        <Layers>
             <Layer level="BORDER" textureSubLevel="1">
                 <MaskTexture parentKey="CircleMask" file="Interface\CharacterFrame\TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
                     <Anchors>
@@ -111,7 +111,6 @@
                     <Anchor point="TOPLEFT" x="60" y="-2" />
                     <Anchor point="TOPRIGHT" x="-24" y="-2" />
                 </Anchors>
-                <!-- <ButtonText parentKey="Text"/> -->
                 <NormalFont style="GameFontNormal"/>
                 <HighlightFont style="GameFontHighlight"/>
             </Button>
@@ -128,9 +127,7 @@
                 </HighlightTexture>
                 <Scripts>
                     <OnLoad>
-                        local parent = self:GetParent()
-                        local portrait = parent.portrait or (parent.PortraitContainer and parent.PortraitContainer.portrait)
-                        self.portrait = portrait
+                        self.portrait = self:GetParent().portrait
                     </OnLoad>
                 </Scripts>
             </Button>
@@ -140,12 +137,6 @@
                     <Anchor point="BOTTOMRIGHT" x="-6" y="4" />
                 </Anchors>
             </Frame>
-            <!-- <Frame parentKey="Inset" useParentLevel="true" build="retail">
-                <Anchors>
-                    <Anchor point="TOPLEFT" x="4" y="-60" />
-                    <Anchor point="BOTTOMRIGHT" x="-6" y="4" />
-                </Anchors>
-            </Frame> -->
             <Frame parentKey="Container">
                 <Size x="1" y="1"/>
                 <Anchors>
@@ -160,9 +151,10 @@
                 </Anchors>
             </EditBox>
         </Frames>
-        <Scripts build="retail">
+        <Scripts>
             <OnLoad>
                 self.TitleContainer:Hide()
+                self.PortraitContainer:Hide()
             </OnLoad>
         </Scripts>
     </Frame>
@@ -172,7 +164,7 @@
             <KeyValue key="fixedWidth" value="24" type="number"/>
             <KeyValue key="fixedHeight" value="100" type="number"/>
         </KeyValues>
-        <Layers build="non-retail">
+        <Layers>
             <Layer level="BORDER" textureSubLevel="1">
                 <Texture parentKey="BtnCornerLeft" inherits="UI-Frame-BtnCornerLeft">
                     <Anchors>

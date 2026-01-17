@@ -44,7 +44,7 @@ local BAG_ID = ns.BAG_ID
 
 local safeipairs = ns.safeipairs
 
-BINDING_CATEGORY_TDBAG2 = GetAddOnMetadata('tdBag2', 'Title')
+BINDING_CATEGORY_TDBAG2 = C.AddOns.GetAddOnMetadata('tdBag2', 'Title')
 BINDING_NAME_TDBAG2_TOGGLE_BAG = L.TOOLTIP_TOGGLE_BAG
 BINDING_NAME_TDBAG2_TOGGLE_BANK = L.TOOLTIP_TOGGLE_BANK
 BINDING_NAME_TDBAG2_TOGGLE_MAIL = L.TOOLTIP_TOGGLE_MAIL
@@ -72,7 +72,7 @@ BINDING_NAME_TDBAG2_TOGGLE_GLOBAL_SEARCH = L.TOOLTIP_TOGGLE_GLOBAL_SEARCH
 ---@field SearchBox UI.SearchBox
 ---@field EquipBagToggle UI.EquipBagToggle
 ns.UI = {}
-ns.Search = LibStub('ItemSearchModify-1.3')
+ns.Search = LibStub('ItemSearch-1.3')
 ns.Unfit = LibStub('Unfit-1.0')
 
 ---@class Addon: AceAddon, LibClass-2.0, AceHook-3.0, AceEvent-3.0

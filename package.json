@@ -29,8 +29,10 @@
     "curse_id": 349175,
     "changelog": "CHANGELOG.md",
     "builds": {
-      "Vanilla": "11507",
-      "Wrath": "30405"
+      "Vanilla": "11508",
+      "TBC": "20505",
+      "Wrath": "38000",
+      "Mists": "50503"
     },
     "scan-locale-ignores": [
       "Localization/**",
@@ -40,7 +42,7 @@
       "Libs/*/**"
     ],
     "nga_id": {
-      "Wrath": 43594279
+      "Mists": 43594279
     },
     "addons": {
       "tdBag2_ItemInfo": "Plugins/ItemInfo"

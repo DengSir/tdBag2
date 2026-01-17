@@ -56,6 +56,7 @@ ns.FEATURE_GUILDBANK = BUILD >= 2
 ns.FEATURE_CURRENCY = BUILD >= 3
 ns.FEATURE_RUNE = BUILD == 1
 ns.FEATURE_RANGED_WEAPON = BUILD < 5
+ns.FEATURE_KEYRING = BUILD >= 2 and BUILD < 5
 
 ns.VERSION = tonumber((C.AddOns.GetAddOnMetadata('tdBag2', 'Version'):gsub('(%d+)%.?', function(x)
     return format('%02d', tonumber(x))
@@ -213,7 +214,7 @@ do
         touch(i + NUM_BAG_SLOTS, BAG_ID.BANK)
     end
 
-    if HasKey then
+    if ns.FEATURE_KEYRING then
         tinsert(BAGS[BAG_ID.BAG], KEYRING_CONTAINER)
     end
 
