@@ -1,3 +1,17 @@
+## [2.3.13](https://github.com/DengSir/tdBag2/compare/v2.3.12...v2.3.13) (2026-01-17)
+
+
+### Bug Fixes
+
+* errors ([11059b7](https://github.com/DengSir/tdBag2/commit/11059b72512d3bb3f006a790d7b985336454de4d))
+
+
+### Features
+
+* 修复#show宏的鼠标提示显示问题 ([2565a68](https://github.com/DengSir/tdBag2/commit/2565a68e2255a1f5a5ad523827fd5f7a65ba80a0))
+
+
+
 ## [2.3.12](https://github.com/DengSir/tdBag2/compare/v2.3.11...v2.3.12) (2025-08-05)
 
 
