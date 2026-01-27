@@ -25,6 +25,7 @@ local PlaySound = PlaySound
 local Ambiguate = Ambiguate
 local GetInventorySlotInfo = GetInventorySlotInfo
 local GetGuildInfo = GetGuildInfo
+local GetNormalizedRealmName = GetNormalizedRealmName
 local GetRealmName = GetRealmName
 
 ---- UI
@@ -632,13 +633,25 @@ function ns.GetOwnerAddress(owner)
     return ns.REALM, owner or ns.PLAYER, owner == GLOBAL_SEARCH_OWNER
 end
 
+local function NormalizedRealmName(realm)
+    return realm:gsub('[%s-]+', '')
+end
+
+function ns.GetNormalizedRealmName()
+    local realm = GetNormalizedRealmName()
+    if not realm or realm == '' then
+        realm = NormalizedRealmName(GetRealmName())
+    end
+    return realm
+end
+
 function ns.GetCurrentGuildOwner()
     local name, _, _, realm = GetGuildInfo('player')
     if not name then
         return
     end
-    if not realm then
-        realm = GetRealmName()
+    if not realm or realm == '' then
+        realm = ns.GetNormalizedRealmName()
     end
     return format('@%s-%s', name, realm)
 end

@@ -17,7 +17,6 @@ local C = LibStub('C_Everywhere')
 local CreateFrame = CreateFrame
 local UnitFullName = UnitFullName
 local GetAutoCompleteRealms = GetAutoCompleteRealms
-local GetRealmName = GetRealmName
 
 local SEARCH = SEARCH
 
@@ -101,7 +100,7 @@ function Addon:OnEnable()
         if realms and realms[1] then
             return realms
         end
-        return {(GetRealmName():gsub('%s+', ''))}
+        return {ns.GetNormalizedRealmName()}
     end)()
     ns.REALM = ns.REALMS[1]
 
