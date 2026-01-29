@@ -1,3 +1,12 @@
+## [2.3.14](https://github.com/DengSir/tdBag2/compare/v2.3.13...v2.3.14) (2026-01-29)
+
+
+### Features
+
+* 规范服务器名 ([4f9eb7a](https://github.com/DengSir/tdBag2/commit/4f9eb7aa32874a3a06ba394317da3cd6cc518795))
+
+
+
 ## [2.3.13](https://github.com/DengSir/tdBag2/compare/v2.3.12...v2.3.13) (2026-01-17)
 
 
