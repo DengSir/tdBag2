@@ -163,6 +163,7 @@ L['Break height'] = '打散间隔高度'
 L['By bag'] = '以容器'
 L['By type'] = '以容器类型'
 L.None = '无'
+L['Use tdInspect replace this frame (if installed)'] = true
 -- @locale-fill@
 
 -- @end-import@
