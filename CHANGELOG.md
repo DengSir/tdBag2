@@ -1,3 +1,10 @@
+## [2.3.15](https://github.com/DengSir/tdBag2/compare/v2.3.14...v2.3.15) (2026-04-06)
+
+
+### Features
+
+* 使用tdInspect代替装备栏 ([37963e5](https://github.com/DengSir/tdBag2/commit/37963e5c36cfcdc8cb31ab5fc9c78fa67fae4769))
+* 优化close按钮 ([5227bf5](https://github.com/DengSir/tdBag2/commit/5227bf5cce70bb303eaa6deafdcc62321f87e04a))
 ## [2.3.14](https://github.com/DengSir/tdBag2/compare/v2.3.13...v2.3.14) (2026-01-29)
 
 
