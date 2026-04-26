@@ -20,9 +20,10 @@ function AutoDisplay:OnInitialize()
     self.hideKeys = {}
 
     self:RawHook('OpenBackpack', 'ShowBag', true)
-    self:RawHook('CloseBackpack', 'HideBag', true)
     self:RawHook('ToggleBackpack', 'ToggleBag', true)
     self:RawHook('ToggleAllBags', 'ToggleBag', true)
+
+    self:SecureHook('CloseBackpack', 'HideBag')
 
     self:RawHook('OpenBag', function(bag)
         return Addon:ShowFrame(ns.GetBagId(bag), true)
@@ -32,7 +33,7 @@ function AutoDisplay:OnInitialize()
     end, true)
 
     self:RawHook('OpenAllBags', true)
-    self:RawHook('CloseAllBags', true)
+    self:SecureHook('CloseAllBags')
 
     self:RegisterFrame('Trade', 1)
     self:RegisterFrame('Bank', 8)
