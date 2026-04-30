@@ -1,3 +1,9 @@
+## [2.3.17](https://github.com/DengSir/tdBag2/compare/v2.3.16...v2.3.17) (2026-04-30)
+
+
+### Bug Fixes
+
+* 修复战斗中ESC关闭不了标准面板的问题 ([31a9c2c](https://github.com/DengSir/tdBag2/commit/31a9c2c44154bab14f1719ef8ff181e84ae0ba52))
 ## [2.3.16](https://github.com/DengSir/tdBag2/compare/v2.3.15...v2.3.16) (2026-04-12)
 ## [2.3.15](https://github.com/DengSir/tdBag2/compare/v2.3.14...v2.3.15) (2026-04-06)
 
