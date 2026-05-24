@@ -38,9 +38,10 @@ function AutoDisplay:OnInitialize()
     self:RegisterFrame('Trade', 1)
     self:RegisterFrame('Bank', 8)
     self:RegisterFrame('Auction', 21)
+    self:RegisterFrame('GuildBank', 10)
+    self:RegisterFrame('Mail', 17)
+    self:RegisterFrame('Merchant', 5)
 
-    self:RegisterFrame('Mail', MailFrame)
-    self:RegisterFrame('Merchant', MerchantFrame)
     self:RegisterFrame('Character', CharacterFrame)
 
     self:RegisterDisplayEvent('Craft', 'TRADE_SKILL_SHOW', 'TRADE_SKILL_CLOSE')

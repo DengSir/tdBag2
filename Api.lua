@@ -457,6 +457,7 @@ ns.PROFILE = {
         displayTrade = true,
         displayCraft = true,
         displayBank = true,
+        displayGuildBank = true,
 
         closeMail = true,
         closeMerchant = true,
@@ -465,6 +466,7 @@ ns.PROFILE = {
         closeTrade = true,
         closeCraft = true,
         closeBank = true,
+        closeGuildBank = true,
         closeCombat = false,
 
         glowQuest = true,
