@@ -69,6 +69,7 @@ L["Leatherworking Color"] = true
 L["Leaving a Vendor"] = true
 L["Leaving the Auction House"] = true
 L["Leaving the Bank"] = true
+L["Leaving the Guild Bank"] = true
 L["Leaving the Mail Box"] = true
 L["Less than %s days"] = true
 L["Less than one day"] = true
@@ -139,6 +140,7 @@ L["Use tdInspect replace this frame (if installed)"] = true
 L["Visiting a Vendor"] = true
 L["Visiting the Auction House"] = true
 L["Visiting the Bank"] = true
+L["Visiting the Guild Bank"] = true
 L["Visiting the Mail Box"] = true
 L["Watch Frame"] = true
 L["White"] = true
@@ -304,6 +306,8 @@ L['By bag'] = true
 L['By type'] = true
 L.None = true
 L['Use tdInspect replace this frame (if installed)'] = true
+L['Leaving the Guild Bank'] = true
+L['Visiting the Guild Bank'] = true
 -- @locale-fill@
 -- @end-import@
 -- @end-debug@

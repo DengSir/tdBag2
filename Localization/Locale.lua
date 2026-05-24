@@ -143,6 +143,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Leaving the Bank"] = "Leaving the Bank"--]] 
 --[[Translation missing --]]
+--[[ L["Leaving the Guild Bank"] = "Leaving the Guild Bank"--]] 
+--[[Translation missing --]]
 --[[ L["Leaving the Mail Box"] = "Leaving the Mail Box"--]] 
 --[[Translation missing --]]
 --[[ L["Less than %s days"] = "Less than %s days"--]] 
@@ -282,6 +284,8 @@ L = L or {}
 --[[ L["Visiting the Auction House"] = "Visiting the Auction House"--]] 
 --[[Translation missing --]]
 --[[ L["Visiting the Bank"] = "Visiting the Bank"--]] 
+--[[Translation missing --]]
+--[[ L["Visiting the Guild Bank"] = "Visiting the Guild Bank"--]] 
 --[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
@@ -425,6 +429,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Leaving the Bank"] = "Leaving the Bank"--]] 
 --[[Translation missing --]]
+--[[ L["Leaving the Guild Bank"] = "Leaving the Guild Bank"--]] 
+--[[Translation missing --]]
 --[[ L["Leaving the Mail Box"] = "Leaving the Mail Box"--]] 
 --[[Translation missing --]]
 --[[ L["Less than %s days"] = "Less than %s days"--]] 
@@ -564,6 +570,8 @@ L = L or {}
 --[[ L["Visiting the Auction House"] = "Visiting the Auction House"--]] 
 --[[Translation missing --]]
 --[[ L["Visiting the Bank"] = "Visiting the Bank"--]] 
+--[[Translation missing --]]
+--[[ L["Visiting the Guild Bank"] = "Visiting the Guild Bank"--]] 
 --[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
@@ -707,6 +715,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Leaving the Bank"] = "Leaving the Bank"--]] 
 --[[Translation missing --]]
+--[[ L["Leaving the Guild Bank"] = "Leaving the Guild Bank"--]] 
+--[[Translation missing --]]
 --[[ L["Leaving the Mail Box"] = "Leaving the Mail Box"--]] 
 --[[Translation missing --]]
 --[[ L["Less than %s days"] = "Less than %s days"--]] 
@@ -846,6 +856,8 @@ L = L or {}
 --[[ L["Visiting the Auction House"] = "Visiting the Auction House"--]] 
 --[[Translation missing --]]
 --[[ L["Visiting the Bank"] = "Visiting the Bank"--]] 
+--[[Translation missing --]]
+--[[ L["Visiting the Guild Bank"] = "Visiting the Guild Bank"--]] 
 --[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
@@ -989,6 +1001,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Leaving the Bank"] = "Leaving the Bank"--]] 
 --[[Translation missing --]]
+--[[ L["Leaving the Guild Bank"] = "Leaving the Guild Bank"--]] 
+--[[Translation missing --]]
 --[[ L["Leaving the Mail Box"] = "Leaving the Mail Box"--]] 
 --[[Translation missing --]]
 --[[ L["Less than %s days"] = "Less than %s days"--]] 
@@ -1129,6 +1143,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Visiting the Bank"] = "Visiting the Bank"--]] 
 --[[Translation missing --]]
+--[[ L["Visiting the Guild Bank"] = "Visiting the Guild Bank"--]] 
+--[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
 --[[ L["Watch Frame"] = "Watch Frame"--]] 
@@ -1218,6 +1234,8 @@ L["Keyring Color"] = "열쇠고리 색상"
 L["Leaving a Vendor"] = "상점 떠날 때"
 L["Leaving the Auction House"] = "경매장 떠날 때"
 L["Leaving the Bank"] = "은행 떠날 때"
+--[[Translation missing --]]
+--[[ L["Leaving the Guild Bank"] = "Leaving the Guild Bank"--]] 
 L["Leaving the Mail Box"] = "우편함 떠날 때"
 L["Less than %s days"] = "%s일 미만"
 L["Less than one day"] = "1일 미만"
@@ -1302,6 +1320,8 @@ L["Trading Items"] = "아이템 거래 시"
 L["Visiting a Vendor"] = "상점 방문 시"
 L["Visiting the Auction House"] = "경매장 방문 시"
 L["Visiting the Bank"] = "은행 방문 시"
+--[[Translation missing --]]
+--[[ L["Visiting the Guild Bank"] = "Visiting the Guild Bank"--]] 
 L["Visiting the Mail Box"] = "우편함 방문 시"
 L["Watch Frame"] = "집계 프레임"
 --[[Translation missing --]]
@@ -1443,6 +1463,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Leaving the Bank"] = "Leaving the Bank"--]] 
 --[[Translation missing --]]
+--[[ L["Leaving the Guild Bank"] = "Leaving the Guild Bank"--]] 
+--[[Translation missing --]]
 --[[ L["Leaving the Mail Box"] = "Leaving the Mail Box"--]] 
 --[[Translation missing --]]
 --[[ L["Less than %s days"] = "Less than %s days"--]] 
@@ -1583,6 +1605,8 @@ L = L or {}
 --[[Translation missing --]]
 --[[ L["Visiting the Bank"] = "Visiting the Bank"--]] 
 --[[Translation missing --]]
+--[[ L["Visiting the Guild Bank"] = "Visiting the Guild Bank"--]] 
+--[[Translation missing --]]
 --[[ L["Visiting the Mail Box"] = "Visiting the Mail Box"--]] 
 --[[Translation missing --]]
 --[[ L["Watch Frame"] = "Watch Frame"--]] 
@@ -1686,6 +1710,8 @@ L["Item Scale"] = "Шкала предметов"
 L["Leaving a Vendor"] = "Оставленно у торговца"
 L["Leaving the Auction House"] = "Оставленно на аукционе"
 L["Leaving the Bank"] = "Оставленно в банке"
+--[[Translation missing --]]
+--[[ L["Leaving the Guild Bank"] = "Leaving the Guild Bank"--]] 
 L["Leaving the Mail Box"] = "Оставленно на почте"
 --[[Translation missing --]]
 --[[ L["Less than %s days"] = "Less than %s days"--]] 
@@ -1795,6 +1821,8 @@ L["Trading Items"] = "Торговые пункты"
 L["Visiting a Vendor"] = "Посещение торговца"
 L["Visiting the Auction House"] = "Посещение аукциона"
 L["Visiting the Bank"] = "Посещение банка"
+--[[Translation missing --]]
+--[[ L["Visiting the Guild Bank"] = "Visiting the Guild Bank"--]] 
 L["Visiting the Mail Box"] = "Посещение почтового ящика"
 --[[Translation missing --]]
 --[[ L["Watch Frame"] = "Watch Frame"--]] 
@@ -1884,6 +1912,8 @@ L["Keyring Color"] = "鑰匙鏈顏色"
 L["Leaving a Vendor"] = "關閉商人時"
 L["Leaving the Auction House"] = "關閉拍賣行時"
 L["Leaving the Bank"] = "關閉銀行時"
+--[[Translation missing --]]
+--[[ L["Leaving the Guild Bank"] = "Leaving the Guild Bank"--]] 
 L["Leaving the Mail Box"] = "關閉郵箱時"
 L["Less than %s days"] = "低於%s天"
 L["Less than one day"] = "低於1天"
@@ -1968,6 +1998,8 @@ L["Trading Items"] = "交易時"
 L["Visiting a Vendor"] = "打開商人時"
 L["Visiting the Auction House"] = "打開拍賣行時"
 L["Visiting the Bank"] = "打開銀行時"
+--[[Translation missing --]]
+--[[ L["Visiting the Guild Bank"] = "Visiting the Guild Bank"--]] 
 L["Visiting the Mail Box"] = "打開郵箱時"
 L["Watch Frame"] = "物品監控"
 --[[Translation missing --]]
