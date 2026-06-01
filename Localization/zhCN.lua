@@ -164,8 +164,8 @@ L['By bag'] = '以容器'
 L['By type'] = '以容器类型'
 L.None = '无'
 L['Use tdInspect replace this frame (if installed)'] = '使用tdInspect替换此框体（如果已安装）'
-L['Leaving the Guild Bank'] = true
-L['Visiting the Guild Bank'] = true
+L['Leaving the Guild Bank'] = '关闭公会银行时'
+L['Visiting the Guild Bank'] = '打开公会银行时'
 -- @locale-fill@
 
 -- @end-import@
