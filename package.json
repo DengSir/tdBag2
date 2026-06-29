@@ -45,7 +45,8 @@
       "Mists": 43594279
     },
     "addons": {
-      "tdBag2_ItemInfo": "Plugins/ItemInfo"
+      "tdBag2_ItemInfo": "Plugins/ItemInfo",
+      "tdBag2_ZanzaCoin": "Plugins/ZanzaCoin"
     },
     "single": true
   }

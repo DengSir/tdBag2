@@ -1,0 +1,11 @@
+## Interface: @project-interface@
+## Title: |cff00fffftdBag2 Zanza Coin|r - Zanza Coin
+## Title-zhCN: |cff00fffftdBag2 Zanza Coin|r - 赞扎硬币
+## Notes: Show Zanza Coin icon by quest group
+## Notes-zhCN: 按任务组显示赞扎硬币角标
+## Author: Dencer
+## Version: @project-version@
+## Dependencies: tdBag2
+## X-tdBag2-Plugin: Zanza Coin
+
+Addon.lua
