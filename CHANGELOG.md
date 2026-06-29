@@ -1,3 +1,13 @@
+## [2.3.18](https://github.com/DengSir/tdBag2/compare/v2.3.17...v2.3.18) (2026-06-29)
+
+
+### Features
+
+* 添加赞扎硬币组角标 ([23237de](https://github.com/DengSir/tdBag2/commit/23237de9f3970508604b03aa40580ed883385ce4))
+* add auto display in guild bank ([df76ee4](https://github.com/DengSir/tdBag2/commit/df76ee448cc750ed4003dcf4ffd93dea61bdc8ca))
+
+
+
 ## [2.3.17](https://github.com/DengSir/tdBag2/compare/v2.3.16...v2.3.17) (2026-04-30)
 
 
