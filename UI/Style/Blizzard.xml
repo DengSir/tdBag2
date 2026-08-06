@@ -91,19 +91,6 @@
             <KeyValue key="fixedWidth" value="24" type="number"/>
             <KeyValue key="fixedHeight" value="78" type="number"/>
         </KeyValues>
-        <Layers>
-            <Layer level="BORDER" textureSubLevel="1">
-                <MaskTexture parentKey="CircleMask" file="Interface\CharacterFrame\TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
-                    <Anchors>
-                        <Anchor point="TOPLEFT" relativeKey="$parent.portrait"/>
-                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.portrait"/>
-                    </Anchors>
-                    <MaskedTextures>
-                        <MaskedTexture childKey="portrait"/>
-                    </MaskedTextures>
-                </MaskTexture>
-            </Layer>
-        </Layers>
         <Frames>
             <Button parentKey="TitleFrame" registerForClicks="LeftButtonUp,RightButtonUp" frameLevel="510">
                 <Size x="1" y="18" />
@@ -127,7 +114,8 @@
                 </HighlightTexture>
                 <Scripts>
                     <OnLoad>
-                        self.portrait = self:GetParent().portrait
+                        local parent = self:GetParent()
+                        self.portrait = parent.portrait or parent.PortraitContainer.portrait
                     </OnLoad>
                 </Scripts>
             </Button>
@@ -154,7 +142,9 @@
         <Scripts>
             <OnLoad>
                 self.TitleContainer:Hide()
-                self.PortraitContainer:Hide()
+                if self.portrait and self.PortraitContainer then
+                    self.PortraitContainer:Hide()
+                end
             </OnLoad>
         </Scripts>
     </Frame>

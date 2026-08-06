@@ -29,10 +29,10 @@
     "curse_id": 349175,
     "changelog": "CHANGELOG.md",
     "builds": {
-      "Vanilla": "11508",
-      "TBC": "20505",
-      "Wrath": "38001",
-      "Mists": "50503"
+      "Vanilla": "11509",
+      "TBC": "20506",
+      "Wrath": "38002",
+      "Mists": "50504"
     },
     "scan-locale-ignores": [
       "Localization/**",
