@@ -1,3 +1,9 @@
+## [2.3.19](https://github.com/DengSir/tdBag2/compare/v2.3.18...v2.3.19) (2026-08-10)
+
+
+### Bug Fixes
+
+* error ([0ef8c9f](https://github.com/DengSir/tdBag2/commit/0ef8c9fc693bec083b5f9e55fb01c3f316181c9b))
 ## [2.3.18](https://github.com/DengSir/tdBag2/compare/v2.3.17...v2.3.18) (2026-06-29)
 
 
